@@ -1,0 +1,1740 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<title>Gênio Oculto · FEX</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Transforme tudo o que você sabe em uma pós-graduação. Responda perguntas simples e veja o seu curso montado: disciplinas, aulas, materiais, faturamento e plano de lançamento.">
+<meta property="og:title" content="Gênio Oculto · Faculdade FEX Educação®">
+<meta property="og:description" content="Tudo o que você sabe pode virar uma pós-graduação. Veja o seu curso montado em 15 minutos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
+<style>
+/* Layout: faixas alternadas preto-floresta (luz verde) e areia, tipografia Montserrat leve+negrito como no brandbook. */
+:root{
+  --ink:#040805;          /* preto com viés verde */
+  --ink-2:#09130D;
+  --ink-3:#112018;
+  --line-dark:rgba(232,228,217,.12);
+  --green:#32CD32;        /* verde FEX */
+  --green-hi:#00D84F;     /* verde do brandbook, para brilho */
+  --green-deep:#0E3B1C;
+  --sand:#E8E4D9;         /* bege FEX */
+  --paper:#F4F2EC;
+  --white:#FFFFFF;
+  --text:#0A0F0B;
+  --muted-l:#585E58;
+  --muted-d:#A3ADA5;
+  --line-light:rgba(10,15,11,.12);
+  --danger:#E5484D;
+  --font:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --r:18px;
+  --gut:max(20px, env(safe-area-inset-left, 0px));
+  --gut-r:max(20px, env(safe-area-inset-right, 0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ink);color:var(--sand);font-family:var(--font);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
+img{max-width:100%;display:block}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+::selection{background:var(--green);color:var(--ink)}
+:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1200px;margin:0 auto;padding-left:var(--gut);padding-right:var(--gut)}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.32em;text-transform:uppercase}
+.g{color:var(--green)}
+.light{font-weight:300}
+.display{font-weight:300;letter-spacing:-.035em;line-height:1.02;text-wrap:balance;margin:0}
+.display b,.display strong{font-weight:700}
+h2.display{font-size:clamp(36px,5.6vw,76px)}
+h3{text-wrap:balance}
+.lead{font-size:clamp(19px,1.8vw,23px);line-height:1.55;max-width:62ch}
+.view{display:none}
+.view.on{display:block}
+.band-dark{background:var(--ink);color:var(--sand)}
+.band-sand{background:var(--sand);color:var(--text);color-scheme:light}
+.band-paper{background:var(--paper);color:var(--text);color-scheme:light}
+.band-green{background:var(--green);color:var(--ink)}
+.band-sand .muted,.band-paper .muted{color:var(--muted-l)}
+.band-dark .muted,.muted{color:var(--muted-d)}
+.band-sand .muted,.band-paper .muted,.sheet-light .muted{color:var(--muted-l)}
+section.sec{padding-block:clamp(72px,10vw,140px)}
+
+/* ---------- Botões ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;border:0;border-radius:999px;font-weight:700;font-size:17px;letter-spacing:.01em;padding:20px 34px;min-height:64px;text-decoration:none;transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background .3s,gap .3s;position:relative;overflow:hidden;text-align:center}
+.btn .arr{transition:transform .3s}
+.btn:hover .arr{transform:translateX(5px)}
+.btn:active{transform:scale(.97)}
+.btn-green{background:var(--green);color:var(--ink);box-shadow:0 0 0 0 rgba(50,205,50,.0),0 18px 50px -18px rgba(50,205,50,.75)}
+.btn-green:hover{background:var(--green-hi);box-shadow:0 0 0 8px rgba(50,205,50,.14),0 22px 60px -16px rgba(0,216,79,.85)}
+.btn-green::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-120%);animation:shine 3.6s ease-in-out infinite}
+@keyframes shine{0%,55%{transform:translateX(-120%)}85%,100%{transform:translateX(120%)}}
+.btn-ghost{background:transparent;color:inherit;border:1.5px solid currentColor;opacity:.92}
+.btn-ghost:hover{opacity:1;background:rgba(127,127,127,.08)}
+.btn-dark{background:var(--ink);color:var(--sand)}
+.btn-dark:hover{background:var(--ink-3)}
+.btn-sm{min-height:48px;padding:12px 22px;font-size:15px}
+.btn-xl{font-size:clamp(17px,2vw,22px);padding:26px 44px;min-height:84px}
+.btn[disabled]{opacity:.35;pointer-events:none}
+.link-btn{background:none;border:0;padding:6px 0;font-weight:700;text-decoration:underline;text-underline-offset:4px;font-size:15px}
+
+/* ---------- Topbar ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;transition:background .3s,backdrop-filter .3s,border-color .3s;border-bottom:1px solid transparent}
+.top.scrolled{background:rgba(4,8,5,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line-dark)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
+.logo{height:22px;width:auto}
+.top .tag{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted-d);font-weight:600}
+@media (max-width:700px){.top .tag{display:none}}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;background:radial-gradient(120% 90% at 85% 10%,#0c2a15 0%,var(--ink) 55%);margin-top:-77px;padding-top:77px}
+#strands{position:absolute;inset:0;width:100%;height:100%;opacity:.95;pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center;padding-block:clamp(48px,8vw,110px) clamp(64px,9vw,120px)}
+@media (max-width:980px){.hero .wrap{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(42px,5.9vw,86px);font-weight:300;letter-spacing:-.045em;line-height:.98;margin:22px 0 0;text-wrap:balance}
+.hero h1 b{font-weight:800;color:var(--white);white-space:nowrap}
+.hero h1 .w{display:inline-block;animation:wordUp 1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes wordUp{from{opacity:0;transform:translateY(.45em) rotate(2deg);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+.hero .lead{margin-top:28px;color:#d6d3c8}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px;align-items:center}
+.hero .micro{margin-top:18px;font-size:14px;color:var(--muted-d);display:flex;gap:18px;flex-wrap:wrap}
+.hero .micro span::before{content:"✓ ";color:var(--green);font-weight:800}
+.pill{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(50,205,50,.35);background:rgba(50,205,50,.08);color:var(--green);padding:8px 16px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.35;transform:scale(.7)}}
+
+/* mock do curso se montando */
+.mock{position:relative;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid var(--line-dark);border-radius:26px;padding:26px;backdrop-filter:blur(8px);box-shadow:0 40px 120px -40px rgba(0,216,79,.35);transform:perspective(1200px) rotateY(-6deg) rotateX(3deg);transition:transform .6s}
+.mock:hover{transform:perspective(1200px) rotateY(0) rotateX(0)}
+.mock .mh{display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-d);font-weight:700}
+.mock .mt{font-size:24px;font-weight:700;line-height:1.2;margin:14px 0 4px;color:var(--white)}
+.mock .ms{font-size:14px;color:var(--muted-d)}
+.mock ol{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:10px}
+.mock li{display:flex;align-items:center;gap:14px;padding:13px 16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--line-dark);font-size:15px;font-weight:600;animation:modIn 9s infinite both}
+.mock li .n{font-size:12px;color:var(--green);font-weight:800;width:22px}
+.mock li .h{margin-left:auto;font-size:12px;color:var(--muted-d);font-weight:600}
+.mock li:nth-child(1){animation-delay:.2s}.mock li:nth-child(2){animation-delay:.6s}.mock li:nth-child(3){animation-delay:1s}.mock li:nth-child(4){animation-delay:1.4s}.mock li:nth-child(5){animation-delay:1.8s}.mock li:nth-child(6){animation-delay:2.2s}
+@keyframes modIn{0%{opacity:0;transform:translateX(24px)}6%{opacity:1;transform:none}88%{opacity:1;transform:none}96%,100%{opacity:0;transform:translateY(-8px)}}
+.mock .mf{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.mock .mf div{background:rgba(50,205,50,.08);border:1px solid rgba(50,205,50,.25);border-radius:12px;padding:12px;text-align:center}
+.mock .mf b{display:block;font-size:20px;color:var(--green);font-weight:800}
+.mock .mf span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-d);font-weight:600}
+.mock .badge{position:absolute;top:-16px;right:22px;background:var(--green);color:var(--ink);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:999px;box-shadow:0 10px 30px -8px rgba(50,205,50,.8)}
+
+/* marquee */
+.marquee{overflow:hidden;white-space:nowrap;padding-block:22px;border-block:1px solid rgba(0,0,0,.12)}
+.marquee .track{display:inline-flex;gap:48px;animation:mq 38s linear infinite;font-size:clamp(22px,3vw,34px);font-weight:300;letter-spacing:-.02em}
+.marquee .track span b{font-weight:800}
+.marquee .track i{font-style:normal;opacity:.45}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* bloco óbvio + calculadora */
+.obvio{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+@media (max-width:900px){.obvio{grid-template-columns:1fr}}
+.calc{background:var(--ink);color:var(--sand);border-radius:28px;padding:clamp(26px,4vw,44px);position:relative;overflow:hidden}
+.calc::before{content:"";position:absolute;inset:auto -30% -60% -30%;height:120%;background:radial-gradient(closest-side,rgba(50,205,50,.28),transparent);pointer-events:none}
+.calc label{font-size:15px;font-weight:600;color:var(--muted-d);display:block;position:relative}
+.calc .yrs{font-size:clamp(60px,9vw,108px);font-weight:800;letter-spacing:-.05em;line-height:1;color:var(--white);position:relative;margin:10px 0}
+.calc .yrs small{font-size:.28em;font-weight:400;letter-spacing:0;color:var(--muted-d)}
+.calc .out{position:relative;margin-top:24px;display:grid;gap:14px}
+.calc .out div{border-top:1px solid var(--line-dark);padding-top:14px;display:flex;justify-content:space-between;gap:16px;align-items:baseline;flex-wrap:wrap}
+.calc .out b{font-size:clamp(24px,3vw,34px);color:var(--green);font-weight:800;font-variant-numeric:tabular-nums}
+.calc .foot{position:relative;font-size:13px;color:var(--muted-d);margin-top:18px}
+
+/* range */
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:10px;border-radius:999px;background:linear-gradient(90deg,var(--green) var(--p,30%),rgba(255,255,255,.14) var(--p,30%));outline:none;position:relative}
+.sheet-light input[type=range]{background:linear-gradient(90deg,var(--green) var(--p,30%),rgba(0,0,0,.12) var(--p,30%))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;border-radius:50%;background:var(--white);border:6px solid var(--green);box-shadow:0 6px 20px rgba(50,205,50,.6);cursor:grab}
+input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--white);border:6px solid var(--green);cursor:grab}
+
+/* passos */
+.steps5{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:64px;position:relative}
+@media (max-width:980px){.steps5{grid-template-columns:1fr}}
+.steps5 .s{padding:28px 24px 28px 0;border-top:1px solid var(--line-dark);position:relative}
+@media (max-width:980px){.steps5 .s{padding:24px 0}}
+.steps5 .s::before{content:"";position:absolute;top:-1px;left:0;height:2px;width:0;background:var(--green);transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.steps5.in .s::before{width:100%}
+.steps5.in .s:nth-child(2)::before{transition-delay:.2s}.steps5.in .s:nth-child(3)::before{transition-delay:.4s}.steps5.in .s:nth-child(4)::before{transition-delay:.6s}.steps5.in .s:nth-child(5)::before{transition-delay:.8s}
+.steps5 .num{font-size:15px;font-weight:800;color:var(--green);letter-spacing:.1em}
+.steps5 h3{font-size:24px;font-weight:700;margin:14px 0 8px;line-height:1.2;color:var(--white)}
+.steps5 p{margin:0;color:var(--muted-d);font-size:16px}
+.steps5 .s.paid h3::after{content:"R$ 97";margin-left:10px;font-size:12px;vertical-align:middle;background:var(--green);color:var(--ink);padding:4px 8px;border-radius:6px;font-weight:800}
+
+/* entregáveis */
+.deliv{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
+@media (max-width:980px){.deliv{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.deliv{grid-template-columns:1fr}}
+.dcard{background:var(--white);border-radius:22px;padding:28px;border:1px solid var(--line-light);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;min-width:0}
+.dcard:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(0,0,0,.35)}
+.dcard .ic{width:52px;height:52px;border-radius:14px;background:var(--ink);display:grid;place-items:center;margin-bottom:20px}
+.dcard .ic svg{width:26px;height:26px;stroke:var(--green);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.dcard h3{font-size:21px;margin:0 0 8px;line-height:1.25}
+.dcard p{margin:0;font-size:16px;color:var(--muted-l)}
+.dcard.dk{background:var(--ink);color:var(--sand);border-color:transparent}
+.dcard.dk p{color:var(--muted-d)}
+.dcard.dk .ic{background:var(--green)}
+.dcard.dk .ic svg{stroke:var(--ink)}
+
+/* números */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;border-top:1px solid var(--line-dark)}
+@media (max-width:900px){.nums{grid-template-columns:1fr 1fr}}
+.nums div{padding:30px 20px 30px 0;border-bottom:1px solid var(--line-dark)}
+.nums b{display:block;font-size:clamp(44px,5.5vw,76px);font-weight:300;letter-spacing:-.05em;line-height:1;color:var(--white);font-variant-numeric:tabular-nums}
+.nums b em{font-style:normal;color:var(--green);font-weight:700}
+.nums span{display:block;margin-top:10px;font-size:15px;color:var(--muted-d);max-width:22ch}
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
+@media (max-width:900px){.cases{grid-template-columns:1fr}}
+.case{border:1px solid var(--line-dark);border-radius:22px;padding:28px;background:linear-gradient(170deg,rgba(50,205,50,.08),transparent 60%)}
+.case .big{font-size:56px;font-weight:800;letter-spacing:-.04em;color:var(--green);line-height:1}
+.case .big small{font-size:16px;font-weight:600;color:var(--muted-d);letter-spacing:0;margin-left:8px}
+.case h3{margin:18px 0 6px;font-size:19px;color:var(--white)}
+.case p{margin:0;color:var(--muted-d);font-size:15px}
+
+/* preço */
+.price{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:56px;align-items:stretch}
+@media (max-width:860px){.price{grid-template-columns:1fr}}
+.pcard{border-radius:26px;padding:clamp(28px,4vw,44px);background:var(--white);border:1px solid var(--line-light);display:flex;flex-direction:column;gap:18px}
+.pcard.best{background:var(--ink);color:var(--sand);position:relative;overflow:hidden;border:0}
+.pcard.best::before{content:"";position:absolute;width:420px;height:420px;right:-160px;top:-160px;background:radial-gradient(closest-side,rgba(50,205,50,.45),transparent);pointer-events:none}
+.pcard h3{margin:0;font-size:15px;letter-spacing:.24em;text-transform:uppercase}
+.pcard .val{font-size:clamp(56px,7vw,84px);font-weight:800;letter-spacing:-.05em;line-height:1}
+.pcard .val small{font-size:18px;font-weight:500;letter-spacing:0}
+.pcard ul{list-style:none;margin:0;padding:0;display:grid;gap:12px;position:relative}
+.pcard li{padding-left:34px;position:relative;font-size:17px}
+.pcard li::before{content:"";position:absolute;left:0;top:5px;width:20px;height:20px;border-radius:50%;background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23040805' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/12px no-repeat}
+.pcard li.off{opacity:.45}
+.pcard li.off::before{background:#cfcbc0 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23585E58' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M7 12h10'/%3E%3C/svg%3E") center/12px no-repeat}
+.pcard .btn{margin-top:auto;position:relative}
+
+/* FAQ */
+.faq{margin-top:48px;border-top:1px solid var(--line-light)}
+.faq details{border-bottom:1px solid var(--line-light)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:24px;align-items:center;padding:26px 0;font-size:clamp(19px,2vw,23px);font-weight:600}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-weight:300;font-size:36px;line-height:1;color:var(--green);transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0 0 26px;max-width:72ch;color:var(--muted-l);font-size:17px}
+
+/* final */
+.final{text-align:center;position:relative;overflow:hidden}
+.final h2{margin-inline:auto;max-width:16ch}
+.final .ctas{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:40px}
+footer{background:#000;color:var(--muted-d);font-size:14px;padding-block:56px calc(56px + env(safe-area-inset-bottom,0px))}
+footer .wrap{display:grid;gap:28px}
+footer .row{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+footer .inst{border:1px solid var(--line-dark);border-radius:14px;padding:16px 18px;font-size:13px;max-width:70ch}
+
+/* revelar no scroll (sempre visível em repouso) */
+.rv.in{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+
+/* ================= CONSTRUTOR ================= */
+#view-builder{min-height:100vh;background:var(--ink)}
+.bwrap{display:grid;grid-template-columns:minmax(0,1fr) 420px;min-height:calc(100vh - 77px)}
+@media (max-width:1080px){.bwrap{grid-template-columns:minmax(0,1fr)}}
+.bmain{position:relative;padding:clamp(28px,5vw,64px) var(--gut-r) 140px var(--gut);display:flex;flex-direction:column;overflow:hidden}
+.bmain::before{content:"";position:absolute;width:700px;height:700px;left:-300px;bottom:-360px;background:radial-gradient(closest-side,rgba(50,205,50,.16),transparent);pointer-events:none}
+.phases{display:flex;gap:6px;align-items:center;margin-bottom:clamp(28px,5vw,56px);flex-wrap:wrap}
+.phase{flex:1;min-width:46px;display:grid;gap:8px}
+.phase .bar{height:5px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
+.phase .bar i{display:block;height:100%;width:0;background:var(--green);border-radius:inherit;transition:width .6s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 12px var(--green)}
+.phase span{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.phase.cur span{color:var(--green)}
+@media (max-width:640px){.phases{flex-wrap:nowrap}.phase{min-width:0}.phase span{display:none}.phase.cur span{display:block;position:absolute;margin-top:14px}}
+.qbox{max-width:760px;width:100%;position:relative}
+.qbox.anim{animation:qIn .55s cubic-bezier(.2,.8,.2,1) both}
+.qbox.back{animation:qBack .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes qIn{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes qBack{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:none}}
+.qnum{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:14px;font-weight:700;color:var(--green);letter-spacing:.18em;text-transform:uppercase}
+.qnum .tut{margin-left:auto;display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(50,205,50,.45);background:rgba(50,205,50,.1);color:var(--sand);border-radius:999px;padding:9px 16px 9px 10px;font-size:13px;letter-spacing:.04em;text-transform:none;font-weight:600;transition:background .25s}
+.qnum .tut:hover{background:rgba(50,205,50,.22)}
+.qnum .tut .play{width:26px;height:26px;border-radius:50%;background:var(--green);display:grid;place-items:center}
+.qnum .tut .play svg{width:10px;height:10px;fill:var(--ink);margin-left:2px}
+.q{font-size:clamp(30px,4.2vw,54px);font-weight:300;letter-spacing:-.035em;line-height:1.08;margin:18px 0 0;color:var(--white);text-wrap:balance}
+.q b{font-weight:700}
+.qhelp{margin:18px 0 0;font-size:clamp(17px,1.6vw,20px);color:var(--muted-d);max-width:60ch}
+.field{margin-top:34px}
+.inp{width:100%;background:transparent;border:0;border-bottom:2px solid rgba(232,228,217,.25);padding:14px 0;font-size:clamp(24px,3vw,34px);font-weight:500;color:var(--white);outline:none;transition:border-color .3s;border-radius:0}
+.inp:focus{border-color:var(--green)}
+.inp::placeholder{color:rgba(232,228,217,.3);font-weight:400}
+textarea.inp{resize:vertical;min-height:150px;font-size:clamp(19px,2vw,24px);line-height:1.5;border:2px solid rgba(232,228,217,.2);border-radius:18px;padding:18px 20px;background:rgba(255,255,255,.03)}
+textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
+.inp-sm{font-size:clamp(20px,2.4vw,26px)}
+.grid2f{display:grid;grid-template-columns:1fr 1fr;gap:24px 32px}
+@media (max-width:640px){.grid2f{grid-template-columns:1fr}}
+.flabel{font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-d);display:block;margin-bottom:2px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chip{border:1.5px solid rgba(232,228,217,.22);background:rgba(255,255,255,.03);color:var(--sand);border-radius:999px;padding:11px 18px;font-size:16px;font-weight:600;transition:all .2s}
+.chip:hover{border-color:var(--green);color:var(--white)}
+.chip.on{background:var(--green);border-color:var(--green);color:var(--ink)}
+.ex{margin-top:16px;font-size:15px;color:var(--muted-d)}
+.ex b{color:var(--sand);font-weight:600}
+.err{color:#ff8a8d;font-size:15px;font-weight:600;margin-top:12px;min-height:1px}
+.qnav{display:flex;align-items:center;gap:18px;margin-top:44px;flex-wrap:wrap}
+.qnav .hint{font-size:14px;color:var(--muted-d)}
+.qnav .hint kbd{font-family:inherit;border:1px solid var(--line-dark);border-radius:6px;padding:2px 7px;font-size:12px;font-weight:700}
+.backbtn{background:none;border:0;color:var(--muted-d);font-weight:600;font-size:15px;padding:10px 0;display:inline-flex;align-items:center;gap:8px}
+.backbtn:hover{color:var(--white)}
+.skip{background:none;border:0;color:var(--muted-d);font-size:15px;font-weight:600;text-decoration:underline;text-underline-offset:4px}
+
+/* tags */
+.tags-in{display:flex;gap:12px;margin-top:30px;align-items:stretch;flex-wrap:wrap}
+.tags-in .inp{flex:1;min-width:220px}
+.taglist{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.tg{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.04);border:1px solid var(--line-dark);border-radius:16px;padding:14px 14px 14px 18px;animation:tagIn .45s cubic-bezier(.2,.8,.2,1) both}
+.tg .n{font-size:13px;color:var(--green);font-weight:800;width:26px}
+.tg .t{flex:1;font-size:19px;font-weight:600;color:var(--white);min-width:0;overflow-wrap:anywhere}
+.tg button{background:none;border:0;color:var(--muted-d);font-size:24px;line-height:1;padding:4px 8px;border-radius:8px}
+.tg button:hover{color:#ff8a8d;background:rgba(255,255,255,.05)}
+@keyframes tagIn{from{opacity:0;transform:translateX(-20px) scale(.96)}to{opacity:1;transform:none}}
+.sugg{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.sugg .lbl{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d);margin-right:4px}
+.sugg .chip{font-size:14px;padding:8px 14px;border-style:dashed}
+
+/* opções em card */
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px}
+@media (max-width:640px){.opts{grid-template-columns:1fr}}
+.opt{text-align:left;border:1.5px solid rgba(232,228,217,.18);background:rgba(255,255,255,.03);border-radius:20px;padding:20px 22px;transition:all .25s;position:relative;color:var(--sand)}
+.opt:hover{border-color:rgba(50,205,50,.6);transform:translateY(-2px)}
+.opt b{display:block;font-size:20px;color:var(--white);margin-bottom:4px;line-height:1.25}
+.opt span{font-size:15px;color:var(--muted-d);display:block}
+.opt.on{border-color:var(--green);background:rgba(50,205,50,.1);box-shadow:0 0 0 4px rgba(50,205,50,.12)}
+.opt.on::after{content:"";position:absolute;top:16px;right:16px;width:26px;height:26px;border-radius:50%;background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23040805' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/14px no-repeat}
+.opt .rec{display:inline-block;margin-bottom:10px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;background:var(--green);color:var(--ink);padding:4px 9px;border-radius:6px}
+.opt .price-big{font-size:28px;font-weight:800;color:var(--white);letter-spacing:-.02em}
+
+/* bloco experiência */
+.xp{margin-top:30px}
+.xp .yrs{font-size:clamp(70px,11vw,130px);font-weight:800;letter-spacing:-.06em;line-height:1;color:var(--white)}
+.xp .yrs small{font-size:.24em;font-weight:400;letter-spacing:0;color:var(--muted-d)}
+.xp input{margin-top:20px}
+.xp .wow{margin-top:26px;border-left:3px solid var(--green);padding:6px 0 6px 20px;font-size:clamp(18px,2vw,22px);color:var(--sand)}
+.xp .wow b{color:var(--green)}
+
+/* split 30/30/40 */
+.split{display:flex;height:58px;border-radius:14px;overflow:hidden;margin-top:18px;font-size:14px;font-weight:700}
+.split div{display:flex;align-items:center;justify-content:center;flex-direction:column;line-height:1.1;transition:flex .6s}
+.split .a{background:var(--green);color:var(--ink);flex:30}
+.split .b{background:#1d3a26;color:var(--sand);flex:30}
+.split .c{background:var(--sand);color:var(--ink);flex:40}
+.split small{font-size:11px;font-weight:600;opacity:.8}
+.note{margin-top:22px;background:rgba(50,205,50,.08);border:1px solid rgba(50,205,50,.3);border-radius:16px;padding:16px 20px;font-size:16px;color:var(--sand)}
+.note b{color:var(--green)}
+
+/* simulador */
+.sim{display:grid;gap:26px;margin-top:30px}
+.sim .row{display:grid;gap:12px}
+.sim .row .top2{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sim .row .top2 b{font-size:28px;font-weight:800;color:var(--white);font-variant-numeric:tabular-nums}
+.sim .conv{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted-d)}
+.sim .conv input{width:84px;background:rgba(255,255,255,.05);border:1px solid var(--line-dark);border-radius:10px;padding:8px 10px;color:var(--white);font-weight:700;font-size:16px}
+.result{background:var(--green);color:var(--ink);border-radius:24px;padding:26px 28px;display:grid;grid-template-columns:1fr auto;gap:12px 24px;align-items:end;position:relative;overflow:hidden}
+.result::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%);transform:translateX(-120%);animation:shine 4.5s ease-in-out infinite}
+.result .lbl{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.result .rv2{font-size:clamp(38px,5vw,60px);font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.result .sub{font-size:15px;font-weight:600}
+.result .mat{text-align:right}
+.result .mat b{display:block;font-size:40px;font-weight:800;line-height:1}
+@media (max-width:560px){.result{grid-template-columns:1fr}.result .mat{text-align:left}}
+
+/* painel ao vivo */
+.live{background:var(--sand);color:var(--text);color-scheme:light;position:sticky;top:77px;height:calc(100vh - 77px);overflow:auto;padding:34px 30px 40px;border-left:1px solid var(--line-dark)}
+@media (max-width:1080px){.live{position:fixed;inset:auto 0 0 0;top:auto;height:auto;max-height:82vh;z-index:70;transform:translateY(100%);transition:transform .45s cubic-bezier(.2,.8,.2,1);border-radius:26px 26px 0 0;box-shadow:0 -30px 80px rgba(0,0,0,.5);padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}.live.open{transform:none}}
+.live .lh{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.live .lh .eyebrow{font-size:11px;color:var(--muted-l)}
+.live .lh .rec{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#1a7f1a}
+.live .lh .rec i{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.4s infinite}
+.live .closeL{display:none;background:var(--ink);color:var(--sand);border:0;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700}
+@media (max-width:1080px){.live .closeL{display:inline-block}}
+.cover{margin-top:20px;background:var(--ink);color:var(--sand);border-radius:22px;padding:24px;position:relative;overflow:hidden;min-height:200px}
+.cover::before{content:"";position:absolute;width:300px;height:300px;right:-120px;top:-120px;background:radial-gradient(closest-side,rgba(50,205,50,.5),transparent)}
+.cover .ct{position:relative;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green)}
+.cover .cn{position:relative;font-size:24px;font-weight:700;line-height:1.18;margin-top:10px;color:var(--white);overflow-wrap:anywhere}
+.cover .cn.ph{color:rgba(232,228,217,.3);font-weight:400}
+.cover .cp{position:relative;font-size:14px;color:var(--muted-d);margin-top:10px;overflow-wrap:anywhere}
+.cover .cx{position:relative;display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.cover .cx span{font-size:12px;font-weight:700;border:1px solid var(--line-dark);border-radius:999px;padding:5px 10px}
+.live h4{font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin:26px 0 12px;color:var(--muted-l);display:flex;justify-content:space-between}
+.lmods{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.lmods li{display:flex;gap:12px;align-items:center;background:var(--white);border-radius:12px;padding:12px 14px;font-size:15px;font-weight:600;border:1px solid var(--line-light);animation:tagIn .5s cubic-bezier(.2,.8,.2,1) both;min-width:0}
+.lmods li .n{color:#1a7f1a;font-weight:800;font-size:12px;width:20px;flex:none}
+.lmods li .t{min-width:0;overflow-wrap:anywhere}
+.lmods li.ghost{background:transparent;border:1.5px dashed rgba(10,15,11,.18);color:var(--muted-l);font-weight:500}
+.lstats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lstats div{background:var(--white);border-radius:12px;padding:14px;border:1px solid var(--line-light)}
+.lstats b{display:block;font-size:22px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.lstats span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-l);font-weight:700}
+.lstats .wide{grid-column:1/-1;background:var(--ink);color:var(--sand);border:0}
+.lstats .wide b{color:var(--green);font-size:28px}
+.lstats .wide span{color:var(--muted-d)}
+.livebtn{display:none;position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:65;background:var(--sand);color:var(--ink);border:0;border-radius:999px;padding:14px 20px;font-weight:800;font-size:15px;box-shadow:0 16px 40px rgba(0,0,0,.5);align-items:center;gap:10px}
+.livebtn i{font-style:normal;background:var(--green);border-radius:999px;padding:2px 9px;font-size:13px}
+@media (max-width:1080px){.livebtn{display:inline-flex}}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:68;opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim.on{opacity:1;pointer-events:auto}
+
+/* ---------- análise ---------- */
+#view-analise{min-height:100vh;display:none;place-items:center;background:var(--ink);position:relative;overflow:hidden}
+#view-analise.on{display:grid}
+.scan{position:relative;max-width:720px;padding:40px var(--gut-r) 40px var(--gut);width:100%}
+.orb{width:150px;height:150px;border-radius:50%;margin-bottom:40px;background:radial-gradient(circle at 35% 35%,#7dff7d,var(--green) 40%,#0b4d19 75%);box-shadow:0 0 80px rgba(50,205,50,.6),inset 0 -20px 40px rgba(0,0,0,.4);animation:orb 2.4s ease-in-out infinite}
+@keyframes orb{50%{transform:scale(1.08);box-shadow:0 0 140px rgba(50,205,50,.85),inset 0 -20px 40px rgba(0,0,0,.4)}}
+.scan h2{font-size:clamp(32px,4.5vw,56px);font-weight:300;letter-spacing:-.04em;line-height:1.05;margin:0;color:var(--white)}
+.scan ul{list-style:none;margin:36px 0 0;padding:0;display:grid;gap:16px}
+.scan li{display:flex;gap:16px;align-items:center;font-size:clamp(17px,2vw,21px);color:var(--muted-d);opacity:.25;transition:opacity .4s,color .4s}
+.scan li.on{opacity:1;color:var(--sand)}
+.scan li.ok{opacity:1;color:var(--white)}
+.scan li i{width:28px;height:28px;border-radius:50%;border:2px solid rgba(232,228,217,.25);flex:none;display:grid;place-items:center}
+.scan li.on i{border-color:var(--green);border-top-color:transparent;animation:spin .8s linear infinite}
+.scan li.ok i{background:var(--green);border-color:var(--green)}
+.scan li.ok i::after{content:"";width:10px;height:6px;border-left:3px solid var(--ink);border-bottom:3px solid var(--ink);transform:rotate(-45deg) translate(1px,-1px)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ================= PRÉVIA ================= */
+.pv-hero{position:relative;overflow:hidden;background:radial-gradient(100% 80% at 80% 0%,#0d3318,var(--ink) 60%)}
+.pv-hero .wrap{position:relative;padding-block:clamp(56px,8vw,110px)}
+.pv-hero h1{font-size:clamp(40px,6.4vw,92px);font-weight:300;letter-spacing:-.045em;line-height:1;margin:20px 0 0;color:var(--white);text-wrap:balance}
+.pv-hero h1 b{font-weight:800}
+.course-poster{margin-top:48px;display:grid;grid-template-columns:1.2fr .8fr;gap:0;border-radius:30px;overflow:hidden;border:1px solid var(--line-dark);box-shadow:0 60px 140px -60px rgba(0,216,79,.5)}
+@media (max-width:900px){.course-poster{grid-template-columns:1fr}}
+.course-poster .l{background:linear-gradient(150deg,#0f2b18,#060c08 70%);padding:clamp(28px,4vw,48px);position:relative;min-width:0}
+.course-poster .l .logo{height:18px;opacity:.9}
+.course-poster .type{margin-top:36px;font-size:13px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--green)}
+.course-poster .ttl{font-size:clamp(30px,4vw,52px);font-weight:700;letter-spacing:-.03em;line-height:1.05;color:var(--white);margin-top:12px;overflow-wrap:anywhere}
+.course-poster .prom{font-size:clamp(17px,1.6vw,20px);color:#cfd6cf;margin-top:18px;max-width:52ch}
+.course-poster .by{margin-top:30px;font-size:15px;color:var(--muted-d)}
+.course-poster .by b{color:var(--white)}
+.course-poster .r{background:var(--green);color:var(--ink);padding:clamp(28px,4vw,48px);display:grid;grid-template-columns:1fr 1fr;gap:22px 18px;align-content:center}
+.course-poster .r div b{display:block;font-size:clamp(34px,4vw,52px);font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.course-poster .r div span{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.course-poster .r .full{grid-column:1/-1;border-top:2px solid rgba(4,8,5,.2);padding-top:18px}
+.disc{background:var(--white);border:1px solid var(--line-light);border-radius:22px;overflow:hidden;transition:box-shadow .3s}
+.disc + .disc{margin-top:14px}
+.disc .dh{display:grid;grid-template-columns:64px 1fr auto;gap:18px;align-items:center;padding:22px 24px;cursor:pointer;width:100%;text-align:left;background:none;border:0;color:inherit}
+.disc .dh .dn{width:52px;height:52px;border-radius:14px;background:var(--ink);color:var(--green);display:grid;place-items:center;font-weight:800;font-size:18px}
+.disc .dh .dt3{display:block;margin:0;font-size:clamp(19px,2vw,23px);font-weight:700;line-height:1.25;min-width:0;overflow-wrap:anywhere}
+.disc .dh .meta{display:block;font-size:14px;color:var(--muted-l);font-weight:600;margin-top:4px}
+.disc .dh > span:nth-child(2){min-width:0}
+.disc .dh .chev{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line-light);display:grid;place-items:center;transition:transform .3s,background .3s}
+.disc.open .dh .chev{transform:rotate(180deg);background:var(--green);border-color:var(--green)}
+.disc .db{display:none;padding:0 24px 26px 106px}
+@media (max-width:700px){.disc .dh{grid-template-columns:48px 1fr auto;padding:18px}.disc .dh .dn{width:44px;height:44px}.disc .db{padding:0 18px 22px}}
+.disc.open .db{display:block;animation:qIn .4s both}
+.disc .em{font-size:17px;color:var(--muted-l);margin:0 0 18px;max-width:70ch}
+.obj{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:8px}
+.obj li{padding-left:26px;position:relative;font-size:16px}
+.obj li::before{content:"→";position:absolute;left:0;color:#1a9a1a;font-weight:800}
+.lessons{display:grid;gap:10px}
+.lesson{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:14px 16px;border-radius:14px;background:var(--paper);border:1px solid var(--line-light)}
+.lesson .lp{width:40px;height:40px;border-radius:50%;background:var(--ink);display:grid;place-items:center}
+.lesson .lp svg{width:12px;height:12px;fill:var(--green);margin-left:2px}
+.lesson b{font-size:16px;display:block;line-height:1.3;overflow-wrap:anywhere}
+.lesson small{font-size:13px;color:var(--muted-l)}
+.lesson .fmt{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--sand);padding:5px 9px;border-radius:6px;white-space:nowrap}
+@media (max-width:560px){.lesson{grid-template-columns:auto 1fr}.lesson .fmt{grid-column:2;justify-self:start}}
+.mats{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.mats span{font-size:13px;font-weight:700;border-radius:999px;padding:7px 13px;background:var(--ink);color:var(--sand)}
+.mats span::before{content:"● ";color:var(--green)}
+.split-mini{display:flex;gap:6px;margin-top:16px;font-size:13px;font-weight:700;flex-wrap:wrap}
+.split-mini span{padding:6px 10px;border-radius:8px}
+.split-mini .a{background:var(--green);color:var(--ink)}
+.split-mini .b{background:#1d3a26;color:var(--sand)}
+.split-mini .c{background:var(--sand);color:var(--ink)}
+.locked{position:relative}
+.locked .db,.locked .blurme{filter:blur(7px);user-select:none;pointer-events:none}
+.lockcard{display:flex;align-items:center;gap:14px;color:var(--muted-l);font-size:15px;font-weight:600}
+.lockico{width:38px;height:38px;border-radius:50%;background:var(--ink);display:grid;place-items:center;flex:none}
+.lockico svg{width:16px;height:16px;stroke:var(--green);fill:none;stroke-width:2.2}
+.unlock-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+@media (max-width:900px){.unlock-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.unlock-grid{grid-template-columns:1fr}}
+.ucard{border:1px solid var(--line-dark);border-radius:20px;padding:22px;background:rgba(255,255,255,.03);display:grid;gap:10px;position:relative;overflow:hidden}
+.ucard .lockico{background:rgba(50,205,50,.14)}
+.ucard h3{margin:0;font-size:19px;color:var(--white);line-height:1.25}
+.ucard p{margin:0;font-size:15px;color:var(--muted-d)}
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:55;background:rgba(4,8,5,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line-dark);transform:translateY(110%);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.sticky-cta.on{transform:none}
+.sticky-cta .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px calc(14px + env(safe-area-inset-bottom,0px))}
+.sticky-cta p{margin:0;font-size:15px;color:var(--muted-d)}
+.sticky-cta p b{color:var(--white)}
+@media (max-width:640px){.sticky-cta p{display:none}.sticky-cta .btn{width:100%}}
+
+/* ================= CHECKOUT ================= */
+.ck{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start}
+@media (max-width:900px){.ck{grid-template-columns:1fr}}
+.ckbox{background:var(--white);color:var(--text);border-radius:28px;padding:clamp(26px,4vw,44px);color-scheme:light}
+.ckbox .row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line-light);font-size:17px}
+.ckbox .tot{display:flex;justify-content:space-between;align-items:baseline;padding-top:22px}
+.ckbox .tot b{font-size:56px;font-weight:800;letter-spacing:-.04em}
+.demo-flag{display:inline-flex;gap:10px;align-items:center;background:#FFF4CC;color:#5a4500;border-radius:12px;padding:12px 16px;font-size:14px;font-weight:600;margin-top:18px}
+
+/* ================= PLANO ================= */
+#view-plan{background:var(--paper);color:var(--text);color-scheme:light}
+.plan-top{background:var(--ink);color:var(--sand);position:relative;overflow:hidden}
+.plan-top .wrap{position:relative;padding-block:clamp(56px,8vw,110px)}
+.plan-top h1{font-size:clamp(40px,6.6vw,96px);font-weight:300;letter-spacing:-.045em;line-height:1;margin:22px 0 0;color:var(--white);overflow-wrap:anywhere;text-wrap:balance}
+.plan-top h1 b{font-weight:800}
+.plan-top .meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.plan-top .meta span{border:1px solid var(--line-dark);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600}
+.plan-top .meta span.g2{background:var(--green);color:var(--ink);border-color:var(--green)}
+.plan-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.plan-body{display:grid;grid-template-columns:240px minmax(0,1fr);gap:56px;padding-block:64px 120px}
+@media (max-width:1000px){.plan-body{grid-template-columns:minmax(0,1fr)}}
+.toc{position:sticky;top:96px;align-self:start;display:grid;gap:4px}
+@media (max-width:1000px){.toc{display:none}}
+.toc a{text-decoration:none;font-size:14px;font-weight:600;color:var(--muted-l);padding:8px 12px;border-radius:10px;border-left:2px solid transparent;transition:all .2s}
+.toc a:hover{color:var(--text);background:rgba(0,0,0,.04)}
+.toc a.on{color:var(--text);border-left-color:var(--green);background:var(--white)}
+.psec{padding-block:0 72px;scroll-margin-top:90px}
+.psec + .psec{border-top:1px solid var(--line-light);padding-top:64px}
+.psec .eyebrow{color:#1a8a1a}
+.psec h2{font-size:clamp(32px,4.2vw,56px);font-weight:300;letter-spacing:-.04em;line-height:1.05;margin:14px 0 0;text-wrap:balance}
+.psec h2 b{font-weight:700}
+.psec .intro{font-size:18px;color:var(--muted-l);max-width:66ch;margin:16px 0 0}
+.kv{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-light);border:1px solid var(--line-light);border-radius:22px;overflow:hidden;margin-top:32px}
+@media (max-width:860px){.kv{grid-template-columns:1fr}}
+.kv div{background:var(--white);padding:22px;min-width:0}
+.kv dt{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-l)}
+.kv dd{margin:8px 0 0;font-size:17px;font-weight:600;line-height:1.45;overflow-wrap:anywhere}
+.kv .span2{grid-column:span 2}
+@media (max-width:860px){.kv .span2{grid-column:auto}}
+.mt32{margin-top:32px}
+.tpl{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:28px}
+@media (max-width:860px){.tpl{grid-template-columns:1fr}}
+.tpl div{background:var(--white);border:1px solid var(--line-light);border-radius:18px;padding:18px;position:relative;overflow:hidden}
+.tpl div::before{content:"";position:absolute;left:0;top:0;height:4px;background:var(--green);width:var(--w,20%)}
+.tpl b{display:block;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#1a8a1a}
+.tpl h4{margin:8px 0 6px;font-size:18px}
+.tpl p{margin:0;font-size:14px;color:var(--muted-l)}
+.check{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:10px;grid-template-columns:1fr 1fr}
+@media (max-width:700px){.check{grid-template-columns:1fr}}
+.check li{display:flex;gap:12px;align-items:flex-start;font-size:16px;background:var(--white);border:1px solid var(--line-light);border-radius:14px;padding:14px 16px}
+.check li input{width:20px;height:20px;accent-color:#1a9a1a;margin-top:2px;flex:none}
+.bars{display:grid;gap:14px;margin-top:28px}
+.barrow{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center}
+@media (max-width:600px){.barrow{grid-template-columns:1fr}}
+.barrow .bl{font-size:15px;font-weight:700}
+.barrow .bl small{display:block;font-weight:500;color:var(--muted-l);font-size:13px}
+.barrow .bt{height:48px;background:var(--white);border:1px solid var(--line-light);border-radius:12px;overflow:hidden;position:relative}
+.barrow .bt i{position:absolute;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,#1d3a26,#2a5a37);border-radius:inherit;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.barrow.sel .bt i{background:linear-gradient(90deg,#1e9e1e,var(--green))}
+.barrow .bt span{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-weight:800;font-size:16px;color:var(--white);font-variant-numeric:tabular-nums;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.bigstats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:32px}
+@media (max-width:860px){.bigstats{grid-template-columns:1fr 1fr}}
+.bigstats div{background:var(--white);border:1px solid var(--line-light);border-radius:18px;padding:20px;min-width:0}
+.bigstats div.hl{background:var(--ink);color:var(--sand);border:0}
+.bigstats b{display:block;font-size:clamp(26px,3vw,38px);font-weight:800;letter-spacing:-.03em;line-height:1.05;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.bigstats div.hl b{color:var(--green)}
+.bigstats span{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-l)}
+.bigstats div.hl span{color:var(--muted-d)}
+.reading{margin-top:24px;background:var(--white);border-left:4px solid var(--green);border-radius:0 18px 18px 0;padding:20px 24px;font-size:17px;display:grid;gap:10px}
+.reading p{margin:0}
+.timeline{margin-top:32px;position:relative;display:grid;gap:14px}
+.timeline::before{content:"";position:absolute;left:23px;top:10px;bottom:10px;width:2px;background:linear-gradient(var(--green),#1d3a26)}
+.tph{display:grid;grid-template-columns:48px 1fr;gap:18px;position:relative}
+.tph .dot{width:48px;height:48px;border-radius:50%;background:var(--white);border:2px solid var(--green);display:grid;place-items:center;font-weight:800;font-size:15px;z-index:1}
+.tph .bx{background:var(--white);border:1px solid var(--line-light);border-radius:18px;padding:20px 22px;min-width:0}
+.tph .bx .hd{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.tph .bx h4{margin:0;font-size:19px}
+.tph .bx .dt{font-size:14px;font-weight:700;color:var(--muted-l)}
+.tph .bx ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:6px}
+.tph .bx li{font-size:15px;padding-left:22px;position:relative}
+.tph .bx li::before{content:"";position:absolute;left:0;top:6px;width:12px;height:12px;border:1.5px solid #9a9a90;border-radius:3px}
+.tph.mat .dot{background:var(--green)}
+.tph.mat .bx{border:2px solid var(--green);background:#F1FBEF}
+.tph.mat .tagm{display:inline-block;margin-left:10px;background:var(--ink);color:var(--green);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;vertical-align:middle}
+.tph.magna .dot{background:var(--ink);border-color:var(--ink);color:var(--green)}
+.tph.magna .bx{background:var(--ink);color:var(--sand);border:0}
+.tph.magna .bx .dt{color:var(--muted-d)}
+.tph.magna .bx li::before{border-color:#4a5a4f}
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+@media (max-width:760px){.roles{grid-template-columns:1fr}}
+.roles > div{border-radius:22px;padding:26px;min-width:0}
+.roles .fx{background:var(--ink);color:var(--sand)}
+.roles .ex2{background:var(--white);border:1px solid var(--line-light)}
+.roles h3{margin:0 0 16px;font-size:14px;letter-spacing:.2em;text-transform:uppercase}
+.roles .fx h3{color:var(--green)}
+.roles ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.roles li{font-size:16px;padding-left:24px;position:relative}
+.roles li::before{content:"✓";position:absolute;left:0;font-weight:800;color:var(--green)}
+.roles .ex2 li::before{color:#1a9a1a}
+.copybox{margin-top:24px;background:var(--white);border:1px solid var(--line-light);border-radius:22px;overflow:hidden}
+.copybox .cbh{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line-light);background:var(--sand)}
+.copybox .cbh b{font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.copybox pre{margin:0;padding:22px;white-space:pre-wrap;font-family:var(--font);font-size:16px;line-height:1.65;overflow-wrap:anywhere}
+.salespage{margin-top:24px;border-radius:24px;overflow:hidden;border:1px solid var(--line-light);background:var(--white)}
+.salespage .sp-h{background:var(--ink);color:var(--sand);padding:clamp(26px,4vw,44px);position:relative;overflow:hidden}
+.salespage .sp-h::after{content:"";position:absolute;right:-100px;top:-100px;width:320px;height:320px;background:radial-gradient(closest-side,rgba(50,205,50,.4),transparent)}
+.salespage .sp-h small{position:relative;font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--green)}
+.salespage .sp-h h3{position:relative;font-size:clamp(26px,3.4vw,42px);font-weight:300;letter-spacing:-.03em;line-height:1.1;margin:12px 0 0;color:var(--white)}
+.salespage .sp-h h3 b{font-weight:800}
+.salespage .sp-h p{position:relative;color:#cfd6cf;font-size:17px;max-width:60ch}
+.salespage .sp-b{padding:clamp(22px,3vw,36px);display:grid;gap:16px}
+.salespage .sp-b ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.salespage .sp-b li{padding-left:26px;position:relative;font-size:16px}
+.salespage .sp-b li::before{content:"✓";position:absolute;left:0;color:#1a9a1a;font-weight:800}
+.mini-btn{border:0;background:var(--ink);color:var(--sand);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700}
+.mini-btn.ok{background:var(--green);color:var(--ink)}
+
+/* PRATA mega CTA */
+.prata{background:var(--ink);color:var(--sand);position:relative;overflow:hidden;color-scheme:dark}
+.prata canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.9}
+.prata .wrap{position:relative;padding-block:clamp(80px,11vw,150px)}
+.prata h2{font-size:clamp(40px,6.4vw,96px);font-weight:300;letter-spacing:-.045em;line-height:1;margin:22px 0 0;color:var(--white);max-width:16ch;text-wrap:balance}
+.prata h2 b{font-weight:800;color:var(--green)}
+.prata .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:56px;align-items:start}
+@media (max-width:900px){.prata .pgrid{grid-template-columns:1fr}}
+.prata-card{border-radius:28px;padding:clamp(26px,4vw,40px);position:relative;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.015));isolation:isolate}
+.prata-card::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--ang,0deg),transparent 0 60%,var(--green) 75%,#b5ffb5 80%,var(--green) 85%,transparent 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:rot 5s linear infinite;z-index:-1}
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes rot{to{--ang:360deg}}
+.prata-card .tagp{display:inline-block;background:var(--green);color:var(--ink);font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:7px 12px;border-radius:8px}
+.prata-card h3{font-size:clamp(28px,3vw,38px);font-weight:700;margin:16px 0 6px;color:var(--white);letter-spacing:-.02em}
+.prata-card ul{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:14px}
+.prata-card li{padding-left:36px;position:relative;font-size:17px;color:var(--sand)}
+.prata-card li::before{content:"";position:absolute;left:0;top:3px;width:22px;height:22px;border-radius:50%;background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23040805' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/13px no-repeat;box-shadow:0 0 14px rgba(50,205,50,.6)}
+.prata-card .fine{font-size:13px;color:var(--muted-d);margin-top:20px}
+.consult{border:1px solid var(--line-dark);border-radius:24px;padding:26px;margin-top:18px}
+.consult h4{margin:0;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--green)}
+.consult p{margin:10px 0 0;color:var(--muted-d);font-size:16px}
+.mega{display:block;width:100%;margin-top:56px;text-decoration:none;border-radius:32px;padding:clamp(28px,4vw,48px);background:var(--green);color:var(--ink);position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s;box-shadow:0 0 0 0 rgba(50,205,50,.6),0 40px 100px -30px rgba(0,216,79,.9);animation:megaPulse 2.6s ease-in-out infinite}
+.mega:hover{transform:translateY(-4px) scale(1.01);background:var(--green-hi)}
+@keyframes megaPulse{0%,100%{box-shadow:0 0 0 0 rgba(50,205,50,.55),0 40px 100px -30px rgba(0,216,79,.9)}50%{box-shadow:0 0 0 18px rgba(50,205,50,0),0 40px 100px -30px rgba(0,216,79,.9)}}
+.mega::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.6) 50%,transparent 65%);transform:translateX(-120%);animation:shine 3s ease-in-out infinite}
+.mega .mk{display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative;z-index:1}
+.mega small{font-size:13px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;display:block}
+.mega strong{display:block;font-size:clamp(24px,3.4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-top:10px;max-width:28ch}
+.mega .wa{width:clamp(64px,8vw,96px);height:clamp(64px,8vw,96px);border-radius:50%;background:var(--ink);display:grid;place-items:center;flex:none;transition:transform .4s}
+.mega:hover .wa{transform:rotate(-12deg) scale(1.08)}
+.mega .wa svg{width:48%;height:48%;fill:var(--green)}
+.mega-sub{text-align:center;margin-top:18px;font-size:14px;color:var(--muted-d)}
+
+/* modal vídeo */
+.modal{position:fixed;inset:0;z-index:90;display:none;place-items:center;padding:20px}
+.modal.on{display:grid}
+.modal .bg{position:absolute;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px)}
+.modal .box{position:relative;width:min(900px,100%);background:var(--ink-2);border:1px solid var(--line-dark);border-radius:24px;overflow:hidden;animation:qIn .4s both}
+.modal .vid{aspect-ratio:16/9;max-width:100%;background:#000;display:grid;place-items:center;position:relative}
+.modal .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.modal .ph{text-align:center;padding:24px;display:grid;justify-items:center;gap:14px}
+.modal .ph .bigplay{width:84px;height:84px;border-radius:50%;background:var(--green);display:grid;place-items:center;box-shadow:0 0 50px rgba(50,205,50,.6);animation:orb 2.4s infinite}
+.modal .ph .bigplay svg{width:26px;height:26px;fill:var(--ink);margin-left:4px}
+.modal .ph p{margin:0;color:var(--muted-d);font-size:15px}
+.modal .mtxt{padding:22px 26px}
+.modal .mtxt h3{margin:0 0 8px;font-size:21px;color:var(--white)}
+.modal .mtxt p{margin:0;color:var(--muted-d);font-size:16px}
+.modal .x{position:absolute;top:12px;right:12px;z-index:2;width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:22px}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,calc(100% + 60px));visibility:hidden;background:var(--white);color:var(--ink);padding:14px 22px;border-radius:999px;font-weight:700;font-size:15px;z-index:95;transition:transform .4s cubic-bezier(.2,.8,.2,1);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.toast.on{transform:translate(-50%,0);visibility:visible}
+#burst{position:fixed;inset:0;pointer-events:none;z-index:96}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+@media print{
+  .top,.sticky-cta,.plan-actions,.toc,.mega,.noprint,footer,#strands,.prata canvas{display:none!important}
+  body,#view-plan{background:#fff!important}
+  .plan-body{display:block;padding:0}
+  .disc .db{display:block!important;filter:none!important}
+  .psec{break-inside:auto}
+  .tph,.disc,.kv{break-inside:avoid}
+  .plan-top,.prata,.roles .fx,.tph.magna .bx,.bigstats div.hl,.salespage .sp-h{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+
+<!-- ===================== TOPO ===================== -->
+<header class="top" id="top">
+  <div class="wrap">
+    <a href="#" data-go="home" aria-label="Início"><img class="logo" src="assets/logo-fex-branco.png" alt="FEX Educação" width="157" height="27"></a>
+    <span class="tag" id="topTag">Gênio Oculto · Faculdade FEX Educação®</span>
+    <button class="btn btn-green btn-sm" id="topCta" data-start>Começar agora <span class="arr">→</span></button>
+  </div>
+</header>
+
+<!-- ===================== HOME ===================== -->
+<main id="view-home" class="view on">
+  <section class="hero">
+    <canvas id="strands" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div>
+        <span class="pill"><span class="dot"></span>Gênio Oculto</span>
+        <h1 id="heroTitle">Tudo o que você sabe pode virar uma <b>pós-graduação.</b></h1>
+        <p class="lead">Você responde perguntas simples sobre o seu trabalho. Em cerca de 15 minutos, vê o seu curso montado na sua frente: disciplinas, aulas, materiais, quanto ele pode faturar e o plano para lançar.</p>
+        <div class="ctas">
+          <button class="btn btn-green btn-xl" data-start>Descobrir meu Gênio Oculto <span class="arr">→</span></button>
+          <button class="btn btn-ghost" id="btnExemplo">Ver um exemplo pronto</button>
+        </div>
+        <div class="micro"><span>Começa grátis</span><span>Sem precisar de curso pronto</span><span>Plano completo por R$ 97</span></div>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <span class="badge">Montando seu curso</span>
+        <div class="mh"><span>Pós-Graduação · 360h</span><span class="g">● ao vivo</span></div>
+        <div class="mt">Fisioterapia Esportiva e Retorno ao Esporte</div>
+        <div class="ms">Por quem já tratou mais de 3 mil atletas</div>
+        <ol>
+          <li><span class="n">01</span>Fundamentos e base científica<span class="h">60h</span></li>
+          <li><span class="n">02</span>Avaliação funcional do atleta<span class="h">60h</span></li>
+          <li><span class="n">03</span>Lesões de joelho e tornozelo<span class="h">60h</span></li>
+          <li><span class="n">04</span>Protocolos de retorno ao esporte<span class="h">60h</span></li>
+          <li><span class="n">05</span>Ferramentas e prática profissional<span class="h">60h</span></li>
+          <li><span class="n">06</span>Projeto aplicado<span class="h">60h</span></li>
+        </ol>
+        <div class="mf"><div><b>24</b><span>aulas</span></div><div><b>108h</b><span>hora-aula</span></div><div><b>90</b><span>dias</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="band-green marquee" aria-hidden="true">
+    <div class="track" id="mq"></div>
+  </div>
+
+  <section class="sec band-sand">
+    <div class="wrap obvio">
+      <div class="rv">
+        <p class="eyebrow">O seu óbvio é o milagre de alguém</p>
+        <h2 class="display" style="margin-top:20px">Você passou anos aprendendo o que <b>nenhum livro ensina.</b></h2>
+        <p class="lead muted" style="margin-top:26px">Os atalhos, os erros que você já não comete, o jeito certo de fazer. Para você, isso é normal. Para quem está começando, vale uma formação inteira. O Gênio Oculto tira esse conhecimento da sua cabeça e organiza tudo no formato de uma pós-graduação.</p>
+      </div>
+      <div class="calc rv">
+        <label for="calcYears">Arraste: há quantos anos você trabalha na sua área?</label>
+        <div class="yrs"><span id="calcY">15</span> <small>anos</small></div>
+        <input type="range" id="calcYears" min="1" max="40" value="15" aria-label="Anos de experiência">
+        <div class="out">
+          <div><span>Horas de prática acumuladas</span><b id="calcH">26.400h</b></div>
+          <div><span>Carga horária de uma pós completa</span><b>360h</b></div>
+          <div><span>Você já viveu o equivalente a</span><b id="calcX">73 pós</b></div>
+        </div>
+        <p class="foot">Estimativa simples: 220 dias de trabalho por ano, 8 horas por dia.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band-dark">
+    <div class="wrap">
+      <p class="eyebrow g rv">Como funciona</p>
+      <h2 class="display rv" style="margin-top:20px;max-width:18ch">Simples como uma conversa. <b>Do começo ao fim.</b></h2>
+      <div class="steps5" id="steps5">
+        <div class="s"><span class="num">01</span><h3>Você conta</h3><p>Sua área, seus anos de prática, quem você quer ajudar e o que você ensinaria.</p></div>
+        <div class="s"><span class="num">02</span><h3>A gente organiza</h3><p>Seus temas viram disciplinas e aulas no padrão pedagógico FEX.</p></div>
+        <div class="s"><span class="num">03</span><h3>Você vê o curso</h3><p>Nome, promessa, matriz e potencial de faturamento na tela, de graça.</p></div>
+        <div class="s paid"><span class="num">04</span><h3>Plano completo</h3><p>Todas as aulas, roteiros, materiais, funil, página de vendas e cronograma.</p></div>
+        <div class="s"><span class="num">05</span><h3>Vira pós</h3><p>Com a Faculdade FEX Educação®, seu plano ganha validade acadêmica.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band-paper">
+    <div class="wrap">
+      <p class="eyebrow rv" style="color:#1a8a1a">O que você recebe no plano completo</p>
+      <h2 class="display rv" style="margin-top:20px;max-width:18ch">Seu curso pronto para gravar, <b>vender e lançar.</b></h2>
+      <div class="deliv">
+        <div class="dcard dk rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg></div><h3>Matriz curricular completa</h3><p>6 ou 7 disciplinas com ementa, objetivos e carga horária no padrão 30/30/40.</p></div>
+        <div class="dcard rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M5 4l14 8-14 8z"/></svg></div><h3>Todas as aulas nomeadas</h3><p>Quatro aulas por disciplina, com formato e o que gravar em cada uma.</p></div>
+        <div class="dcard rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h5"/></svg></div><h3>Roteiro modelo de aula</h3><p>A estrutura de cada gravação, do gancho de abertura à tarefa prática.</p></div>
+        <div class="dcard rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 20h18M6 16V9M11 16V5M16 16v-4M21 16V8"/></svg></div><h3>Potencial de faturamento</h3><p>Matrículas e receita da primeira turma com a sua audiência real.</p></div>
+        <div class="dcard rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 4h18l-7 9v6l-4 2v-8z"/></svg></div><h3>Funil e página de vendas</h3><p>Modelo de campanha, cadência e o texto da sua página e da mensagem para a base.</p></div>
+        <div class="dcard dk rv"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h3>Cronograma de 90 dias</h3><p>Da matriz validada até a aula magna, com o dia em que as matrículas abrem.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band-dark" style="background:radial-gradient(90% 70% at 10% 100%,#0c2a15,var(--ink) 60%)">
+    <div class="wrap">
+      <p class="eyebrow g rv">Quem está com você</p>
+      <h2 class="display rv" style="margin-top:20px;max-width:20ch">A faculdade das empresas <b>que ensinam.</b></h2>
+      <p class="lead muted rv" style="margin-top:22px">13 anos transformando conhecimento em resultado, hoje como faculdade credenciada. Experts de várias áreas já transformaram o que sabem em pós-graduação com a FEX.</p>
+      <div class="nums">
+        <div><b data-count="4660">0</b><span>alunos de pós-graduação e MBA</span></div>
+        <div><b data-count="70">0</b><span>pós-graduações no portfólio</span></div>
+        <div><b><em>+</em><span data-count="1000">0</span></b><span>empresas parceiras no Brasil</span></div>
+        <div><b data-count="134">0</b><span>turmas ativas</span></div>
+      </div>
+      <div class="cases">
+        <div class="case rv"><div class="big">234<small>matriculados</small></div><h3>Danilo Santos de Oliveira</h3><p>Integration Developer 360 (SAP). A maior pós ativa, vendida por parceria B2B, sem depender de audiência própria.</p></div>
+        <div class="case rv"><div class="big">158<small>em pós</small></div><h3>Prof. Dr. Ricardo Galhardoni</h3><p>Neuromodulação em Foco. Curso online, prático presencial e a pós no topo da escada.</p></div>
+        <div class="case rv"><div class="big">91<small>em pós</small></div><h3>Dr. Caique Acácio</h3><p>Medicina de emergência. Conteúdo de nicho, workshop gratuito e a pós como próximo passo dos alunos.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band-sand" id="precos">
+    <div class="wrap">
+      <p class="eyebrow rv">Quanto custa</p>
+      <h2 class="display rv" style="margin-top:20px;max-width:18ch">Comece grátis. <b>Desbloqueie quando ver o seu curso.</b></h2>
+      <div class="price">
+        <div class="pcard rv">
+          <h3>Prévia</h3>
+          <div class="val">R$ 0</div>
+          <ul>
+            <li>Nome e promessa do seu curso</li>
+            <li>Modelo ideal: pós ou MBA, com carga horária</li>
+            <li>Título de todas as disciplinas</li>
+            <li>Potencial de faturamento da primeira turma</li>
+            <li class="off">Aulas, roteiros e materiais</li>
+            <li class="off">Funil, página de vendas e cronograma</li>
+          </ul>
+          <button class="btn btn-dark" data-start>Começar grátis <span class="arr">→</span></button>
+        </div>
+        <div class="pcard best rv">
+          <h3 class="g">Plano completo</h3>
+          <div class="val" style="color:var(--white)">R$ 97 <small class="muted">pagamento único</small></div>
+          <ul>
+            <li>Tudo da prévia</li>
+            <li>Ementa, objetivos e 4 aulas por disciplina</li>
+            <li>Roteiro modelo de aula e plano de gravação</li>
+            <li>Funil, cadência e texto da página de vendas</li>
+            <li>Mensagem pronta para a sua base de alunos</li>
+            <li>Cronograma de 90 dias até a aula magna</li>
+          </ul>
+          <button class="btn btn-green" data-start>Montar meu curso <span class="arr">→</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band-paper">
+    <div class="wrap">
+      <p class="eyebrow rv">Perguntas frequentes</p>
+      <h2 class="display rv" style="margin-top:20px">Antes de começar</h2>
+      <div class="faq">
+        <details><summary>Preciso ter um curso pronto?</summary><p>Não. Você só precisa do conhecimento que já usa no trabalho. As perguntas puxam isso para fora e a ferramenta organiza no formato de uma pós-graduação.</p></details>
+        <details><summary>Vou ter que gravar 360 horas de aula?</summary><p>Não. No padrão pedagógico FEX, só 30% da carga é hora-aula. Em uma pós de 360h, são 108h. O restante é autoestudo (30%) e prática aplicada (40%).</p></details>
+        <details><summary>O plano já é uma pós-graduação registrada?</summary><p>Ainda não. O plano é o projeto completo do seu curso. Para virar uma pós-graduação lato sensu com validade acadêmica, ele passa pelo registro da Faculdade FEX Educação®, com o time acadêmico da faculdade. O botão no fim do plano te leva direto a um especialista.</p></details>
+        <details><summary>A pós tem validade acadêmica?</summary><p>A Faculdade FEX Educação® é uma instituição de ensino superior credenciada pelo Ministério da Educação (Portaria MEC nº 196/2024). As pós-graduações têm registro com validade acadêmica emitido pela própria faculdade, com certificado nos termos da Resolução CNE/CES nº 1/2018.</p></details>
+        <details><summary>Quem pode ser aluno da minha pós?</summary><p>Quem já concluiu uma graduação. É bom saber isso desde já, porque define o público da sua campanha.</p></details>
+        <details><summary>Quanto tempo leva para preencher?</summary><p>Cerca de 15 minutos. Cada etapa tem um vídeo curto explicando o que responder, e tudo fica salvo neste navegador enquanto você preenche.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band-dark final">
+    <div class="wrap">
+      <p class="eyebrow g rv">O que não se ensina, se perde</p>
+      <h2 class="display rv" style="margin-top:20px">Seu conhecimento merece <b>virar formação.</b></h2>
+      <div class="ctas"><button class="btn btn-green btn-xl" data-start>Descobrir meu Gênio Oculto <span class="arr">→</span></button></div>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== CONSTRUTOR ===================== -->
+<main id="view-builder" class="view">
+  <div class="bwrap">
+    <div class="bmain">
+      <div class="phases" id="phases"></div>
+      <div class="qbox" id="qbox"></div>
+    </div>
+    <aside class="live" id="live" aria-label="Seu curso ao vivo">
+      <div class="lh"><span class="eyebrow">Seu curso, ao vivo</span><span class="rec"><i></i>salvando</span><button class="closeL" id="closeLive">Fechar</button></div>
+      <div class="cover">
+        <div class="ct" id="lvType">Sua formação</div>
+        <div class="cn ph" id="lvTitle">O nome do seu curso aparece aqui</div>
+        <div class="cp" id="lvProm"></div>
+        <div class="cx" id="lvChips"></div>
+      </div>
+      <h4><span>Disciplinas</span><span id="lvCount"></span></h4>
+      <ol class="lmods" id="lvMods"></ol>
+      <h4><span>Números</span></h4>
+      <div class="lstats" id="lvStats"></div>
+    </aside>
+  </div>
+  <button class="livebtn" id="openLive">Ver meu curso <i id="lvBadge">0</i></button>
+  <div class="scrim" id="scrim"></div>
+</main>
+
+<!-- ===================== ANÁLISE ===================== -->
+<main id="view-analise" class="view">
+  <div class="scan">
+    <div class="orb"></div>
+    <h2 id="anTitle">Organizando o que você sabe…</h2>
+    <ul id="anList"></ul>
+  </div>
+</main>
+
+<!-- ===================== PRÉVIA ===================== -->
+<main id="view-preview" class="view"></main>
+
+<!-- ===================== CHECKOUT ===================== -->
+<main id="view-checkout" class="view"></main>
+
+<!-- ===================== PLANO ===================== -->
+<main id="view-plan" class="view"></main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <img class="logo" src="assets/logo-fex-branco.png" alt="FEX Educação" width="157" height="27">
+      <span class="g" style="font-weight:700">#sejaFEX</span>
+    </div>
+    <div class="inst">Faculdade FEX Educação, instituição de ensino superior credenciada pelo Ministério da Educação (Portaria MEC nº 196/2024). Código e-MEC 26519.</div>
+    <div class="row"><span>Gênio Oculto é uma ferramenta da Faculdade FEX Educação®. Os valores do simulador são projeções a partir dos números que você informa, não garantia de resultado.</span><span>faculdade.fexeducacao.edu.br</span></div>
+  </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="bg" data-close></div>
+  <div class="box">
+    <button class="x" data-close aria-label="Fechar">×</button>
+    <div class="vid" id="mVid"></div>
+    <div class="mtxt"><h3 id="mTitle"></h3><p id="mText"></p></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<canvas id="burst" aria-hidden="true"></canvas>
+
+<script>
+/* =====================================================================
+   CONFIGURAÇÃO  ·  tudo que muda antes de publicar fica aqui
+   ===================================================================== */
+const CONFIG = {
+  PRECO: 97,
+  // Link do checkout (Hubla, Kiwify, Eduzz...). null = modo demonstração (libera o plano sem cobrar).
+  // Configure a página de obrigado da plataforma para voltar a este site com ?pago=1
+  CHECKOUT_URL: null,
+  // WhatsApp do especialista FEX (só números, com 55 + DDD). Padrão: secretaria e B2B da base de conhecimento.
+  WHATSAPP_ESPECIALISTA: "5511915612544",
+  // Webhook que recebe o lead (RD Station, Make, Zapier, n8n...). null = não envia.
+  LEAD_WEBHOOK_URL: null,
+  // Rastreamento. Preencha para carregar automaticamente.
+  META_PIXEL_ID: null,
+  GTM_ID: null,
+  // IDs de vídeo do YouTube por etapa (ex.: "dQw4w9WgXcQ"). Vazio = mostra "vídeo em produção".
+  VIDEOS: {
+    boasvindas:"", nome:"", area:"", anos:"", perguntas:"", persona:"", promessa:"",
+    temas:"", ferramentas:"", referencias:"", ensina:"", modelo:"", ticket:"",
+    audiencia:"", campanha:"", magna:"", contato:"", plano:""
+  }
+};
+
+/* ============ util ============ */
+const $ = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => [...el.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const cap = s => { s = String(s||"").trim(); return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; };
+const low = s => { s = String(s||"").trim(); return s ? s.charAt(0).toLowerCase() + s.slice(1) : s; };
+const BRL = v => "R$ " + Math.round(v).toLocaleString("pt-BR");
+const INT = v => Math.round(v).toLocaleString("pt-BR");
+const splitList = s => String(s||"").split(/[\n,;]+/).map(t => t.trim()).filter(t => t.length > 1);
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const framed = (() => { try { return window.self !== window.top; } catch(e) { return true; } })();
+const firstName = () => cap((S.a.nome || "").split(" ")[0]);
+
+/* ============ estado ============ */
+const KEY = "genio_oculto_v2";
+const blank = () => ({
+  a:{nome:"",sobrenome:"",area:"",anos:12,perguntas:"",persona:"",promessa:"",temas:[],ferramentas:[],referencias:"",ensina:"",
+     email:"",telefone:"",instagram:"",consent:true,titulo:""},
+  model:null, ticket:{n:12,v:1000},
+  pot:{warm:500,cold:10000,cw:5,cc:1},
+  campaign:null, magna:"",
+  step:0, done:false, paid:false, leadId:"", exemplo:false
+});
+let S = blank();
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function load(){ try{ const d = JSON.parse(localStorage.getItem(KEY)||"null"); if(d && d.a){ S = Object.assign(blank(), d); S.a = Object.assign(blank().a, d.a); S.pot = Object.assign(blank().pot, d.pot); } }catch(e){} }
+
+/* ============ rastreamento ============ */
+function initTracking(){
+  if(CONFIG.GTM_ID){
+    window.dataLayer = window.dataLayer || []; window.dataLayer.push({"gtm.start":Date.now(),event:"gtm.js"});
+    const s=document.createElement("script"); s.async=true; s.src="https://www.googletagmanager.com/gtm.js?id="+CONFIG.GTM_ID; document.head.appendChild(s);
+  }
+  if(CONFIG.META_PIXEL_ID){
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
+    fbq("init", CONFIG.META_PIXEL_ID); fbq("track","PageView");
+  }
+}
+function track(ev, data={}){
+  try{
+    (window.dataLayer = window.dataLayer || []).push(Object.assign({event:"genio_"+ev}, data));
+    const map = {inicio:"ViewContent", lead:"Lead", checkout:"InitiateCheckout", compra:"Purchase", especialista:"Contact"};
+    if(window.fbq && map[ev]) fbq("track", map[ev], data);
+  }catch(e){}
+}
+function sendLead(etapa){
+  if(!CONFIG.LEAD_WEBHOOK_URL) return;
+  const f = formation();
+  const body = { etapa, id:S.leadId, data:new Date().toISOString(), contato:{nome:S.a.nome, email:S.a.email, telefone:S.a.telefone, instagram:S.a.instagram},
+    curso:{titulo:f.title, area:S.a.area, anos:S.a.anos, persona:S.a.persona, promessa:S.a.promessa, modelo:f.m.label, temas:S.a.temas},
+    potencial:pot(), ticket:S.ticket, campanha:S.campaign, aulaMagna:S.magna, pago:S.paid, origem:location.search };
+  try{ fetch(CONFIG.LEAD_WEBHOOK_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body),keepalive:true}).catch(()=>{}); }catch(e){}
+}
+
+/* =====================================================================
+   REGRAS DE NEGÓCIO (Padrão FEX)
+   ===================================================================== */
+const MODELS = {
+  pos6:  {label:"Pós-Graduação · 6 meses · 100% EAD", type:"Pós-Graduação", dur:"6 meses", mod:"100% EAD", h:360, mba:false, why:"Seu conteúdo funciona bem a distância. Seis meses permitem lançar rápido e escalar sem depender da sua agenda."},
+  pos12: {label:"Pós-Graduação · 12 meses · Híbrida", type:"Pós-Graduação", dur:"12 meses", mod:"EAD com mediação ao vivo", h:360, mba:false, why:"Seu método tem forte parte prática. A mediação ao vivo semanal garante aplicação acompanhada."},
+  mba6:  {label:"MBA · 6 meses · 100% EAD", type:"MBA", dur:"6 meses", mod:"100% EAD", h:420, mba:true, why:"Seu tema conversa com gestão e negócios. O MBA aumenta o valor percebido e o formato EAD acelera o lançamento."},
+  mba12: {label:"MBA · 12 meses · Híbrido", type:"MBA", dur:"12 meses", mod:"EAD com mediação ao vivo", h:420, mba:true, why:"Seu método une gestão e prática. O MBA híbrido dá peso executivo e espaço para acompanhar a aplicação."}
+};
+const MBA_W = ["gestão","gestao","negócio","negocio","lideran","empreend","financ","marketing","vendas","estratég","estrateg","executiv","comercial","empresa"];
+const PRAT_W = ["prátic","pratic","presencial","clínic","clinic","atendimento","protocolo","laborat","procediment","técnica","tecnica","supervis","estágio","estagio","paciente","terap","fisio","estétic","estetic"];
+function signals(){
+  const t = [S.a.area,S.a.promessa,S.a.perguntas,S.a.temas.join(" "),S.a.ferramentas.join(" "),S.a.referencias].join(" ").toLowerCase();
+  return {mba:MBA_W.filter(w=>t.includes(w)), prat:PRAT_W.filter(w=>t.includes(w))};
+}
+function suggestModel(){ const s=signals(); const m=s.mba.length>0, p=s.prat.length>0; return m&&p?"mba12":m?"mba6":p?"pos12":"pos6"; }
+const TICKETS = [{n:12,v:500},{n:18,v:500},{n:12,v:1000},{n:18,v:1000},{n:12,v:1500},{n:12,v:5000}];
+
+const CAMPAIGNS = {
+  interna:{label:"Campanha interna", desc:"Lançamento direto para quem já é seu aluno ou ex-aluno.", best:"Ideal se você já tem base de alunos.", dMat:-40,
+    cad:["Semana 1: bastidores da criação da pós e lista de espera exclusiva","Semana 2: condição de aluno da casa com janela de 48h","Follow-up em 3 toques por WhatsApp","Conversa individual de fechamento com quem pedir"],
+    pre:["Anunciar os bastidores da pós para alunos e ex-alunos","Abrir lista de espera exclusiva","Aquecer com depoimentos e conteúdo de valor","Preparar a condição de aluno da casa"],
+    camp:["Disparar a oferta interna com janela de 48h","Follow-up por WhatsApp em 3 toques","Conversa individual de fechamento","Recuperar pagamentos não concluídos"]},
+  aula:{label:"Aula magna ao vivo", desc:"Evento online de abertura com a oferta no final.", best:"Ideal se você tem audiência nas redes.", dMat:-20,
+    cad:["14 dias de captação para a aula","Aula ao vivo com oferta e condição de 48h","Carrinho aberto por 5 dias","Follow-up por WhatsApp e e-mail","Conversa de fechamento para os mais interessados"],
+    pre:["Definir data e roteiro da aula de lançamento","Produzir criativos e página de inscrição","Aquecer a base durante 14 dias","Configurar a transmissão"],
+    camp:["Fazer a aula com a oferta no final","Carrinho aberto por 5 dias","Follow-up por WhatsApp e e-mail","Conversa de fechamento"]},
+  imersao:{label:"Imersão presencial", desc:"Um dia mão na massa que termina com a oferta.", best:"Ideal para áreas práticas e de alto valor.", dMat:-25,
+    cad:["Convites dirigidos à base qualificada","Imersão com oferta exclusiva para presentes","Fechamento na sala","Follow-up de 72h para indecisos"],
+    pre:["Definir data, local e convidados","Enviar convites dirigidos","Preparar a experiência prática","Ensaiar a apresentação da oferta"],
+    camp:["Fazer a imersão com a oferta no final","Fechar matrículas no local","Follow-up de 72h","Conversa individual com indecisos"]},
+  pago:{label:"Lançamento com tráfego pago", desc:"Anúncios levam pessoas para uma aula ou página.", best:"Ideal para escalar além da sua base.", dMat:-30,
+    cad:["30 dias de anúncios para captação","Sequência de aquecimento por e-mail e WhatsApp","Remarketing para quem engajou","Janela de matrícula de 7 dias"],
+    pre:["Estruturar campanhas, página e criativos","Montar a régua de aquecimento","Remarketing para leads engajados","Treinar quem vai atender os leads"],
+    camp:["Escalar o investimento nos melhores anúncios","Atendimento rápido aos leads quentes","Janela de matrícula de 7 dias","Recuperar pagamentos não concluídos"]},
+  meteorico:{label:"Lançamento relâmpago", desc:"Grupo de WhatsApp com carrinho aberto por 48 a 72h.", best:"Ideal para base pequena e engajada.", dMat:-10,
+    cad:["Convite para o grupo de WhatsApp","7 dias de conteúdo em sequência","Carrinho aberto por 48h a 72h","Encerramento real e lista de espera da turma 2"],
+    pre:["Captar pessoas para o grupo","Sequência de 7 dias de conteúdo","Preparar bônus para os primeiros","Definir o prazo real do carrinho"],
+    camp:["Abrir o carrinho no grupo","Comunicação diária no grupo","Bônus para os primeiros","Encerrar e abrir lista da turma 2"]},
+  black:{label:"Black Friday", desc:"Campanha sazonal com condição especial.", best:"Ideal se a turma começa em janeiro.", dMat:-35,
+    cad:["Outubro: bastidores e lista VIP","Semana da Black: condição especial com prazo real","Turma começando em janeiro","Recuperação de pagamentos até dezembro"],
+    pre:["Aquecimento com bastidores","Montar lista VIP","Definir a condição da semana","Programar a recuperação de pagamentos"],
+    camp:["Ativar a oferta na semana","Comunicação intensa com a lista VIP","Encerrar no prazo anunciado","Recuperar pagamentos nas semanas seguintes"]}
+};
+
+const AREAS = ["Fisioterapia","Estética","Psicologia","Nutrição","Direito","Odontologia","Medicina","Enfermagem","Educação","Vendas","Gestão","Marketing","Tecnologia","Finanças","Terapias integrativas","Agronegócio"];
+const PERSONAS = ["Profissionais recém-formados","Profissionais com experiência que querem se especializar","Donos de clínica ou consultório","Gestores e líderes de equipe","Quem quer mudar de área","Professores e educadores"];
+
+function formation(){
+  const key = S.model || suggestModel(); const m = MODELS[key];
+  const area = cap(S.a.area || "sua área");
+  const title = (S.a.titulo||"").trim() || `${m.type} em ${area}`;
+  return {key, m, title, area, discs:buildDiscs(key)};
+}
+function buildDiscs(key){
+  const m = MODELS[key], area = (S.a.area||"sua área").trim(), areaC = cap(area);
+  const per = low(S.a.persona || "seus alunos");
+  const total = m.mba ? 7 : 6, core = total - 3, h = m.h / total;
+  const fallback = [`Diagnóstico e avaliação em ${area}`, `Estratégias de intervenção em ${area}`, m.mba?`Gestão e liderança em ${area}`:`Prática supervisionada em ${area}`, `Ética e atuação profissional em ${area}`];
+  const pergs = splitList(S.a.perguntas).filter(p=>p.length<70);
+  const themes = [...S.a.temas];
+  for(const p of pergs){ if(themes.length>=core) break; themes.push(p.replace(/\?$/,"")); }
+  const coreT = Array.from({length:core},(_,i)=> themes[i] || fallback[i] || `Tema aplicado ${i+1}`);
+  const refs = (S.a.referencias||"").trim();
+  const tools = S.a.ferramentas;
+  const yrs = S.a.anos;
+  const out = [];
+  out.push({t:`Fundamentos de ${areaC}`, kind:"fund", h,
+    em:`A base que sustenta todo o curso: conceitos essenciais de ${area}${refs?`, apoiados em ${refs}`:""}, e a visão de quem pratica há ${yrs} anos.`,
+    obj:[`Dominar o vocabulário e os conceitos centrais de ${area}`, `Conhecer as referências que embasam o método`, `Entender o caminho que o curso vai percorrer`],
+    aulas:[[`Panorama de ${area} hoje: o que mudou e o que vem por aí`,"Videoaula"],[`As bases teóricas do método${refs?": "+refs.split(/[,;\n]/)[0].trim():""}`,"Videoaula"],[`${yrs} anos em ${area}: o que a prática ensinou`,"Bate-papo"],["Mapa do curso e como estudar","Tutorial"]]});
+  coreT.forEach((t)=>{
+    const tl = low(t), tc = cap(t);
+    out.push({t:(m.mba && out.length===1?"Estratégia e ":"")+(m.mba && out.length===1?low(tc):tc), kind:"core", h,
+      em:`O aluno aprende ${tl} do jeito que você aplica no dia a dia: conceito, passo a passo, erros comuns e prática com casos reais de ${per}.`,
+      obj:[`Entender o que é ${tl} e quando aplicar`, `Executar o passo a passo com segurança`, `Evitar os erros mais comuns`],
+      aulas:[[`${tc}: o que é e por que muda o resultado`,"Videoaula"],[`O passo a passo de ${tl} na prática`,"Demonstração"],[`Os erros mais comuns em ${tl} e como evitar`,"Videoaula"],[`Estudo de caso: ${tl} na rotina de ${per}`,"Mediação ao vivo"]]});
+  });
+  const tl = tools.slice(0,3);
+  out.push({t:"Ferramentas, protocolos e prática profissional", kind:"tools", h,
+    em: tools.length ? `Aplicação dos instrumentos que você usa no trabalho: ${tools.join(", ")}.` : `Aplicação prática das ferramentas e protocolos do seu método em situações reais.`,
+    obj:["Usar as ferramentas do método com autonomia","Adaptar os protocolos a cada caso","Registrar e acompanhar resultados"],
+    aulas: [...tl.map(x=>[`Como usar: ${x}`,"Tutorial"]), ...[["Seu kit de trabalho: modelos e checklists","Tutorial"],["Aplicando o protocolo do início ao fim","Demonstração"],["Laboratório: casos para resolver","Prática"],["Como medir o resultado do que você aplicou","Videoaula"]]].slice(0,4)});
+  out.push({t: m.mba ? "Projeto aplicado de gestão (TCC)" : "Projeto aplicado (TCC)", kind:"tcc", h,
+    em:`O aluno entrega um projeto real que prova a promessa do curso${S.a.promessa?`: ${low(S.a.promessa).replace(/\.$/,"")}`:""}.`,
+    obj:["Escolher um problema real para resolver","Aplicar o método do curso do início ao fim","Apresentar resultados de forma profissional"],
+    aulas:[["Como escolher o seu projeto","Videoaula"],["Planejando o projeto aplicado","Tutorial"],["Execução com acompanhamento","Mediação ao vivo"],["Apresentação final","Banca"]]});
+  return out.map((d,i)=>({...d, n:i+1}));
+}
+function pot(){
+  const p = S.pot, t = S.ticket;
+  const mw = Math.floor(p.warm * p.cw / 100), mc = Math.floor(p.cold * p.cc / 100);
+  const mat = mw + mc, contrato = t.n * t.v;
+  return {mw, mc, mat, contrato, fat: mat*contrato, mensal: mat*t.v, fatW: mw*contrato};
+}
+const split = h => [Math.round(h*.3), Math.round(h*.3), h - 2*Math.round(h*.3)];
+function parseISO(s){ const [y,m,d]=s.split("-").map(Number); return new Date(y,(m||1)-1,d||1); }
+function toISO(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
+const addDays = (d,n) => new Date(d.getFullYear(), d.getMonth(), d.getDate()+n);
+const fdt = d => d.toLocaleDateString("pt-BR",{day:"2-digit",month:"short"}).replace(".","");
+const minMagna = () => addDays(new Date(), 90);
+function schedule(){
+  const D = parseISO(S.magna || toISO(addDays(new Date(),100)));
+  const c = CAMPAIGNS[S.campaign || "aula"], dm = c.dMat;
+  const ph = [
+    {n:"Fundação", a:-90, b:-76, t:["Assinar a parceria com a Faculdade FEX Educação®","Validar a matriz curricular com o time acadêmico","Iniciar o processo de registro da pós","Kickoff de implantação","Definir o coordenador pedagógico"]},
+    {n:"Produção", a:-75, b:-41, t:["Definir o corpo docente","Gravar as aulas no padrão 30/30/40","Produzir apostilas, mapas mentais e avaliações","Gravar o podcast de cada disciplina","Configurar a plataforma de ensino"]}
+  ];
+  if(dm <= -35){
+    ph.push({n:"Pré-lançamento", a:-40, b:-16, mat:true, t:["Abrir o checkout e a página de matrícula", ...c.pre]});
+    ph.push({n:"Campanha", a:-15, b:-2, t:c.camp});
+  } else {
+    ph.push({n:"Pré-lançamento", a:-40, b:dm-1, t:c.pre});
+    ph.push({n:"Campanha", a:dm, b:-2, mat:true, t:["Abrir o checkout e a página de matrícula", ...c.camp]});
+  }
+  ph.push({n:"Fechamento", a:-1, b:-1, t:["Últimas matrículas","Boas-vindas aos alunos na plataforma","Preparar a aula magna"]});
+  ph.push({n:"Aula magna", a:0, b:0, magna:true, t:["Abertura oficial da turma 1","Início do calendário acadêmico"]});
+  return ph.map(p=>({...p, ini:addDays(D,p.a), fim:addDays(D,p.b)}));
+}
+
+/* =====================================================================
+   PASSOS DO CONSTRUTOR
+   ===================================================================== */
+const PHASES = ["Você","Seu aluno","Seu método","Seu formato","Seu potencial","Lançamento","Envio"];
+const STEPS = [
+  {id:"nome", ph:0, q:()=>`Vamos começar. <b>Como você se chama?</b>`, help:"Seu nome vai assinar o curso como especialista responsável.",
+    vt:"Bem-vindo ao Gênio Oculto", vx:"Em menos de 1 minuto: como funciona a ferramenta e por que o seu nome assina o curso.",
+    body:()=>`<div class="grid2f"><div><label class="flabel" for="f_nome">Nome</label><input class="inp" id="f_nome" autocomplete="given-name" placeholder="Ex.: Ana" value="${esc(S.a.nome)}"></div><div><label class="flabel" for="f_sobrenome">Sobrenome</label><input class="inp" id="f_sobrenome" autocomplete="family-name" placeholder="Ex.: Ribeiro" value="${esc(S.a.sobrenome)}"></div></div>`,
+    read:()=>{S.a.nome=$("#f_nome").value.trim(); S.a.sobrenome=$("#f_sobrenome").value.trim();}, ok:()=>S.a.nome.length>1 || "Digite o seu nome para continuar."},
+  {id:"area", ph:0, q:()=>`Prazer, ${esc(firstName())}! <b>Em que área você é especialista?</b>`, help:"Pode ser ampla (Fisioterapia) ou bem específica (Fisioterapia esportiva para corredores). Quanto mais específica, melhor fica o curso.",
+    vt:"Como escolher a sua área", vx:"Por que um nicho específico vende mais e como escrever a sua área em poucas palavras.",
+    body:()=>`<input class="inp" id="f_area" placeholder="Ex.: Fisioterapia esportiva" value="${esc(S.a.area)}"><div class="chips" id="areaChips">${AREAS.map(a=>`<button type="button" class="chip${S.a.area===a?" on":""}" data-v="${esc(a)}">${esc(a)}</button>`).join("")}</div>`,
+    bind:()=>{ $("#areaChips").onclick=e=>{const b=e.target.closest(".chip"); if(!b)return; $("#f_area").value=b.dataset.v; $$("#areaChips .chip").forEach(c=>c.classList.toggle("on",c===b)); S.a.area=b.dataset.v; live(); $("#f_area").focus();}; },
+    read:()=>{S.a.area=$("#f_area").value.trim();}, ok:()=>S.a.area.length>1 || "Escreva a sua área ou escolha uma opção."},
+  {id:"anos", ph:0, q:()=>`Há quanto tempo você trabalha com <b>${esc(low(S.a.area)||"isso")}?</b>`, help:"Arraste até o número de anos. Conta tudo: emprego, consultório, empresa própria, atendimentos.",
+    vt:"Sua experiência vale muito", vx:"Como os seus anos de prática viram autoridade dentro do curso.",
+    body:()=>`<div class="xp"><div class="yrs"><span id="yv">${S.a.anos}</span> <small>anos</small></div><input type="range" id="f_anos" min="1" max="40" value="${S.a.anos}" aria-label="Anos de experiência"><div class="wow" id="xpWow"></div></div>`,
+    bind:()=>{ const r=$("#f_anos"); const up=()=>{S.a.anos=+r.value; $("#yv").textContent=r.value; paintRange(r); const h=S.a.anos*220*8; $("#xpWow").innerHTML=`São cerca de <b>${INT(h)} horas</b> de prática. Uma pós-graduação inteira tem 360 horas. Você já viveu o equivalente a <b>${INT(h/360)} pós-graduações.</b>`; live();}; r.oninput=up; up(); },
+    read:()=>{S.a.anos=+$("#f_anos").value;}, ok:()=>true},
+  {id:"perguntas", ph:0, q:()=>`O que as pessoas <b>sempre te perguntam?</b>`, help:"Pense nas dúvidas que você responde toda semana: no trabalho, no Instagram, no WhatsApp. Escreva uma por linha. É aqui que mora o seu gênio oculto.",
+    vt:"Ache o seu gênio oculto", vx:"As perguntas que você responde no automático são o melhor ponto de partida para as suas aulas.",
+    body:()=>`<textarea class="inp" id="f_perg" placeholder="Ex.:&#10;Como voltar a correr depois de uma lesão no joelho?&#10;Quantas sessões preciso para melhorar?&#10;Que exercício posso fazer em casa?">${esc(S.a.perguntas)}</textarea><p class="ex">Não precisa caprichar na escrita. <b>Do jeito que as pessoas falam com você já está ótimo.</b></p>`,
+    read:()=>{S.a.perguntas=$("#f_perg").value.trim();}, ok:()=>S.a.perguntas.length>5 || "Escreva pelo menos uma pergunta que você costuma ouvir."},
+  {id:"persona", ph:1, q:()=>`Quem é a pessoa que <b>mais precisa</b> do que você sabe?`, help:"Lembre: para fazer uma pós-graduação, a pessoa precisa ter uma graduação concluída. Escolha uma opção ou descreva com as suas palavras.",
+    vt:"Quem é o seu aluno", vx:"Como descrever o aluno ideal da sua pós em uma frase.",
+    body:()=>`<input class="inp inp-sm" id="f_persona" placeholder="Ex.: Fisioterapeutas recém-formados que querem atender atletas" value="${esc(S.a.persona)}"><div class="chips" id="perChips">${PERSONAS.map(a=>`<button type="button" class="chip${S.a.persona===a?" on":""}" data-v="${esc(a)}">${esc(a)}</button>`).join("")}</div>`,
+    bind:()=>{ $("#perChips").onclick=e=>{const b=e.target.closest(".chip"); if(!b)return; $("#f_persona").value=b.dataset.v; $$("#perChips .chip").forEach(c=>c.classList.toggle("on",c===b)); S.a.persona=b.dataset.v; live();}; },
+    read:()=>{S.a.persona=$("#f_persona").value.trim();}, ok:()=>S.a.persona.length>3 || "Descreva quem é o seu aluno ideal."},
+  {id:"promessa", ph:1, q:()=>`Depois do seu curso, <b>o que o seu aluno vai conseguir fazer?</b>`, help:"Essa é a promessa do curso. Termine a frase pensando na segunda-feira de manhã do seu aluno: o que muda na vida ou no trabalho dele?",
+    vt:"Escrevendo a promessa", vx:"A frase que faz alguém querer comprar o seu curso. Três exemplos de promessas fortes.",
+    body:()=>`<div style="font-size:clamp(20px,2.4vw,28px);color:var(--muted-d);margin-top:30px">Ele vai conseguir…</div><textarea class="inp" id="f_prom" style="min-height:120px;margin-top:10px" placeholder="Ex.: avaliar, tratar e liberar atletas para voltar ao esporte com segurança e menos risco de nova lesão">${esc(S.a.promessa)}</textarea>`,
+    read:()=>{S.a.promessa=$("#f_prom").value.trim();}, ok:()=>S.a.promessa.length>8 || "Escreva o que o seu aluno vai conseguir fazer."},
+  {id:"temas", ph:2, q:()=>`Quais são os <b>grandes temas</b> que você ensinaria?`, help:"Cada tema vira uma disciplina do curso. Escreva e aperte Enter para adicionar. Três a cinco temas é o ideal. Veja o curso se montando ao lado.",
+    vt:"Seus temas viram disciplinas", vx:"Como separar o que você sabe em blocos que viram disciplinas.",
+    body:()=>`<div class="tags-in"><input class="inp inp-sm" id="f_tema" placeholder="Ex.: Avaliação funcional do atleta" maxlength="80"><button type="button" class="btn btn-green btn-sm" id="addTema">Adicionar</button></div><div class="taglist" id="temaList"></div><div class="sugg" id="temaSugg"></div>`,
+    bind:()=>tagBind("temas","#f_tema","#addTema","#temaList","#temaSugg", ()=>{ const a=low(S.a.area)||"sua área"; return [`Avaliação e diagnóstico em ${a}`,`Técnicas e intervenções em ${a}`,`Casos complexos em ${a}`,`Gestão da carreira em ${a}`,`Atendimento e relacionamento com o cliente`, ...splitList(S.a.perguntas).filter(p=>p.length<60).map(p=>p.replace(/\?$/,""))]; }, 7),
+    read:()=>{}, ok:()=>S.a.temas.length>=2 || "Adicione pelo menos 2 temas. Use as sugestões se quiser."},
+  {id:"ferramentas", ph:2, q:()=>`Que <b>ferramentas, protocolos ou passo a passo</b> você usa no trabalho?`, help:"Fichas, checklists, testes, softwares, roteiros, técnicas próprias. Tudo o que você faz de um jeito que é só seu. Pode pular se preferir.",
+    vt:"Seu método em ferramentas", vx:"Por que as suas ferramentas de trabalho são o que diferencia o seu curso de qualquer outro.",
+    body:()=>`<div class="tags-in"><input class="inp inp-sm" id="f_ferr" placeholder="Ex.: Teste de salto unipodal" maxlength="80"><button type="button" class="btn btn-green btn-sm" id="addFerr">Adicionar</button></div><div class="taglist" id="ferrList"></div><div class="sugg" id="ferrSugg"></div>`,
+    bind:()=>tagBind("ferramentas","#f_ferr","#addFerr","#ferrList","#ferrSugg", ()=>["Ficha de avaliação inicial","Checklist de atendimento","Protocolo passo a passo","Planilha de acompanhamento","Roteiro de primeira consulta"], 6),
+    read:()=>{}, ok:()=>true, skip:true},
+  {id:"referencias", ph:2, q:()=>`Em quem você se apoia? <b>Autores, livros ou metodologias.</b>`, help:"Isso dá base científica ao curso. Se não lembrar agora, pule: o time acadêmico da FEX ajuda depois.",
+    vt:"Base científica sem complicação", vx:"Como citar as referências que você já usa, mesmo sem ser acadêmico.",
+    body:()=>`<textarea class="inp" id="f_refs" style="min-height:120px" placeholder="Ex.: Diretrizes do IOC, livro Fisioterapia Esportiva de Fulano, método McKenzie">${esc(S.a.referencias)}</textarea>`,
+    read:()=>{S.a.referencias=$("#f_refs").value.trim();}, ok:()=>true, skip:true},
+  {id:"ensina", ph:2, q:()=>`Você <b>já ensina</b> hoje?`, help:"Isso ajuda a escolher o melhor jeito de lançar. Em 9 de 10 casos da FEX, a pós entrou depois, em cima de algo que o expert já vendia.",
+    vt:"De onde você parte", vx:"Por que quem já ensina tem um atalho para a primeira turma.",
+    body:()=>opts("ensina",[["nao","Ainda não","Vou começar pela pós"],["mentoria","Mentoria ou consultoria","Atendo pessoas individualmente"],["online","Curso online","Já vendo um curso na internet"],["presencial","Curso ou evento presencial","Turmas, workshops, imersões"]], S.a.ensina),
+    bind:()=>optBind("ensina", v=>{S.a.ensina=v; if(v!=="nao" && S.pot.warm===500) S.pot.warm=800;}), read:()=>{}, ok:()=>!!S.a.ensina || "Escolha uma opção."},
+  {id:"modelo", ph:3, q:()=>`Este é o <b>formato ideal</b> para o seu curso.`, help:"A sugestão vem das palavras que você usou. Você pode trocar se preferir outro formato.",
+    vt:"Pós ou MBA?", vx:"A diferença entre pós-graduação e MBA, EAD e híbrido, e o padrão 30/30/40 da FEX.",
+    body:()=>{ const sug=suggestModel(); if(!S.model) S.model=sug; const m=MODELS[S.model]; const [a,b,c]=split(m.h);
+      return `<div class="opts" id="opt-model">${Object.entries(MODELS).map(([k,x])=>`<button type="button" class="opt${S.model===k?" on":""}" data-v="${k}">${k===sug?'<span class="rec">Recomendado para você</span>':""}<b>${x.type} · ${x.dur}</b><span>${x.mod} · ${x.h}h</span></button>`).join("")}</div>
+      <p class="qhelp" id="mWhy" style="margin-top:22px">${esc(MODELS[S.model].why)}</p>
+      <div class="split" id="mSplit"><div class="a">${a}h<small>hora-aula</small></div><div class="b">${b}h<small>autoestudo</small></div><div class="c">${c}h<small>prática</small></div></div>
+      <div class="note" id="mNote">Padrão FEX 30/30/40: das ${m.h}h, você só precisa gravar <b>${a}h de hora-aula</b>. O resto é autoestudo e prática do aluno.</div>
+      <div class="field"><label class="flabel" for="f_titulo">Nome do curso (pode editar)</label><input class="inp inp-sm" id="f_titulo" value="${esc(S.a.titulo || formation().title)}"></div>`; },
+    bind:()=>{ optBind("model", v=>{S.model=v; const m=MODELS[v]; const [a,b,c]=split(m.h); $("#mWhy").textContent=m.why; $("#mSplit").innerHTML=`<div class="a">${a}h<small>hora-aula</small></div><div class="b">${b}h<small>autoestudo</small></div><div class="c">${c}h<small>prática</small></div>`; $("#mNote").innerHTML=`Padrão FEX 30/30/40: das ${m.h}h, você só precisa gravar <b>${a}h de hora-aula</b>. O resto é autoestudo e prática do aluno.`; const t=$("#f_titulo"); if(/^(Pós-Graduação|MBA) em /.test(t.value)) { t.value = t.value.replace(/^(Pós-Graduação|MBA)/, m.type); } }); $("#f_titulo").oninput=e=>{S.a.titulo=e.target.value; live();}; },
+    read:()=>{S.a.titulo=$("#f_titulo").value.trim();}, ok:()=>!!S.model},
+  {id:"ticket", ph:3, q:()=>`Quanto o seu aluno vai <b>investir por mês?</b>`, help:"Em pós-graduação, a gente vende a parcela, não o total. O aluno compara com a mensalidade de uma faculdade. Os valores abaixo vêm de clientes reais da FEX.",
+    vt:"Escolhendo o preço", vx:"Como o preço da parcela muda o faturamento da mesma turma.",
+    body:()=>`<div class="opts" id="opt-ticket" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">${TICKETS.map(t=>{const k=t.n+"x"+t.v; const on=S.ticket.n===t.n&&S.ticket.v===t.v; return `<button type="button" class="opt${on?" on":""}" data-v="${k}"><span>${t.n} parcelas de</span><div class="price-big">${BRL(t.v)}</div><span>Total por aluno: ${BRL(t.n*t.v)}</span></button>`;}).join("")}</div>`,
+    bind:()=>optBind("ticket", v=>{const [n,x]=v.split("x").map(Number); S.ticket={n,v:x};}), read:()=>{}, ok:()=>true},
+  {id:"audiencia", ph:4, q:()=>`Quantas pessoas <b>já te conhecem?</b>`, help:"Base quente: alunos, ex-alunos, pacientes e clientes. Audiência fria: seguidores, lista de e-mail, contatos. Arraste e veja o potencial da primeira turma.",
+    vt:"O dinheiro que já está na mesa", vx:"Por que a primeira turma começa por quem já confia em você, e como ler o simulador.",
+    body:()=>`<div class="sim">
+      <div class="row"><div class="top2"><span>Base quente (alunos, ex-alunos, clientes)</span><b id="vw">${INT(S.pot.warm)}</b></div><input type="range" id="f_warm" min="0" max="5000" step="50" value="${S.pot.warm}" aria-label="Base quente"><label class="conv">Conversão esperada <input type="number" id="f_cw" min="0" max="100" step="0.5" value="${S.pot.cw}"> % · referência FEX: 5%</label></div>
+      <div class="row"><div class="top2"><span>Audiência fria (seguidores, lista, contatos)</span><b id="vc">${INT(S.pot.cold)}</b></div><input type="range" id="f_cold" min="0" max="200000" step="1000" value="${S.pot.cold}" aria-label="Audiência fria"><label class="conv">Conversão esperada <input type="number" id="f_cc" min="0" max="100" step="0.1" value="${S.pot.cc}"> % · referência FEX: 1%</label></div>
+      <div class="result"><div><div class="lbl">Faturamento da primeira turma</div><div class="rv2" id="vfat">R$ 0</div><div class="sub" id="vmen"></div></div><div class="mat"><b id="vmat">0</b><span class="lbl">matrículas</span></div></div>
+      <p class="ex" id="vread"></p></div>`,
+    bind:()=>{ const up=()=>{ S.pot.warm=+$("#f_warm").value; S.pot.cold=+$("#f_cold").value; S.pot.cw=Math.max(0,+$("#f_cw").value||0); S.pot.cc=Math.max(0,+$("#f_cc").value||0); paintRange($("#f_warm")); paintRange($("#f_cold")); $("#vw").textContent=INT(S.pot.warm); $("#vc").textContent=INT(S.pot.cold); const p=pot(); tween($("#vfat"),p.fat,BRL); tween($("#vmat"),p.mat,INT); $("#vmen").textContent=`${S.ticket.n}x de ${BRL(S.ticket.v)} · ${BRL(p.mensal)} por mês em parcelas`; $("#vread").innerHTML = p.fatW>0?`Só com a sua base quente, sem gastar com anúncio, são <b>${BRL(p.fatW)}</b> em contratos.`:"Aumente a base quente para ver o dinheiro que já está na mesa."; live(); }; ["#f_warm","#f_cold","#f_cw","#f_cc"].forEach(s=>$(s).oninput=up); up(); },
+    read:()=>{}, ok:()=>true},
+  {id:"campanha", ph:5, q:()=>`Como você quer <b>lançar a primeira turma?</b>`, help:"Não existe um jeito certo. O que muda é onde está a confiança do seu público. Escolha o que tem mais a ver com você hoje.",
+    vt:"Escolhendo o lançamento", vx:"Os 6 modelos de campanha e qual combina com o seu momento.",
+    body:()=>opts("campaign", Object.entries(CAMPAIGNS).map(([k,c])=>[k,c.label,c.desc+" "+c.best]), S.campaign),
+    bind:()=>optBind("campaign", v=>{S.campaign=v;}), read:()=>{}, ok:()=>!!S.campaign || "Escolha um modelo de lançamento."},
+  {id:"magna", ph:5, q:()=>`Quando vai ser a <b>aula magna</b> da sua turma?`, help:"A aula magna é a abertura oficial do curso. A implantação com a FEX leva 90 dias, então a data mínima é daqui a 90 dias. Ela monta o seu cronograma.",
+    vt:"A data que puxa tudo", vx:"Por que marcar a data da aula magna transforma intenção em projeto.",
+    body:()=>{ const mn=toISO(minMagna()); if(!S.magna || S.magna<mn) S.magna=toISO(addDays(new Date(),100)); return `<input type="date" class="inp" id="f_magna" min="${mn}" value="${S.magna}" style="max-width:360px"><div class="note" id="magNote"></div>`; },
+    bind:()=>{ const el=$("#f_magna"); const up=()=>{ const mn=toISO(minMagna()); if(!el.value || el.value<mn){ el.value=mn; } S.magna=el.value; const d=parseISO(S.magna); const c=CAMPAIGNS[S.campaign||"aula"]; $("#magNote").innerHTML=`Aula magna em <b>${d.toLocaleDateString("pt-BR",{day:"2-digit",month:"long",year:"numeric"})}</b>. As matrículas abrem por volta de <b>${addDays(d, c.dMat<=-35?-40:c.dMat).toLocaleDateString("pt-BR",{day:"2-digit",month:"long"})}</b>.`; }; el.onchange=up; up(); },
+    read:()=>{S.magna=$("#f_magna").value;}, ok:()=>!!S.magna},
+  {id:"contato", ph:6, q:()=>`Seu curso está pronto, ${esc(firstName())}. <b>Para onde enviamos?</b>`, help:"Usamos o seu contato para salvar o plano e para um especialista da FEX falar com você, se quiser.",
+    vt:"Quase lá", vx:"O que acontece depois que você vê a prévia do seu curso.",
+    body:()=>`<div class="grid2f"><div><label class="flabel" for="f_email">E-mail</label><input class="inp inp-sm" id="f_email" type="email" autocomplete="email" placeholder="voce@email.com" value="${esc(S.a.email)}"></div><div><label class="flabel" for="f_tel">WhatsApp</label><input class="inp inp-sm" id="f_tel" type="tel" autocomplete="tel" placeholder="(11) 99999-9999" value="${esc(S.a.telefone)}"></div><div><label class="flabel" for="f_ig">Instagram (opcional)</label><input class="inp inp-sm" id="f_ig" placeholder="@seuperfil" value="${esc(S.a.instagram)}"></div></div><label style="display:flex;gap:12px;align-items:flex-start;margin-top:26px;font-size:15px;color:var(--muted-d)"><input type="checkbox" id="f_consent" ${S.a.consent?"checked":""} style="width:20px;height:20px;accent-color:var(--green);margin-top:3px">Aceito receber o meu plano e falar com a Faculdade FEX Educação® sobre o meu curso.</label>`,
+    bind:()=>{ $("#f_tel").oninput=e=>{ e.target.value=maskTel(e.target.value); }; },
+    read:()=>{S.a.email=$("#f_email").value.trim(); S.a.telefone=$("#f_tel").value.trim(); S.a.instagram=$("#f_ig").value.trim(); S.a.consent=$("#f_consent").checked;},
+    ok:()=>{ if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(S.a.email)) return "Confira o e-mail. Ele precisa ter @ e um domínio, como voce@email.com."; if(S.a.telefone.replace(/\D/g,"").length<10) return "Digite o WhatsApp com DDD."; if(!S.a.consent) return "Marque a caixa para receber o seu plano."; return true; }, cta:"Ver meu curso pronto"}
+];
+function maskTel(v){ v=v.replace(/\D/g,"").slice(0,11); if(v.length>6) return `(${v.slice(0,2)}) ${v.slice(2,v.length-4)}-${v.slice(-4)}`; if(v.length>2) return `(${v.slice(0,2)}) ${v.slice(2)}`; return v; }
+function opts(key, list, cur){ return `<div class="opts" id="opt-${key}">${list.map(([v,b,s])=>`<button type="button" class="opt${cur===v?" on":""}" data-v="${v}"><b>${esc(b)}</b><span>${esc(s)}</span></button>`).join("")}</div>`; }
+function optBind(key, fn){ const box=$("#opt-"+key); box.onclick=e=>{ const b=e.target.closest(".opt"); if(!b) return; $$(".opt",box).forEach(o=>o.classList.toggle("on",o===b)); fn(b.dataset.v); live(); save(); }; }
+function tagBind(key, inSel, btnSel, listSel, suggSel, suggFn, max){
+  const inp=$(inSel), list=$(listSel), sg=$(suggSel);
+  const render=()=>{ list.innerHTML=S.a[key].map((t,i)=>`<div class="tg"><span class="n">${String(i+1).padStart(2,"0")}</span><span class="t">${esc(t)}</span><button type="button" aria-label="Remover ${esc(t)}" data-i="${i}">×</button></div>`).join("");
+    const used=new Set(S.a[key].map(x=>x.toLowerCase())); const s=[...new Set(suggFn())].filter(x=>!used.has(x.toLowerCase())).slice(0,5);
+    sg.innerHTML = S.a[key].length<max && s.length ? `<span class="lbl">Sugestões</span>${s.map(x=>`<button type="button" class="chip" data-s="${esc(x)}">+ ${esc(x)}</button>`).join("")}` : (S.a[key].length>=max?`<span class="lbl">Limite de ${max} itens</span>`:""); live(); save(); };
+  const add=v=>{ v=cap(String(v).trim()); if(!v || S.a[key].length>=max || S.a[key].some(x=>x.toLowerCase()===v.toLowerCase())) return; S.a[key].push(v); render(); };
+  $(btnSel).onclick=()=>{ add(inp.value); inp.value=""; inp.focus(); };
+  inp.onkeydown=e=>{ if(e.key==="Enter"){ e.preventDefault(); e.stopPropagation(); if(inp.value.trim()){ add(inp.value); inp.value=""; } else next(); } };
+  list.onclick=e=>{ const b=e.target.closest("button[data-i]"); if(!b) return; S.a[key].splice(+b.dataset.i,1); render(); };
+  sg.onclick=e=>{ const b=e.target.closest("[data-s]"); if(b) add(b.dataset.s); };
+  render();
+}
+
+/* ============ render do construtor ============ */
+function renderPhases(){
+  const cur = STEPS[S.step].ph;
+  $("#phases").innerHTML = PHASES.map((p,i)=>{
+    const inPh = STEPS.map((s,j)=>({s,j})).filter(x=>x.s.ph===i);
+    const doneN = inPh.filter(x=>x.j<S.step).length;
+    const pct = i<cur?100: i>cur?0: Math.round((doneN/inPh.length)*100);
+    return `<div class="phase${i===cur?" cur":""}"><div class="bar"><i style="width:${pct}%"></i></div><span>${p}</span></div>`;
+  }).join("");
+}
+function renderStep(dir=1){
+  const st = STEPS[S.step], box = $("#qbox");
+  box.className = "qbox"; void box.offsetWidth; box.className = "qbox " + (dir>0?"anim":"back");
+  box.innerHTML = `
+    <div class="qnum"><span>${PHASES[st.ph]} · ${S.step+1} de ${STEPS.length}</span>
+      <button type="button" class="tut" data-video="${st.id}"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span>Assistir: como preencher</button></div>
+    <h2 class="q">${st.q()}</h2>
+    <p class="qhelp">${st.help}</p>
+    <div class="field">${st.body()}</div>
+    <div class="err" id="err" role="alert"></div>
+    <div class="qnav">
+      <button type="button" class="btn btn-green" id="nextBtn">${st.cta || "Continuar"} <span class="arr">→</span></button>
+      ${st.skip?`<button type="button" class="skip" id="skipBtn">Pular esta</button>`:""}
+      <span class="hint">ou aperte <kbd>Enter ↵</kbd></span>
+    </div>
+    ${S.step>0?`<button type="button" class="backbtn" id="backBtn" style="margin-top:22px">← Voltar</button>`:""}`;
+  st.bind && st.bind();
+  $("#nextBtn").onclick = next;
+  $("#skipBtn") && ($("#skipBtn").onclick = ()=>{ S.step++; save(); renderPhases(); renderStep(1); live(); });
+  $("#backBtn") && ($("#backBtn").onclick = prev);
+  $$(".inp", box).forEach(i=>{ i.addEventListener("input", ()=>{ try{st.read();}catch(e){} live(); }); });
+  $$("input[type=range]", box).forEach(paintRange);
+  const f = $("input.inp:not([type=date]), textarea.inp", box);
+  if(f && matchMedia("(min-width: 900px)").matches) setTimeout(()=>f.focus({preventScroll:true}), 350);
+  renderPhases(); live();
+  scrollTo({top:0, behavior: reduced?"auto":"smooth"});
+}
+function next(){
+  const st = STEPS[S.step]; st.read();
+  const v = st.ok();
+  if(v!==true){ $("#err").textContent = v; $("#qbox").animate([{transform:"translateX(0)"},{transform:"translateX(-10px)"},{transform:"translateX(10px)"},{transform:"translateX(0)"}],{duration:300}); return; }
+  save();
+  if(st.id==="nome") track("inicio");
+  if(S.step < STEPS.length-1){ S.step++; save(); renderStep(1); }
+  else finishBuilder();
+}
+function prev(){ const st=STEPS[S.step]; try{st.read();}catch(e){} if(S.step>0){ S.step--; save(); renderStep(-1);} }
+document.addEventListener("keydown", e=>{
+  if(!$("#view-builder").classList.contains("on") || $("#modal").classList.contains("on")) return;
+  if(e.key==="Enter" && !e.shiftKey && e.target.tagName!=="TEXTAREA" && e.target.tagName!=="BUTTON"){ e.preventDefault(); next(); }
+  if(e.key==="Enter" && (e.metaKey||e.ctrlKey) && e.target.tagName==="TEXTAREA"){ e.preventDefault(); next(); }
+});
+
+/* ============ painel ao vivo ============ */
+function live(){
+  const f = formation(), p = pot();
+  $("#lvType").textContent = `${f.m.type} · ${f.m.h}h`;
+  const hasT = S.a.area || S.a.titulo;
+  $("#lvTitle").textContent = hasT ? f.title : "O nome do seu curso aparece aqui";
+  $("#lvTitle").classList.toggle("ph", !hasT);
+  $("#lvProm").textContent = S.a.promessa ? "Seu aluno vai conseguir " + low(S.a.promessa).replace(/\.$/,"") + "." : (S.a.nome ? `Por ${S.a.nome} ${S.a.sobrenome}`.trim() : "");
+  $("#lvChips").innerHTML = [S.a.nome && `${S.a.nome} ${S.a.sobrenome}`.trim(), S.step>2 && `${S.a.anos} anos de prática`, S.a.persona && S.a.persona].filter(Boolean).map(x=>`<span>${esc(x)}</span>`).join("");
+  const reached = S.step >= STEPS.findIndex(s=>s.id==="temas");
+  const ds = f.discs;
+  const shown = reached ? ds : [];
+  $("#lvMods").innerHTML = shown.length ? shown.map(d=>`<li><span class="n">${String(d.n).padStart(2,"0")}</span><span class="t">${esc(d.t)}</span></li>`).join("")
+    : Array.from({length:f.m.mba?7:6},(_,i)=>`<li class="ghost"><span class="n">${String(i+1).padStart(2,"0")}</span>Disciplina ${i+1}</li>`).join("");
+  $("#lvCount").textContent = `${ds.length} · ${ds.length*4} aulas`;
+  $("#lvBadge").textContent = reached ? ds.length : 0;
+  const [ha] = split(f.m.h);
+  $("#lvStats").innerHTML = `<div><b>${f.m.h}h</b><span>carga total</span></div><div><b>${ha}h</b><span>para gravar</span></div>`+
+    (S.step >= STEPS.findIndex(s=>s.id==="audiencia") ? `<div class="wide"><b>${BRL(p.fat)}</b><span>potencial da 1ª turma · ${INT(p.mat)} matrículas</span></div>` : `<div class="wide"><b>R$ ···</b><span>potencial aparece na etapa 5</span></div>`);
+}
+$("#openLive").onclick=()=>{ $("#live").classList.add("open"); $("#scrim").classList.add("on"); };
+const closeLive=()=>{ $("#live").classList.remove("open"); $("#scrim").classList.remove("on"); };
+$("#closeLive").onclick=closeLive; $("#scrim").onclick=closeLive;
+
+/* ============ análise ============ */
+function finishBuilder(){
+  S.done = true; S.leadId = S.leadId || "GO-" + Date.now().toString(36).toUpperCase(); save();
+  track("lead"); sendLead("prévia");
+  const f = formation();
+  const items = [`Lendo ${S.a.anos} anos de experiência em ${low(S.a.area)}`, `Transformando ${S.a.temas.length} temas em ${f.discs.length} disciplinas`, `Criando ${f.discs.length*4} aulas no padrão FEX 30/30/40`, `Calculando o potencial da primeira turma`, `Montando o cronograma de 90 dias`];
+  show("analise");
+  $("#anTitle").textContent = `Organizando o que você sabe, ${firstName()}…`;
+  $("#anList").innerHTML = items.map(t=>`<li><i></i>${esc(t)}</li>`).join("");
+  const lis = $$("#anList li"); let i = 0;
+  const stepT = reduced ? 150 : 850;
+  const tick = () => { if(i>0) lis[i-1].className = "ok"; if(i<lis.length){ lis[i].className = "on"; i++; setTimeout(tick, stepT); } else setTimeout(()=>{ renderPreview(); show("preview"); }, reduced?100:600); };
+  tick();
+}
+
+/* ============ prévia ============ */
+const LOCK = `<span class="lockico"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>`;
+const PLAY = `<svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg>`;
+function discHTML(d, open, locked){
+  const [a,b,c] = split(d.h);
+  return `<div class="disc${open?" open":""}${locked?" locked":""}">
+    <button type="button" class="dh" ${locked?"disabled":""} aria-expanded="${open}"><span class="dn">${String(d.n).padStart(2,"0")}</span><span><span class="dt3">${esc(d.t)}</span><span class="meta">${d.h}h · 4 aulas</span></span>${locked?LOCK:`<span class="chev">⌄</span>`}</button>
+    <div class="db">
+      <p class="em">${esc(d.em)}</p>
+      <ul class="obj">${d.obj.map(o=>`<li>${esc(o)}</li>`).join("")}</ul>
+      <div class="lessons">${d.aulas.map((l,i)=>`<div class="lesson"><span class="lp">${PLAY}</span><span><b>Aula ${i+1}. ${esc(l[0])}</b><small>${d.kind==="tcc"?"Acompanhamento do projeto":"Gravação de 15 a 25 minutos"}</small></span><span class="fmt">${esc(l[1])}</span></div>`).join("")}</div>
+      <div class="split-mini"><span class="a">${a}h hora-aula</span><span class="b">${b}h autoestudo</span><span class="c">${c}h prática</span></div>
+      <div class="mats"><span>Videoaulas</span><span>Apostila</span><span>Mapa mental</span><span>Podcast</span><span>Exercício prático</span><span>Avaliação</span></div>
+    </div></div>`;
+}
+function bindDiscs(root){ $$(".disc .dh", root).forEach(b=>b.onclick=()=>{ const d=b.closest(".disc"); if(d.classList.contains("locked")) return; d.classList.toggle("open"); b.setAttribute("aria-expanded", d.classList.contains("open")); }); }
+function posterHTML(f,p){
+  return `<div class="course-poster rv">
+    <div class="l"><img class="logo" src="assets/logo-fex-branco.png" alt="FEX Educação" width="104" height="18"><div class="type">${esc(f.m.type)} · ${esc(f.m.mod)}</div><div class="ttl">${esc(f.title)}</div>
+      ${S.a.promessa?`<div class="prom">Para ${esc(low(S.a.persona)||"profissionais")} que querem ${esc(low(S.a.promessa).replace(/\.$/,""))}.</div>`:""}
+      <div class="by">Especialista responsável: <b>${esc((S.a.nome+" "+S.a.sobrenome).trim())}</b> · ${S.a.anos} anos em ${esc(low(S.a.area))}</div></div>
+    <div class="r"><div><b>${f.m.h}h</b><span>carga horária</span></div><div><b>${f.discs.length}</b><span>disciplinas</span></div><div><b>${f.discs.length*4}</b><span>aulas</span></div><div><b>${f.m.dur.split(" ")[0]}</b><span>meses</span></div>
+      <div class="full"><b data-tw="${p.fat}">${BRL(p.fat)}</b><span>potencial da primeira turma · ${INT(p.mat)} matrículas</span></div></div></div>`;
+}
+function renderPreview(){
+  const f = formation(), p = pot();
+  $("#view-preview").innerHTML = `
+  <section class="pv-hero"><div class="wrap">
+    <span class="pill"><span class="dot"></span>Prévia gratuita</span>
+    <h1>${esc(firstName())}, este é o <b>seu curso.</b></h1>
+    <p class="lead muted" style="margin-top:22px">Montado a partir do que você contou. Abra as duas primeiras disciplinas e veja as aulas. O plano completo libera todo o resto.</p>
+    ${posterHTML(f,p)}
+  </div></section>
+  <section class="sec band-paper"><div class="wrap">
+    <p class="eyebrow" style="color:#1a8a1a">Matriz curricular</p>
+    <h2 class="display" style="margin-top:16px">${f.discs.length} disciplinas, <b>${f.discs.length*4} aulas.</b></h2>
+    <div class="mt32" id="pvDiscs">${f.discs.map((d,i)=>discHTML(d, i===0, i>1)).join("")}</div>
+    <div class="lockcard" style="margin-top:20px">${LOCK}<span>As aulas das disciplinas ${3} a ${f.discs.length} estão no plano completo.</span></div>
+  </div></section>
+  <section class="sec band-dark"><div class="wrap">
+    <p class="eyebrow g">No plano completo</p>
+    <h2 class="display" style="margin-top:16px;max-width:20ch">Tudo o que falta para você <b>gravar, vender e lançar.</b></h2>
+    <div class="unlock-grid">
+      ${[["Todas as aulas","Ementa, objetivos e as 4 aulas de cada uma das "+f.discs.length+" disciplinas."],["Roteiro modelo de aula","A estrutura de cada gravação, minuto a minuto."],["Plano de gravação",`As ${split(f.m.h)[0]}h de hora-aula organizadas, com checklist de estúdio.`],["Funil de vendas",`O passo a passo da sua ${CAMPAIGNS[S.campaign||"aula"].label.toLowerCase()}, com cadência de fechamento.`],["Página de vendas pronta","Título, promessa e tópicos da página do seu curso."],["Mensagem para a sua base","O texto para enviar no WhatsApp e abrir a lista de espera."],["Cronograma de 90 dias","Da matriz validada até a aula magna, com o dia das matrículas."],["Potencial detalhado","Faturamento em 6 faixas de preço e leitura estratégica."],["Próximo passo com a FEX","Como transformar o plano em pós-graduação com validade acadêmica."]].map(([t,d])=>`<div class="ucard">${LOCK}<h3>${t}</h3><p>${esc(d)}</p></div>`).join("")}
+    </div>
+    <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:56px">
+      <button class="btn btn-green btn-xl" data-checkout>Desbloquear plano completo por R$ ${CONFIG.PRECO} <span class="arr">→</span></button>
+      <button class="link-btn" id="editAns">Ajustar minhas respostas</button>
+    </div>
+    <p class="muted" style="font-size:14px;margin-top:16px">Pagamento único. Acesso imediato ao plano.</p>
+  </div></section>
+  <div class="sticky-cta" id="stickyCta"><div class="wrap"><p><b>${esc(f.title)}</b> · plano completo com ${f.discs.length*4} aulas</p><button class="btn btn-green btn-sm" data-checkout>Desbloquear por R$ ${CONFIG.PRECO} →</button></div></div>`;
+  bindDiscs($("#view-preview"));
+  $("#editAns").onclick = ()=>{ S.step = 0; save(); show("builder"); renderStep(1); };
+  observe($("#view-preview"));
+}
+
+/* ============ checkout ============ */
+function renderCheckout(){
+  const f = formation();
+  track("checkout", {value:CONFIG.PRECO, currency:"BRL"}); sendLead("checkout");
+  $("#view-checkout").innerHTML = `<section class="sec band-dark" style="min-height:100vh"><div class="wrap">
+    <button class="backbtn" id="ckBack">← Voltar para a prévia</button>
+    <div class="ck" style="margin-top:30px">
+      <div>
+        <span class="pill"><span class="dot"></span>Plano completo</span>
+        <h1 class="display" style="font-size:clamp(38px,5.4vw,72px);margin-top:20px;color:var(--white)">Seu curso inteiro, <b>pronto para gravar.</b></h1>
+        <p class="lead muted" style="margin-top:20px">${esc(f.title)}</p>
+        <ul class="pcard" style="background:transparent;border:0;padding:0;margin-top:28px;list-style:none;display:grid;gap:12px">
+          ${["Matriz completa com "+f.discs.length+" disciplinas e "+f.discs.length*4+" aulas","Roteiro modelo de aula e plano de gravação","Funil de vendas com cadência de fechamento","Texto da página de vendas e mensagem para a base","Cronograma de 90 dias até a aula magna","Conversa com especialista da Faculdade FEX Educação®"].map(x=>`<li style="color:var(--sand)">${esc(x)}</li>`).join("")}
+        </ul>
+      </div>
+      <div class="ckbox">
+        <div class="row"><span>Plano completo · Gênio Oculto</span><b>R$ ${CONFIG.PRECO}</b></div>
+        <div class="row"><span>Para</span><span style="text-align:right">${esc(S.a.nome+" "+S.a.sobrenome)}<br><small class="muted">${esc(S.a.email)}</small></span></div>
+        <div class="tot"><span>Total</span><b>R$ ${CONFIG.PRECO}</b></div>
+        <button class="btn btn-green btn-xl" id="payBtn" style="width:100%;margin-top:22px">${CONFIG.CHECKOUT_URL?"Ir para o pagamento seguro":"Liberar meu plano"} <span class="arr">→</span></button>
+        ${CONFIG.CHECKOUT_URL?`<p class="muted" style="font-size:14px;margin-top:14px">Você será levado ao ambiente de pagamento. Depois da confirmação, o plano abre aqui.</p>`:`<div class="demo-flag">Modo demonstração: nenhum valor é cobrado.</div>`}
+      </div>
+    </div></div></section>`;
+  $("#ckBack").onclick = ()=>show("preview");
+  $("#payBtn").onclick = ()=>{
+    if(CONFIG.CHECKOUT_URL){
+      const u = new URL(CONFIG.CHECKOUT_URL);
+      u.searchParams.set("name", (S.a.nome+" "+S.a.sobrenome).trim()); u.searchParams.set("email", S.a.email); u.searchParams.set("phone", S.a.telefone.replace(/\D/g,""));
+      u.searchParams.set("src", S.leadId);
+      location.href = u.toString();
+    } else unlock();
+  };
+}
+function unlock(){
+  S.paid = true; save(); track("compra", {value:CONFIG.PRECO, currency:"BRL"}); sendLead("compra");
+  renderPlan(); show("plan"); burst();
+  setTimeout(()=>toast("Plano completo liberado"), 400);
+}
+
+/* ============ plano completo ============ */
+function salesCopy(f){
+  const nome = (S.a.nome+" "+S.a.sobrenome).trim();
+  return {
+    eyebrow: `${f.m.type} · ${f.m.h}h · ${f.m.mod}`,
+    h: f.title,
+    sub: `Para ${low(S.a.persona)||"profissionais"} que querem ${low(S.a.promessa).replace(/\.$/,"")||"dominar a área"}. Com ${nome}, ${S.a.anos} anos de prática em ${low(S.a.area)}.`,
+    bullets: f.discs.map(d=>d.t),
+    cta: `Garanta sua vaga em ${S.ticket.n}x de ${BRL(S.ticket.v)}`
+  };
+}
+function waBase(f){
+  const nome = firstName();
+  return `Oi, tudo bem? Aqui é ${nome}.
+
+Depois de ${S.a.anos} anos em ${low(S.a.area)}, decidi transformar o que eu sei em uma formação completa: ${f.title}.
+
+É para ${low(S.a.persona)||"quem quer se especializar"}. Ao final, você vai conseguir ${low(S.a.promessa).replace(/\.$/,"")}.
+
+São ${f.discs.length} disciplinas, entre elas:
+${f.discs.slice(1,4).map(d=>"• "+d.t).join("\n")}
+
+Antes de abrir para o público, vou liberar a lista de espera para quem já está comigo, com condição de aluno da casa.
+
+Quer entrar na lista? Responde com EU QUERO que eu te mando os detalhes.`;
+}
+function renderPlan(){
+  const f = formation(), p = pot(), c = CAMPAIGNS[S.campaign||"aula"], sc = schedule(), sp = salesCopy(f);
+  const [ha,hb,hc] = split(f.m.h);
+  const nome = (S.a.nome+" "+S.a.sobrenome).trim();
+  const tScen = TICKETS.map(t=>({...t, fat:p.mat*t.n*t.v}));
+  const maxF = Math.max(...tScen.map(t=>t.fat), 1);
+  const warmShare = p.mat ? Math.round(p.mw/p.mat*100) : 0;
+  const waMsg = `Olá! Acabei de montar o meu plano no Gênio Oculto e quero transformar em uma pós-graduação com a Faculdade FEX Educação®.\n\nNome: ${nome}\nCurso: ${f.title}\nFormato: ${f.m.label} (${f.m.h}h)\nÁrea: ${S.a.area}\nPotencial da 1ª turma: ${BRL(p.fat)} (${INT(p.mat)} matrículas)\nAula magna desejada: ${S.magna?parseISO(S.magna).toLocaleDateString("pt-BR"):"a definir"}\nE-mail: ${S.a.email}\nWhatsApp: ${S.a.telefone}\nID: ${S.leadId}`;
+  const waHref = `https://wa.me/${CONFIG.WHATSAPP_ESPECIALISTA}?text=${encodeURIComponent(waMsg)}`;
+  const toc = [["resumo","Resumo"],["matriz","Matriz curricular"],["aula","Modelo de aula"],["gravacao","Plano de gravação"],["potencial","Potencial"],["funil","Funil de vendas"],["pagina","Página e mensagem"],["cronograma","Cronograma 90 dias"],["papeis","Quem faz o quê"],["proximo","Próximo passo"]];
+  $("#view-plan").innerHTML = `
+  <section class="plan-top"><canvas class="strands2" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:.7"></canvas><div class="wrap">
+    <span class="pill"><span class="dot"></span>Plano completo · ${esc(S.leadId)}</span>
+    <h1>${esc(f.title)}</h1>
+    <div class="meta"><span class="g2">${esc(f.m.type)}</span><span>${f.m.h}h · ${esc(f.m.dur)}</span><span>${esc(f.m.mod)}</span><span>${f.discs.length} disciplinas · ${f.discs.length*4} aulas</span><span>${S.ticket.n}x ${BRL(S.ticket.v)}</span></div>
+    <p class="lead muted" style="margin-top:26px">Especialista responsável: <b style="color:var(--white)">${esc(nome)}</b>. Gerado em ${new Date().toLocaleDateString("pt-BR")} pelo Gênio Oculto da Faculdade FEX Educação®.</p>
+    <div class="plan-actions">
+      <a class="btn btn-green" href="#proximo" data-scroll>Transformar em pós-graduação <span class="arr">→</span></a>
+      ${framed?"":`<button class="btn btn-ghost" id="printBtn">Salvar em PDF</button>`}
+      <button class="btn btn-ghost" id="editPlan">Ajustar respostas</button>
+    </div>
+  </div></section>
+  <div class="wrap plan-body">
+    <nav class="toc" id="toc">${toc.map(([id,t])=>`<a href="#${id}" data-scroll>${t}</a>`).join("")}</nav>
+    <div style="min-width:0">
+      <section class="psec" id="resumo">
+        <p class="eyebrow">01 · Resumo</p>
+        <h2>Sua formação <b>em uma página.</b></h2>
+        <dl class="kv">
+          <div class="span2"><dt>Promessa</dt><dd>Ao final, o aluno vai conseguir ${esc(low(S.a.promessa).replace(/\.$/,""))}.</dd></div>
+          <div><dt>Para quem</dt><dd>${esc(S.a.persona)}</dd></div>
+          <div><dt>Área</dt><dd>${esc(S.a.area)}</dd></div>
+          <div><dt>Formato</dt><dd>${esc(f.m.label)}</dd></div>
+          <div><dt>Carga horária</dt><dd>${f.m.h}h · ${ha}h aula, ${hb}h autoestudo, ${hc}h prática</dd></div>
+          <div><dt>Preço por aluno</dt><dd>${S.ticket.n}x de ${BRL(S.ticket.v)} (${BRL(S.ticket.n*S.ticket.v)})</dd></div>
+          <div><dt>Lançamento</dt><dd>${esc(c.label)}</dd></div>
+          <div><dt>Aula magna</dt><dd>${S.magna?parseISO(S.magna).toLocaleDateString("pt-BR",{day:"2-digit",month:"long",year:"numeric"}):"A definir"}</dd></div>
+          <div class="span2"><dt>Por que este formato</dt><dd>${esc(f.m.why)}</dd></div>
+          <div><dt>Potencial turma 1</dt><dd>${BRL(p.fat)} · ${INT(p.mat)} matrículas</dd></div>
+          ${S.a.ferramentas.length?`<div class="span2"><dt>Ferramentas do método</dt><dd>${esc(S.a.ferramentas.join(", "))}</dd></div>`:""}
+          ${S.a.referencias?`<div><dt>Referências</dt><dd>${esc(S.a.referencias)}</dd></div>`:""}
+        </dl>
+        <p class="intro mt32">O que as pessoas mais perguntam para você virou conteúdo das aulas: ${esc(splitList(S.a.perguntas).slice(0,3).join(" · "))}.</p>
+      </section>
+
+      <section class="psec" id="matriz">
+        <p class="eyebrow">02 · Matriz curricular</p>
+        <h2>${f.discs.length} disciplinas, <b>${f.discs.length*4} aulas.</b></h2>
+        <p class="intro">Cada disciplina tem ${f.discs[0].h}h no padrão FEX 30/30/40, ementa, objetivos, quatro aulas e o kit de materiais. A matriz final é validada com o time acadêmico da FEX na fase de fundação.</p>
+        <div class="mt32" id="planDiscs">${f.discs.map((d,i)=>discHTML(d, i<2, false)).join("")}</div>
+      </section>
+
+      <section class="psec" id="aula">
+        <p class="eyebrow">03 · Modelo de aula</p>
+        <h2>O roteiro de <b>cada gravação.</b></h2>
+        <p class="intro">Use esta estrutura em todas as videoaulas de 15 a 25 minutos. Ela mantém o aluno atento e termina sempre com uma ação prática.</p>
+        <div class="tpl">
+          <div style="--w:10%"><b>0 a 2 min</b><h4>Gancho</h4><p>Uma pergunta real que você ouve de ${esc(low(S.a.persona)||"alunos")}. Diga o que o aluno vai saber fazer ao final.</p></div>
+          <div style="--w:30%"><b>2 a 8 min</b><h4>Conceito</h4><p>A explicação essencial, com um exemplo do seu dia a dia. Nada de teoria solta.</p></div>
+          <div style="--w:60%"><b>8 a 16 min</b><h4>Demonstração</h4><p>Mostre fazendo: tela, caso real, ferramenta ou protocolo, passo a passo.</p></div>
+          <div style="--w:85%"><b>16 a 22 min</b><h4>Erros comuns</h4><p>Os três erros que você mais vê e como evitar cada um.</p></div>
+          <div style="--w:100%"><b>22 a 25 min</b><h4>Tarefa</h4><p>Uma ação prática para o aluno aplicar e registrar. Ela vira as horas de prática.</p></div>
+        </div>
+        <div class="copybox"><div class="cbh"><b>Exemplo pronto · Aula 1 da disciplina 2</b></div><pre>${esc(`Título: ${f.discs[1].aulas[0][0]}
+
+Gancho: "${(splitList(S.a.perguntas)[0]||"Por onde eu começo?").replace(/"/g,"")}" Essa é uma das perguntas que eu mais ouço em ${S.a.anos} anos de ${low(S.a.area)}. Hoje você vai sair desta aula sabendo responder.
+
+Conceito: o que é ${low(f.discs[1].t)} e quando faz diferença no resultado.
+
+Demonstração: um caso real, do começo ao fim, mostrando como eu faço.
+
+Erros comuns: os três deslizes que mais vejo em quem está começando.
+
+Tarefa: aplique em um caso seu esta semana e registre o resultado na plataforma.`)}</pre></div>
+      </section>
+
+      <section class="psec" id="gravacao">
+        <p class="eyebrow">04 · Plano de gravação</p>
+        <h2>Você grava <b>${ha}h.</b> Não ${f.m.h}h.</h2>
+        <p class="intro">As outras ${hb+hc}h são autoestudo (apostilas, podcasts, mapas mentais) e prática aplicada. Dá para gravar em blocos, uma disciplina por vez.</p>
+        <div class="bigstats">
+          <div class="hl"><b>${ha}h</b><span>hora-aula total</span></div>
+          <div><b>${f.discs.length*4}</b><span>aulas-âncora</span></div>
+          <div><b>${Math.round(ha/f.discs.length)}h</b><span>por disciplina</span></div>
+          <div><b>${f.discs.length}</b><span>blocos de gravação</span></div>
+        </div>
+        <ul class="check">
+          ${["Celular ou câmera na horizontal, na altura dos olhos","Luz de frente (janela ou ring light)","Microfone de lapela ou fone com microfone","Fundo limpo e organizado","Roteiro da aula aberto ao lado (modelo da seção 03)","Gravar a disciplina inteira antes de editar","Separar casos reais (sem dados pessoais) para as demonstrações","Salvar os materiais de apoio de cada aula em uma pasta"].map((x,i)=>`<li><input type="checkbox" id="ck${i}" aria-label="${esc(x)}"><label for="ck${i}">${esc(x)}</label></li>`).join("")}
+        </ul>
+        <div class="reading mt32"><p><b>Não quer gravar sozinho?</b> A FEX tem a Consultoria de Criação de Curso ou Mentoria, com metodologia, material didático e opção de produção audiovisual. Pergunte ao especialista no final deste plano.</p></div>
+      </section>
+
+      <section class="psec" id="potencial">
+        <p class="eyebrow">05 · Potencial de faturamento</p>
+        <h2>O dinheiro que já está <b>na sua mesa.</b></h2>
+        <div class="bigstats">
+          <div class="hl"><b>${BRL(p.fat)}</b><span>contratos da turma 1</span></div>
+          <div><b>${INT(p.mat)}</b><span>matrículas</span></div>
+          <div><b>${BRL(p.mensal)}</b><span>por mês em parcelas</span></div>
+          <div><b>${BRL(p.fatW)}</b><span>só da base quente</span></div>
+        </div>
+        <h3 style="margin:40px 0 0;font-size:20px">As mesmas ${INT(p.mat)} matrículas em 6 faixas de preço</h3>
+        <div class="bars" id="bars">${tScen.map(t=>`<div class="barrow${t.n===S.ticket.n&&t.v===S.ticket.v?" sel":""}"><div class="bl">${t.n}x ${BRL(t.v)}<small>${BRL(t.n*t.v)} por aluno</small></div><div class="bt"><i data-w="${Math.max(4,t.fat/maxF*100)}"></i><span>${BRL(t.fat)}</span></div></div>`).join("")}</div>
+        <div class="reading">
+          <p>Base quente: ${INT(S.pot.warm)} pessoas a ${S.pot.cw}% = <b>${INT(p.mw)} matrículas</b>. Audiência fria: ${INT(S.pot.cold)} pessoas a ${S.pot.cc}% = <b>${INT(p.mc)} matrículas</b>.</p>
+          <p>${p.mat? (warmShare>=50?`${warmShare}% das matrículas vêm de quem já confia em você. A primeira turma pode sair com custo baixo de aquisição, e a audiência fria entra como camada de crescimento.`:`${100-warmShare}% das matrículas dependem da audiência fria. Vale fortalecer a base quente (alunos, ex-alunos, comunidade) antes da campanha.`):"Informe o tamanho das audiências para gerar a leitura."}</p>
+          <p class="muted" style="font-size:14px">Projeção feita com os números que você informou. Não é garantia de resultado.</p>
+        </div>
+      </section>
+
+      <section class="psec" id="funil">
+        <p class="eyebrow">06 · Funil de vendas</p>
+        <h2>${esc(c.label)}: <b>o passo a passo.</b></h2>
+        <p class="intro">${esc(c.desc)} ${esc(c.best)}</p>
+        <div class="timeline">${c.cad.map((x,i)=>`<div class="tph"><div class="dot">${i+1}</div><div class="bx"><h4 style="font-size:17px;font-weight:600">${esc(x)}</h4></div></div>`).join("")}</div>
+        <div class="reading mt32"><p><b>Regra de ouro:</b> a primeira turma começa por quem já confia em você. Abra a lista de espera para a base quente antes de qualquer anúncio.</p><p><b>Lembre:</b> pós-graduação exige graduação concluída. Deixe isso claro na página e na conversa de fechamento.</p></div>
+      </section>
+
+      <section class="psec" id="pagina">
+        <p class="eyebrow">07 · Página e mensagem</p>
+        <h2>Textos prontos para <b>começar a vender.</b></h2>
+        <div class="salespage">
+          <div class="sp-h"><small>${esc(sp.eyebrow)}</small><h3><b>${esc(sp.h)}</b></h3><p>${esc(sp.sub)}</p></div>
+          <div class="sp-b"><b>O que você vai aprender</b><ul>${sp.bullets.map(b=>`<li>${esc(b)}</li>`).join("")}</ul><b style="font-size:20px">${esc(sp.cta)}</b><p class="muted" style="margin:0;font-size:14px">Depois do registro com a Faculdade FEX Educação®, inclua na página: "Pós-graduação lato sensu com validade acadêmica através da Faculdade FEX Educação®".</p></div>
+        </div>
+        <div class="copybox"><div class="cbh"><b>Mensagem para a sua base (WhatsApp)</b><button class="mini-btn" data-copy="waBase">Copiar</button></div><pre id="waBase">${esc(waBase(f))}</pre></div>
+      </section>
+
+      <section class="psec" id="cronograma">
+        <p class="eyebrow">08 · Cronograma de 90 dias</p>
+        <h2>Da matriz validada <b>à aula magna.</b></h2>
+        <p class="intro">Cada fase é um checklist. A fase em verde é quando as matrículas abrem.</p>
+        <div class="timeline">${sc.map((ph,i)=>`<div class="tph${ph.mat?" mat":""}${ph.magna?" magna":""}"><div class="dot">${ph.magna?"★":i+1}</div><div class="bx"><div class="hd"><h4>${esc(ph.n)}${ph.mat?'<span class="tagm">Matrículas abrem</span>':""}</h4><span class="dt">${ph.a===ph.b?fdt(ph.ini):fdt(ph.ini)+" a "+fdt(ph.fim)}</span></div><ul>${ph.t.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div></div>`).join("")}</div>
+      </section>
+
+      <section class="psec" id="papeis">
+        <p class="eyebrow">09 · Quem faz o quê</p>
+        <h2>Você entra com o método. <b>A FEX com a estrutura.</b></h2>
+        <div class="roles">
+          <div class="fx"><h3>Faculdade FEX Educação®</h3><ul><li>Registro da pós-graduação com validade acadêmica</li><li>Estrutura pedagógica e secretaria acadêmica</li><li>Emissão dos certificados</li><li>Plataforma de ensino</li><li>Acompanhamento da implantação em 90 dias</li><li>Padrão pedagógico por disciplina, com opção de produção pela FEX</li></ul></div>
+          <div class="ex2"><h3>Você, ${esc(firstName())}</h3><ul><li>Método, conteúdo e curadoria</li><li>Gravação das aulas</li><li>Audiência, marketing e vendas</li><li>Coordenador pedagógico para acompanhar a turma</li><li>Professores convidados conforme a pós cresce</li></ul></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <section class="prata" id="proximo"><canvas id="prataFx" aria-hidden="true"></canvas><div class="wrap">
+    <span class="pill"><span class="dot"></span>Próximo passo</span>
+    <h2>Seu plano está pronto. Agora ele pode virar <b>pós-graduação.</b></h2>
+    <p class="lead muted" style="margin-top:24px">Com a Faculdade FEX Educação®, o curso que você acabou de desenhar ganha registro de pós-graduação com validade acadêmica, estrutura de faculdade e um time ao seu lado do registro à aula magna.</p>
+    <div class="pgrid">
+      <div class="prata-card">
+        <span class="tagp">Recomendado para você</span>
+        <h3>Plano Prata FEX</h3>
+        <p class="muted" style="margin:0">Para experts que querem a própria pós-graduação e registrar outros cursos da sua escada.</p>
+        <ul>
+          <li>1 pós-graduação com validade acadêmica através da Faculdade FEX Educação®</li>
+          <li>Até 3 cursos registrados como extensão universitária</li>
+          <li>1 certificação internacional*</li>
+          <li>Até 240 certificados por ano</li>
+          <li>Plataforma de ensino inclusa</li>
+          <li>Estrutura acadêmica, emissão de certificados e acompanhamento</li>
+        </ul>
+        <p class="fine">*Certificação internacional é educação continuada e não constitui título acadêmico brasileiro. Valores conforme a tabela vigente, apresentados pelo especialista.</p>
+      </div>
+      <div>
+        <div class="consult"><h4>Quer ajuda para produzir?</h4><p>Consultoria de Criação de Curso ou Mentoria: imersão, arquitetura da metodologia, material didático e opção de produção audiovisual. Você entrega o método, a FEX ajuda a transformar em curso.</p></div>
+        <div class="consult"><h4>O que acontece na conversa</h4><p>O especialista recebe o seu plano, tira dúvidas sobre registro, prazos e valores, e mostra o caminho para a sua primeira turma. Sem compromisso.</p></div>
+        <div class="consult"><h4>Seu plano vai junto</h4><p>A mensagem já sai preenchida com o nome do curso, o formato, o potencial e a data da aula magna.</p></div>
+      </div>
+    </div>
+    <a class="mega" href="${waHref}" target="_blank" rel="noopener" id="megaCta">
+      <span class="mk"><span><small>Fale com o nosso especialista</small><strong>Transforme este plano em uma pós-graduação com a Faculdade FEX Educação®</strong></span><span class="wa"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 2.4 1 2.9.8 3.4.7.5-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg></span></span>
+    </a>
+    <p class="mega-sub">Abre o WhatsApp da Faculdade FEX Educação® com o seu plano. Número: +55 ${CONFIG.WHATSAPP_ESPECIALISTA.slice(2,4)} ${CONFIG.WHATSAPP_ESPECIALISTA.slice(4,9)}-${CONFIG.WHATSAPP_ESPECIALISTA.slice(9)}</p>
+  </div></section>`;
+  bindDiscs($("#view-plan"));
+  $("#editPlan").onclick = ()=>{ S.step = 0; save(); show("builder"); renderStep(1); };
+  $("#printBtn") && ($("#printBtn").onclick = ()=>{ $$("#view-plan .disc").forEach(d=>d.classList.add("open")); window.print(); });
+  $("#megaCta").onclick = ()=>{ track("especialista"); sendLead("especialista"); };
+  $$("#view-plan [data-copy]").forEach(b=>b.onclick=()=>copyText($("#"+b.dataset.copy).textContent, b));
+  const bars = $("#bars"); const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ $$("i[data-w]",bars).forEach(i=>i.style.width=i.dataset.w+"%"); io.disconnect(); } }),{threshold:.3}); io.observe(bars);
+  tocSpy();
+  strands($(".strands2"), {count:14, alpha:.55});
+  strands($("#prataFx"), {count:26, alpha:.9});
+}
+function copyText(t, btn){
+  const ok=()=>{ btn.textContent="Copiado"; btn.classList.add("ok"); setTimeout(()=>{btn.textContent="Copiar"; btn.classList.remove("ok");},1800); };
+  try{ navigator.clipboard.writeText(t).then(ok).catch(()=>selectPre(btn)); }catch(e){ selectPre(btn); }
+}
+function selectPre(btn){ const pre=btn.closest(".copybox").querySelector("pre"); const r=document.createRange(); r.selectNodeContents(pre); const s=getSelection(); s.removeAllRanges(); s.addRange(r); toast("Texto selecionado. Copie com Ctrl+C."); }
+function tocSpy(){
+  const links = $$("#toc a"); const secs = links.map(a=>$(a.getAttribute("href")));
+  const io = new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){ links.forEach(l=>l.classList.toggle("on", l.getAttribute("href")==="#"+e.target.id)); } }); },{rootMargin:"-30% 0px -60% 0px"});
+  secs.forEach(s=>s && io.observe(s));
+}
+
+/* ============ navegação ============ */
+const VIEWS = ["home","builder","analise","preview","checkout","plan"];
+function show(v){
+  VIEWS.forEach(x=>$("#view-"+x).classList.toggle("on", x===v));
+  $("#topCta").hidden = v!=="home";
+  $("#topTag").textContent = {home:"Gênio Oculto · Faculdade FEX Educação®", builder:"Construindo o seu curso", analise:"Organizando", preview:"Prévia do seu curso", checkout:"Plano completo", plan:"Seu plano completo"}[v];
+  $("footer").hidden = v==="builder"||v==="analise";
+  $(".top").hidden = v==="analise";
+  scrollTo({top:0, behavior:"auto"});
+  if(v!=="builder") closeLive();
+  const sc = $("#stickyCta"); if(sc) sc.classList.remove("on");
+}
+function start(){
+  if(S.exemplo){ S = blank(); save(); }
+  if(S.paid){ renderPlan(); show("plan"); return; }
+  if(S.done){ renderPreview(); show("preview"); return; }
+  show("builder"); renderStep(1);
+}
+document.addEventListener("click", e=>{
+  const t = e.target.closest("[data-start],[data-go],[data-checkout],[data-video],[data-close],[data-scroll]");
+  if(!t) return;
+  if(t.hasAttribute("data-start")){ e.preventDefault(); start(); }
+  else if(t.hasAttribute("data-go")){ e.preventDefault(); if(S.paid && t.dataset.go==="home"){ show("home"); } else show(t.dataset.go); }
+  else if(t.hasAttribute("data-checkout")){ e.preventDefault(); renderCheckout(); show("checkout"); }
+  else if(t.hasAttribute("data-video")){ openVideo(t.dataset.video); }
+  else if(t.hasAttribute("data-close")){ closeVideo(); }
+  else if(t.hasAttribute("data-scroll")){ e.preventDefault(); const el=$(t.getAttribute("href")); el && el.scrollIntoView({behavior:reduced?"auto":"smooth"}); }
+});
+$("#btnExemplo").onclick = ()=>{
+  S = blank(); S.exemplo = true;
+  Object.assign(S.a, {nome:"Ana", sobrenome:"Ribeiro (exemplo)", area:"Fisioterapia esportiva", anos:18,
+    perguntas:"Como voltar a correr depois de uma lesão no joelho?\nQuantas sessões preciso para melhorar?\nQue exercício posso fazer em casa?\nQuando posso voltar a competir?",
+    persona:"Fisioterapeutas formados que querem atender atletas", promessa:"avaliar, tratar e liberar atletas para voltar ao esporte com segurança e menos risco de nova lesão",
+    temas:["Avaliação funcional do atleta","Lesões de joelho e tornozelo","Treino de força na reabilitação","Protocolos de retorno ao esporte"],
+    ferramentas:["Teste de salto unipodal","Ficha de avaliação esportiva","Escala de dor e função"], referencias:"Consenso de Berna sobre retorno ao esporte, diretrizes do IOC",
+    ensina:"online", email:"exemplo@fexeducacao.edu.br", telefone:"(11) 99999-0000", titulo:"Pós-Graduação em Fisioterapia Esportiva e Retorno ao Esporte"});
+  S.model = "pos12"; S.ticket = {n:18, v:500}; S.pot = {warm:1200, cold:30000, cw:5, cc:1}; S.campaign = "aula"; S.magna = toISO(addDays(new Date(),110));
+  S.step = STEPS.length-1; S.done = true; S.leadId = "EXEMPLO";
+  renderPreview(); show("preview");
+  toast("Exemplo carregado. Seus dados não foram alterados.");
+};
+
+/* ============ vídeo ============ */
+function openVideo(id){
+  const st = STEPS.find(s=>s.id===id) || {vt:"Como funciona o Gênio Oculto", vx:"Um tour rápido pela ferramenta."};
+  const vid = CONFIG.VIDEOS[id] || (id==="nome" && CONFIG.VIDEOS.boasvindas);
+  $("#mTitle").textContent = st.vt; $("#mText").textContent = st.vx;
+  $("#mVid").innerHTML = vid ? `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(vid)}?autoplay=1&rel=0&modestbranding=1" title="${esc(st.vt)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`
+    : `<div class="ph"><span class="bigplay"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span><p>Vídeo tutorial em produção.<br>Enquanto isso, siga a dica abaixo da pergunta.</p></div>`;
+  $("#modal").classList.add("on"); track("video", {etapa:id});
+}
+function closeVideo(){ $("#modal").classList.remove("on"); $("#mVid").innerHTML=""; }
+document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ closeVideo(); closeLive(); } });
+
+/* =====================================================================
+   MOTION
+   ===================================================================== */
+function strands(cv, o={}){
+  if(!cv) return;
+  const ctx = cv.getContext("2d"); let w,h,dpr; const N=o.count||22, A=o.alpha||1;
+  const lines = Array.from({length:N},(_,i)=>({o:Math.random()*Math.PI*2, s:.15+Math.random()*.35, amp:.08+Math.random()*.22, x:.45+Math.random()*.6, wd:.4+Math.random()*1.6, hue:110+Math.random()*25, l:35+Math.random()*30}));
+  const size=()=>{ dpr=Math.min(2,devicePixelRatio||1); const r=cv.getBoundingClientRect(); w=r.width; h=r.height; cv.width=w*dpr; cv.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); };
+  size(); addEventListener("resize", size);
+  let mx=0, vis=true;
+  addEventListener("pointermove", e=>{ mx = (e.clientX/innerWidth-.5); }, {passive:true});
+  new IntersectionObserver(es=>{ vis = es[0].isIntersecting; }).observe(cv);
+  const draw=t=>{
+    if(vis){
+      ctx.clearRect(0,0,w,h); ctx.globalCompositeOperation="lighter";
+      for(const L of lines){
+        ctx.beginPath();
+        for(let y=-20;y<=h+20;y+=14){
+          const k=y/h; const x = w*(L.x + mx*.04) + Math.sin(k*3 + t*.0004*L.s*4 + L.o)*w*L.amp*(.4+k) - k*w*.25;
+          y===-20?ctx.moveTo(x,y):ctx.lineTo(x,y);
+        }
+        const g = ctx.createLinearGradient(0,0,0,h); g.addColorStop(0,`hsla(${L.hue},90%,${L.l}%,0)`); g.addColorStop(.5,`hsla(${L.hue},95%,${L.l}%,${.55*A})`); g.addColorStop(1,`hsla(${L.hue},90%,${L.l-10}%,${.08*A})`);
+        ctx.strokeStyle=g; ctx.lineWidth=L.wd; ctx.shadowColor=`hsla(${L.hue},100%,50%,${.8*A})`; ctx.shadowBlur=12; ctx.stroke();
+      }
+      ctx.globalCompositeOperation="source-over";
+    }
+    if(!reduced) requestAnimationFrame(draw);
+  };
+  requestAnimationFrame(draw);
+}
+function tween(el, to, fmt, dur=700){
+  if(!el) return; const from = +(el.dataset.v||0); el.dataset.v = to;
+  if(reduced){ el.textContent = fmt(to); return; }
+  const t0 = performance.now(); const step = now=>{ const k=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-k,3); el.textContent = fmt(from+(to-from)*e); if(k<1) requestAnimationFrame(step); }; requestAnimationFrame(step);
+}
+function paintRange(r){ const p=(r.value-r.min)/(r.max-r.min)*100; r.style.setProperty("--p", p+"%"); }
+function observe(root=document){
+  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} }),{threshold:.15});
+  $$(".rv, .steps5", root).forEach(el=>io.observe(el));
+  const ic = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ const el=e.target; tween(el, +el.dataset.count, INT, 1600); ic.unobserve(el);} }),{threshold:.4});
+  $$("[data-count]", root).forEach(el=>{ el.textContent = INT(+el.dataset.count); ic.observe(el); });
+}
+function heroWords(){
+  const h = $("#heroTitle"); if(reduced) return; let i=0;
+  const wrap = node => { [...node.childNodes].forEach(n=>{ if(n.nodeType===3){ const frag=document.createDocumentFragment(); n.textContent.split(/(\s+)/).forEach(p=>{ if(!p.trim()){ frag.append(p); return; } const s=document.createElement("span"); s.className="w"; s.style.animationDelay=(.08*i++ + .1)+"s"; s.textContent=p; frag.append(s); }); n.replaceWith(frag); } else wrap(n); }); };
+  wrap(h);
+}
+function burst(){
+  if(reduced) return; const cv=$("#burst"), ctx=cv.getContext("2d"); cv.width=innerWidth; cv.height=innerHeight;
+  const P = Array.from({length:160},()=>({x:innerWidth/2, y:innerHeight*.35, vx:(Math.random()-.5)*16, vy:Math.random()*-16-3, r:2+Math.random()*5, c:Math.random()<.7?"#32CD32":(Math.random()<.5?"#E8E4D9":"#00D84F"), a:1}));
+  const f=()=>{ ctx.clearRect(0,0,cv.width,cv.height); let alive=false; for(const p of P){ p.vy+=.45; p.x+=p.vx; p.y+=p.vy; p.a-=.012; if(p.a>0){ alive=true; ctx.globalAlpha=p.a; ctx.fillStyle=p.c; ctx.fillRect(p.x,p.y,p.r,p.r*1.6); } } ctx.globalAlpha=1; if(alive) requestAnimationFrame(f); else ctx.clearRect(0,0,cv.width,cv.height); }; f();
+}
+function toast(t){ const el=$("#toast"); el.textContent=t; el.classList.add("on"); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove("on"), 2600); }
+
+/* landing: calculadora, marquee, topo */
+(function(){
+  const r=$("#calcYears"); const up=()=>{ const y=+r.value, h=y*220*8; $("#calcY").textContent=y; $("#calcH").textContent=INT(h)+"h"; $("#calcX").textContent=INT(h/360)+" pós"; paintRange(r); }; r.oninput=up; up();
+  const items = ["Fisioterapia","Direito","Estética","Psicologia","Nutrição","Odontologia","Vendas","Gestão","Medicina","Tecnologia","Educação","Agronegócio","Terapias","Marketing"];
+  const row = items.map(x=>`<span><b>${x}</b></span><i>✦</i>`).join("");
+  $("#mq").innerHTML = row + row;
+  addEventListener("scroll", ()=>$(".top").classList.toggle("scrolled", scrollY>20), {passive:true});
+  addEventListener("scroll", ()=>{ const sc=$("#stickyCta"); if(sc && $("#view-preview").classList.contains("on")) sc.classList.toggle("on", scrollY>700); }, {passive:true});
+})();
+
+/* ============ boot ============ */
+load(); initTracking();
+if(new URLSearchParams(location.search).get("pago")==="1" && S.done){ S.paid = true; save(); track("compra",{value:CONFIG.PRECO,currency:"BRL"}); sendLead("compra"); }
+if(S.exemplo && !S.paid){ S = blank(); save(); }
+strands($("#strands")); heroWords(); observe();
+if(S.paid){ renderPlan(); show("plan"); }
+else if(S.done){ renderPreview(); show("preview"); }
+else if(location.hash==="#construtor"){ start(); }
+</script>
+
+</body>
+</html>
