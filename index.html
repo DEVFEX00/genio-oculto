@@ -412,6 +412,17 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
 .bwrap.light .cheer{color:var(--text);background:linear-gradient(90deg,rgba(50,205,50,.25),rgba(50,205,50,.08))}
 .bwrap.light .cheer b{color:#178a17}
 
+/* admin */
+.admin-link{margin-left:14px;background:none;border:1px solid var(--line-dark);color:var(--muted-d);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;letter-spacing:.06em}
+.admin-link:hover{color:var(--white);border-color:var(--green)}
+.box.adm{max-width:520px;padding:30px 28px;color:var(--sand)}
+.box.adm h3{margin:0 0 6px;font-size:22px;color:var(--white)}
+.box.adm p{margin:0 0 16px;color:var(--muted-d);font-size:15px}
+.box.adm input,.box.adm select{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--line-dark);border-radius:12px;padding:12px 14px;color:var(--white);margin:6px 0 14px}
+.box.adm select option{color:#000}
+.adm-acoes{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.adm-acoes select{flex:1;min-width:0;margin:0}
+
 /* contador de perguntas */
 .pcount{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--bm);margin-bottom:14px;position:relative;padding-bottom:10px}
 .pcount b{font-size:22px;color:var(--white)}
@@ -821,7 +832,7 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
         <div class="fl f3" data-depth="1.5"><span style="display:flex;gap:12px;align-items:center"><span class="bars"><i></i><i></i><i></i><i></i><i></i></span><span><small>Potencial</small><b>da 1ª turma</b></span></span></div>
       </div>
     </div>
-    <div class="rodape"><div class="wrap"><span>Faculdade FEX Educação®</span><span>#sejaFEX</span></div></div>
+    <div class="rodape"><div class="wrap"><span>Faculdade FEX Educação®</span><span>#sejaFEX<button type="button" class="admin-link" id="adminLink" hidden>Admin</button></span></div></div>
   </section>
 </main>
 
@@ -888,6 +899,33 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
     <div class="mtxt"><h3 id="mTitle"></h3><p id="mText"></p></div>
   </div>
 </div>
+<div class="modal" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="admTitle">
+  <div class="bg" data-admclose></div>
+  <div class="box adm">
+    <button class="x" data-admclose aria-label="Fechar">×</button>
+    <div id="admLogin">
+      <h3 id="admTitle">Acesso admin</h3>
+      <p>Só para testes antes do lançamento.</p>
+      <label class="flabel" for="admUser">Login</label><input id="admUser" autocomplete="username">
+      <label class="flabel" for="admPass">Senha</label><input id="admPass" type="password" autocomplete="current-password">
+      <div class="err" id="admErr" role="alert"></div>
+      <button class="btn btn-green btn-sm" id="admEntrar">Entrar</button>
+    </div>
+    <div id="admPainel" hidden>
+      <h3>Atalhos de teste</h3>
+      <p>Usa um curso de exemplo, sem passar pelo checkout.</p>
+      <div class="adm-acoes">
+        <button class="btn btn-green btn-sm" data-adm="plano">Abrir o plano completo</button>
+        <button class="btn btn-ghost btn-sm" data-adm="previa">Abrir a prévia</button>
+        <button class="btn btn-ghost btn-sm" data-adm="checkout">Abrir o checkout</button>
+        <button class="btn btn-ghost btn-sm" data-adm="recuperar">Tela de volta da Hubla</button>
+      </div>
+      <label class="flabel" for="admEtapa">Ir para uma etapa (com o exemplo preenchido)</label>
+      <div class="adm-acoes"><select id="admEtapa"></select><button class="btn btn-ghost btn-sm" data-adm="etapa">Ir</button></div>
+      <div class="adm-acoes"><button class="link-btn" data-adm="limpar">Limpar meus dados</button><button class="link-btn" data-adm="sair">Sair do admin</button></div>
+    </div>
+  </div>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <canvas id="burst" aria-hidden="true"></canvas>
 
@@ -910,6 +948,10 @@ const CONFIG = {
   // IDs de vídeo do YouTube por etapa (ex.: "dQw4w9WgXcQ"). Vazio = mostra "vídeo em produção".
   // "Sugerir com IA" funciona com regras de configuração no próprio navegador, sem custo. Deixe null.
   IA_ENDPOINT: null,
+  // Acesso admin para testes (botão "Admin" no rodapé da capa). Antes do lançamento, troque para false.
+  // Login: admin · Senha: FEX@2026 (guardada só como hash SHA-256 de "login:senha").
+  ADMIN: true,
+  ADMIN_HASH: "9d2c7a3a30c60cc5a91b5d7d46f592e811d3bba17d9c6979c4fce7588f0bb72f",
   // Um vídeo por seção do construtor: ID do YouTube ou caminho de um MP4 do site (ex.: "assets/videos/1-voce.mp4"). Vazio = "vídeo em produção".
   VIDEOS: { voce:"", aluno:"", metodo:"", formato:"", potencial:"", lancamento:"", envio:"" }
 };
@@ -1942,6 +1984,55 @@ function toast(t){ const el=$("#toast"); el.textContent=t; el.classList.add("on"
   addEventListener("scroll", ()=>$(".top").classList.toggle("scrolled", scrollY>20), {passive:true});
   addEventListener("scroll", ()=>{ const sc=$("#stickyCta"); if(sc && $("#view-preview").classList.contains("on")) sc.classList.toggle("on", scrollY>700); }, {passive:true});
 })();
+
+/* ============ admin (só para testes) ============ */
+const ADMIN_KEY = "cf_admin";
+function exemploAdmin(){
+  S = blank();
+  Object.assign(S.a, {nome:"Carla", sobrenome:"Exemplo", area:"Gestão de clínicas", anos:15,
+    perguntas:["Por onde eu começo a organizar a minha clínica?","Como faço a agenda parar de ter buracos?","Quanto devo cobrar pela consulta?","Qual é o erro mais comum de quem abre uma clínica?","Como contratar e treinar a recepção?","Como saber se a clínica está dando lucro?","O que fazer quando o paciente some depois da primeira consulta?","Como divulgar a clínica sem gastar muito?"].join("\n"),
+    persona:"Donos de clínica ou consultório", promessa:"organizar a clínica, encher a agenda e saber exatamente quanto lucra no fim do mês",
+    ferramentas:["Planilha de custo por atendimento","Checklist de abertura do dia","Roteiro de confirmação de consulta"], referencias:"",
+    ensina:"mentoria", objetivo:"capacitar", email:"carla@exemplo.com", telefone:"(11) 90000-0000", consent:true, titulo:""});
+  S.tit = "capacitacao"; S.horas = 120; setParcela(297); S.pot = {warm:800, cold:15000, cw:3, cc:0.3}; S.campaign = "aula";
+  S.magna = toISO(addDays(hoje(),60)); S.a.titulo = tituloLocal(TITS.capacitacao);
+  S.done = true; S.step = STEPS.length-1; S.leadId = "ADMIN-TESTE";
+}
+async function hashAdmin(txt){
+  const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(txt));
+  return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
+}
+function admAberto(){ try{ return sessionStorage.getItem(ADMIN_KEY)==="1"; }catch(e){ return false; } }
+function admMostrar(){
+  const ok = admAberto(); $("#admLogin").hidden = ok; $("#admPainel").hidden = !ok;
+  $("#admEtapa").innerHTML = STEPS.map((st,i)=>`<option value="${i}">${i+1}. ${PHASES[st.ph]} · ${st.id}</option>`).join("");
+  $("#adminModal").classList.add("on"); if(!ok) setTimeout(()=>$("#admUser").focus(), 50);
+}
+const admFechar = () => $("#adminModal").classList.remove("on");
+if(CONFIG.ADMIN){
+  $("#adminLink").hidden = false;
+  $("#adminLink").onclick = admMostrar;
+  $("#admEntrar").onclick = async ()=>{
+    let ok = false; try{ ok = (await hashAdmin($("#admUser").value.trim()+":"+$("#admPass").value)) === CONFIG.ADMIN_HASH; }catch(e){}
+    if(!ok){ $("#admErr").textContent = "Login ou senha incorretos."; return; }
+    try{ sessionStorage.setItem(ADMIN_KEY,"1"); }catch(e){} $("#admErr").textContent = ""; admMostrar();
+  };
+  $("#admPass").onkeydown = e=>{ if(e.key==="Enter") $("#admEntrar").click(); };
+  $("#adminModal").addEventListener("click", async e=>{
+    if(e.target.closest("[data-admclose]")){ admFechar(); return; }
+    const b = e.target.closest("[data-adm]"); if(!b || !admAberto()) return;
+    const acao = b.dataset.adm;
+    if(acao==="sair"){ try{ sessionStorage.removeItem(ADMIN_KEY); }catch(e){} admMostrar(); return; }
+    if(acao==="limpar"){ S = blank(); save(); admFechar(); show("home"); toast("Dados apagados"); return; }
+    exemploAdmin();
+    if(acao==="plano"){ S.paid = true; save(); renderPlan(); show("plan"); }
+    else if(acao==="previa"){ save(); renderPreview(); show("preview"); }
+    else if(acao==="checkout"){ save(); renderCheckout(); show("checkout"); }
+    else if(acao==="recuperar"){ S = blank(); save(); renderRecover(); show("preview"); }
+    else if(acao==="etapa"){ S.done = false; S.step = +$("#admEtapa").value; save(); show("builder"); renderStep(1); }
+    admFechar(); toast("Modo admin: curso de exemplo");
+  });
+}
 
 /* ============ boot ============ */
 load(); initTracking();
