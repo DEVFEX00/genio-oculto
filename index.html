@@ -864,7 +864,7 @@ const CONFIG = {
   // Endpoint de IA para o "Sugerir com IA" (opcional). null = sugestões geradas no navegador a partir das respostas.
   IA_ENDPOINT: null,
   // Um vídeo por seção do construtor (ID do YouTube). Vazio = mostra "vídeo em produção".
-  VIDEOS: { voce:"", aluno:"", metodo:"", formato:"", potencial:"", lancamento:"", envio:"" }
+  VIDEOS: { voce:"FXC5D4a4qzo", aluno:"C_NWgMTR8z0", metodo:"0dNR_oeirhI", formato:"_0VNhoGKhyA", potencial:"a86IQ-89Mk8", lancamento:"uqlyBl2Q1Ic", envio:"OZSOZU7DPQ8" }
 };
 
 /* ============ util ============ */
@@ -1633,7 +1633,7 @@ function openVideo(ph){
   const passos = STEPS.filter(x=>x.ph===+ph).length;
   $("#mTitle").textContent = `Seção ${+ph+1} de ${SECTIONS.length} · ${sec.n}`;
   $("#mText").textContent = `${sec.why} São ${passos} ${passos>1?"perguntas":"pergunta"} nesta seção.`;
-  $("#mVid").innerHTML = vid ? `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(vid)}?autoplay=1&rel=0&modestbranding=1" title="Como preencher a seção ${esc(sec.n)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`
+  $("#mVid").innerHTML = vid ? `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(vid)}?autoplay=1&rel=0&modestbranding=1&playsinline=1${/^https?:/.test(location.origin)?"&origin="+encodeURIComponent(location.origin):""}" title="Como preencher a seção ${esc(sec.n)}" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`
     : `<div class="ph"><span class="bigplay"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span><p>Vídeo da seção ${esc(sec.n)} em produção.<br>Enquanto isso, siga a dica abaixo de cada pergunta.</p></div>`;
   $("#modal").classList.add("on"); track("video", {secao:sec.key});
 }

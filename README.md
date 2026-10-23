@@ -27,7 +27,7 @@ No `index.html`, procure `const CONFIG = {` (início do `<script>`):
 | `LEAD_WEBHOOK_URL` | Envia o lead para o CRM | `null` |
 | `META_PIXEL_ID`, `GTM_ID` | Rastreamento | `null` |
 | `IA_ENDPOINT` | Liga o "Sugerir com IA" a um modelo de verdade (POST `{campo, respostas}` → `{sugestao}`) | `null` = sugestões montadas no navegador a partir das respostas |
-| `VIDEOS` | ID do YouTube de cada tela | vazio = "vídeo em produção" |
+| `VIDEOS` | ID do YouTube do vídeo de cada seção (voce, aluno, metodo, formato, potencial, lancamento, envio) | os 7 tutoriais já ligados |
 
 **Pagamento real:** na plataforma de checkout, configure a página de obrigado para voltar ao site com `?pago=1` (ex.: `https://seudominio/?pago=1`). O plano abre no mesmo navegador em que a pessoa preencheu.
 
