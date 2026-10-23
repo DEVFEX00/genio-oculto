@@ -229,6 +229,9 @@ footer .inst{font-size:13px;max-width:80ch}
 .qnum{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:14px;font-weight:700;color:var(--green);letter-spacing:.18em;text-transform:uppercase}
 .qnum .tut{margin-left:auto;display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(50,205,50,.45);background:rgba(50,205,50,.1);color:var(--sand);border-radius:999px;padding:9px 16px 9px 10px;font-size:13px;letter-spacing:.04em;text-transform:none;font-weight:600;transition:background .25s}
 .qnum .tut:hover{background:rgba(50,205,50,.22)}
+.qnum .tut b{font-weight:800}
+.qnum .tut.new{animation:tutPulse 1.8s ease-in-out 3}
+@keyframes tutPulse{0%,100%{box-shadow:0 0 0 0 rgba(50,205,50,.55)}50%{box-shadow:0 0 0 10px rgba(50,205,50,0)}}
 .qnum .tut .play{width:26px;height:26px;border-radius:50%;background:var(--green);display:grid;place-items:center}
 .qnum .tut .play svg{width:10px;height:10px;fill:var(--ink);margin-left:2px}
 .q{font-size:clamp(30px,4.2vw,54px);font-weight:300;letter-spacing:-.035em;line-height:1.08;margin:18px 0 0;color:var(--white);text-wrap:balance}
@@ -367,6 +370,8 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:68;opacity:0;pointer-events:none;transition:opacity .3s}
 .scrim.on{opacity:1;pointer-events:auto}
 
+/* a coluna do painel acompanha a página inteira */
+@media (min-width:1081px){.bwrap{background:linear-gradient(to left,var(--sand) 420px,transparent 420px);transition:background .7s}.bwrap.light{background:linear-gradient(to left,var(--ink) 420px,transparent 420px)}}
 /* ---------- construtor no celular ---------- */
 @media (max-width:640px){
   .bmain{padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))}
@@ -858,11 +863,8 @@ const CONFIG = {
   // IDs de vídeo do YouTube por etapa (ex.: "dQw4w9WgXcQ"). Vazio = mostra "vídeo em produção".
   // Endpoint de IA para o "Sugerir com IA" (opcional). null = sugestões geradas no navegador a partir das respostas.
   IA_ENDPOINT: null,
-  VIDEOS: {
-    boasvindas:"", nome:"", area:"", anos:"", perguntas:"", persona:"", promessa:"",
-    temas:"", ferramentas:"", referencias:"", ensina:"", modelo:"", ticket:"",
-    audiencia:"", campanha:"", magna:"", contato:"", plano:""
-  }
+  // Um vídeo por seção do construtor (ID do YouTube). Vazio = mostra "vídeo em produção".
+  VIDEOS: { voce:"", aluno:"", metodo:"", formato:"", potencial:"", lancamento:"", envio:"" }
 };
 
 /* ============ util ============ */
@@ -1043,55 +1045,53 @@ function schedule(){
    PASSOS DO CONSTRUTOR
    ===================================================================== */
 const PHASES = ["Você","Seu aluno","Seu método","Seu formato","Seu potencial","Lançamento","Envio"];
+const SECTIONS = [
+  {key:"voce", n:"Você", why:"O seu curso nasce da sua experiência. Aqui você conta quem é, em que área atua, há quanto tempo e o que as pessoas sempre te perguntam."},
+  {key:"aluno", n:"Seu aluno", why:"Curso que fala com todo mundo não vende para ninguém. Aqui você define para quem é o curso e o que essa pessoa vai conseguir fazer no final."},
+  {key:"metodo", n:"Seu método", why:"Os seus temas viram disciplinas, e cada disciplina ganha quatro aulas. Aqui você organiza o que ensina, as ferramentas que usa e as suas referências."},
+  {key:"formato", n:"Seu formato", why:"Pós ou MBA, 6 ou 12 meses, e quanto o aluno investe por mês. Você vê por que precisa gravar muito menos do que imagina."},
+  {key:"potencial", n:"Seu potencial", why:"Quanto a primeira turma pode faturar com quem já te conhece. É o dinheiro que já está na sua mesa."},
+  {key:"lancamento", n:"Lançamento", why:"Como você vai abrir a primeira turma e quando vai ser a aula magna. A data marcada transforma intenção em projeto."},
+  {key:"envio", n:"Envio", why:"Você deixa o seu contato, vê o seu curso montado de graça e descobre o que vem no plano completo."}
+];
 const LIGHT_PH = [1,3,5]; // fases com fundo claro, alternando com as escuras
 const STEPS = [
   {id:"nome", ph:0, q:()=>`Vamos começar. <b>Como você se chama?</b>`, help:"Seu nome vai assinar o curso como especialista responsável.",
-    vt:"Bem-vindo ao Gênio Oculto", vx:"Em menos de 1 minuto: como funciona a ferramenta e por que o seu nome assina o curso.",
     body:()=>`<div class="grid2f"><div><label class="flabel" for="f_nome">Nome</label><input class="inp" id="f_nome" autocomplete="given-name" placeholder="Seu nome" value="${esc(S.a.nome)}"></div><div><label class="flabel" for="f_sobrenome">Sobrenome</label><input class="inp" id="f_sobrenome" autocomplete="family-name" placeholder="Seu sobrenome" value="${esc(S.a.sobrenome)}"></div></div>`,
     read:()=>{S.a.nome=$("#f_nome").value.trim(); S.a.sobrenome=$("#f_sobrenome").value.trim();}, ok:()=>S.a.nome.length>1 || "Digite o seu nome para continuar."},
   {id:"area", ph:0, q:()=>`Prazer, ${esc(firstName())}! <b>Em que área você é especialista?</b>`, help:"Pode ser ampla ou bem específica. Quanto mais específica, mais fácil fica de vender: a pessoa certa se reconhece na hora.",
-    vt:"Como escolher a sua área", vx:"Por que um nicho específico vende mais e como escrever a sua área em poucas palavras.",
     body:()=>`<input class="inp" id="f_area" placeholder="Escreva aqui a sua área" value="${esc(S.a.area)}"><div class="chips" id="areaChips">${AREAS.map((a,i)=>`<button type="button" style="--i:${i}" class="chip pop${S.a.area===a?" on":""}" data-v="${esc(a)}">${esc(a)}</button>`).join("")}</div>`,
     bind:()=>{ $("#areaChips").onclick=e=>{const b=e.target.closest(".chip"); if(!b)return; $("#f_area").value=b.dataset.v; $$("#areaChips .chip").forEach(c=>c.classList.toggle("on",c===b)); S.a.area=b.dataset.v; live(); $("#f_area").focus();}; },
     read:()=>{S.a.area=$("#f_area").value.trim();}, ok:()=>S.a.area.length>1 || "Escreva a sua área ou escolha uma opção."},
   {id:"anos", ph:0, q:()=>`Há quanto tempo você trabalha com <b>${esc(low(S.a.area)||"isso")}?</b>`, help:"Arraste até o número de anos. Conta tudo: emprego, consultório, empresa própria, atendimentos.",
-    vt:"Sua experiência vale muito", vx:"Como os seus anos de prática viram autoridade dentro do curso.",
     body:()=>`<div class="xp"><div class="yrs"><span id="yv">${S.a.anos}</span> <small>anos</small></div><input type="range" id="f_anos" min="1" max="40" value="${S.a.anos}" aria-label="Anos de experiência"><div class="wow" id="xpWow"></div></div>`,
     bind:()=>{ const r=$("#f_anos"); const up=()=>{S.a.anos=+r.value; $("#yv").textContent=r.value; paintRange(r); const h=S.a.anos*220*8; $("#xpWow").innerHTML=`São cerca de <b>${INT(h)} horas</b> de prática. Uma pós-graduação inteira tem 360 horas. Você já viveu o equivalente a <b>${INT(h/360)} pós-graduações.</b>`; live();}; r.oninput=up; up(); },
     read:()=>{S.a.anos=+$("#f_anos").value;}, ok:()=>true},
   {id:"perguntas", ph:0, q:()=>`O que as pessoas <b>sempre te perguntam?</b>`, help:"Pense nas dúvidas que você responde toda semana: no trabalho, no Instagram, no WhatsApp. Escreva uma por linha. É aqui que mora o seu gênio oculto.",
-    vt:"Ache o seu gênio oculto", vx:"As perguntas que você responde no automático são o melhor ponto de partida para as suas aulas.",
     body:()=>`<textarea class="inp" id="f_perg" placeholder="Ex.:&#10;Por onde eu começo?&#10;Qual é o erro mais comum?&#10;Como eu sei se estou fazendo certo?">${esc(S.a.perguntas)}</textarea>${iaBtn("perguntas")}<p class="ex">Não precisa caprichar na escrita. <b>Do jeito que as pessoas falam com você já está ótimo.</b></p>`,
     read:()=>{S.a.perguntas=$("#f_perg").value.trim();}, ok:()=>S.a.perguntas.length>5 || "Escreva pelo menos uma pergunta que você costuma ouvir."},
   {id:"persona", ph:1, q:()=>`Quem é a pessoa que <b>mais precisa</b> do que você sabe?`, help:"Lembre: para fazer uma pós-graduação, a pessoa precisa ter uma graduação concluída. Escreva com as suas palavras, peça uma sugestão à IA ou clique em uma opção.",
-    vt:"Quem é o seu aluno", vx:"Como descrever o aluno ideal da sua pós em uma frase.",
     body:()=>`<input class="inp inp-sm" id="f_persona" placeholder="Escreva aqui quem é o seu aluno ideal" value="${esc(S.a.persona)}">${iaBtn("persona")}<div class="chips" id="perChips">${PERSONAS.map((a,i)=>`<button type="button" style="--i:${i}" class="chip pop${S.a.persona===a?" on":""}" data-v="${esc(a)}">${esc(a)}</button>`).join("")}</div>`,
     bind:()=>{ $("#perChips").onclick=e=>{const b=e.target.closest(".chip"); if(!b)return; $("#f_persona").value=b.dataset.v; $$("#perChips .chip").forEach(c=>c.classList.toggle("on",c===b)); S.a.persona=b.dataset.v; live();}; },
     read:()=>{S.a.persona=$("#f_persona").value.trim();}, ok:()=>S.a.persona.length>3 || "Descreva quem é o seu aluno ideal."},
   {id:"promessa", ph:1, q:()=>`Depois do seu curso, <b>o que o seu aluno vai conseguir fazer?</b>`, help:"Essa é a promessa do curso. Termine a frase pensando na segunda-feira de manhã do seu aluno: o que muda na vida ou no trabalho dele?",
-    vt:"Escrevendo a promessa", vx:"A frase que faz alguém querer comprar o seu curso. Três exemplos de promessas fortes.",
     body:()=>`<div style="font-size:clamp(20px,2.4vw,28px);color:var(--bm);margin-top:30px">Ele vai conseguir…</div><textarea class="inp" id="f_prom" style="min-height:120px;margin-top:10px" placeholder="Ex.: aplicar o método com segurança e ter resultado já nos primeiros casos">${esc(S.a.promessa)}</textarea>${iaBtn("promessa")}`,
     read:()=>{S.a.promessa=$("#f_prom").value.trim();}, ok:()=>S.a.promessa.length>8 || "Escreva o que o seu aluno vai conseguir fazer."},
   {id:"temas", ph:2, q:()=>`Quais são os <b>grandes temas</b> que você ensinaria?`, help:"Cada tema vira uma disciplina do curso. Escreva e aperte Enter para adicionar. Três a cinco temas é o ideal. Veja o curso se montando ao lado.",
-    vt:"Seus temas viram disciplinas", vx:"Como separar o que você sabe em blocos que viram disciplinas.",
     body:()=>`<div class="tags-in"><input class="inp inp-sm" id="f_tema" placeholder="Ex.: Tema 01" maxlength="80"><button type="button" class="btn btn-green btn-sm" id="addTema">Adicionar</button></div>${iaBtn("temas")}<div class="taglist" id="temaList"></div><div class="sugg" id="temaSugg"></div>`,
     bind:()=>tagBind("temas","#f_tema","#addTema","#temaList","#temaSugg", ()=>{ const a=low(S.a.area)||"sua área"; return [`Avaliação e diagnóstico em ${a}`,`Técnicas e intervenções em ${a}`,`Casos complexos em ${a}`,`Gestão da carreira em ${a}`,`Atendimento e relacionamento com o cliente`, ...splitList(S.a.perguntas).filter(p=>p.length<60).map(p=>p.replace(/\?$/,""))]; }, 7),
     read:()=>{}, ok:()=>S.a.temas.length>=2 || "Adicione pelo menos 2 temas. Use as sugestões se quiser."},
   {id:"ferramentas", ph:2, q:()=>`Que <b>ferramentas, protocolos ou passo a passo</b> você usa no trabalho?`, help:"Fichas, checklists, testes, softwares, roteiros, técnicas próprias. Tudo o que você faz de um jeito que é só seu. Pode pular se preferir.",
-    vt:"Seu método em ferramentas", vx:"Por que as suas ferramentas de trabalho são o que diferencia o seu curso de qualquer outro.",
     body:()=>`<div class="tags-in"><input class="inp inp-sm" id="f_ferr" placeholder="Ex.: Checklist de atendimento" maxlength="80"><button type="button" class="btn btn-green btn-sm" id="addFerr">Adicionar</button></div>${iaBtn("ferramentas")}<div class="taglist" id="ferrList"></div><div class="sugg" id="ferrSugg"></div>`,
     bind:()=>tagBind("ferramentas","#f_ferr","#addFerr","#ferrList","#ferrSugg", ()=>["Ficha de avaliação inicial","Checklist de atendimento","Protocolo passo a passo","Planilha de acompanhamento","Roteiro de primeira consulta"], 6),
     read:()=>{}, ok:()=>true, skip:true},
   {id:"referencias", ph:2, q:()=>`Em quem você se apoia? <b>Autores, livros ou metodologias.</b>`, help:"Isso dá base científica ao curso. Se não lembrar agora, pule: o time acadêmico da FEX ajuda depois.",
-    vt:"Base científica sem complicação", vx:"Como citar as referências que você já usa, mesmo sem ser acadêmico.",
     body:()=>`<textarea class="inp" id="f_refs" style="min-height:120px" placeholder="Ex.: autores, livros, diretrizes ou métodos que você segue">${esc(S.a.referencias)}</textarea>`,
     read:()=>{S.a.referencias=$("#f_refs").value.trim();}, ok:()=>true, skip:true},
   {id:"ensina", ph:2, q:()=>`Você <b>já ensina</b> hoje?`, help:"Isso ajuda a escolher o melhor jeito de lançar. Em 9 de 10 casos da FEX, a pós entrou depois, em cima de algo que o expert já vendia.",
-    vt:"De onde você parte", vx:"Por que quem já ensina tem um atalho para a primeira turma.",
     body:()=>opts("ensina",[["nao","Ainda não","Vou começar pela pós"],["mentoria","Mentoria ou consultoria","Atendo pessoas individualmente"],["online","Curso online","Já vendo um curso na internet"],["presencial","Curso ou evento presencial","Turmas, workshops, imersões"]], S.a.ensina),
     bind:()=>optBind("ensina", v=>{S.a.ensina=v; if(v!=="nao" && S.pot.warm===500) S.pot.warm=800;}), read:()=>{}, ok:()=>!!S.a.ensina || "Escolha uma opção."},
   {id:"modelo", ph:3, q:()=>`Este é o <b>formato ideal</b> para o seu curso.`, help:"A sugestão vem das palavras que você usou. Você pode trocar se preferir outro formato.",
-    vt:"Pós ou MBA?", vx:"A diferença entre pós-graduação e MBA, EAD e híbrido, e o padrão 30/30/40 da FEX.",
     body:()=>{ const sug=suggestModel(); if(!S.model) S.model=sug; const m=MODELS[S.model]; const [a,b,c]=split(m.h);
       return `<div class="opts" id="opt-model">${Object.entries(MODELS).map(([k,x],i)=>`<button type="button" style="--i:${i*2}" class="opt pop${S.model===k?" on":""}" data-v="${k}">${k===sug?'<span class="rec">Recomendado para você</span>':""}<b>${x.type} · ${x.dur}</b><span>${x.mod} · ${x.h}h</span></button>`).join("")}</div>
       <p class="qhelp" id="mWhy" style="margin-top:22px">${esc(MODELS[S.model].why)}</p>
@@ -1101,11 +1101,9 @@ const STEPS = [
     bind:()=>{ optBind("model", v=>{S.model=v; const m=MODELS[v]; const [a,b,c]=split(m.h); $("#mWhy").textContent=m.why; $("#mSplit").innerHTML=`<div class="a">${a}h<small>hora-aula</small></div><div class="b">${b}h<small>autoestudo</small></div><div class="c">${c}h<small>prática</small></div>`; $("#mNote").innerHTML=`Padrão FEX 30/30/40: das ${m.h}h, você só precisa gravar <b>${a}h de hora-aula</b>. O resto é autoestudo e prática do aluno.`; const t=$("#f_titulo"); if(/^(Pós-Graduação|MBA) em /.test(t.value)) { t.value = t.value.replace(/^(Pós-Graduação|MBA)/, m.type); } }); $("#f_titulo").oninput=e=>{S.a.titulo=e.target.value; live();}; },
     read:()=>{S.a.titulo=$("#f_titulo").value.trim();}, ok:()=>!!S.model},
   {id:"ticket", ph:3, q:()=>`Quanto o seu aluno vai <b>investir por mês?</b>`, help:"Em pós-graduação, a gente vende a parcela, não o total. O aluno compara com a mensalidade de uma faculdade. Os valores abaixo vêm de clientes reais da FEX.",
-    vt:"Escolhendo o preço", vx:"Como o preço da parcela muda o faturamento da mesma turma.",
     body:()=>`<div class="opts" id="opt-ticket" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">${TICKETS.map((t,i)=>{const k=t.n+"x"+t.v; const on=S.ticket.n===t.n&&S.ticket.v===t.v; return `<button type="button" style="--i:${i*2}" class="opt pop${on?" on":""}" data-v="${k}"><span>${t.n} parcelas de</span><div class="price-big">${BRL(t.v)}</div><span>Total por aluno: ${BRL(t.n*t.v)}</span></button>`;}).join("")}</div>`,
     bind:()=>optBind("ticket", v=>{const [n,x]=v.split("x").map(Number); S.ticket={n,v:x};}), read:()=>{}, ok:()=>true},
   {id:"audiencia", ph:4, q:()=>`Quantas pessoas <b>já te conhecem?</b>`, help:"Base quente: alunos, ex-alunos, pacientes e clientes. Audiência fria: seguidores, lista de e-mail, contatos. Arraste e veja o potencial da primeira turma.",
-    vt:"O dinheiro que já está na mesa", vx:"Por que a primeira turma começa por quem já confia em você, e como ler o simulador.",
     body:()=>`<div class="sim">
       <div class="row"><div class="top2"><span>Base quente (alunos, ex-alunos, clientes)</span><b id="vw">${INT(S.pot.warm)}</b></div><input type="range" id="f_warm" min="0" max="5000" step="50" value="${S.pot.warm}" aria-label="Base quente"><label class="conv">Conversão esperada <input type="number" id="f_cw" min="0" max="100" step="0.5" value="${S.pot.cw}"> % · referência FEX: 5%</label></div>
       <div class="row"><div class="top2"><span>Audiência fria (seguidores, lista, contatos)</span><b id="vc">${INT(S.pot.cold)}</b></div><input type="range" id="f_cold" min="0" max="200000" step="1000" value="${S.pot.cold}" aria-label="Audiência fria"><label class="conv">Conversão esperada <input type="number" id="f_cc" min="0" max="100" step="0.1" value="${S.pot.cc}"> % · referência FEX: 1%</label></div>
@@ -1114,16 +1112,13 @@ const STEPS = [
     bind:()=>{ const up=()=>{ S.pot.warm=+$("#f_warm").value; S.pot.cold=+$("#f_cold").value; S.pot.cw=Math.max(0,+$("#f_cw").value||0); S.pot.cc=Math.max(0,+$("#f_cc").value||0); paintRange($("#f_warm")); paintRange($("#f_cold")); $("#vw").textContent=INT(S.pot.warm); $("#vc").textContent=INT(S.pot.cold); const p=pot(); tween($("#vfat"),p.fat,BRL); tween($("#vmat"),p.mat,INT); $("#vmen").textContent=`${S.ticket.n}x de ${BRL(S.ticket.v)} · ${BRL(p.mensal)} por mês em parcelas`; $("#vread").innerHTML = p.fatW>0?`Só com a sua base quente, sem gastar com anúncio, são <b>${BRL(p.fatW)}</b> em contratos.`:"Aumente a base quente para ver o dinheiro que já está na mesa."; live(); }; ["#f_warm","#f_cold","#f_cw","#f_cc"].forEach(s=>$(s).oninput=up); up(); },
     read:()=>{}, ok:()=>true},
   {id:"campanha", ph:5, q:()=>`Como você quer <b>lançar a primeira turma?</b>`, help:"Não existe um jeito certo. O que muda é onde está a confiança do seu público. Escolha o que tem mais a ver com você hoje.",
-    vt:"Escolhendo o lançamento", vx:"Os 6 modelos de campanha e qual combina com o seu momento.",
     body:()=>opts("campaign", Object.entries(CAMPAIGNS).map(([k,c])=>[k,c.label,c.desc+" "+c.best]), S.campaign),
     bind:()=>optBind("campaign", v=>{S.campaign=v;}), read:()=>{}, ok:()=>!!S.campaign || "Escolha um modelo de lançamento."},
   {id:"magna", ph:5, q:()=>`Quando vai ser a <b>aula magna</b> da sua turma?`, help:"A aula magna é a abertura oficial do curso. A implantação com a FEX leva 90 dias, então a data mínima é daqui a 90 dias. Ela monta o seu cronograma.",
-    vt:"A data que puxa tudo", vx:"Por que marcar a data da aula magna transforma intenção em projeto.",
     body:()=>{ const mn=toISO(minMagna()); if(!S.magna || S.magna<mn) S.magna=toISO(addDays(new Date(),100)); return `<input type="date" class="inp" id="f_magna" min="${mn}" value="${S.magna}" style="max-width:360px"><div class="note" id="magNote"></div>`; },
     bind:()=>{ const el=$("#f_magna"); const up=()=>{ const mn=toISO(minMagna()); if(!el.value || el.value<mn){ el.value=mn; } S.magna=el.value; const d=parseISO(S.magna); const c=CAMPAIGNS[S.campaign||"aula"]; $("#magNote").innerHTML=`Aula magna em <b>${d.toLocaleDateString("pt-BR",{day:"2-digit",month:"long",year:"numeric"})}</b>. As matrículas abrem por volta de <b>${addDays(d, c.dMat<=-35?-40:c.dMat).toLocaleDateString("pt-BR",{day:"2-digit",month:"long"})}</b>.`; }; el.onchange=up; up(); },
     read:()=>{S.magna=$("#f_magna").value;}, ok:()=>!!S.magna},
   {id:"contato", ph:6, q:()=>`Seu curso está pronto, ${esc(firstName())}. <b>Para onde enviamos?</b>`, help:"Usamos o seu contato para salvar o plano e para um especialista da FEX falar com você, se quiser.",
-    vt:"Quase lá", vx:"O que acontece depois que você vê a prévia do seu curso.",
     body:()=>`<div class="grid2f"><div><label class="flabel" for="f_email">E-mail</label><input class="inp inp-sm" id="f_email" type="email" autocomplete="email" placeholder="voce@email.com" value="${esc(S.a.email)}"></div><div><label class="flabel" for="f_tel">WhatsApp</label><input class="inp inp-sm" id="f_tel" type="tel" autocomplete="tel" placeholder="(11) 99999-9999" value="${esc(S.a.telefone)}"></div><div><label class="flabel" for="f_ig">Instagram (opcional)</label><input class="inp inp-sm" id="f_ig" placeholder="@seuperfil" value="${esc(S.a.instagram)}"></div></div><label style="display:flex;gap:12px;align-items:flex-start;margin-top:26px;font-size:15px;color:var(--bm)"><input type="checkbox" id="f_consent" ${S.a.consent?"checked":""} style="width:20px;height:20px;accent-color:var(--green);margin-top:3px">Aceito receber o meu plano e falar com a Faculdade FEX Educação® sobre o meu curso.</label>`,
     bind:()=>{ $("#f_tel").oninput=e=>{ e.target.value=maskTel(e.target.value); }; },
     read:()=>{S.a.email=$("#f_email").value.trim(); S.a.telefone=$("#f_tel").value.trim(); S.a.instagram=$("#f_ig").value.trim(); S.a.consent=$("#f_consent").checked;},
@@ -1204,7 +1199,7 @@ function renderStep(dir=1){
   box.className = "qbox"; void box.offsetWidth; box.className = "qbox " + (dir>0?"anim":"back");
   box.innerHTML = `
     <div class="qnum"><span>${PHASES[st.ph]} · ${S.step+1} de ${STEPS.length}</span>
-      <button type="button" class="tut" data-video="${st.id}"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span>Assistir: como preencher</button></div>
+      <button type="button" class="tut${STEPS.findIndex(x=>x.ph===st.ph)===S.step?" new":""}" data-video="${st.ph}"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span>Assistir: como preencher a seção <b>${PHASES[st.ph]}</b></button></div>
     <h2 class="q">${st.q()}</h2>
     <p class="qhelp">${st.help}</p>
     <div class="field">${st.body()}</div>
@@ -1633,13 +1628,14 @@ document.addEventListener("click", e=>{
   else if(t.hasAttribute("data-scroll")){ e.preventDefault(); const el=$(t.getAttribute("href")); el && el.scrollIntoView({behavior:reduced?"auto":"smooth"}); }
 });
 /* ============ vídeo ============ */
-function openVideo(id){
-  const st = STEPS.find(s=>s.id===id) || {vt:"Como funciona o Gênio Oculto", vx:"Um tour rápido pela ferramenta."};
-  const vid = CONFIG.VIDEOS[id] || (id==="nome" && CONFIG.VIDEOS.boasvindas);
-  $("#mTitle").textContent = st.vt; $("#mText").textContent = st.vx;
-  $("#mVid").innerHTML = vid ? `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(vid)}?autoplay=1&rel=0&modestbranding=1" title="${esc(st.vt)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`
-    : `<div class="ph"><span class="bigplay"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span><p>Vídeo tutorial em produção.<br>Enquanto isso, siga a dica abaixo da pergunta.</p></div>`;
-  $("#modal").classList.add("on"); track("video", {etapa:id});
+function openVideo(ph){
+  const sec = SECTIONS[+ph] || SECTIONS[0], vid = CONFIG.VIDEOS[sec.key];
+  const passos = STEPS.filter(x=>x.ph===+ph).length;
+  $("#mTitle").textContent = `Seção ${+ph+1} de ${SECTIONS.length} · ${sec.n}`;
+  $("#mText").textContent = `${sec.why} São ${passos} ${passos>1?"perguntas":"pergunta"} nesta seção.`;
+  $("#mVid").innerHTML = vid ? `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(vid)}?autoplay=1&rel=0&modestbranding=1" title="Como preencher a seção ${esc(sec.n)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`
+    : `<div class="ph"><span class="bigplay"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span><p>Vídeo da seção ${esc(sec.n)} em produção.<br>Enquanto isso, siga a dica abaixo de cada pergunta.</p></div>`;
+  $("#modal").classList.add("on"); track("video", {secao:sec.key});
 }
 function closeVideo(){ $("#modal").classList.remove("on"); $("#mVid").innerHTML=""; }
 document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ closeVideo(); closeLive(); } });
