@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" type="image/png" href="assets/favicon.png">
-<title>Gênio Oculto · FEX</title>
+<title>Crie sua Formação · FEX</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Transforme tudo o que você sabe em uma pós-graduação. Responda perguntas simples e veja o seu curso montado: disciplinas, aulas, materiais, faturamento e plano de lançamento.">
-<meta property="og:title" content="Gênio Oculto · Faculdade FEX Educação®">
-<meta property="og:description" content="Tudo o que você sabe pode virar uma pós-graduação. Veja o seu curso montado em 15 minutos.">
+<meta name="description" content="Transforme o que você sabe em um curso de extensão universitária. Responda perguntas simples e veja o seu curso montado: módulos, aulas, faturamento e plano de lançamento.">
+<meta property="og:title" content="Crie sua Formação · Faculdade FEX Educação®">
+<meta property="og:description" content="Sem a FEX, é curso livre. Com a FEX, é extensão universitária. Veja o seu curso montado em 15 minutos.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
@@ -204,7 +204,10 @@ footer .inst{font-size:13px;max-width:80ch}
 
 /* ================= CONSTRUTOR ================= */
 #view-builder{min-height:100vh}
-.bwrap{display:grid;grid-template-columns:minmax(0,1fr) 420px;min-height:calc(100vh - 77px)}
+.bwrap{display:grid;grid-template-columns:minmax(0,1fr);min-height:calc(100vh - 77px)}
+.bmain{align-items:center}
+.qbox{margin-inline:auto}
+.phases{width:100%;max-width:980px;margin-inline:auto}
 @media (max-width:1080px){.bwrap{grid-template-columns:minmax(0,1fr)}}
 .bmain{--bm:var(--muted-d);transition:background-color .7s ease,color .7s ease;background-image:var(--grain);background-color:transparent;position:relative;padding:clamp(28px,5vw,64px) var(--gut-r) 140px var(--gut);display:flex;flex-direction:column;overflow:hidden}
 .bmain::before{content:"";position:absolute;width:700px;height:700px;left:-300px;bottom:-360px;background:radial-gradient(closest-side,rgba(50,205,50,.07),transparent);pointer-events:none}
@@ -214,7 +217,7 @@ footer .inst{font-size:13px;max-width:80ch}
 .phase .bar i{display:block;height:100%;width:0;background:var(--green);border-radius:inherit;transition:width .6s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 12px var(--green)}
 .phase span{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .phase.cur span{color:var(--green)}
-@media (max-width:640px){.phases{flex-wrap:nowrap}.phase{min-width:0}.phase span{display:none}.phase.cur span{display:block;position:absolute;margin-top:14px}}
+@media (max-width:640px){.phases{flex-wrap:nowrap}.phase{min-width:0}.phase span{display:none}}
 .qbox{max-width:760px;width:100%;position:relative}
 .qbox.anim > *{animation:qIn .6s cubic-bezier(.2,.8,.2,1) backwards}
 .qbox.back > *{animation:qBack .5s cubic-bezier(.2,.8,.2,1) backwards}
@@ -371,7 +374,6 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
 .scrim.on{opacity:1;pointer-events:auto}
 
 /* a coluna do painel acompanha a página inteira */
-@media (min-width:1081px){.bwrap{background:linear-gradient(to left,var(--sand) 420px,transparent 420px);transition:background .7s}.bwrap.light{background:linear-gradient(to left,var(--ink) 420px,transparent 420px)}}
 /* ---------- construtor no celular ---------- */
 @media (max-width:640px){
   .bmain{padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))}
@@ -396,7 +398,37 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
 .livebtn{transition:background .7s,color .7s}
 .sim .conv input,input,textarea,select{font-size:max(16px,1em)}
 
+/* contador de perguntas */
+.pcount{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--bm);margin-bottom:14px;position:relative;padding-bottom:10px}
+.pcount b{font-size:22px;color:var(--white)}
+.pcount::after{content:"";position:absolute;left:0;bottom:0;height:4px;width:100%;border-radius:999px;background:linear-gradient(90deg,var(--green) var(--pc,0%),rgba(232,228,217,.14) var(--pc,0%));transition:background .3s}
+.pcount.ok{color:var(--green)}
+.pcount.ok b{color:var(--green)}
+/* sem a FEX x com a FEX */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+@media (max-width:640px){.cmp{grid-template-columns:1fr}}
+.cmp > div{border-radius:18px;padding:18px 20px;display:grid;gap:4px;min-width:0}
+.cmp small{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.cmp b{font-size:21px;line-height:1.2}
+.cmp span{font-size:15px;line-height:1.45}
+.cmp-a{background:rgba(127,127,127,.12);border:1px dashed rgba(127,127,127,.45);color:inherit}
+.cmp-a b{text-decoration:line-through;text-decoration-color:rgba(127,127,127,.7);opacity:.8}
+.cmp-b{background:var(--green);color:var(--ink)}
+.lmods li .la{display:block;font-size:12px;font-weight:600;opacity:.6}
+/* link pessoal e pós-compra */
+.plink{color:var(--text);margin-top:22px;border:1px solid var(--line-light);border-radius:16px;padding:16px 18px;display:grid;gap:10px;background:var(--paper)}
+.plink b{font-size:15px}
+.plink p{margin:0;font-size:14px;color:var(--muted-l)}
+.plink .row2{display:flex;gap:8px;flex-wrap:wrap}
+.plink input{flex:1;min-width:0;border:1px solid var(--line-light);border-radius:10px;padding:10px 12px;font-size:16px;background:var(--white);color:var(--text)}
+.recover{max-width:640px}
+.recover input{width:100%;border:1.5px solid rgba(232,228,217,.25);border-radius:14px;padding:14px 16px;font-size:16px;background:rgba(255,255,255,.04);color:var(--white);margin-top:18px}
+
 /* ---------- fases com fundo claro ---------- */
+.bwrap.light .pcount b{color:var(--text)}
+.bwrap.light .pcount::after{background:linear-gradient(90deg,var(--green) var(--pc,0%),rgba(10,15,11,.12) var(--pc,0%))}
+.bwrap.light .pcount.ok,.bwrap.light .pcount.ok b{color:#178a17}
+.bwrap.light .cmp-a{background:rgba(10,15,11,.05)}
 .bwrap.light .bmain{--bm:var(--muted-l);background-color:var(--paper);color:var(--text);color-scheme:light}
 .bwrap.light .bmain::before{background:radial-gradient(closest-side,rgba(50,205,50,.12),transparent)}
 .bwrap.light .phase .bar{background:rgba(10,15,11,.1)}
@@ -729,7 +761,7 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
 <header class="top" id="top">
   <div class="wrap">
     <a href="#" data-go="home" aria-label="Início"><img class="logo" src="assets/logo-fex-branco.png" alt="FEX Educação" width="157" height="27"></a>
-    <span class="tag" id="topTag">Gênio Oculto · Faculdade FEX Educação®</span>
+    <span class="tag" id="topTag">Crie sua Formação · Faculdade FEX Educação®</span>
   </div>
 </header>
 
@@ -738,9 +770,9 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
   <section class="capa tex">
     <div class="wrap">
       <div>
-        <span class="pill"><span class="dot"></span>Gênio Oculto</span>
-        <h1 id="heroTitle">Tudo o que você sabe pode virar uma <b>pós-graduação.</b></h1>
-        <p class="lead">Responda perguntas simples sobre o seu trabalho e veja o seu curso se montar na sua frente: disciplinas, aulas e quanto ele pode faturar.</p>
+        <span class="pill"><span class="dot"></span>Crie sua Formação</span>
+        <h1 id="heroTitle">Transforme o que você sabe em <b>extensão universitária.</b></h1>
+        <p class="lead">Sem a FEX, é um curso livre. Com a FEX, vira um curso de extensão universitária, com certificado emitido pela Faculdade FEX Educação®. Responda perguntas simples e veja o seu curso pronto no final.</p>
         <div class="ctas">
           <button class="btn btn-green btn-xl" data-start id="capaCta">Começar <span class="arr">→</span></button>
         </div>
@@ -754,24 +786,24 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
         <div class="floor"></div>
         <div class="mock" id="mock">
           <div class="lay1">
-            <div class="mh"><span>Pós-Graduação · 360h</span><span class="g">● montando</span></div>
+            <div class="mh"><span>Extensão · Capacitação · 120h</span><span class="g">● montando</span></div>
             <div class="mt">Curso Exemplo 00</div>
             <div class="ms">Seu nome · sua área · seus anos de prática</div>
             <div class="prog"><i></i></div>
           </div>
           <ol class="lay2">
-            <li><span class="n">01</span>Fundamentos<span class="h">60h</span></li>
-            <li><span class="n">02</span>Tema 01<span class="h">60h</span></li>
-            <li><span class="n">03</span>Tema 02<span class="h">60h</span></li>
-            <li><span class="n">04</span>Tema 03<span class="h">60h</span></li>
-            <li><span class="n">05</span>Ferramentas e prática<span class="h">60h</span></li>
-            <li><span class="n">06</span>Projeto aplicado<span class="h">60h</span></li>
+            <li><span class="n">01</span>Fundamentos<span class="h">20h</span></li>
+            <li><span class="n">02</span>Primeiros passos<span class="h">20h</span></li>
+            <li><span class="n">03</span>O método na prática<span class="h">20h</span></li>
+            <li><span class="n">04</span>Erros comuns<span class="h">20h</span></li>
+            <li><span class="n">05</span>Casos reais<span class="h">20h</span></li>
+            <li><span class="n">06</span>Projeto aplicado<span class="h">20h</span></li>
           </ol>
           <span class="tagx lay1">Exemplo ilustrativo. O seu curso nasce das suas respostas.</span>
           <div class="glare"></div>
         </div>
-        <div class="fl f1" data-depth="1.2"><span style="display:flex;gap:12px;align-items:center"><span class="ico"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span><span><small>Aula 01</small><b>Videoaula · 20 min</b></span></span></div>
-        <div class="fl f2" data-depth="1.8"><span><small>Você grava só</small><b>108h de 360h</b></span></div>
+        <div class="fl f1" data-depth="1.2"><span style="display:flex;gap:12px;align-items:center"><span class="ico"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span><span><small>Cada pergunta sua</small><b>vira uma aula</b></span></span></div>
+        <div class="fl f2" data-depth="1.8"><span><small>Com a FEX</small><b>Extensão universitária</b></span></div>
         <div class="fl f3" data-depth="1.5"><span style="display:flex;gap:12px;align-items:center"><span class="bars"><i></i><i></i><i></i><i></i><i></i></span><span><small>Potencial</small><b>da 1ª turma</b></span></span></div>
       </div>
     </div>
@@ -786,7 +818,7 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
       <div class="phases" id="phases"></div>
       <div class="qbox" id="qbox"></div>
     </div>
-    <aside class="live" id="live" aria-label="Seu curso ao vivo">
+    <aside class="live" id="live" aria-label="Seu curso ao vivo" hidden>
       <div class="lh"><span class="eyebrow">Seu curso, ao vivo</span><span class="rec"><i></i>salvando</span><button class="closeL" id="closeLive">Fechar</button></div>
       <div class="cover">
         <div class="ct" id="lvType">Sua formação</div>
@@ -800,7 +832,7 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
       <div class="lstats" id="lvStats"></div>
     </aside>
   </div>
-  <button class="livebtn" id="openLive">Ver meu curso <i id="lvBadge">0</i></button>
+  <button class="livebtn" id="openLive" hidden>Ver meu curso <i id="lvBadge">0</i></button>
   <div class="scrim" id="scrim"></div>
 </main>
 
@@ -828,8 +860,9 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
       <img class="logo" src="assets/logo-fex-branco.png" alt="FEX Educação" width="157" height="27">
       <span class="g" style="font-weight:700">#sejaFEX</span>
     </div>
+    <div class="inst">A oferta de cursos de extensão não é objeto de reconhecimento, validação, chancela, autorização específica ou certificação pelo Ministério da Educação. O credenciamento da Faculdade FEX Educação refere-se à Instituição, e não ao curso.</div>
     <div class="inst">Faculdade FEX Educação, instituição de ensino superior credenciada pelo Ministério da Educação (Portaria MEC nº 196/2024). Código e-MEC 26519.</div>
-    <div class="row"><span>Gênio Oculto é uma ferramenta da Faculdade FEX Educação®. Os valores do simulador são projeções a partir dos números que você informa, não garantia de resultado.</span><span>faculdade.fexeducacao.edu.br</span></div>
+    <div class="row"><span>Crie sua Formação é uma ferramenta da Faculdade FEX Educação®. Os valores do simulador são projeções a partir dos números que você informa, não garantia de resultado.</span><span>faculdade.fexeducacao.edu.br</span></div>
   </div>
 </footer>
 
@@ -852,7 +885,7 @@ const CONFIG = {
   PRECO: 97,
   // Link do checkout (Hubla, Kiwify, Eduzz...). null = modo demonstração (libera o plano sem cobrar).
   // Configure a página de obrigado da plataforma para voltar a este site com ?pago=1
-  CHECKOUT_URL: null,
+  CHECKOUT_URL: "https://pay.hub.la/3MBwoxpx8wevYDD06Tkt",
   // WhatsApp do especialista FEX (só números, com 55 + DDD). Padrão: secretaria e B2B da base de conhecimento.
   WHATSAPP_ESPECIALISTA: "5511915612544",
   // Webhook que recebe o lead (RD Station, Make, Zapier, n8n...). null = não envia.
@@ -863,8 +896,8 @@ const CONFIG = {
   // IDs de vídeo do YouTube por etapa (ex.: "dQw4w9WgXcQ"). Vazio = mostra "vídeo em produção".
   // Endpoint de IA para o "Sugerir com IA" (opcional). null = sugestões geradas no navegador a partir das respostas.
   IA_ENDPOINT: null,
-  // Um vídeo por seção do construtor (ID do YouTube). Vazio = mostra "vídeo em produção".
-  VIDEOS: { voce:"FXC5D4a4qzo", aluno:"C_NWgMTR8z0", metodo:"0dNR_oeirhI", formato:"_0VNhoGKhyA", potencial:"a86IQ-89Mk8", lancamento:"uqlyBl2Q1Ic", envio:"OZSOZU7DPQ8" }
+  // Um vídeo por seção do construtor: ID do YouTube ou caminho de um MP4 do site (ex.: "assets/videos/1-voce.mp4"). Vazio = "vídeo em produção".
+  VIDEOS: { voce:"", aluno:"", metodo:"", formato:"", potencial:"", lancamento:"", envio:"" }
 };
 
 /* ============ util ============ */
@@ -878,14 +911,15 @@ const INT = v => Math.round(v).toLocaleString("pt-BR");
 const splitList = s => String(s||"").split(/[\n,;]+/).map(t => t.trim()).filter(t => t.length > 1);
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const framed = (() => { try { return window.self !== window.top; } catch(e) { return true; } })();
+const promessa = () => String(S.a.promessa||"").trim().replace(/^(ele |ela |o aluno |a aluna |seu aluno )?(vai |v[aã]o )?conseguir\s*/i,"").replace(/\.$/,"");
 const firstName = () => cap((S.a.nome || "").split(" ")[0]);
 
 /* ============ estado ============ */
-const KEY = "genio_oculto_v2";
+const KEY = "crie_formacao_v1";
 const blank = () => ({
-  a:{nome:"",sobrenome:"",area:"",anos:12,perguntas:"",persona:"",promessa:"",temas:[],ferramentas:[],referencias:"",ensina:"",
+  a:{nome:"",sobrenome:"",area:"",anos:12,perguntas:"",persona:"",promessa:"",ferramentas:[],referencias:"",ensina:"",objetivo:"",
      email:"",telefone:"",instagram:"",consent:true,titulo:""},
-  model:null, ticket:{n:12,v:1000},
+  tit:null, horas:null, preco:997,
   pot:{warm:500,cold:10000,cw:5,cc:1},
   campaign:null, magna:"",
   step:0, done:false, paid:false, leadId:""
@@ -916,129 +950,162 @@ function sendLead(etapa){
   if(!CONFIG.LEAD_WEBHOOK_URL) return;
   const f = formation();
   const body = { etapa, id:S.leadId, data:new Date().toISOString(), contato:{nome:S.a.nome, email:S.a.email, telefone:S.a.telefone, instagram:S.a.instagram},
-    curso:{titulo:f.title, area:S.a.area, anos:S.a.anos, persona:S.a.persona, promessa:S.a.promessa, modelo:f.m.label, temas:S.a.temas},
-    potencial:pot(), ticket:S.ticket, campanha:S.campaign, aulaMagna:S.magna, pago:S.paid, origem:location.search };
+    curso:{titulo:f.title, area:S.a.area, anos:S.a.anos, persona:S.a.persona, promessa:S.a.promessa, titulacao:f.t.nome, horas:f.h, modulos:f.mods.length, aulas:f.aulas, perguntas:perguntas()},
+    potencial:pot(), preco:S.preco, campanha:S.campaign, inicioTurma:S.magna, pago:S.paid, linkPessoal:linkPessoal(), origem:location.search };
   try{ fetch(CONFIG.LEAD_WEBHOOK_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body),keepalive:true}).catch(()=>{}); }catch(e){}
 }
 
 /* =====================================================================
-   REGRAS DE NEGÓCIO (Padrão FEX)
+   REGRAS DE NEGÓCIO · extensão universitária (Catálogo Oficial FEX v1.1)
    ===================================================================== */
-const MODELS = {
-  pos6:  {label:"Pós-Graduação · 6 meses · 100% EAD", type:"Pós-Graduação", dur:"6 meses", mod:"100% EAD", h:360, mba:false, why:"Seu conteúdo funciona bem a distância. Seis meses permitem lançar rápido e escalar sem depender da sua agenda."},
-  pos12: {label:"Pós-Graduação · 12 meses · Híbrida", type:"Pós-Graduação", dur:"12 meses", mod:"EAD com mediação ao vivo", h:360, mba:false, why:"Seu método tem forte parte prática. A mediação ao vivo semanal garante aplicação acompanhada."},
-  mba6:  {label:"MBA · 6 meses · 100% EAD", type:"MBA", dur:"6 meses", mod:"100% EAD", h:420, mba:true, why:"Seu tema conversa com gestão e negócios. O MBA aumenta o valor percebido e o formato EAD acelera o lançamento."},
-  mba12: {label:"MBA · 12 meses · Híbrido", type:"MBA", dur:"12 meses", mod:"EAD com mediação ao vivo", h:420, mba:true, why:"Seu método une gestão e prática. O MBA híbrido dá peso executivo e espaço para acompanhar a aplicação."}
+// As 4 titulações de extensão universitária e as faixas de carga horária do catálogo.
+const TITS = {
+  iniciacao:      {nome:"Iniciação",       faixa:"8 a 16h",    min:8,   max:16,  h:16,  mods:2, ideal:"Porta de entrada: workshop, aulão ou imersão curta."},
+  atualizacao:    {nome:"Atualização",     faixa:"17 a 63h",   min:17,  max:63,  h:40,  mods:4, ideal:"Um tema específico para quem já atua na área."},
+  capacitacao:    {nome:"Capacitação",     faixa:"64 a 180h",  min:64,  max:180, h:120, mods:6, ideal:"O seu método completo, do começo ao fim."},
+  aperfeicoamento:{nome:"Aperfeiçoamento", faixa:"180 a 359h", min:181, max:359, h:240, mods:8, ideal:"Formação aprofundada para quem quer dominar a área."}
 };
-const MBA_W = ["gestão","gestao","negócio","negocio","lideran","empreend","financ","marketing","vendas","estratég","estrateg","executiv","comercial","empresa"];
-const PRAT_W = ["prátic","pratic","presencial","clínic","clinic","atendimento","protocolo","laborat","procediment","técnica","tecnica","supervis","estágio","estagio","paciente","terap","fisio","estétic","estetic"];
-function signals(){
-  const t = [S.a.area,S.a.promessa,S.a.perguntas,S.a.temas.join(" "),S.a.ferramentas.join(" "),S.a.referencias].join(" ").toLowerCase();
-  return {mba:MBA_W.filter(w=>t.includes(w)), prat:PRAT_W.filter(w=>t.includes(w))};
+const OBJETIVOS = [
+  ["entrada","Uma porta de entrada","Algo curto para atrair alunos e mostrar o meu jeito de fazer","iniciacao"],
+  ["atualizar","Atualizar quem já atua","Um tema específico para profissionais da área","atualizacao"],
+  ["capacitar","Capacitar para aplicar","Ensinar o meu método completo, do começo ao fim","capacitacao"],
+  ["aprofundar","Uma formação aprofundada","Formar quem quer dominar o que eu faço","aperfeicoamento"]
+];
+const MIN_PERG = 7;
+const perguntas = () => String(S.a.perguntas||"").split(/\n+/).map(t=>t.replace(/^[\s•\-–*\d.)]+/,"").trim()).filter(p=>p.length>3);
+// Indica a titulação a partir do objetivo, da experiência e do volume de conteúdo (perguntas).
+function suggestTit(){
+  const n = perguntas().length, anos = S.a.anos, obj = OBJETIVOS.find(o=>o[0]===S.a.objetivo);
+  let k = obj ? obj[3] : (n>=15 && anos>=10 ? "aperfeicoamento" : n>=10 ? "capacitacao" : "atualizacao");
+  if(k==="aperfeicoamento" && (anos<5 || n<10)) k = "capacitacao";
+  if(k==="capacitacao" && n<MIN_PERG) k = "atualizacao";
+  return k;
 }
-function suggestModel(){ const s=signals(); const m=s.mba.length>0, p=s.prat.length>0; return m&&p?"mba12":m?"mba6":p?"pos12":"pos6"; }
-const TICKETS = [{n:12,v:500},{n:18,v:500},{n:12,v:1000},{n:18,v:1000},{n:12,v:1500},{n:12,v:5000}];
-
+function whyTit(k){
+  const t = TITS[k], n = perguntas().length, obj = OBJETIVOS.find(o=>o[0]===S.a.objetivo), base = obj ? obj[3] : null;
+  const partes = [];
+  if(obj) partes.push(`você quer ${low(obj[1])}`);
+  partes.push(`tem ${S.a.anos} anos de prática`);
+  partes.push(`trouxe ${n} perguntas, que viram ${n} aulas`);
+  let txt = `Recomendamos ${t.nome} (${t.faixa}) porque ${partes.join(", ")}. ${t.ideal}`;
+  if(base && base!==k) txt += ` Para ${TITS[base].nome}, vale ter mais experiência e mais perguntas; você pode escolher mesmo assim.`;
+  return txt;
+}
+const PRECOS = [297, 497, 997, 1497, 1997, 2997];
 const AREAS = ["Fisioterapia","Estética","Psicologia","Nutrição","Direito","Odontologia","Medicina","Enfermagem","Educação","Vendas","Gestão","Marketing","Tecnologia","Finanças","Terapias integrativas","Agronegócio"];
 const PERSONAS = ["Profissionais recém-formados","Profissionais com experiência que querem se especializar","Donos de clínica ou consultório","Gestores e líderes de equipe","Quem quer mudar de área","Professores e educadores"];
 const CAMPAIGNS = {
-  interna:{label:"Campanha interna", desc:"Lançamento direto para quem já é seu aluno ou ex-aluno.", best:"Ideal se você já tem base de alunos.", dMat:-40,
-    cad:["Semana 1: bastidores da criação da pós e lista de espera exclusiva","Semana 2: condição de aluno da casa com janela de 48h","Follow-up em 3 toques por WhatsApp","Conversa individual de fechamento com quem pedir"],
-    pre:["Anunciar os bastidores da pós para alunos e ex-alunos","Abrir lista de espera exclusiva","Aquecer com depoimentos e conteúdo de valor","Preparar a condição de aluno da casa"],
+  interna:{label:"Campanha interna", desc:"Lançamento direto para quem já é seu aluno ou ex-aluno.", best:"Ideal se você já tem base de alunos.",
+    cad:["Semana 1: bastidores do curso e lista de espera exclusiva","Semana 2: condição de aluno da casa com janela de 48h","Follow-up em 3 toques por WhatsApp","Conversa individual de fechamento com quem pedir"],
+    pre:["Anunciar os bastidores do curso para alunos e ex-alunos","Abrir lista de espera exclusiva","Aquecer com depoimentos e conteúdo de valor","Preparar a condição de aluno da casa"],
     camp:["Disparar a oferta interna com janela de 48h","Follow-up por WhatsApp em 3 toques","Conversa individual de fechamento","Recuperar pagamentos não concluídos"]},
-  aula:{label:"Aula magna ao vivo", desc:"Evento online de abertura com a oferta no final.", best:"Ideal se você tem audiência nas redes.", dMat:-20,
+  aula:{label:"Aula ao vivo", desc:"Evento online de abertura com a oferta no final.", best:"Ideal se você tem audiência nas redes.",
     cad:["14 dias de captação para a aula","Aula ao vivo com oferta e condição de 48h","Carrinho aberto por 5 dias","Follow-up por WhatsApp e e-mail","Conversa de fechamento para os mais interessados"],
     pre:["Definir data e roteiro da aula de lançamento","Produzir criativos e página de inscrição","Aquecer a base durante 14 dias","Configurar a transmissão"],
     camp:["Fazer a aula com a oferta no final","Carrinho aberto por 5 dias","Follow-up por WhatsApp e e-mail","Conversa de fechamento"]},
-  imersao:{label:"Imersão presencial", desc:"Um dia mão na massa que termina com a oferta.", best:"Ideal para áreas práticas e de alto valor.", dMat:-25,
+  imersao:{label:"Imersão presencial", desc:"Um dia mão na massa que termina com a oferta.", best:"Ideal para áreas práticas.",
     cad:["Convites dirigidos à base qualificada","Imersão com oferta exclusiva para presentes","Fechamento na sala","Follow-up de 72h para indecisos"],
     pre:["Definir data, local e convidados","Enviar convites dirigidos","Preparar a experiência prática","Ensaiar a apresentação da oferta"],
     camp:["Fazer a imersão com a oferta no final","Fechar matrículas no local","Follow-up de 72h","Conversa individual com indecisos"]},
-  pago:{label:"Lançamento com tráfego pago", desc:"Anúncios levam pessoas para uma aula ou página.", best:"Ideal para escalar além da sua base.", dMat:-30,
-    cad:["30 dias de anúncios para captação","Sequência de aquecimento por e-mail e WhatsApp","Remarketing para quem engajou","Janela de matrícula de 7 dias"],
+  pago:{label:"Lançamento com tráfego pago", desc:"Anúncios levam pessoas para uma aula ou página.", best:"Ideal para escalar além da sua base.",
+    cad:["Anúncios para captação","Sequência de aquecimento por e-mail e WhatsApp","Remarketing para quem engajou","Janela de matrícula de 7 dias"],
     pre:["Estruturar campanhas, página e criativos","Montar a régua de aquecimento","Remarketing para leads engajados","Treinar quem vai atender os leads"],
     camp:["Escalar o investimento nos melhores anúncios","Atendimento rápido aos leads quentes","Janela de matrícula de 7 dias","Recuperar pagamentos não concluídos"]},
-  meteorico:{label:"Lançamento relâmpago", desc:"Grupo de WhatsApp com carrinho aberto por 48 a 72h.", best:"Ideal para base pequena e engajada.", dMat:-10,
+  meteorico:{label:"Lançamento relâmpago", desc:"Grupo de WhatsApp com carrinho aberto por 48 a 72h.", best:"Ideal para base pequena e engajada.",
     cad:["Convite para o grupo de WhatsApp","7 dias de conteúdo em sequência","Carrinho aberto por 48h a 72h","Encerramento real e lista de espera da turma 2"],
     pre:["Captar pessoas para o grupo","Sequência de 7 dias de conteúdo","Preparar bônus para os primeiros","Definir o prazo real do carrinho"],
     camp:["Abrir o carrinho no grupo","Comunicação diária no grupo","Bônus para os primeiros","Encerrar e abrir lista da turma 2"]},
-  black:{label:"Black Friday", desc:"Campanha sazonal com condição especial.", best:"Ideal se a turma começa em janeiro.", dMat:-35,
-    cad:["Outubro: bastidores e lista VIP","Semana da Black: condição especial com prazo real","Turma começando em janeiro","Recuperação de pagamentos até dezembro"],
+  black:{label:"Black Friday", desc:"Campanha sazonal com condição especial.", best:"Ideal se a turma começa no início do ano.",
+    cad:["Bastidores e lista VIP","Semana da Black: condição especial com prazo real","Turma começando no início do ano","Recuperação de pagamentos até dezembro"],
     pre:["Aquecimento com bastidores","Montar lista VIP","Definir a condição da semana","Programar a recuperação de pagamentos"],
     camp:["Ativar a oferta na semana","Comunicação intensa com a lista VIP","Encerrar no prazo anunciado","Recuperar pagamentos nas semanas seguintes"]}
 };
-
+// Advertência obrigatória do Manual de Comunicação (item 3.6) para peças de extensão.
+const ADVERTENCIA = "A oferta não é objeto de reconhecimento, validação, chancela, autorização específica ou certificação pelo Ministério da Educação. O credenciamento da Faculdade FEX Educação refere-se à Instituição, e não ao curso.";
 
 function formation(){
-  const key = S.model || suggestModel(); const m = MODELS[key];
+  const key = S.tit || suggestTit(), t = TITS[key];
+  const h = Math.min(t.max, Math.max(t.min, S.horas || t.h));
   const area = cap(S.a.area || "sua área");
-  const title = (S.a.titulo||"").trim() || `${m.type} em ${area}`;
-  return {key, m, title, area, discs:buildDiscs(key)};
+  const title = (S.a.titulo||"").trim() || `${t.nome} em ${area}`;
+  const mods = buildModules(key, h);
+  return {key, t, h, title, area, mods, aulas: mods.reduce((s,m)=>s+m.aulas.length,0)};
 }
-function buildDiscs(key){
-  const m = MODELS[key], area = (S.a.area||"sua área").trim(), areaC = cap(area);
-  const per = low(S.a.persona || "seus alunos");
-  const total = m.mba ? 7 : 6, core = total - 3, h = m.h / total;
-  const fallback = [`Diagnóstico e avaliação em ${area}`, `Estratégias de intervenção em ${area}`, m.mba?`Gestão e liderança em ${area}`:`Prática supervisionada em ${area}`, `Ética e atuação profissional em ${area}`];
-  const pergs = splitList(S.a.perguntas).filter(p=>p.length<70);
-  const themes = [...S.a.temas];
-  for(const p of pergs){ if(themes.length>=core) break; themes.push(p.replace(/\?$/,"")); }
-  const coreT = Array.from({length:core},(_,i)=> themes[i] || fallback[i] || `Tema aplicado ${i+1}`);
-  const refs = (S.a.referencias||"").trim();
-  const tools = S.a.ferramentas;
-  const yrs = S.a.anos;
-  const out = [];
-  out.push({t:`Fundamentos de ${areaC}`, kind:"fund", h,
-    em:`A base que sustenta todo o curso: conceitos essenciais de ${area}${refs?`, apoiados em ${refs}`:""}, e a visão de quem pratica há ${yrs} anos.`,
-    obj:[`Dominar o vocabulário e os conceitos centrais de ${area}`, `Conhecer as referências que embasam o método`, `Entender o caminho que o curso vai percorrer`],
-    aulas:[[`Panorama de ${area} hoje: o que mudou e o que vem por aí`,"Videoaula"],[`As bases teóricas do método${refs?": "+refs.split(/[,;\n]/)[0].trim():""}`,"Videoaula"],[`${yrs} anos em ${area}: o que a prática ensinou`,"Bate-papo"],["Mapa do curso e como estudar","Tutorial"]]});
-  coreT.forEach((t)=>{
-    const tl = low(t), tc = cap(t);
-    out.push({t:(m.mba && out.length===1?"Estratégia e ":"")+(m.mba && out.length===1?low(tc):tc), kind:"core", h,
-      em:`O aluno aprende ${tl} do jeito que você aplica no dia a dia: conceito, passo a passo, erros comuns e prática com casos reais de ${per}.`,
-      obj:[`Entender o que é ${tl} e quando aplicar`, `Executar o passo a passo com segurança`, `Evitar os erros mais comuns`],
-      aulas:[[`${tc}: o que é e por que muda o resultado`,"Videoaula"],[`O passo a passo de ${tl} na prática`,"Demonstração"],[`Os erros mais comuns em ${tl} e como evitar`,"Videoaula"],[`Estudo de caso: ${tl} na rotina de ${per}`,"Mediação ao vivo"]]});
-  });
-  const tl = tools.slice(0,3);
-  out.push({t:"Ferramentas, protocolos e prática profissional", kind:"tools", h,
-    em: tools.length ? `Aplicação dos instrumentos que você usa no trabalho: ${tools.join(", ")}.` : `Aplicação prática das ferramentas e protocolos do seu método em situações reais.`,
-    obj:["Usar as ferramentas do método com autonomia","Adaptar os protocolos a cada caso","Registrar e acompanhar resultados"],
-    aulas: [...tl.map(x=>[`Como usar: ${x}`,"Tutorial"]), ...[["Seu kit de trabalho: modelos e checklists","Tutorial"],["Aplicando o protocolo do início ao fim","Demonstração"],["Laboratório: casos para resolver","Prática"],["Como medir o resultado do que você aplicou","Videoaula"]]].slice(0,4)});
-  out.push({t: m.mba ? "Projeto aplicado de gestão (TCC)" : "Projeto aplicado (TCC)", kind:"tcc", h,
-    em:`O aluno entrega um projeto real que prova a promessa do curso${S.a.promessa?`: ${low(S.a.promessa).replace(/\.$/,"")}`:""}.`,
-    obj:["Escolher um problema real para resolver","Aplicar o método do curso do início ao fim","Apresentar resultados de forma profissional"],
-    aulas:[["Como escolher o seu projeto","Videoaula"],["Planejando o projeto aplicado","Tutorial"],["Execução com acompanhamento","Mediação ao vivo"],["Apresentação final","Banca"]]});
-  return out.map((d,i)=>({...d, n:i+1}));
+// Etapas que dão nome aos módulos. As perguntas da pessoa são distribuídas entre elas pelas palavras que usam.
+const ETAPAS = [
+  {id:"inicio", t:"Primeiros passos", kw:["começ","comec","primeir","início","inicio","o que é","o que e","por onde","básic","basic","entender"],
+   em:"o ponto de partida: o que todo iniciante precisa entender antes de colocar a mão na massa", obj:["Entender o básico sem complicação","Saber por onde começar","Evitar a confusão do início"]},
+  {id:"metodo", t:"O método na prática", kw:["como ","passo","fazer","faço","faco","aplicar","usar","funciona","melhor forma"],
+   em:"o seu passo a passo, mostrado na prática", obj:["Aplicar o método passo a passo","Adaptar cada etapa ao próprio caso","Ganhar segurança na execução"]},
+  {id:"erros", t:"Erros comuns e como corrigir", kw:["erro","errad","evitar","problema","falha","não funciona","nao funciona","difícil","dificil","certo"],
+   em:"os erros que você mais vê e como corrigir cada um", obj:["Reconhecer os erros mais comuns","Corrigir rápido quando algo sai do plano","Saber se está fazendo certo"]},
+  {id:"resultados", t:"Resultados e carreira", kw:["quanto","cobrar","preço","preco","valor","tempo","resultado","carreira","cliente","vender","ganhar"],
+   em:"como transformar o que foi aprendido em resultado, valor e carreira", obj:["Medir o próprio resultado","Saber cobrar e se posicionar","Planejar os próximos passos"]},
+  {id:"casos", t:"Casos reais", kw:["caso","exemplo","situação","situacao","quando"],
+   em:"situações reais, resolvidas do começo ao fim", obj:["Analisar casos reais","Escolher a melhor saída em cada situação","Aplicar em casos parecidos"]},
+  {id:"avancado", t:"Situações avançadas", kw:["avançad","avancad","complex","mais difícil"],
+   em:"os casos mais desafiadores, para quem quer ir além", obj:["Lidar com casos complexos","Combinar técnicas do método","Ir além do básico com segurança"]}
+];
+function buildModules(key, horas){
+  const t = TITS[key], area = (S.a.area||"sua área").trim(), areaC = cap(area), per = low(S.a.persona || "seus alunos");
+  const qs = perguntas().map(q=>cap(q.replace(/\s+/g," ")));
+  const tools = S.a.ferramentas, refs = (S.a.referencias||"").trim(), yrs = S.a.anos;
+  const fund = {t: t.mods<=2 ? `Fundamentos e primeiros passos em ${areaC}` : `Fundamentos de ${areaC}`, kind:"fund",
+    em:`A base do curso: o essencial de ${area}${refs?`, apoiado em ${refs}`:""}, e a visão de quem pratica há ${yrs} anos.`,
+    obj:[`Dominar os conceitos centrais de ${area}`,"Conhecer as referências do método","Entender o caminho do curso"],
+    aulas:[[`Panorama de ${area} hoje`,"Videoaula"],[`${yrs} anos em ${area}: o que a prática ensinou`,"Bate-papo"],["Como aproveitar este curso","Tutorial"]]};
+  const fixos = [fund];
+  const temFerr = tools.length && t.mods>=4, temProj = t.mods>=4;
+  const nCore = Math.max(1, t.mods - 1 - (temFerr?1:0) - (temProj?1:0));
+  // classifica cada pergunta numa etapa
+  const grupos = {}; ETAPAS.forEach(e=>grupos[e.id]=[]);
+  qs.forEach(q=>{ const l=q.toLowerCase(); const e = ETAPAS.find(e=>e.kw.some(k=>l.includes(k))) || ETAPAS[1]; grupos[e.id].push(q); });
+  let core = ETAPAS.filter(e=>grupos[e.id].length);
+  for(const e of ETAPAS){ if(core.length>=nCore) break; if(!core.includes(e)) core.push(e); }
+  core = ETAPAS.filter(e=>core.includes(e));
+  while(core.length>nCore){ const extra = core.pop(); const alvo = core.find(e=>e.id==="metodo") || core[core.length-1]; grupos[alvo.id].push(...grupos[extra.id]); grupos[extra.id]=[]; }
+  // nenhum módulo central fica sem pergunta
+  for(const e of core){ if(!grupos[e.id].length){ const maior = core.reduce((a,b)=>grupos[a.id].length>=grupos[b.id].length?a:b); if(grupos[maior.id].length>1) grupos[e.id].push(grupos[maior.id].pop()); } }
+  if(t.mods<=2){ const q=[...core.flatMap(e=>grupos[e.id])]; const met=Math.ceil(q.length/2); fund.aulas.push(...q.slice(0,met).map(x=>[x,"Videoaula"])); core=[{...ETAPAS[1], t:"Na prática"}]; grupos.metodo=q.slice(met); }
+  const coreMods = core.map(e=>({t:e.t, kind:"core", em:`Responde às perguntas que você mais ouve, com foco em ${e.em}, usando exemplos reais de ${per}.`, obj:e.obj,
+    aulas:[...grupos[e.id].map(q=>[q, /^como /i.test(q)?"Demonstração":"Videoaula"]), ["Exercício: aplique no seu caso","Prática"]]}));
+  const mods = [...fixos, ...coreMods];
+  if(temFerr) mods.push({t:"Ferramentas e protocolos do método", kind:"tools", em:`Os instrumentos que você usa no trabalho: ${tools.join(", ")}.`, obj:["Usar as ferramentas com autonomia","Adaptar os protocolos a cada caso","Registrar e acompanhar resultados"],
+    aulas: tools.slice(0,4).map(x=>[`Como usar: ${x}`,"Tutorial"])});
+  if(temProj) mods.push({t:"Projeto aplicado", kind:"tcc", em:`O aluno aplica o curso num caso real e prova a promessa${S.a.promessa?`: ${low(promessa())}`:""}.`, obj:["Escolher um caso real","Aplicar o método do início ao fim","Apresentar o resultado"],
+    aulas:[["Escolhendo o seu projeto","Videoaula"],["Aplicando o método do início ao fim","Prática"],["Entrega final","Avaliação"]]});
+  const base = Math.floor(horas/mods.length), resto = horas - base*mods.length;
+  return mods.map((m,i)=>({...m, n:i+1, h: base + (i<resto?1:0)}));
 }
 function pot(){
-  const p = S.pot, t = S.ticket;
-  const mw = Math.floor(p.warm * p.cw / 100), mc = Math.floor(p.cold * p.cc / 100);
-  const mat = mw + mc, contrato = t.n * t.v;
-  return {mw, mc, mat, contrato, fat: mat*contrato, mensal: mat*t.v, fatW: mw*contrato};
+  const p = S.pot, preco = S.preco || 997;
+  const mw = Math.floor(p.warm * p.cw / 100), mc = Math.floor(p.cold * p.cc / 100), mat = mw + mc;
+  return {mw, mc, mat, preco, fat: mat*preco, fatW: mw*preco};
 }
-const split = h => [Math.round(h*.3), Math.round(h*.3), h - 2*Math.round(h*.3)];
+const parcela = v => BRL(Math.ceil(v/12));
 function parseISO(s){ const [y,m,d]=s.split("-").map(Number); return new Date(y,(m||1)-1,d||1); }
 function toISO(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
 const addDays = (d,n) => new Date(d.getFullYear(), d.getMonth(), d.getDate()+n);
 const fdt = d => d.toLocaleDateString("pt-BR",{day:"2-digit",month:"short"}).replace(".","");
-const minMagna = () => addDays(new Date(), 90);
+const hoje = () => { const d=new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); };
+const MIN_DIAS = 30; // Protocolo de Registro: registro em até 30 dias
+const minMagna = () => addDays(hoje(), MIN_DIAS);
+// Cronograma do registro até o início da turma 1, proporcional ao prazo escolhido.
 function schedule(){
-  const D = parseISO(S.magna || toISO(addDays(new Date(),100)));
-  const c = CAMPAIGNS[S.campaign || "aula"], dm = c.dMat;
-  const ph = [
-    {n:"Fundação", a:-90, b:-76, t:["Assinar a parceria com a Faculdade FEX Educação®","Validar a matriz curricular com o time acadêmico","Iniciar o processo de registro da pós","Kickoff de implantação","Definir o coordenador pedagógico"]},
-    {n:"Produção", a:-75, b:-41, t:["Definir o corpo docente","Gravar as aulas no padrão 30/30/40","Produzir apostilas, mapas mentais e avaliações","Gravar o podcast de cada disciplina","Configurar a plataforma de ensino"]}
-  ];
-  if(dm <= -35){
-    ph.push({n:"Pré-lançamento", a:-40, b:-16, mat:true, t:["Abrir o checkout e a página de matrícula", ...c.pre]});
-    ph.push({n:"Campanha", a:-15, b:-2, t:c.camp});
-  } else {
-    ph.push({n:"Pré-lançamento", a:-40, b:dm-1, t:c.pre});
-    ph.push({n:"Campanha", a:dm, b:-2, mat:true, t:["Abrir o checkout e a página de matrícula", ...c.camp]});
-  }
-  ph.push({n:"Fechamento", a:-1, b:-1, t:["Últimas matrículas","Boas-vindas aos alunos na plataforma","Preparar a aula magna"]});
-  ph.push({n:"Aula magna", a:0, b:0, magna:true, t:["Abertura oficial da turma 1","Início do calendário acadêmico"]});
-  return ph.map(p=>({...p, ini:addDays(D,p.a), fim:addDays(D,p.b)}));
+  const D = parseISO(S.magna || toISO(addDays(hoje(),60))), T = Math.max(MIN_DIAS, Math.round((D - hoje())/86400000));
+  const c = CAMPAIGNS[S.campaign || "aula"], at = f => Math.round(T*f) - T;
+  return [
+    {n:"Registro na FEX", a:-T, b:Math.min(MIN_DIAS,T)-T, t:["Assinar o Plano Bronze com a Faculdade FEX Educação®","Enquadramento do curso na titulação de extensão","Registro do curso em até 30 dias","Definir como serão as matrículas"]},
+    {n:"Produção", a:-T, b:at(.6), t:["Gravar as aulas módulo por módulo","Preparar materiais de apoio e exercícios","Montar a avaliação final","Organizar a área do aluno"]},
+    {n:"Pré-lançamento", a:at(.45), b:at(.75)-1, t:c.pre},
+    {n:"Campanha", a:at(.75), b:-1, mat:true, t:["Abrir a página de matrícula", ...c.camp]},
+    {n:"Início da turma 1", a:0, b:0, magna:true, t:["Boas-vindas aos alunos","Primeira aula da turma","Matrículas registradas para a certificação"]}
+  ].map(p=>({...p, ini:addDays(D,p.a), fim:addDays(D,p.b)}));
+}
+// Sem a FEX x com a FEX
+function compareHTML(f){
+  return `<div class="cmp"><div class="cmp-a"><small>Sem a FEX</small><b>Curso livre</b><span>Certificado emitido só por você. Vale como curso livre.</span></div>
+    <div class="cmp-b"><small>Com a FEX</small><b>Extensão universitária</b><span>Curso de ${esc(f.t.nome)} com certificado de extensão universitária emitido pela Faculdade FEX Educação®.</span></div></div>`;
 }
 
 /* =====================================================================
@@ -1046,15 +1113,30 @@ function schedule(){
    ===================================================================== */
 const PHASES = ["Você","Seu aluno","Seu método","Seu formato","Seu potencial","Lançamento","Envio"];
 const SECTIONS = [
-  {key:"voce", n:"Você", why:"O seu curso nasce da sua experiência. Aqui você conta quem é, em que área atua, há quanto tempo e o que as pessoas sempre te perguntam."},
+  {key:"voce", n:"Você", why:"O seu curso nasce da sua experiência. Aqui você conta quem é, em que área atua, há quanto tempo e pelo menos 7 perguntas que as pessoas sempre te fazem. Cada pergunta vira uma aula."},
   {key:"aluno", n:"Seu aluno", why:"Curso que fala com todo mundo não vende para ninguém. Aqui você define para quem é o curso e o que essa pessoa vai conseguir fazer no final."},
-  {key:"metodo", n:"Seu método", why:"Os seus temas viram disciplinas, e cada disciplina ganha quatro aulas. Aqui você organiza o que ensina, as ferramentas que usa e as suas referências."},
-  {key:"formato", n:"Seu formato", why:"Pós ou MBA, 6 ou 12 meses, e quanto o aluno investe por mês. Você vê por que precisa gravar muito menos do que imagina."},
+  {key:"metodo", n:"Seu método", why:"Os módulos a gente monta para você, a partir das suas perguntas. Aqui você conta as ferramentas que usa, as suas referências e se já ensina hoje."},
+  {key:"formato", n:"Seu formato", why:"Você diz o objetivo do curso e a ferramenta indica a titulação de extensão universitária ideal: Iniciação, Atualização, Capacitação ou Aperfeiçoamento. Depois, o preço."},
   {key:"potencial", n:"Seu potencial", why:"Quanto a primeira turma pode faturar com quem já te conhece. É o dinheiro que já está na sua mesa."},
-  {key:"lancamento", n:"Lançamento", why:"Como você vai abrir a primeira turma e quando vai ser a aula magna. A data marcada transforma intenção em projeto."},
+  {key:"lancamento", n:"Lançamento", why:"Como você vai abrir a primeira turma e quando ela começa. O registro com a FEX leva até 30 dias."},
   {key:"envio", n:"Envio", why:"Você deixa o seu contato, vê o seu curso montado de graça e descobre o que vem no plano completo."}
 ];
 const LIGHT_PH = [1,3,5]; // fases com fundo claro, alternando com as escuras
+function pergCount(){
+  const n = perguntas().length, ok = n>=MIN_PERG, el = $("#pcount"); if(!el) return;
+  el.className = "pcount" + (ok?" ok":"");
+  el.innerHTML = `<b>${n}</b> de ${MIN_PERG} perguntas${ok?" · ótimo, cada uma vira uma aula":` · faltam ${MIN_PERG-n}`}`;
+  el.style.setProperty("--pc", Math.min(100, n/MIN_PERG*100)+"%");
+}
+function titBox(){
+  const f = formation(), t = f.t;
+  $("#tWhy").textContent = whyTit(f.key);
+  const r = $("#f_horas"); r.min = t.min; r.max = t.max; r.value = f.h; paintRange(r);
+  $("#hv").textContent = f.h; $("#hRange").textContent = t.faixa;
+  $("#tSum").innerHTML = `<b>${f.mods.length} módulos</b> · <b>${f.aulas} aulas</b> · ${t.nome}`;
+  $("#tCmp").innerHTML = compareHTML(f);
+  const ti = $("#f_titulo"); if(!S.a.titulo || /^(Iniciação|Atualização|Capacitação|Aperfeiçoamento) em /.test(ti.value)){ ti.value = `${t.nome} em ${cap(S.a.area||"sua área")}`; S.a.titulo = ti.value; }
+}
 const STEPS = [
   {id:"nome", ph:0, q:()=>`Vamos começar. <b>Como você se chama?</b>`, help:"Seu nome vai assinar o curso como especialista responsável.",
     body:()=>`<div class="grid2f"><div><label class="flabel" for="f_nome">Nome</label><input class="inp" id="f_nome" autocomplete="given-name" placeholder="Seu nome" value="${esc(S.a.nome)}"></div><div><label class="flabel" for="f_sobrenome">Sobrenome</label><input class="inp" id="f_sobrenome" autocomplete="family-name" placeholder="Seu sobrenome" value="${esc(S.a.sobrenome)}"></div></div>`,
@@ -1065,58 +1147,61 @@ const STEPS = [
     read:()=>{S.a.area=$("#f_area").value.trim();}, ok:()=>S.a.area.length>1 || "Escreva a sua área ou escolha uma opção."},
   {id:"anos", ph:0, q:()=>`Há quanto tempo você trabalha com <b>${esc(low(S.a.area)||"isso")}?</b>`, help:"Arraste até o número de anos. Conta tudo: emprego, consultório, empresa própria, atendimentos.",
     body:()=>`<div class="xp"><div class="yrs"><span id="yv">${S.a.anos}</span> <small>anos</small></div><input type="range" id="f_anos" min="1" max="40" value="${S.a.anos}" aria-label="Anos de experiência"><div class="wow" id="xpWow"></div></div>`,
-    bind:()=>{ const r=$("#f_anos"); const up=()=>{S.a.anos=+r.value; $("#yv").textContent=r.value; paintRange(r); const h=S.a.anos*220*8; $("#xpWow").innerHTML=`São cerca de <b>${INT(h)} horas</b> de prática. Uma pós-graduação inteira tem 360 horas. Você já viveu o equivalente a <b>${INT(h/360)} pós-graduações.</b>`; live();}; r.oninput=up; up(); },
+    bind:()=>{ const r=$("#f_anos"); const up=()=>{S.a.anos=+r.value; $("#yv").textContent=r.value; paintRange(r); const h=S.a.anos*220*8; $("#xpWow").innerHTML=`São cerca de <b>${INT(h)} horas</b> de prática. Um curso de extensão de Capacitação tem até 180 horas. Você já viveu o equivalente a <b>${INT(h/180)} cursos assim.</b>`; live();}; r.oninput=up; up(); },
     read:()=>{S.a.anos=+$("#f_anos").value;}, ok:()=>true},
-  {id:"perguntas", ph:0, q:()=>`O que as pessoas <b>sempre te perguntam?</b>`, help:"Pense nas dúvidas que você responde toda semana: no trabalho, no Instagram, no WhatsApp. Escreva uma por linha. É aqui que mora o seu gênio oculto.",
-    body:()=>`<textarea class="inp" id="f_perg" placeholder="Ex.:&#10;Por onde eu começo?&#10;Qual é o erro mais comum?&#10;Como eu sei se estou fazendo certo?">${esc(S.a.perguntas)}</textarea>${iaBtn("perguntas")}<p class="ex">Não precisa caprichar na escrita. <b>Do jeito que as pessoas falam com você já está ótimo.</b></p>`,
-    read:()=>{S.a.perguntas=$("#f_perg").value.trim();}, ok:()=>S.a.perguntas.length>5 || "Escreva pelo menos uma pergunta que você costuma ouvir."},
-  {id:"persona", ph:1, q:()=>`Quem é a pessoa que <b>mais precisa</b> do que você sabe?`, help:"Lembre: para fazer uma pós-graduação, a pessoa precisa ter uma graduação concluída. Escreva com as suas palavras, peça uma sugestão à IA ou clique em uma opção.",
+  {id:"perguntas", ph:0, q:()=>`O que as pessoas <b>sempre te perguntam?</b>`, help:`Escreva <b>no mínimo ${MIN_PERG} perguntas</b>, uma por linha: as dúvidas que você responde toda semana no trabalho, no Instagram, no WhatsApp. Cada pergunta vira uma aula do seu curso, e a gente organiza tudo em módulos.`,
+    body:()=>`<div class="pcount" id="pcount"></div><textarea class="inp" id="f_perg" style="min-height:260px" placeholder="Ex.:&#10;Por onde eu começo?&#10;Qual é o erro mais comum?&#10;Como eu sei se estou fazendo certo?&#10;Quanto tempo leva para ter resultado?&#10;Quanto devo cobrar?&#10;Como faço no primeiro atendimento?&#10;O que fazer quando não funciona?">${esc(S.a.perguntas)}</textarea>${iaBtn("perguntas")}<p class="ex">Não precisa caprichar na escrita. <b>Do jeito que as pessoas falam com você já está ótimo.</b></p>`,
+    bind:()=>{ $("#f_perg").addEventListener("input", ()=>{ S.a.perguntas=$("#f_perg").value; pergCount(); }); pergCount(); },
+    read:()=>{S.a.perguntas=$("#f_perg").value.trim(); pergCount();}, ok:()=>{ const n=perguntas().length; return n>=MIN_PERG || `Escreva pelo menos ${MIN_PERG} perguntas, uma por linha. Faltam ${MIN_PERG-n}. Se travar, clique em Sugerir com IA.`; }},
+  {id:"persona", ph:1, q:()=>`Quem é a pessoa que <b>mais precisa</b> do que você sabe?`, help:"Escreva com as suas palavras, peça uma sugestão à IA ou clique em uma opção.",
     body:()=>`<input class="inp inp-sm" id="f_persona" placeholder="Escreva aqui quem é o seu aluno ideal" value="${esc(S.a.persona)}">${iaBtn("persona")}<div class="chips" id="perChips">${PERSONAS.map((a,i)=>`<button type="button" style="--i:${i}" class="chip pop${S.a.persona===a?" on":""}" data-v="${esc(a)}">${esc(a)}</button>`).join("")}</div>`,
     bind:()=>{ $("#perChips").onclick=e=>{const b=e.target.closest(".chip"); if(!b)return; $("#f_persona").value=b.dataset.v; $$("#perChips .chip").forEach(c=>c.classList.toggle("on",c===b)); S.a.persona=b.dataset.v; live();}; },
     read:()=>{S.a.persona=$("#f_persona").value.trim();}, ok:()=>S.a.persona.length>3 || "Descreva quem é o seu aluno ideal."},
   {id:"promessa", ph:1, q:()=>`Depois do seu curso, <b>o que o seu aluno vai conseguir fazer?</b>`, help:"Essa é a promessa do curso. Termine a frase pensando na segunda-feira de manhã do seu aluno: o que muda na vida ou no trabalho dele?",
     body:()=>`<div style="font-size:clamp(20px,2.4vw,28px);color:var(--bm);margin-top:30px">Ele vai conseguir…</div><textarea class="inp" id="f_prom" style="min-height:120px;margin-top:10px" placeholder="Ex.: aplicar o método com segurança e ter resultado já nos primeiros casos">${esc(S.a.promessa)}</textarea>${iaBtn("promessa")}`,
     read:()=>{S.a.promessa=$("#f_prom").value.trim();}, ok:()=>S.a.promessa.length>8 || "Escreva o que o seu aluno vai conseguir fazer."},
-  {id:"temas", ph:2, q:()=>`Quais são os <b>grandes temas</b> que você ensinaria?`, help:"Cada tema vira uma disciplina do curso. Escreva e aperte Enter para adicionar. Três a cinco temas é o ideal. Veja o curso se montando ao lado.",
-    body:()=>`<div class="tags-in"><input class="inp inp-sm" id="f_tema" placeholder="Ex.: Tema 01" maxlength="80"><button type="button" class="btn btn-green btn-sm" id="addTema">Adicionar</button></div>${iaBtn("temas")}<div class="taglist" id="temaList"></div><div class="sugg" id="temaSugg"></div>`,
-    bind:()=>tagBind("temas","#f_tema","#addTema","#temaList","#temaSugg", ()=>{ const a=low(S.a.area)||"sua área"; return [`Avaliação e diagnóstico em ${a}`,`Técnicas e intervenções em ${a}`,`Casos complexos em ${a}`,`Gestão da carreira em ${a}`,`Atendimento e relacionamento com o cliente`, ...splitList(S.a.perguntas).filter(p=>p.length<60).map(p=>p.replace(/\?$/,""))]; }, 7),
-    read:()=>{}, ok:()=>S.a.temas.length>=2 || "Adicione pelo menos 2 temas. Use as sugestões se quiser."},
-  {id:"ferramentas", ph:2, q:()=>`Que <b>ferramentas, protocolos ou passo a passo</b> você usa no trabalho?`, help:"Fichas, checklists, testes, softwares, roteiros, técnicas próprias. Tudo o que você faz de um jeito que é só seu. Pode pular se preferir.",
+  {id:"ferramentas", ph:2, q:()=>`Que <b>ferramentas, protocolos ou passo a passo</b> você usa no trabalho?`, help:"Os módulos a gente monta com as suas perguntas, e você vê tudo no final. Aqui entram fichas, checklists, roteiros e técnicas próprias, que viram um módulo só delas. Pode pular se preferir.",
     body:()=>`<div class="tags-in"><input class="inp inp-sm" id="f_ferr" placeholder="Ex.: Checklist de atendimento" maxlength="80"><button type="button" class="btn btn-green btn-sm" id="addFerr">Adicionar</button></div>${iaBtn("ferramentas")}<div class="taglist" id="ferrList"></div><div class="sugg" id="ferrSugg"></div>`,
     bind:()=>tagBind("ferramentas","#f_ferr","#addFerr","#ferrList","#ferrSugg", ()=>["Ficha de avaliação inicial","Checklist de atendimento","Protocolo passo a passo","Planilha de acompanhamento","Roteiro de primeira consulta"], 6),
     read:()=>{}, ok:()=>true, skip:true},
-  {id:"referencias", ph:2, q:()=>`Em quem você se apoia? <b>Autores, livros ou metodologias.</b>`, help:"Isso dá base científica ao curso. Se não lembrar agora, pule: o time acadêmico da FEX ajuda depois.",
+  {id:"referencias", ph:2, q:()=>`Em quem você se apoia? <b>Autores, livros ou metodologias.</b>`, help:"Isso dá base ao curso. Se não lembrar agora, pule: o time acadêmico da FEX ajuda depois.",
     body:()=>`<textarea class="inp" id="f_refs" style="min-height:120px" placeholder="Ex.: autores, livros, diretrizes ou métodos que você segue">${esc(S.a.referencias)}</textarea>`,
     read:()=>{S.a.referencias=$("#f_refs").value.trim();}, ok:()=>true, skip:true},
-  {id:"ensina", ph:2, q:()=>`Você <b>já ensina</b> hoje?`, help:"Isso ajuda a escolher o melhor jeito de lançar. Em 9 de 10 casos da FEX, a pós entrou depois, em cima de algo que o expert já vendia.",
-    body:()=>opts("ensina",[["nao","Ainda não","Vou começar pela pós"],["mentoria","Mentoria ou consultoria","Atendo pessoas individualmente"],["online","Curso online","Já vendo um curso na internet"],["presencial","Curso ou evento presencial","Turmas, workshops, imersões"]], S.a.ensina),
+  {id:"ensina", ph:2, q:()=>`Você <b>já ensina</b> hoje?`, help:"Isso ajuda a escolher o melhor jeito de lançar. Em 9 de 10 casos da FEX, a titulação entrou depois, em cima de algo que o expert já vendia.",
+    body:()=>opts("ensina",[["nao","Ainda não","Vou começar por este curso"],["mentoria","Mentoria ou consultoria","Atendo pessoas individualmente"],["online","Curso online","Já vendo um curso na internet"],["presencial","Curso ou evento presencial","Turmas, workshops, imersões"]], S.a.ensina),
     bind:()=>optBind("ensina", v=>{S.a.ensina=v; if(v!=="nao" && S.pot.warm===500) S.pot.warm=800;}), read:()=>{}, ok:()=>!!S.a.ensina || "Escolha uma opção."},
-  {id:"modelo", ph:3, q:()=>`Este é o <b>formato ideal</b> para o seu curso.`, help:"A sugestão vem das palavras que você usou. Você pode trocar se preferir outro formato.",
-    body:()=>{ const sug=suggestModel(); if(!S.model) S.model=sug; const m=MODELS[S.model]; const [a,b,c]=split(m.h);
-      return `<div class="opts" id="opt-model">${Object.entries(MODELS).map(([k,x],i)=>`<button type="button" style="--i:${i*2}" class="opt pop${S.model===k?" on":""}" data-v="${k}">${k===sug?'<span class="rec">Recomendado para você</span>':""}<b>${x.type} · ${x.dur}</b><span>${x.mod} · ${x.h}h</span></button>`).join("")}</div>
-      <p class="qhelp" id="mWhy" style="margin-top:22px">${esc(MODELS[S.model].why)}</p>
-      <div class="split" id="mSplit"><div class="a">${a}h<small>hora-aula</small></div><div class="b">${b}h<small>autoestudo</small></div><div class="c">${c}h<small>prática</small></div></div>
-      <div class="note" id="mNote">Padrão FEX 30/30/40: das ${m.h}h, você só precisa gravar <b>${a}h de hora-aula</b>. O resto é autoestudo e prática do aluno.</div>
+  {id:"objetivo", ph:3, q:()=>`O que você quer que o seu curso <b>seja para o aluno?</b>`, help:"Com isso, a sua experiência e as suas perguntas, a ferramenta indica a titulação de extensão universitária ideal na próxima tela.",
+    body:()=>opts("objetivo", OBJETIVOS.map(o=>[o[0],o[1],o[2]]), S.a.objetivo),
+    bind:()=>optBind("objetivo", v=>{ S.a.objetivo=v; S.tit=null; S.horas=null; }), read:()=>{}, ok:()=>!!S.a.objetivo || "Escolha uma opção."},
+  {id:"titulacao", ph:3, q:()=>`Esta é a <b>titulação ideal</b> para o seu curso.`, help:"A extensão universitária tem 4 titulações, pela carga horária. A recomendação vem das suas respostas, e você pode trocar.",
+    body:()=>{ const sug=suggestTit(); if(!S.tit) S.tit=sug;
+      return `<div class="opts" id="opt-tit">${Object.entries(TITS).map(([k,x],i)=>`<button type="button" style="--i:${i*2}" class="opt pop${S.tit===k?" on":""}" data-v="${k}">${k===sug?'<span class="rec">Recomendado para você</span>':""}<b>${x.nome}</b><span>${x.faixa} · ${x.ideal}</span></button>`).join("")}</div>
+      <p class="qhelp" id="tWhy" style="margin-top:22px"></p>
+      <div class="xp" style="margin-top:22px"><label class="flabel" for="f_horas">Carga horária (<span id="hRange"></span>)</label><div class="yrs" style="font-size:clamp(48px,7vw,80px)"><span id="hv"></span> <small>horas</small></div><input type="range" id="f_horas" aria-label="Carga horária"></div>
+      <div class="note" id="tSum"></div>
+      <div id="tCmp"></div>
       <div class="field"><label class="flabel" for="f_titulo">Nome do curso (pode editar)</label><input class="inp inp-sm" id="f_titulo" value="${esc(S.a.titulo || formation().title)}">${iaBtn("titulo")}</div>`; },
-    bind:()=>{ optBind("model", v=>{S.model=v; const m=MODELS[v]; const [a,b,c]=split(m.h); $("#mWhy").textContent=m.why; $("#mSplit").innerHTML=`<div class="a">${a}h<small>hora-aula</small></div><div class="b">${b}h<small>autoestudo</small></div><div class="c">${c}h<small>prática</small></div>`; $("#mNote").innerHTML=`Padrão FEX 30/30/40: das ${m.h}h, você só precisa gravar <b>${a}h de hora-aula</b>. O resto é autoestudo e prática do aluno.`; const t=$("#f_titulo"); if(/^(Pós-Graduação|MBA) em /.test(t.value)) { t.value = t.value.replace(/^(Pós-Graduação|MBA)/, m.type); } }); $("#f_titulo").oninput=e=>{S.a.titulo=e.target.value; live();}; },
-    read:()=>{S.a.titulo=$("#f_titulo").value.trim();}, ok:()=>!!S.model},
-  {id:"ticket", ph:3, q:()=>`Quanto o seu aluno vai <b>investir por mês?</b>`, help:"Em pós-graduação, a gente vende a parcela, não o total. O aluno compara com a mensalidade de uma faculdade. Os valores abaixo vêm de clientes reais da FEX.",
-    body:()=>`<div class="opts" id="opt-ticket" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">${TICKETS.map((t,i)=>{const k=t.n+"x"+t.v; const on=S.ticket.n===t.n&&S.ticket.v===t.v; return `<button type="button" style="--i:${i*2}" class="opt pop${on?" on":""}" data-v="${k}"><span>${t.n} parcelas de</span><div class="price-big">${BRL(t.v)}</div><span>Total por aluno: ${BRL(t.n*t.v)}</span></button>`;}).join("")}</div>`,
-    bind:()=>optBind("ticket", v=>{const [n,x]=v.split("x").map(Number); S.ticket={n,v:x};}), read:()=>{}, ok:()=>true},
+    bind:()=>{ optBind("tit", v=>{ S.tit=v; S.horas=TITS[v].h; titBox(); }); $("#f_horas").oninput=e=>{ S.horas=+e.target.value; titBox(); live(); }; $("#f_titulo").oninput=e=>{S.a.titulo=e.target.value; live();}; titBox(); },
+    read:()=>{S.a.titulo=$("#f_titulo").value.trim();}, ok:()=>!!S.tit},
+  {id:"preco", ph:3, q:()=>`Quanto vai custar o <b>seu curso?</b>`, help:"Exemplo usado pela FEX: um curso que vende a R$ 200 como curso livre pode vender a R$ 997 como extensão universitária. Escolha uma faixa ou escreva o seu valor.",
+    body:()=>`<div class="opts" id="opt-preco" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr))">${PRECOS.map((v,i)=>`<button type="button" style="--i:${i*2}" class="opt pop${S.preco===v?" on":""}" data-v="${v}"><span>à vista</span><div class="price-big">${BRL(v)}</div><span>ou 12x de ${parcela(v)}</span></button>`).join("")}</div>
+      <div class="field"><label class="flabel" for="f_preco">Outro valor (R$)</label><input class="inp inp-sm" id="f_preco" type="number" min="50" step="1" inputmode="numeric" placeholder="Ex.: 1290" value="${PRECOS.includes(S.preco)?"":S.preco}"></div>`,
+    bind:()=>{ optBind("preco", v=>{ S.preco=+v; $("#f_preco").value=""; }); $("#f_preco").oninput=e=>{ const v=Math.round(+e.target.value); if(v>=50){ S.preco=v; $$("#opt-preco .opt").forEach(o=>o.classList.remove("on")); live(); save(); } }; },
+    read:()=>{}, ok:()=>S.preco>=50 || "Escolha um valor."},
   {id:"audiencia", ph:4, q:()=>`Quantas pessoas <b>já te conhecem?</b>`, help:"Base quente: alunos, ex-alunos, pacientes e clientes. Audiência fria: seguidores, lista de e-mail, contatos. Arraste e veja o potencial da primeira turma.",
     body:()=>`<div class="sim">
       <div class="row"><div class="top2"><span>Base quente (alunos, ex-alunos, clientes)</span><b id="vw">${INT(S.pot.warm)}</b></div><input type="range" id="f_warm" min="0" max="5000" step="50" value="${S.pot.warm}" aria-label="Base quente"><label class="conv">Conversão esperada <input type="number" id="f_cw" min="0" max="100" step="0.5" value="${S.pot.cw}"> % · referência FEX: 5%</label></div>
       <div class="row"><div class="top2"><span>Audiência fria (seguidores, lista, contatos)</span><b id="vc">${INT(S.pot.cold)}</b></div><input type="range" id="f_cold" min="0" max="200000" step="1000" value="${S.pot.cold}" aria-label="Audiência fria"><label class="conv">Conversão esperada <input type="number" id="f_cc" min="0" max="100" step="0.1" value="${S.pot.cc}"> % · referência FEX: 1%</label></div>
       <div class="result"><div><div class="lbl">Faturamento da primeira turma</div><div class="rv2" id="vfat">R$ 0</div><div class="sub" id="vmen"></div></div><div class="mat"><b id="vmat">0</b><span class="lbl">matrículas</span></div></div>
       <p class="ex" id="vread"></p></div>`,
-    bind:()=>{ const up=()=>{ S.pot.warm=+$("#f_warm").value; S.pot.cold=+$("#f_cold").value; S.pot.cw=Math.max(0,+$("#f_cw").value||0); S.pot.cc=Math.max(0,+$("#f_cc").value||0); paintRange($("#f_warm")); paintRange($("#f_cold")); $("#vw").textContent=INT(S.pot.warm); $("#vc").textContent=INT(S.pot.cold); const p=pot(); tween($("#vfat"),p.fat,BRL); tween($("#vmat"),p.mat,INT); $("#vmen").textContent=`${S.ticket.n}x de ${BRL(S.ticket.v)} · ${BRL(p.mensal)} por mês em parcelas`; $("#vread").innerHTML = p.fatW>0?`Só com a sua base quente, sem gastar com anúncio, são <b>${BRL(p.fatW)}</b> em contratos.`:"Aumente a base quente para ver o dinheiro que já está na mesa."; live(); }; ["#f_warm","#f_cold","#f_cw","#f_cc"].forEach(s=>$(s).oninput=up); up(); },
+    bind:()=>{ const up=()=>{ S.pot.warm=+$("#f_warm").value; S.pot.cold=+$("#f_cold").value; S.pot.cw=Math.max(0,+$("#f_cw").value||0); S.pot.cc=Math.max(0,+$("#f_cc").value||0); paintRange($("#f_warm")); paintRange($("#f_cold")); $("#vw").textContent=INT(S.pot.warm); $("#vc").textContent=INT(S.pot.cold); const p=pot(); tween($("#vfat"),p.fat,BRL); tween($("#vmat"),p.mat,INT); $("#vmen").textContent=`Curso a ${BRL(p.preco)} por aluno`; $("#vread").innerHTML = p.fatW>0?`Só com a sua base quente, sem gastar com anúncio, são <b>${BRL(p.fatW)}</b>.`:"Aumente a base quente para ver o dinheiro que já está na mesa."; live(); }; ["#f_warm","#f_cold","#f_cw","#f_cc"].forEach(s=>$(s).oninput=up); up(); },
     read:()=>{}, ok:()=>true},
   {id:"campanha", ph:5, q:()=>`Como você quer <b>lançar a primeira turma?</b>`, help:"Não existe um jeito certo. O que muda é onde está a confiança do seu público. Escolha o que tem mais a ver com você hoje.",
     body:()=>opts("campaign", Object.entries(CAMPAIGNS).map(([k,c])=>[k,c.label,c.desc+" "+c.best]), S.campaign),
     bind:()=>optBind("campaign", v=>{S.campaign=v;}), read:()=>{}, ok:()=>!!S.campaign || "Escolha um modelo de lançamento."},
-  {id:"magna", ph:5, q:()=>`Quando vai ser a <b>aula magna</b> da sua turma?`, help:"A aula magna é a abertura oficial do curso. A implantação com a FEX leva 90 dias, então a data mínima é daqui a 90 dias. Ela monta o seu cronograma.",
-    body:()=>{ const mn=toISO(minMagna()); if(!S.magna || S.magna<mn) S.magna=toISO(addDays(new Date(),100)); return `<input type="date" class="inp" id="f_magna" min="${mn}" value="${S.magna}" style="max-width:360px"><div class="note" id="magNote"></div>`; },
-    bind:()=>{ const el=$("#f_magna"); const up=()=>{ const mn=toISO(minMagna()); if(!el.value || el.value<mn){ el.value=mn; } S.magna=el.value; const d=parseISO(S.magna); const c=CAMPAIGNS[S.campaign||"aula"]; $("#magNote").innerHTML=`Aula magna em <b>${d.toLocaleDateString("pt-BR",{day:"2-digit",month:"long",year:"numeric"})}</b>. As matrículas abrem por volta de <b>${addDays(d, c.dMat<=-35?-40:c.dMat).toLocaleDateString("pt-BR",{day:"2-digit",month:"long"})}</b>.`; }; el.onchange=up; up(); },
+  {id:"magna", ph:5, q:()=>`Quando a <b>primeira turma</b> começa?`, help:"O registro do curso com a Faculdade FEX Educação® leva até 30 dias, então a data mínima é daqui a 30 dias. A data monta o seu cronograma.",
+    body:()=>{ const mn=toISO(minMagna()); if(!S.magna || S.magna<mn) S.magna=toISO(addDays(hoje(),60)); return `<input type="date" class="inp" id="f_magna" min="${mn}" value="${S.magna}" style="max-width:360px"><div class="note" id="magNote"></div>`; },
+    bind:()=>{ const el=$("#f_magna"); const up=()=>{ const mn=toISO(minMagna()); if(!el.value || el.value<mn){ el.value=mn; } S.magna=el.value; const d=parseISO(S.magna); const sc=schedule(); const camp=sc.find(x=>x.mat); $("#magNote").innerHTML=`Turma começa em <b>${d.toLocaleDateString("pt-BR",{day:"2-digit",month:"long",year:"numeric"})}</b>. As matrículas abrem por volta de <b>${camp.ini.toLocaleDateString("pt-BR",{day:"2-digit",month:"long"})}</b>.`; }; el.onchange=up; up(); },
     read:()=>{S.magna=$("#f_magna").value;}, ok:()=>!!S.magna},
   {id:"contato", ph:6, q:()=>`Seu curso está pronto, ${esc(firstName())}. <b>Para onde enviamos?</b>`, help:"Usamos o seu contato para salvar o plano e para um especialista da FEX falar com você, se quiser.",
     body:()=>`<div class="grid2f"><div><label class="flabel" for="f_email">E-mail</label><input class="inp inp-sm" id="f_email" type="email" autocomplete="email" placeholder="voce@email.com" value="${esc(S.a.email)}"></div><div><label class="flabel" for="f_tel">WhatsApp</label><input class="inp inp-sm" id="f_tel" type="tel" autocomplete="tel" placeholder="(11) 99999-9999" value="${esc(S.a.telefone)}"></div><div><label class="flabel" for="f_ig">Instagram (opcional)</label><input class="inp inp-sm" id="f_ig" placeholder="@seuperfil" value="${esc(S.a.instagram)}"></div></div><label style="display:flex;gap:12px;align-items:flex-start;margin-top:26px;font-size:15px;color:var(--bm)"><input type="checkbox" id="f_consent" ${S.a.consent?"checked":""} style="width:20px;height:20px;accent-color:var(--green);margin-top:3px">Aceito receber o meu plano e falar com a Faculdade FEX Educação® sobre o meu curso.</label>`,
@@ -1130,12 +1215,11 @@ const STEPS = [
 const IA_N = {};
 const iaPick = (campo, list) => { const i = (IA_N[campo] = ((IA_N[campo] ?? -1) + 1)) % list.length; return list[i]; };
 const IA_LOCAL = {
-  perguntas:()=>{ const a=low(S.a.area)||"a sua área"; return [`Por onde começa quem quer trabalhar com ${a}?`,`Qual é o erro mais comum de quem está começando em ${a}?`,`Como saber se estou fazendo certo?`,`Quanto cobrar pelo meu trabalho em ${a}?`,`Que resultado posso esperar nos primeiros meses?`].join("\n"); },
+  perguntas:()=>{ const a=low(S.a.area)||"a sua área"; return [`Por onde começa quem quer trabalhar com ${a}?`,`Qual é o erro mais comum de quem está começando?`,`Como eu sei se estou fazendo certo?`,`Quanto tempo leva para ter resultado?`,`Quanto devo cobrar pelo meu trabalho em ${a}?`,`Como faço no primeiro atendimento?`,`O que fazer quando não funciona?`,`Quais ferramentas eu preciso para começar?`].join("\n"); },
   persona:()=>{ const a=low(S.a.area)||"na área"; return iaPick("persona",[`Profissionais formados que querem se especializar em ${a}`,`Quem já atua em ${a} e quer ter mais resultado e segurança`,`Profissionais que querem migrar para ${a} com um método claro`]); },
   promessa:()=>{ const a=low(S.a.area)||"a área"; const p=splitList(S.a.perguntas)[0]; return iaPick("promessa",[`dominar ${a} na prática, com um método claro, e atender com segurança desde os primeiros casos`,`aplicar o seu método em ${a} do início ao fim e cobrar mais pelo próprio trabalho`,p?`responder com segurança a pergunta "${p.replace(/\?$/,"")}" e transformar isso em resultado para os próprios clientes`:`ter resultados consistentes em ${a} sem depender de tentativa e erro`]); },
-  temas:()=>{ const a=low(S.a.area)||"sua área"; return [...splitList(S.a.perguntas).filter(p=>p.length<60).map(p=>cap(p.replace(/\?$/,""))),`Diagnóstico e avaliação em ${a}`,`Técnicas e métodos em ${a}`,`Casos práticos em ${a}`,`Carreira e posicionamento em ${a}`]; },
   ferramentas:()=>["Ficha de avaliação inicial","Checklist de atendimento","Protocolo passo a passo","Planilha de acompanhamento de resultados","Roteiro da primeira conversa com o cliente"],
-  titulo:()=>{ const f=formation(), A=cap(S.a.area||"sua área"), t=S.a.temas[0]; return iaPick("titulo",[`${f.m.type} em ${A}`, t?`${f.m.type} em ${A}: ${cap(t)}`:`${f.m.type} em ${A} Aplicada`, `${f.m.type} em ${A} na Prática`, `${f.m.type} em ${A} e Resultados`]); }
+  titulo:()=>{ const f=formation(), A=cap(S.a.area||"sua área"), n=f.t.nome; return iaPick("titulo",[`${n} em ${A}`, `${n} em ${A} na Prática`, `${A} na Prática: ${n}`, `${n} em ${A}: do básico ao resultado`]); }
 };
 function iaBtn(campo){ return `<button type="button" class="ia" data-ia="${campo}"><svg viewBox="0 0 24 24"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9zM19 14l.9 2.6 2.6.9-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9z"/></svg>Sugerir com IA <small>a partir das suas respostas</small></button>`; }
 async function iaSuggest(campo){
@@ -1161,7 +1245,7 @@ document.addEventListener("click", async e=>{
     st.read(); if(campo==="titulo") S.a.titulo = el.value; live(); save();
     $$(".chip", el.parentElement).forEach(c=>c.classList.remove("on"));
   } else {
-    const key = campo, max = key==="temas"?7:6, list = Array.isArray(sug) ? sug : splitList(sug);
+    const key = campo, max = 6, list = Array.isArray(sug) ? sug : splitList(sug);
     let added = 0;
     for(const x of list){ if(S.a[key].length>=max || added>=3) break; const v=cap(x.trim()); if(v && !S.a[key].some(y=>y.toLowerCase()===v.toLowerCase())){ S.a[key].push(v); added++; } }
     st.bind(); save();
@@ -1242,23 +1326,21 @@ document.addEventListener("keydown", e=>{
 /* ============ painel ao vivo ============ */
 function live(){
   const f = formation(), p = pot();
-  $("#lvType").textContent = `${f.m.type} · ${f.m.h}h`;
+  $("#lvType").textContent = `Extensão universitária · ${f.t.nome} · ${f.h}h`;
   const hasT = S.a.area || S.a.titulo;
   const nt = hasT ? f.title : "O nome do seu curso aparece aqui";
   if($("#lvTitle").textContent !== nt && hasT){ const c=$("#live .cover"); c.classList.remove("lvflash"); void c.offsetWidth; c.classList.add("lvflash"); }
   $("#lvTitle").textContent = nt;
   $("#lvTitle").classList.toggle("ph", !hasT);
-  $("#lvProm").textContent = S.a.promessa ? "Seu aluno vai conseguir " + low(S.a.promessa).replace(/\.$/,"") + "." : (S.a.nome ? `Por ${S.a.nome} ${S.a.sobrenome}`.trim() : "");
+  $("#lvProm").textContent = S.a.promessa ? "Seu aluno vai conseguir " + low(promessa()) + "." : (S.a.nome ? `Por ${S.a.nome} ${S.a.sobrenome}`.trim() : "");
   $("#lvChips").innerHTML = [S.a.nome && `${S.a.nome} ${S.a.sobrenome}`.trim(), S.step>2 && `${S.a.anos} anos de prática`, S.a.persona && S.a.persona].filter(Boolean).map(x=>`<span>${esc(x)}</span>`).join("");
-  const reached = S.step >= STEPS.findIndex(s=>s.id==="temas");
-  const ds = f.discs;
-  const shown = reached ? ds : [];
-  $("#lvMods").innerHTML = shown.length ? shown.map(d=>`<li><span class="n">${String(d.n).padStart(2,"0")}</span><span class="t">${esc(d.t)}</span></li>`).join("")
-    : Array.from({length:f.m.mba?7:6},(_,i)=>`<li class="ghost"><span class="n">${String(i+1).padStart(2,"0")}</span>Disciplina ${i+1}</li>`).join("");
-  $("#lvCount").textContent = `${ds.length} · ${ds.length*4} aulas`;
-  const nb = reached ? ds.length : 0; if(+$("#lvBadge").textContent !== nb){ const bd=$("#lvBadge"); bd.textContent = nb; bd.animate([{transform:"scale(1.6)"},{transform:"scale(1)"}],{duration:400,easing:"cubic-bezier(.2,.9,.3,1.3)"}); }
-  const [ha] = split(f.m.h);
-  $("#lvStats").innerHTML = `<div><b>${f.m.h}h</b><span>carga total</span></div><div><b>${ha}h</b><span>para gravar</span></div>`+
+  const reached = perguntas().length>0;
+  const ms = f.mods;
+  $("#lvMods").innerHTML = reached ? ms.map(d=>`<li><span class="n">${String(d.n).padStart(2,"0")}</span><span class="t">${esc(d.t)}<small class="la">${d.aulas.length} aulas</small></span></li>`).join("")
+    : Array.from({length:f.t.mods},(_,i)=>`<li class="ghost"><span class="n">${String(i+1).padStart(2,"0")}</span>Módulo ${i+1}</li>`).join("");
+  $("#lvCount").textContent = `${ms.length} módulos · ${reached?f.aulas:0} aulas`;
+  const nb = reached ? ms.length : 0; if(+$("#lvBadge").textContent !== nb){ const bd=$("#lvBadge"); bd.textContent = nb; bd.animate([{transform:"scale(1.6)"},{transform:"scale(1)"}],{duration:400,easing:"cubic-bezier(.2,.9,.3,1.3)"}); }
+  $("#lvStats").innerHTML = `<div><b>${f.h}h</b><span>carga total</span></div><div><b>${reached?f.aulas:0}</b><span>aulas</span></div>`+
     (S.step >= STEPS.findIndex(s=>s.id==="audiencia") ? `<div class="wide"><b>${BRL(p.fat)}</b><span>potencial da 1ª turma · ${INT(p.mat)} matrículas</span></div>` : `<div class="wide"><b>R$ ···</b><span>potencial aparece na etapa 5</span></div>`);
 }
 $("#openLive").onclick=()=>{ $("#live").classList.add("open"); $("#scrim").classList.add("on"); };
@@ -1267,10 +1349,10 @@ $("#closeLive").onclick=closeLive; $("#scrim").onclick=closeLive;
 
 /* ============ análise ============ */
 function finishBuilder(){
-  S.done = true; S.leadId = S.leadId || "GO-" + Date.now().toString(36).toUpperCase(); save();
+  S.done = true; S.leadId = S.leadId || "CF-" + Date.now().toString(36).toUpperCase(); save();
   track("lead"); sendLead("prévia");
   const f = formation();
-  const items = [`Lendo ${S.a.anos} anos de experiência em ${low(S.a.area)}`, `Transformando ${S.a.temas.length} temas em ${f.discs.length} disciplinas`, `Criando ${f.discs.length*4} aulas no padrão FEX 30/30/40`, `Calculando o potencial da primeira turma`, `Montando o cronograma de 90 dias`];
+  const items = [`Lendo ${S.a.anos} anos de experiência em ${low(S.a.area)}`, `Transformando ${perguntas().length} perguntas em aulas`, `Organizando ${f.mods.length} módulos de ${f.t.nome} (${f.h}h)`, `Calculando o potencial da primeira turma`, `Montando o cronograma até a primeira turma`];
   show("analise");
   $("#anTitle").textContent = `Organizando o que você sabe, ${firstName()}…`;
   $("#anList").innerHTML = items.map(t=>`<li><i></i>${esc(t)}</li>`).join("");
@@ -1284,24 +1366,22 @@ function finishBuilder(){
 const LOCK = `<span class="lockico"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>`;
 const PLAY = `<svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg>`;
 function discHTML(d, open, locked){
-  const [a,b,c] = split(d.h);
   return `<div class="disc${open?" open":""}${locked?" locked":""}">
-    <button type="button" class="dh" ${locked?"disabled":""} aria-expanded="${open}"><span class="dn">${String(d.n).padStart(2,"0")}</span><span><span class="dt3">${esc(d.t)}</span><span class="meta">${d.h}h · 4 aulas</span></span>${locked?LOCK:`<span class="chev">⌄</span>`}</button>
+    <button type="button" class="dh" ${locked?"disabled":""} aria-expanded="${open}"><span class="dn">${String(d.n).padStart(2,"0")}</span><span><span class="dt3">${esc(d.t)}</span><span class="meta">Módulo ${d.n} · ${d.h}h · ${d.aulas.length} aulas</span></span>${locked?LOCK:`<span class="chev">⌄</span>`}</button>
     <div class="db">
       <p class="em">${esc(d.em)}</p>
       <ul class="obj">${d.obj.map(o=>`<li>${esc(o)}</li>`).join("")}</ul>
-      <div class="lessons">${d.aulas.map((l,i)=>`<div class="lesson"><span class="lp">${PLAY}</span><span><b>Aula ${i+1}. ${esc(l[0])}</b><small>${d.kind==="tcc"?"Acompanhamento do projeto":"Gravação de 15 a 25 minutos"}</small></span><span class="fmt">${esc(l[1])}</span></div>`).join("")}</div>
-      <div class="split-mini"><span class="a">${a}h hora-aula</span><span class="b">${b}h autoestudo</span><span class="c">${c}h prática</span></div>
-      <div class="mats"><span>Videoaulas</span><span>Apostila</span><span>Mapa mental</span><span>Podcast</span><span>Exercício prático</span><span>Avaliação</span></div>
+      <div class="lessons">${d.aulas.map((l,i)=>`<div class="lesson"><span class="lp">${PLAY}</span><span><b>Aula ${i+1}. ${esc(l[0])}</b><small>${l[1]==="Prática"?"Atividade do aluno":d.kind==="tcc"?"Acompanhamento do projeto":"Gravação de 10 a 20 minutos"}</small></span><span class="fmt">${esc(l[1])}</span></div>`).join("")}</div>
+      <div class="mats"><span>Videoaulas</span><span>Material de apoio</span><span>Exercício prático</span><span>Avaliação</span></div>
     </div></div>`;
 }
 function bindDiscs(root){ $$(".disc .dh", root).forEach(b=>b.onclick=()=>{ const d=b.closest(".disc"); if(d.classList.contains("locked")) return; d.classList.toggle("open"); b.setAttribute("aria-expanded", d.classList.contains("open")); }); }
 function posterHTML(f,p){
   return `<div class="course-poster rv" data-tilt>
-    <div class="l"><img class="logo" src="assets/logo-fex-branco.png" alt="FEX Educação" width="104" height="18"><div class="type">${esc(f.m.type)} · ${esc(f.m.mod)}</div><div class="ttl">${esc(f.title)}</div>
-      ${S.a.promessa?`<div class="prom">Para ${esc(low(S.a.persona)||"profissionais")} que querem ${esc(low(S.a.promessa).replace(/\.$/,""))}.</div>`:""}
+    <div class="l"><img class="logo" src="assets/logo-fex-branco.png" alt="FEX Educação" width="104" height="18"><div class="type">Extensão universitária · ${esc(f.t.nome)}</div><div class="ttl">${esc(f.title)}</div>
+      ${S.a.promessa?`<div class="prom">Para ${esc(low(S.a.persona)||"profissionais")} que querem ${esc(low(promessa()))}.</div>`:""}
       <div class="by">Especialista responsável: <b>${esc((S.a.nome+" "+S.a.sobrenome).trim())}</b> · ${S.a.anos} anos em ${esc(low(S.a.area))}</div></div>
-    <div class="r"><div><b>${f.m.h}h</b><span>carga horária</span></div><div><b>${f.discs.length}</b><span>disciplinas</span></div><div><b>${f.discs.length*4}</b><span>aulas</span></div><div><b>${f.m.dur.split(" ")[0]}</b><span>meses</span></div>
+    <div class="r"><div><b>${f.h}h</b><span>carga horária</span></div><div><b>${f.mods.length}</b><span>módulos</span></div><div><b>${f.aulas}</b><span>aulas</span></div><div><b>${BRL(p.preco).replace("R$ ","")}</b><span>reais por aluno</span></div>
       <div class="full"><b data-tw="${p.fat}" data-f="brl">${BRL(p.fat)}</b><span>potencial da primeira turma · ${INT(p.mat)} matrículas</span></div></div></div>`;
 }
 function renderPreview(){
@@ -1310,20 +1390,21 @@ function renderPreview(){
   <section class="pv-hero tex"><div class="wrap">
     <span class="pill"><span class="dot"></span>Prévia gratuita</span>
     <h1>${esc(firstName())}, este é o <b>seu curso.</b></h1>
-    <p class="lead muted" style="margin-top:22px">Montado a partir do que você contou. Abra as duas primeiras disciplinas e veja as aulas. O plano completo libera todo o resto.</p>
+    <p class="lead muted" style="margin-top:22px">Montado a partir das ${perguntas().length} perguntas que você trouxe. Abra os dois primeiros módulos e veja as aulas. O plano completo libera todo o resto.</p>
     ${posterHTML(f,p)}
+    <div class="mt32">${compareHTML(f)}</div>
   </div></section>
   <section class="sec band-paper"><div class="wrap">
-    <p class="eyebrow" style="color:#1a8a1a">Matriz curricular</p>
-    <h2 class="display" style="margin-top:16px">${f.discs.length} disciplinas, <b>${f.discs.length*4} aulas.</b></h2>
-    <div class="mt32" id="pvDiscs">${f.discs.map((d,i)=>discHTML(d, i===0, i>1)).join("")}</div>
-    <div class="lockcard" style="margin-top:20px">${LOCK}<span>As aulas das disciplinas ${3} a ${f.discs.length} estão no plano completo.</span></div>
+    <p class="eyebrow" style="color:#1a8a1a">Estrutura do curso</p>
+    <h2 class="display" style="margin-top:16px">${f.mods.length} módulos, <b>${f.aulas} aulas.</b></h2>
+    <div class="mt32" id="pvDiscs">${f.mods.map((d,i)=>discHTML(d, i===0, i>1)).join("")}</div>
+    ${f.mods.length>2?`<div class="lockcard" style="margin-top:20px">${LOCK}<span>As aulas dos módulos 3 a ${f.mods.length} estão no plano completo.</span></div>`:""}
   </div></section>
   <section class="sec band-dark"><div class="wrap">
     <p class="eyebrow g">No plano completo</p>
     <h2 class="display" style="margin-top:16px;max-width:20ch">Tudo o que falta para você <b>gravar, vender e lançar.</b></h2>
     <div class="unlock-grid">
-      ${[["Todas as aulas","Ementa, objetivos e as 4 aulas de cada uma das "+f.discs.length+" disciplinas."],["Roteiro modelo de aula","A estrutura de cada gravação, minuto a minuto."],["Plano de gravação",`As ${split(f.m.h)[0]}h de hora-aula organizadas, com checklist de estúdio.`],["Funil de vendas",`O passo a passo da sua ${CAMPAIGNS[S.campaign||"aula"].label.toLowerCase()}, com cadência de fechamento.`],["Página de vendas pronta","Título, promessa e tópicos da página do seu curso."],["Mensagem para a sua base","O texto para enviar no WhatsApp e abrir a lista de espera."],["Cronograma de 90 dias","Da matriz validada até a aula magna, com o dia das matrículas."],["Potencial detalhado","Faturamento em 6 faixas de preço e leitura estratégica."],["Próximo passo com a FEX","Como transformar o plano em pós-graduação com validade acadêmica."]].map(([t,d])=>`<div class="ucard">${LOCK}<h3>${t}</h3><p>${esc(d)}</p></div>`).join("")}
+      ${[["Todas as aulas",`Objetivos e aulas de cada um dos ${f.mods.length} módulos.`],["Roteiro modelo de aula","A estrutura de cada gravação, minuto a minuto."],["Plano de produção",`As ${f.aulas} aulas organizadas por módulo, com checklist de estúdio.`],["Funil de vendas",`O passo a passo da sua ${CAMPAIGNS[S.campaign||"aula"].label.toLowerCase()}, com cadência de fechamento.`],["Página de vendas pronta","Título, promessa e tópicos da página do seu curso."],["Mensagem para a sua base","O texto para enviar no WhatsApp e abrir a lista de espera."],["Cronograma até a turma 1","Do registro na FEX ao início da turma, com o dia das matrículas."],["Potencial detalhado","Faturamento em 6 faixas de preço e leitura estratégica."],["Próximo passo com a FEX","Como transformar o curso livre em extensão universitária."]].map(([t,d])=>`<div class="ucard">${LOCK}<h3>${t}</h3><p>${esc(d)}</p></div>`).join("")}
     </div>
     <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:56px">
       <button class="btn btn-green btn-xl" data-checkout>Desbloquear plano completo por R$ ${CONFIG.PRECO} <span class="arr">→</span></button>
@@ -1331,10 +1412,47 @@ function renderPreview(){
     </div>
     <p class="muted" style="font-size:14px;margin-top:16px">Pagamento único. Acesso imediato ao plano.</p>
   </div></section>
-  <div class="sticky-cta" id="stickyCta"><div class="wrap"><p><b>${esc(f.title)}</b> · plano completo com ${f.discs.length*4} aulas</p><button class="btn btn-green btn-sm" data-checkout>Desbloquear por R$ ${CONFIG.PRECO} →</button></div></div>`;
+  <div class="sticky-cta" id="stickyCta"><div class="wrap"><p><b>${esc(f.title)}</b> · plano completo com ${f.aulas} aulas</p><button class="btn btn-green btn-sm" data-checkout>Desbloquear por R$ ${CONFIG.PRECO} →</button></div></div>`;
   bindDiscs($("#view-preview"));
   animate($("#view-preview"));
   $("#editAns").onclick = ()=>{ S.step = 0; save(); show("builder"); renderStep(1); };
+}
+
+/* ============ link pessoal do curso ============
+   Guarda as respostas dentro do próprio endereço (#p=...), para abrir o plano em qualquer aparelho. */
+function linkPessoal(){
+  try{
+    const d = {a:S.a, tit:S.tit, horas:S.horas, preco:S.preco, pot:S.pot, campaign:S.campaign, magna:S.magna, leadId:S.leadId};
+    const b64 = btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(d)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+    return location.origin + location.pathname + "#p=" + b64;
+  }catch(e){ return ""; }
+}
+function lerLink(txt){
+  try{
+    const m = String(txt||"").match(/#p=([A-Za-z0-9_-]+)/); if(!m) return false;
+    const bin = atob(m[1].replace(/-/g,"+").replace(/_/g,"/")); const d = JSON.parse(new TextDecoder().decode(Uint8Array.from(bin, c=>c.charCodeAt(0))));
+    if(!d || !d.a) return false;
+    S = Object.assign(blank(), d); S.a = Object.assign(blank().a, d.a); S.pot = Object.assign(blank().pot, d.pot); S.done = true; S.step = STEPS.length-1;
+    return true;
+  }catch(e){ return false; }
+}
+function plinkHTML(){
+  const l = linkPessoal(), tel = (S.a.telefone||"").replace(/\D/g,"");
+  return `<div class="plink"><b>Seu link pessoal do curso</b><p>Guarde este link. Ele abre o seu plano em qualquer celular ou computador, mesmo se você trocar de navegador depois de pagar.</p>
+    <div class="row2"><input id="plinkIn" readonly value="${esc(l)}" aria-label="Seu link pessoal"><button type="button" class="mini-btn" id="plinkCopy">Copiar</button>${tel.length>=10?`<a class="mini-btn" style="text-decoration:none" target="_blank" rel="noopener" href="https://wa.me/55${tel}?text=${encodeURIComponent("Meu link do Crie sua Formação: "+l)}">Enviar no meu WhatsApp</a>`:""}</div></div>`;
+}
+function bindPlink(root){ const b=$("#plinkCopy",root); if(!b) return; b.onclick=()=>{ const t=$("#plinkIn",root).value; try{ navigator.clipboard.writeText(t).then(()=>{b.textContent="Copiado"; b.classList.add("ok");}).catch(()=>{$("#plinkIn",root).select(); toast("Link selecionado. Copie com Ctrl+C.");}); }catch(e){ $("#plinkIn",root).select(); } }; }
+// Voltou da Hubla (?pago=1) num navegador sem as respostas
+function renderRecover(){
+  $("#view-preview").innerHTML = `<section class="sec tex" style="min-height:100vh"><div class="wrap recover">
+    <span class="pill"><span class="dot"></span>Pagamento recebido</span>
+    <h1 class="display" style="font-size:clamp(36px,5vw,64px);margin-top:20px;color:var(--white)">Falta só abrir <b>o seu plano.</b></h1>
+    <p class="lead muted" style="margin-top:18px">Não encontramos as suas respostas neste navegador. Abra este endereço no mesmo celular ou navegador em que você montou o curso, ou cole abaixo o seu link pessoal do curso.</p>
+    <input id="recIn" placeholder="Cole aqui o seu link pessoal" aria-label="Link pessoal do curso">
+    <div class="err" id="recErr" role="alert"></div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:18px"><button class="btn btn-green" id="recBtn">Abrir meu plano <span class="arr">→</span></button><button class="btn btn-ghost" data-start>Montar o curso de novo</button></div>
+  </div></section>`;
+  $("#recBtn").onclick = ()=>{ if(lerLink($("#recIn").value)){ S.paid = true; save(); renderPlan(); show("plan"); } else $("#recErr").textContent = "Esse link não parece ser o link pessoal do curso. Ele termina com #p= e uma sequência de letras."; };
 }
 
 /* ============ checkout ============ */
@@ -1349,18 +1467,20 @@ function renderCheckout(){
         <h1 class="display" style="font-size:clamp(38px,5.4vw,72px);margin-top:20px;color:var(--white)">Seu curso inteiro, <b>pronto para gravar.</b></h1>
         <p class="lead muted" style="margin-top:20px">${esc(f.title)}</p>
         <ul class="pcard" style="background:transparent;border:0;padding:0;margin-top:28px;list-style:none;display:grid;gap:12px">
-          ${["Matriz completa com "+f.discs.length+" disciplinas e "+f.discs.length*4+" aulas","Roteiro modelo de aula e plano de gravação","Funil de vendas com cadência de fechamento","Texto da página de vendas e mensagem para a base","Cronograma de 90 dias até a aula magna","Conversa com especialista da Faculdade FEX Educação®"].map(x=>`<li style="color:var(--sand)">${esc(x)}</li>`).join("")}
+          ${[`Estrutura completa: ${f.mods.length} módulos e ${f.aulas} aulas`,"Roteiro modelo de aula e plano de produção","Funil de vendas com cadência de fechamento","Texto da página de vendas e mensagem para a base","Cronograma do registro até a primeira turma","Conversa com especialista da Faculdade FEX Educação®"].map(x=>`<li style="color:var(--sand)">${esc(x)}</li>`).join("")}
         </ul>
       </div>
       <div class="ckbox">
-        <div class="row"><span>Plano completo · Gênio Oculto</span><b>R$ ${CONFIG.PRECO}</b></div>
+        <div class="row"><span>Plano completo · Crie sua Formação</span><b>R$ ${CONFIG.PRECO}</b></div>
         <div class="row"><span>Para</span><span style="text-align:right">${esc(S.a.nome+" "+S.a.sobrenome)}<br><small class="muted">${esc(S.a.email)}</small></span></div>
         <div class="tot"><span>Total</span><b>R$ ${CONFIG.PRECO}</b></div>
         <button class="btn btn-green btn-xl" id="payBtn" style="width:100%;margin-top:22px">${CONFIG.CHECKOUT_URL?"Ir para o pagamento seguro":"Liberar meu plano"} <span class="arr">→</span></button>
-        ${CONFIG.CHECKOUT_URL?`<p class="muted" style="font-size:14px;margin-top:14px">Você será levado ao ambiente de pagamento. Depois da confirmação, o plano abre aqui.</p>`:`<div class="demo-flag">Modo demonstração: nenhum valor é cobrado.</div>`}
+        ${CONFIG.CHECKOUT_URL?`<p class="muted" style="font-size:14px;margin-top:14px">Você será levado ao pagamento seguro da Hubla. Depois da confirmação, a área de membros te traz de volta para o seu plano completo.</p>`:`<div class="demo-flag">Modo demonstração: nenhum valor é cobrado.</div>`}
+        ${plinkHTML()}
       </div>
     </div></div></section>`;
   $("#ckBack").onclick = ()=>show("preview");
+  bindPlink($("#view-checkout"));
   animate($("#view-checkout"));
   $("#payBtn").onclick = ()=>{
     if(CONFIG.CHECKOUT_URL){
@@ -1381,23 +1501,22 @@ function unlock(){
 function salesCopy(f){
   const nome = (S.a.nome+" "+S.a.sobrenome).trim();
   return {
-    eyebrow: `${f.m.type} · ${f.m.h}h · ${f.m.mod}`,
+    eyebrow: `Curso de extensão universitária · ${f.t.nome} · ${f.h}h`,
     h: f.title,
-    sub: `Para ${low(S.a.persona)||"profissionais"} que querem ${low(S.a.promessa).replace(/\.$/,"")||"dominar a área"}. Com ${nome}, ${S.a.anos} anos de prática em ${low(S.a.area)}.`,
-    bullets: f.discs.map(d=>d.t),
-    cta: `Garanta sua vaga em ${S.ticket.n}x de ${BRL(S.ticket.v)}`
+    sub: `Para ${low(S.a.persona)||"profissionais"} que querem ${low(promessa())||"dominar a área"}. Com ${nome}, ${S.a.anos} anos de prática em ${low(S.a.area)}.`,
+    bullets: f.mods.map(d=>d.t),
+    cta: `Garanta sua vaga por ${BRL(S.preco)} ou 12x de ${parcela(S.preco)}`
   };
 }
 function waBase(f){
-  const nome = firstName();
-  return `Oi, tudo bem? Aqui é ${nome}.
+  return `Oi, tudo bem? Aqui é ${firstName()}.
 
-Depois de ${S.a.anos} anos em ${low(S.a.area)}, decidi transformar o que eu sei em uma formação completa: ${f.title}.
+Depois de ${S.a.anos} anos em ${low(S.a.area)}, decidi transformar o que eu sei em um curso completo: ${f.title}.
 
-É para ${low(S.a.persona)||"quem quer se especializar"}. Ao final, você vai conseguir ${low(S.a.promessa).replace(/\.$/,"")}.
+É para ${low(S.a.persona)||"quem quer se especializar"}. Ao final, você vai conseguir ${low(promessa())}.
 
-São ${f.discs.length} disciplinas, entre elas:
-${f.discs.slice(1,4).map(d=>"• "+d.t).join("\n")}
+São ${f.mods.length} módulos e ${f.aulas} aulas, respondendo as perguntas que eu mais ouço, como:
+${perguntas().slice(0,3).map(q=>"• "+q).join("\n")}
 
 Antes de abrir para o público, vou liberar a lista de espera para quem já está comigo, com condição de aluno da casa.
 
@@ -1405,22 +1524,23 @@ Quer entrar na lista? Responde com EU QUERO que eu te mando os detalhes.`;
 }
 function renderPlan(){
   const f = formation(), p = pot(), c = CAMPAIGNS[S.campaign||"aula"], sc = schedule(), sp = salesCopy(f);
-  const [ha,hb,hc] = split(f.m.h);
   const nome = (S.a.nome+" "+S.a.sobrenome).trim();
-  const tScen = TICKETS.map(t=>({...t, fat:p.mat*t.n*t.v}));
+  const tScen = [...new Set([...PRECOS, S.preco])].sort((a,b)=>a-b).map(v=>({v, fat:p.mat*v}));
   const maxF = Math.max(...tScen.map(t=>t.fat), 1);
   const warmShare = p.mat ? Math.round(p.mw/p.mat*100) : 0;
-  const waMsg = `Olá! Acabei de montar o meu plano no Gênio Oculto e quero transformar em uma pós-graduação com a Faculdade FEX Educação®.\n\nNome: ${nome}\nCurso: ${f.title}\nFormato: ${f.m.label} (${f.m.h}h)\nÁrea: ${S.a.area}\nPotencial da 1ª turma: ${BRL(p.fat)} (${INT(p.mat)} matrículas)\nAula magna desejada: ${S.magna?parseISO(S.magna).toLocaleDateString("pt-BR"):"a definir"}\nE-mail: ${S.a.email}\nWhatsApp: ${S.a.telefone}\nID: ${S.leadId}`;
+  const ex = f.mods.find(m=>m.kind==="core") || f.mods[0];
+  const waMsg = `Olá! Acabei de montar o meu plano no Crie sua Formação e quero registrar o meu curso como extensão universitária com a Faculdade FEX Educação® (Plano Bronze).\n\nNome: ${nome}\nCurso: ${f.title}\nTitulação: ${f.t.nome} (${f.h}h)\nÁrea: ${S.a.area}\nMódulos e aulas: ${f.mods.length} módulos, ${f.aulas} aulas\nPotencial da 1ª turma: ${BRL(p.fat)} (${INT(p.mat)} matrículas)\nInício desejado da turma: ${S.magna?parseISO(S.magna).toLocaleDateString("pt-BR"):"a definir"}\nE-mail: ${S.a.email}\nWhatsApp: ${S.a.telefone}\nLink do plano: ${linkPessoal()}\nID: ${S.leadId}`;
   const waHref = `https://wa.me/${CONFIG.WHATSAPP_ESPECIALISTA}?text=${encodeURIComponent(waMsg)}`;
-  const toc = [["resumo","Resumo"],["matriz","Matriz curricular"],["aula","Modelo de aula"],["gravacao","Plano de gravação"],["potencial","Potencial"],["funil","Funil de vendas"],["pagina","Página e mensagem"],["cronograma","Cronograma 90 dias"],["papeis","Quem faz o quê"],["proximo","Próximo passo"]];
+  const toc = [["resumo","Resumo"],["modulos","Módulos e aulas"],["aula","Modelo de aula"],["producao","Plano de produção"],["potencial","Potencial"],["funil","Funil de vendas"],["pagina","Página e mensagem"],["cronograma","Cronograma"],["papeis","Quem faz o quê"],["proximo","Próximo passo"]];
   $("#view-plan").innerHTML = `
   <section class="plan-top tex"><div class="wrap">
     <span class="pill"><span class="dot"></span>Plano completo<span class="pid"> · ${esc(S.leadId)}</span></span>
     <h1>${esc(f.title)}</h1>
-    <div class="meta"><span class="g2">${esc(f.m.type)}</span><span>${f.m.h}h · ${esc(f.m.dur)}</span><span>${esc(f.m.mod)}</span><span>${f.discs.length} disciplinas · ${f.discs.length*4} aulas</span><span>${S.ticket.n}x ${BRL(S.ticket.v)}</span></div>
-    <p class="lead muted" style="margin-top:26px">Especialista responsável: <b style="color:var(--white)">${esc(nome)}</b>. Gerado em ${new Date().toLocaleDateString("pt-BR")} pelo Gênio Oculto da Faculdade FEX Educação®.</p>
+    <div class="meta"><span class="g2">Extensão universitária</span><span>${esc(f.t.nome)} · ${f.h}h</span><span>${f.mods.length} módulos · ${f.aulas} aulas</span><span>${BRL(S.preco)} por aluno</span></div>
+    <p class="lead muted" style="margin-top:26px">Especialista responsável: <b style="color:var(--white)">${esc(nome)}</b>. Gerado em ${new Date().toLocaleDateString("pt-BR")} pelo Crie sua Formação, da Faculdade FEX Educação®.</p>
+    <div style="max-width:720px">${plinkHTML()}</div>
     <div class="plan-actions">
-      <a class="btn btn-green" href="#proximo" data-scroll>Transformar em pós-graduação <span class="arr">→</span></a>
+      <a class="btn btn-green" href="#proximo" data-scroll>Transformar em extensão universitária <span class="arr">→</span></a>
       ${framed?"":`<button class="btn btn-ghost" id="printBtn">Salvar em PDF</button>`}
       <button class="btn btn-ghost" id="editPlan">Ajustar respostas</button>
     </div>
@@ -1432,80 +1552,80 @@ function renderPlan(){
         <p class="eyebrow">01 · Resumo</p>
         <h2>Sua formação <b>em uma página.</b></h2>
         <dl class="kv">
-          <div class="span2"><dt>Promessa</dt><dd>Ao final, o aluno vai conseguir ${esc(low(S.a.promessa).replace(/\.$/,""))}.</dd></div>
+          <div class="span2"><dt>Promessa</dt><dd>Ao final, o aluno vai conseguir ${esc(low(promessa()))}.</dd></div>
           <div><dt>Para quem</dt><dd>${esc(S.a.persona)}</dd></div>
           <div><dt>Área</dt><dd>${esc(S.a.area)}</dd></div>
-          <div><dt>Formato</dt><dd>${esc(f.m.label)}</dd></div>
-          <div><dt>Carga horária</dt><dd>${f.m.h}h · ${ha}h aula, ${hb}h autoestudo, ${hc}h prática</dd></div>
-          <div><dt>Preço por aluno</dt><dd>${S.ticket.n}x de ${BRL(S.ticket.v)} (${BRL(S.ticket.n*S.ticket.v)})</dd></div>
+          <div><dt>Titulação</dt><dd>Extensão universitária · ${esc(f.t.nome)} (${f.t.faixa})</dd></div>
+          <div><dt>Carga horária</dt><dd>${f.h}h em ${f.mods.length} módulos</dd></div>
+          <div><dt>Preço por aluno</dt><dd>${BRL(S.preco)} ou 12x de ${parcela(S.preco)}</dd></div>
           <div><dt>Lançamento</dt><dd>${esc(c.label)}</dd></div>
-          <div><dt>Aula magna</dt><dd>${S.magna?parseISO(S.magna).toLocaleDateString("pt-BR",{day:"2-digit",month:"long",year:"numeric"}):"A definir"}</dd></div>
-          <div class="span2"><dt>Por que este formato</dt><dd>${esc(f.m.why)}</dd></div>
+          <div><dt>Início da turma 1</dt><dd>${S.magna?parseISO(S.magna).toLocaleDateString("pt-BR",{day:"2-digit",month:"long",year:"numeric"}):"A definir"}</dd></div>
+          <div class="span2"><dt>Por que esta titulação</dt><dd>${esc(whyTit(f.key))}</dd></div>
           <div><dt>Potencial turma 1</dt><dd>${BRL(p.fat)} · ${INT(p.mat)} matrículas</dd></div>
           ${S.a.ferramentas.length?`<div class="span2"><dt>Ferramentas do método</dt><dd>${esc(S.a.ferramentas.join(", "))}</dd></div>`:""}
           ${S.a.referencias?`<div><dt>Referências</dt><dd>${esc(S.a.referencias)}</dd></div>`:""}
         </dl>
-        <p class="intro mt32">O que as pessoas mais perguntam para você virou conteúdo das aulas: ${esc(splitList(S.a.perguntas).slice(0,3).join(" · "))}.</p>
+        <div class="mt32">${compareHTML(f)}</div>
       </section>
 
-      <section class="psec" id="matriz">
-        <p class="eyebrow">02 · Matriz curricular</p>
-        <h2>${f.discs.length} disciplinas, <b>${f.discs.length*4} aulas.</b></h2>
-        <p class="intro">Cada disciplina tem ${f.discs[0].h}h no padrão FEX 30/30/40, ementa, objetivos, quatro aulas e o kit de materiais. A matriz final é validada com o time acadêmico da FEX na fase de fundação.</p>
-        <div class="mt32" id="planDiscs">${f.discs.map((d,i)=>discHTML(d, i<2, false)).join("")}</div>
+      <section class="psec" id="modulos">
+        <p class="eyebrow">02 · Módulos e aulas</p>
+        <h2>${f.mods.length} módulos, <b>${f.aulas} aulas.</b></h2>
+        <p class="intro">Cada pergunta que você trouxe virou uma aula, e a ferramenta organizou tudo em módulos, do básico ao avançado. A estrutura final é validada no enquadramento com a FEX.</p>
+        <div class="mt32" id="planDiscs">${f.mods.map((d,i)=>discHTML(d, i<2, false)).join("")}</div>
       </section>
 
       <section class="psec" id="aula">
         <p class="eyebrow">03 · Modelo de aula</p>
         <h2>O roteiro de <b>cada gravação.</b></h2>
-        <p class="intro">Use esta estrutura em todas as videoaulas de 15 a 25 minutos. Ela mantém o aluno atento e termina sempre com uma ação prática.</p>
+        <p class="intro">Use esta estrutura em todas as videoaulas de 10 a 20 minutos. Ela mantém o aluno atento e termina sempre com uma ação prática.</p>
         <div class="tpl">
-          <div style="--w:10%"><b>0 a 2 min</b><h4>Gancho</h4><p>Uma pergunta real que você ouve de ${esc(low(S.a.persona)||"alunos")}. Diga o que o aluno vai saber fazer ao final.</p></div>
-          <div style="--w:30%"><b>2 a 8 min</b><h4>Conceito</h4><p>A explicação essencial, com um exemplo do seu dia a dia. Nada de teoria solta.</p></div>
-          <div style="--w:60%"><b>8 a 16 min</b><h4>Demonstração</h4><p>Mostre fazendo: tela, caso real, ferramenta ou protocolo, passo a passo.</p></div>
-          <div style="--w:85%"><b>16 a 22 min</b><h4>Erros comuns</h4><p>Os três erros que você mais vê e como evitar cada um.</p></div>
-          <div style="--w:100%"><b>22 a 25 min</b><h4>Tarefa</h4><p>Uma ação prática para o aluno aplicar e registrar. Ela vira as horas de prática.</p></div>
+          <div style="--w:10%"><b>0 a 1 min</b><h4>Gancho</h4><p>Leia a pergunta da aula, do jeito que ${esc(low(S.a.persona)||"seus alunos")} te perguntam.</p></div>
+          <div style="--w:30%"><b>1 a 5 min</b><h4>Resposta</h4><p>A explicação essencial, com um exemplo do seu dia a dia.</p></div>
+          <div style="--w:60%"><b>5 a 12 min</b><h4>Demonstração</h4><p>Mostre fazendo: tela, caso real, ferramenta ou protocolo, passo a passo.</p></div>
+          <div style="--w:85%"><b>12 a 17 min</b><h4>Erros comuns</h4><p>Os erros que você mais vê sobre esse ponto e como evitar.</p></div>
+          <div style="--w:100%"><b>17 a 20 min</b><h4>Tarefa</h4><p>Uma ação prática para o aluno aplicar e registrar.</p></div>
         </div>
-        <div class="copybox"><div class="cbh"><b>Exemplo pronto · Aula 1 da disciplina 2</b></div><pre>${esc(`Título: ${f.discs[1].aulas[0][0]}
+        <div class="copybox"><div class="cbh"><b>Exemplo pronto · ${esc(ex.t)}</b></div><pre>${esc(`Título: ${ex.aulas[0][0]}
 
-Gancho: "${(splitList(S.a.perguntas)[0]||"Por onde eu começo?").replace(/"/g,"")}" Essa é uma das perguntas que eu mais ouço em ${S.a.anos} anos de ${low(S.a.area)}. Hoje você vai sair desta aula sabendo responder.
+Gancho: "${ex.aulas[0][0].replace(/"/g,"")}" Essa é uma das perguntas que eu mais ouço em ${S.a.anos} anos de ${low(S.a.area)}. Hoje você vai sair desta aula sabendo responder.
 
-Conceito: o que é ${low(f.discs[1].t)} e quando faz diferença no resultado.
+Resposta: o que você precisa saber, em linguagem simples.
 
 Demonstração: um caso real, do começo ao fim, mostrando como eu faço.
 
-Erros comuns: os três deslizes que mais vejo em quem está começando.
+Erros comuns: os deslizes que mais vejo em quem está começando.
 
-Tarefa: aplique em um caso seu esta semana e registre o resultado na plataforma.`)}</pre></div>
+Tarefa: aplique em um caso seu esta semana e registre o resultado.`)}</pre></div>
       </section>
 
-      <section class="psec" id="gravacao">
-        <p class="eyebrow">04 · Plano de gravação</p>
-        <h2>Você grava <b>${ha}h.</b> Não ${f.m.h}h.</h2>
-        <p class="intro">As outras ${hb+hc}h são autoestudo (apostilas, podcasts, mapas mentais) e prática aplicada. Dá para gravar em blocos, uma disciplina por vez.</p>
+      <section class="psec" id="producao">
+        <p class="eyebrow">04 · Plano de produção</p>
+        <h2>Grave <b>uma pergunta por aula.</b></h2>
+        <p class="intro">As ${f.h}h do curso somam as videoaulas, os materiais de apoio, os exercícios e a avaliação. Grave um módulo por vez, começando pelas perguntas que você responde de olhos fechados.</p>
         <div class="bigstats">
-          <div class="hl"><b>${ha}h</b><span>hora-aula total</span></div>
-          <div><b>${f.discs.length*4}</b><span>aulas-âncora</span></div>
-          <div><b>${Math.round(ha/f.discs.length)}h</b><span>por disciplina</span></div>
-          <div><b>${f.discs.length}</b><span>blocos de gravação</span></div>
+          <div class="hl"><b>${f.aulas}</b><span>aulas no total</span></div>
+          <div><b>${f.mods.length}</b><span>módulos</span></div>
+          <div><b>${f.h}h</b><span>carga horária</span></div>
+          <div><b>${esc(f.t.nome)}</b><span>titulação</span></div>
         </div>
         <ul class="check">
-          ${["Celular ou câmera na horizontal, na altura dos olhos","Luz de frente (janela ou ring light)","Microfone de lapela ou fone com microfone","Fundo limpo e organizado","Roteiro da aula aberto ao lado (modelo da seção 03)","Gravar a disciplina inteira antes de editar","Separar casos reais (sem dados pessoais) para as demonstrações","Salvar os materiais de apoio de cada aula em uma pasta"].map((x,i)=>`<li><input type="checkbox" id="ck${i}" aria-label="${esc(x)}"><label for="ck${i}">${esc(x)}</label></li>`).join("")}
+          ${["Celular ou câmera na horizontal, na altura dos olhos","Luz de frente (janela ou ring light)","Microfone de lapela ou fone com microfone","Fundo limpo e organizado","Roteiro da aula aberto ao lado (modelo da seção 03)","Gravar o módulo inteiro antes de editar","Separar casos reais (sem dados pessoais) para as demonstrações","Salvar os materiais de apoio de cada aula em uma pasta"].map((x,i)=>`<li><input type="checkbox" id="ck${i}" aria-label="${esc(x)}"><label for="ck${i}">${esc(x)}</label></li>`).join("")}
         </ul>
-        <div class="reading mt32"><p><b>Não quer gravar sozinho?</b> A FEX tem a Consultoria de Criação de Curso ou Mentoria, com metodologia, material didático e opção de produção audiovisual. Pergunte ao especialista no final deste plano.</p></div>
+        <div class="reading mt32"><p><b>Não quer gravar sozinho?</b> A FEX tem a Consultoria de Criação de Curso ou Mentoria, para cursos de até 64 horas, com metodologia, material didático e opção de produção audiovisual. Pergunte ao especialista no final deste plano.</p></div>
       </section>
 
       <section class="psec" id="potencial">
         <p class="eyebrow">05 · Potencial de faturamento</p>
         <h2>O dinheiro que já está <b>na sua mesa.</b></h2>
         <div class="bigstats">
-          <div class="hl"><b data-tw="${p.fat}" data-f="brl">${BRL(p.fat)}</b><span>contratos da turma 1</span></div>
+          <div class="hl"><b data-tw="${p.fat}" data-f="brl">${BRL(p.fat)}</b><span>faturamento da turma 1</span></div>
           <div><b data-tw="${p.mat}">${INT(p.mat)}</b><span>matrículas</span></div>
-          <div><b data-tw="${p.mensal}" data-f="brl">${BRL(p.mensal)}</b><span>por mês em parcelas</span></div>
+          <div><b>${BRL(p.preco)}</b><span>por aluno</span></div>
           <div><b data-tw="${p.fatW}" data-f="brl">${BRL(p.fatW)}</b><span>só da base quente</span></div>
         </div>
-        <h3 style="margin:40px 0 0;font-size:20px">As mesmas ${INT(p.mat)} matrículas em 6 faixas de preço</h3>
-        <div class="bars" id="bars">${tScen.map(t=>`<div class="barrow${t.n===S.ticket.n&&t.v===S.ticket.v?" sel":""}"><div class="bl">${t.n}x ${BRL(t.v)}<small>${BRL(t.n*t.v)} por aluno</small></div><div class="bt"><i data-w="${Math.max(4,t.fat/maxF*100)}"></i><span>${BRL(t.fat)}</span></div></div>`).join("")}</div>
+        <h3 style="margin:40px 0 0;font-size:20px">As mesmas ${INT(p.mat)} matrículas em outras faixas de preço</h3>
+        <div class="bars" id="bars">${tScen.map(t=>`<div class="barrow${t.v===S.preco?" sel":""}"><div class="bl">${BRL(t.v)}<small>ou 12x de ${parcela(t.v)}</small></div><div class="bt"><i data-w="${Math.max(4,t.fat/maxF*100)}"></i><span>${BRL(t.fat)}</span></div></div>`).join("")}</div>
         <div class="reading">
           <p>Base quente: ${INT(S.pot.warm)} pessoas a ${S.pot.cw}% = <b>${INT(p.mw)} matrículas</b>. Audiência fria: ${INT(S.pot.cold)} pessoas a ${S.pot.cc}% = <b>${INT(p.mc)} matrículas</b>.</p>
           <p>${p.mat? (warmShare>=50?`${warmShare}% das matrículas vêm de quem já confia em você. A primeira turma pode sair com custo baixo de aquisição, e a audiência fria entra como camada de crescimento.`:`${100-warmShare}% das matrículas dependem da audiência fria. Vale fortalecer a base quente (alunos, ex-alunos, comunidade) antes da campanha.`):"Informe o tamanho das audiências para gerar a leitura."}</p>
@@ -1518,7 +1638,7 @@ Tarefa: aplique em um caso seu esta semana e registre o resultado na plataforma.
         <h2>${esc(c.label)}: <b>o passo a passo.</b></h2>
         <p class="intro">${esc(c.desc)} ${esc(c.best)}</p>
         <div class="timeline">${c.cad.map((x,i)=>`<div class="tph"><div class="dot">${i+1}</div><div class="bx"><h4 style="font-size:17px;font-weight:600">${esc(x)}</h4></div></div>`).join("")}</div>
-        <div class="reading mt32"><p><b>Regra de ouro:</b> a primeira turma começa por quem já confia em você. Abra a lista de espera para a base quente antes de qualquer anúncio.</p><p><b>Lembre:</b> pós-graduação exige graduação concluída. Deixe isso claro na página e na conversa de fechamento.</p></div>
+        <div class="reading mt32"><p><b>Regra de ouro:</b> a primeira turma começa por quem já confia em você. Abra a lista de espera para a base quente antes de qualquer anúncio.</p><p><b>O seu diferencial:</b> o certificado de extensão universitária emitido pela Faculdade FEX Educação®. Mostre isso na página e na conversa de fechamento.</p></div>
       </section>
 
       <section class="psec" id="pagina">
@@ -1526,24 +1646,26 @@ Tarefa: aplique em um caso seu esta semana e registre o resultado na plataforma.
         <h2>Textos prontos para <b>começar a vender.</b></h2>
         <div class="salespage">
           <div class="sp-h"><small>${esc(sp.eyebrow)}</small><h3><b>${esc(sp.h)}</b></h3><p>${esc(sp.sub)}</p></div>
-          <div class="sp-b"><b>O que você vai aprender</b><ul>${sp.bullets.map(b=>`<li>${esc(b)}</li>`).join("")}</ul><b style="font-size:20px">${esc(sp.cta)}</b><p class="muted" style="margin:0;font-size:14px">Depois do registro com a Faculdade FEX Educação®, inclua na página: "Pós-graduação lato sensu com validade acadêmica através da Faculdade FEX Educação®".</p></div>
+          <div class="sp-b"><b>O que você vai aprender</b><ul>${sp.bullets.map(b=>`<li>${esc(b)}</li>`).join("")}</ul><b style="font-size:20px">${esc(sp.cta)}</b>
+            <p class="muted" style="margin:0;font-size:14px">Depois do registro, inclua na página: "Curso ofertado pela Faculdade FEX Educação® em parceria com ${esc(nome)}" e "Certificado de curso de extensão universitária emitido pela Faculdade FEX Educação®". Em bloco separado e em destaque, a advertência obrigatória:</p>
+            <p style="margin:0;font-size:13px;border:1px solid var(--line-light);border-radius:10px;padding:10px 12px">${ADVERTENCIA}</p></div>
         </div>
         <div class="copybox"><div class="cbh"><b>Mensagem para a sua base (WhatsApp)</b><button class="mini-btn" data-copy="waBase">Copiar</button></div><pre id="waBase">${esc(waBase(f))}</pre></div>
       </section>
 
       <section class="psec" id="cronograma">
-        <p class="eyebrow">08 · Cronograma de 90 dias</p>
-        <h2>Da matriz validada <b>à aula magna.</b></h2>
-        <p class="intro">Cada fase é um checklist. A fase em verde é quando as matrículas abrem.</p>
+        <p class="eyebrow">08 · Cronograma</p>
+        <h2>Do registro na FEX <b>à primeira turma.</b></h2>
+        <p class="intro">Cada fase é um checklist. A fase em verde é quando as matrículas abrem. O registro do curso leva até 30 dias, enquanto você produz as aulas.</p>
         <div class="timeline">${sc.map((ph,i)=>`<div class="tph${ph.mat?" mat":""}${ph.magna?" magna":""}"><div class="dot">${ph.magna?"★":i+1}</div><div class="bx"><div class="hd"><h4>${esc(ph.n)}${ph.mat?'<span class="tagm">Matrículas abrem</span>':""}</h4><span class="dt">${ph.a===ph.b?fdt(ph.ini):fdt(ph.ini)+" a "+fdt(ph.fim)}</span></div><ul>${ph.t.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div></div>`).join("")}</div>
       </section>
 
       <section class="psec" id="papeis">
         <p class="eyebrow">09 · Quem faz o quê</p>
-        <h2>Você entra com o método. <b>A FEX com a estrutura.</b></h2>
+        <h2>Você entra com o método. <b>A FEX com a universidade.</b></h2>
         <div class="roles">
-          <div class="fx" data-tilt><h3>Faculdade FEX Educação®</h3><ul><li>Registro da pós-graduação com validade acadêmica</li><li>Estrutura pedagógica e secretaria acadêmica</li><li>Emissão dos certificados</li><li>Plataforma de ensino</li><li>Acompanhamento da implantação em 90 dias</li><li>Padrão pedagógico por disciplina, com opção de produção pela FEX</li></ul></div>
-          <div class="ex2" data-tilt><h3>Você, ${esc(firstName())}</h3><ul><li>Método, conteúdo e curadoria</li><li>Gravação das aulas</li><li>Audiência, marketing e vendas</li><li>Coordenador pedagógico para acompanhar a turma</li><li>Professores convidados conforme a pós cresce</li></ul></div>
+          <div class="fx" data-tilt><h3>Faculdade FEX Educação®</h3><ul><li>Enquadramento do curso na titulação de extensão</li><li>Registro do curso em até 30 dias</li><li>Matrícula e emissão dos certificados de extensão universitária</li><li>Licença de marca</li><li>1 curso internacional</li></ul></div>
+          <div class="ex2" data-tilt><h3>Você, ${esc(firstName())}</h3><ul><li>Método, conteúdo e curadoria</li><li>Gravação das aulas</li><li>Audiência, marketing e vendas</li><li>Condução do curso e da turma</li></ul></div>
         </div>
       </section>
     </div>
@@ -1551,36 +1673,37 @@ Tarefa: aplique em um caso seu esta semana e registre o resultado na plataforma.
 
   <section class="prata tex" id="proximo"><div class="wrap">
     <span class="pill"><span class="dot"></span>Próximo passo</span>
-    <h2>Seu plano está pronto. Agora ele pode virar <b>pós-graduação.</b></h2>
-    <p class="lead muted" style="margin-top:24px">Com a Faculdade FEX Educação®, o curso que você acabou de desenhar ganha registro de pós-graduação com validade acadêmica, estrutura de faculdade e um time ao seu lado do registro à aula magna.</p>
-    <div class="fexnums"><div><b>4.660</b><span>alunos de pós-graduação e MBA</span></div><div><b>70</b><span>pós-graduações no portfólio</span></div><div><b>+1.000</b><span>empresas parceiras</span></div><div><b>+13</b><span>anos transformando conhecimento em resultado</span></div></div>
+    <h2>Seu plano está pronto. Agora ele pode virar <b>extensão universitária.</b></h2>
+    <p class="lead muted" style="margin-top:24px">Sem a FEX, este é um curso livre. Com a Faculdade FEX Educação®, ele vira um curso de extensão universitária de ${esc(f.t.nome)}, com certificado emitido pela faculdade, e a condução continua com você.</p>
+    <div class="fexnums"><div><b>31.557</b><span>certificados de extensão universitária emitidos</span></div><div><b>+1.000</b><span>cursos de extensão universitária</span></div><div><b>+1.000</b><span>empresas parceiras</span></div><div><b>+13</b><span>anos transformando conhecimento em resultado</span></div></div>
     <div class="pgrid">
       <div class="prata-card" data-tilt>
         <span class="tagp">Recomendado para você</span>
-        <h3>Plano Prata FEX</h3>
-        <p class="muted" style="margin:0">Para experts que querem a própria pós-graduação e registrar outros cursos da sua escada.</p>
+        <h3>Plano Bronze FEX</h3>
+        <p class="muted" style="margin:0">Para quem quer registrar o próprio curso como extensão universitária e certificar os alunos.</p>
         <ul>
-          <li>1 pós-graduação com validade acadêmica através da Faculdade FEX Educação®</li>
-          <li>Até 3 cursos registrados como extensão universitária</li>
-          <li>1 certificação internacional*</li>
-          <li>Até 240 certificados por ano</li>
-          <li>Plataforma de ensino inclusa</li>
-          <li>Estrutura acadêmica, emissão de certificados e acompanhamento</li>
+          <li>1 curso registrado como extensão universitária</li>
+          <li>1 curso internacional*</li>
+          <li>Até 120 certificados por ano</li>
+          <li>Licença de marca</li>
+          <li>Protocolo de Registro: enquadramento, registro em até 30 dias, matrícula e certificação</li>
+          <li>A condução do curso continua com você</li>
         </ul>
-        <p class="fine">*Certificação internacional é educação continuada e não constitui título acadêmico brasileiro. Valores conforme a tabela vigente, apresentados pelo especialista.</p>
+        <p class="fine">*Certificação internacional é educação continuada e não constitui título acadêmico brasileiro. Plataforma de ensino disponível como opcional. Valores conforme a tabela vigente, apresentados pelo especialista.</p>
       </div>
       <div>
-        <div class="consult"><h4>Quer ajuda para produzir?</h4><p>Consultoria de Criação de Curso ou Mentoria: imersão, arquitetura da metodologia, material didático e opção de produção audiovisual. Você entrega o método, a FEX ajuda a transformar em curso.</p></div>
-        <div class="consult"><h4>O que acontece na conversa</h4><p>O especialista recebe o seu plano, tira dúvidas sobre registro, prazos e valores, e mostra o caminho para a sua primeira turma. Sem compromisso.</p></div>
-        <div class="consult"><h4>Seu plano vai junto</h4><p>A mensagem já sai preenchida com o nome do curso, o formato, o potencial e a data da aula magna.</p></div>
+        <div class="consult"><h4>Quer ajuda para produzir?</h4><p>Consultoria de Criação de Curso ou Mentoria: imersão, arquitetura da metodologia, material didático e opção de produção audiovisual, para cursos de até 64 horas.</p></div>
+        <div class="consult"><h4>O que acontece na conversa</h4><p>O especialista recebe o seu plano, tira dúvidas sobre o registro, os prazos e os valores, e mostra o caminho até a sua primeira turma. Sem compromisso.</p></div>
+        <div class="consult"><h4>Seu plano vai junto</h4><p>A mensagem já sai preenchida com o nome do curso, a titulação, o potencial e a data da primeira turma.</p></div>
       </div>
     </div>
     <a class="mega" href="${waHref}" target="_blank" rel="noopener" id="megaCta">
-      <span class="mk"><span><small>Fale com o nosso especialista</small><strong>Transforme este plano em uma pós-graduação com a Faculdade FEX Educação®</strong></span><span class="wa"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 2.4 1 2.9.8 3.4.7.5-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg></span></span>
+      <span class="mk"><span><small>Fale com o nosso especialista</small><strong>Transforme este plano em um curso de extensão universitária com a Faculdade FEX Educação®</strong></span><span class="wa"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 2.4 1 2.9.8 3.4.7.5-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg></span></span>
     </a>
     <p class="mega-sub">Abre o WhatsApp da Faculdade FEX Educação® com o seu plano. Número: +55 ${CONFIG.WHATSAPP_ESPECIALISTA.slice(2,4)} ${CONFIG.WHATSAPP_ESPECIALISTA.slice(4,9)}-${CONFIG.WHATSAPP_ESPECIALISTA.slice(9)}</p>
   </div></section>`;
   bindDiscs($("#view-plan"));
+  bindPlink($("#view-plan"));
   $("#editPlan").onclick = ()=>{ S.step = 0; save(); show("builder"); renderStep(1); };
   $("#printBtn") && ($("#printBtn").onclick = ()=>{ $$("#view-plan .disc").forEach(d=>d.classList.add("open")); window.print(); });
   $("#megaCta").onclick = ()=>{ track("especialista"); sendLead("especialista"); };
@@ -1604,7 +1727,7 @@ function tocSpy(){
 const VIEWS = ["home","builder","analise","preview","checkout","plan"];
 function show(v){
   VIEWS.forEach(x=>$("#view-"+x).classList.toggle("on", x===v));
-  $("#topTag").textContent = {home:"Gênio Oculto · Faculdade FEX Educação®", builder:"Construindo o seu curso", analise:"Organizando", preview:"Prévia do seu curso", checkout:"Plano completo", plan:"Seu plano completo"}[v];
+  $("#topTag").textContent = {home:"Crie sua Formação · Faculdade FEX Educação®", builder:"Construindo o seu curso", analise:"Organizando", preview:"Prévia do seu curso", checkout:"Plano completo", plan:"Seu plano completo"}[v];
   $("footer").hidden = v==="home"||v==="builder"||v==="analise";
   if(v==="home") $("#capaCta").innerHTML = (S.paid?"Abrir meu plano":S.done?"Ver meu curso":S.step>0?"Continuar meu curso":"Começar")+' <span class="arr">→</span>';
   $(".top").hidden = v==="analise";
@@ -1633,7 +1756,8 @@ function openVideo(ph){
   const passos = STEPS.filter(x=>x.ph===+ph).length;
   $("#mTitle").textContent = `Seção ${+ph+1} de ${SECTIONS.length} · ${sec.n}`;
   $("#mText").textContent = `${sec.why} São ${passos} ${passos>1?"perguntas":"pergunta"} nesta seção.`;
-  $("#mVid").innerHTML = vid ? `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(vid)}?autoplay=1&rel=0&modestbranding=1&playsinline=1${/^https?:/.test(location.origin)?"&origin="+encodeURIComponent(location.origin):""}" title="Como preencher a seção ${esc(sec.n)}" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`
+  $("#mVid").innerHTML = /\.mp4$/i.test(vid||"") ? `<video src="${esc(vid)}" controls autoplay playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;background:#000"></video>`
+    : vid ? `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(vid)}?autoplay=1&rel=0&modestbranding=1&playsinline=1${/^https?:/.test(location.origin)?"&origin="+encodeURIComponent(location.origin):""}" title="Como preencher a seção ${esc(sec.n)}" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`
     : `<div class="ph"><span class="bigplay"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span><p>Vídeo da seção ${esc(sec.n)} em produção.<br>Enquanto isso, siga a dica abaixo de cada pergunta.</p></div>`;
   $("#modal").classList.add("on"); track("video", {secao:sec.key});
 }
@@ -1739,11 +1863,16 @@ function toast(t){ const el=$("#toast"); el.textContent=t; el.classList.add("on"
 
 /* ============ boot ============ */
 load(); initTracking();
-if(new URLSearchParams(location.search).get("pago")==="1" && S.done){ S.paid = true; save(); track("compra",{value:CONFIG.PRECO,currency:"BRL"}); sendLead("compra"); }
+const voltouPago = new URLSearchParams(location.search).get("pago")==="1";
+if(voltouPago){ try{ sessionStorage.setItem("cf_pago","1"); }catch(e){} }
+let pagoSessao = voltouPago; try{ pagoSessao = pagoSessao || sessionStorage.getItem("cf_pago")==="1"; }catch(e){}
+if(location.hash.startsWith("#p=") && lerLink(location.hash)){ if(pagoSessao) S.paid = true; save(); history.replaceState(null,"",location.pathname+location.search); }
+if(voltouPago && S.done && !S.paid){ S.paid = true; save(); track("compra",{value:CONFIG.PRECO,currency:"BRL"}); sendLead("compra"); }
 heroWords(); observe();
 if(!S.paid && !S.done) show("home");
 if(S.paid){ renderPlan(); show("plan"); }
 else if(S.done){ renderPreview(); show("preview"); }
+else if(voltouPago){ renderRecover(); show("preview"); }
 else if(location.hash==="#construtor"){ start(); }
 </script>
 

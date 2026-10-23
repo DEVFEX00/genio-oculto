@@ -1,6 +1,6 @@
-# Gênio Oculto · Faculdade FEX Educação®
+# Crie sua Formação · Faculdade FEX Educação®
 
-Site estático do funil Gênio Oculto: capa do aplicativo, construtor passo a passo (16 telas) com "Sugerir com IA", prévia grátis, checkout de R$ 97, plano completo e CTA do Plano Prata.
+Site estático do funil **Crie sua Formação**: capa do aplicativo, construtor passo a passo (16 telas) com "Sugerir com IA", prévia grátis, checkout de R$ 97 na Hubla, plano completo e CTA do Plano Bronze. O curso é montado como **extensão universitária**, com indicação automática da titulação (Iniciação, Atualização, Capacitação ou Aperfeiçoamento).
 
 **Não tem etapa de build.** O site é o `index.html` da raiz. Editou no GitHub, a Vercel publica.
 
@@ -22,14 +22,14 @@ No `index.html`, procure `const CONFIG = {` (início do `<script>`):
 
 | Campo | Para quê | Hoje |
 |---|---|---|
-| `CHECKOUT_URL` | Link do pagamento de R$ 97 | `null` = modo demonstração (libera sem cobrar) |
+| `CHECKOUT_URL` | Link do pagamento de R$ 97 | Hubla: `https://pay.hub.la/3MBwoxpx8wevYDD06Tkt` (`null` = modo demonstração) |
 | `WHATSAPP_ESPECIALISTA` | Destino do botão do especialista | 5511915612544 (secretaria e B2B) |
 | `LEAD_WEBHOOK_URL` | Envia o lead para o CRM | `null` |
 | `META_PIXEL_ID`, `GTM_ID` | Rastreamento | `null` |
 | `IA_ENDPOINT` | Liga o "Sugerir com IA" a um modelo de verdade (POST `{campo, respostas}` → `{sugestao}`) | `null` = sugestões montadas no navegador a partir das respostas |
-| `VIDEOS` | ID do YouTube do vídeo de cada seção (voce, aluno, metodo, formato, potencial, lancamento, envio) | os 7 tutoriais já ligados |
+| `VIDEOS` | Vídeo de cada seção (voce, aluno, metodo, formato, potencial, lancamento, envio): ID do YouTube ou MP4 em `assets/videos/` | |
 
-**Pagamento real:** na plataforma de checkout, configure a página de obrigado para voltar ao site com `?pago=1` (ex.: `https://seudominio/?pago=1`). O plano abre no mesmo navegador em que a pessoa preencheu.
+**Depois do pagamento (Hubla):** na área de membros, cadastre o link `https://SEU-DOMINIO/?pago=1`. No mesmo navegador em que a pessoa preencheu, o plano completo abre direto. Em outro aparelho ou navegador, aparece uma tela para colar o **link pessoal do curso** (mostrado antes do pagamento, com botão de copiar e de enviar para o próprio WhatsApp), que guarda as respostas no próprio endereço.
 
 ## Atalhos
 - `seudominio/#construtor`: abre direto no construtor (bom para remarketing).
