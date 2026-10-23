@@ -908,8 +908,8 @@ const CONFIG = {
   META_PIXEL_ID: null,
   GTM_ID: null,
   // IDs de vídeo do YouTube por etapa (ex.: "dQw4w9WgXcQ"). Vazio = mostra "vídeo em produção".
-  // Função de IA do site (api/ia.js na Vercel, usa o Claude). Se falhar ou não existir, as sugestões vêm das regras do navegador.
-  IA_ENDPOINT: "/api/ia",
+  // "Sugerir com IA" funciona com regras de configuração no próprio navegador, sem custo. Deixe null.
+  IA_ENDPOINT: null,
   // Um vídeo por seção do construtor: ID do YouTube ou caminho de um MP4 do site (ex.: "assets/videos/1-voce.mp4"). Vazio = "vídeo em produção".
   VIDEOS: { voce:"", aluno:"", metodo:"", formato:"", potencial:"", lancamento:"", envio:"" }
 };
@@ -1166,10 +1166,24 @@ function pergCount(){
   el.style.setProperty("--pc", Math.min(100, n/MIN_PERG*100)+"%");
 }
 // Nome local (reserva): titulação + área + para quem, quando a descrição é curta
-function tituloLocal(t){
-  const A = cap(S.a.area||"sua área"), per = low(S.a.persona||"");
-  return per && per.length<=48 ? `${t.nome} em ${A} para ${per}` : `${t.nome} em ${A}`;
+// Transformação curta tirada da promessa (até a primeira vírgula ou " e ", no máximo 7 palavras)
+function transformacao(){
+  let o = low(promessa()).replace(/^(que |a |o )/,"").split(/,| e | para que | porque /)[0].trim();
+  const w = o.split(/\s+/); if(w.length>7) o = w.slice(0,7).join(" ");
+  return o.length>=8 ? o : "";
 }
+// Opções de nome por regras: tema + transformação, público, método com o nome da pessoa
+function titulosLocais(t){
+  const A = cap(S.a.area||"sua área"), per = low(S.a.persona||""), O = transformacao(), N = firstName();
+  const l = [];
+  if(O) l.push(`${A}: como ${O}`);
+  if(per && per.length<=42) l.push(`${t.nome} em ${A} para ${per}`);
+  if(O) l.push(`${t.nome} em ${A}: ${O}`);
+  if(N) l.push(`Método ${N} de ${A}`);
+  l.push(`${A} na Prática`, `${t.nome} em ${A}`);
+  return [...new Set(l.map(x=>cap(x).replace(/\s+/g," ").trim()))];
+}
+function tituloLocal(t){ return titulosLocais(t)[0]; }
 async function tituloIA(){
   if(S.a.tituloManual) return;
   const ti = $("#f_titulo"); if(!ti) return;
@@ -1271,7 +1285,7 @@ const IA_LOCAL = {
   persona:()=>{ const a=low(S.a.area)||"na área"; return iaPick("persona",[`Profissionais formados que querem se especializar em ${a}`,`Quem já atua em ${a} e quer ter mais resultado e segurança`,`Profissionais que querem migrar para ${a} com um método claro`]); },
   promessa:()=>{ const a=low(S.a.area)||"a área"; const p=splitList(S.a.perguntas)[0]; return iaPick("promessa",[`dominar ${a} na prática, com um método claro, e atender com segurança desde os primeiros casos`,`aplicar o seu método em ${a} do início ao fim e cobrar mais pelo próprio trabalho`,p?`responder com segurança a pergunta "${p.replace(/\?$/,"")}" e transformar isso em resultado para os próprios clientes`:`ter resultados consistentes em ${a} sem depender de tentativa e erro`]); },
   ferramentas:()=>["Ficha de avaliação inicial","Checklist de atendimento","Protocolo passo a passo","Planilha de acompanhamento de resultados","Roteiro da primeira conversa com o cliente"],
-  titulo:()=>{ const f=formation(), A=cap(S.a.area||"sua área"), n=f.t.nome; return iaPick("titulo",[`${n} em ${A}`, `${n} em ${A} na Prática`, `${A} na Prática: ${n}`, `${n} em ${A}: do básico ao resultado`]); }
+  titulo:()=>{ const f=formation(), l=titulosLocais(f.t), atual=($("#f_titulo")||{}).value; return iaPick("titulo", l.length>1 ? l.filter(x=>x!==atual) : l); }
 };
 function iaBtn(campo){ return `<button type="button" class="ia" data-ia="${campo}"><svg viewBox="0 0 24 24"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9zM19 14l.9 2.6 2.6.9-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9z"/></svg>Sugerir com IA <small>a partir das suas respostas</small></button>`; }
 const IA_VISTOS = {};
