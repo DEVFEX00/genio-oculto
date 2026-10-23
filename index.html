@@ -98,7 +98,7 @@ section.sec{padding-block:clamp(72px,10vw,140px)}
 /* ---------- CAPA DO APLICATIVO ---------- */
 .capa{position:relative;min-height:calc(100svh - 77px);display:flex;flex-direction:column}
 .capa .wrap{position:relative;flex:1;display:grid;grid-template-columns:1.25fr .75fr;gap:64px;align-items:center;padding-block:clamp(32px,6vw,72px)}
-@media (max-width:980px){.capa .wrap{grid-template-columns:1fr}.capa .mock{display:none}}
+@media (max-width:980px){.capa .wrap{grid-template-columns:1fr}.capa .stage{display:none}}
 .capa h1{font-size:clamp(42px,5.9vw,86px);font-weight:300;letter-spacing:-.045em;line-height:.98;margin:22px 0 0;text-wrap:balance}
 .capa h1 b{font-weight:800;color:var(--white);white-space:nowrap}
 .capa h1 .w{display:inline-block;animation:wordUp .9s cubic-bezier(.2,.8,.2,1) both}
@@ -114,19 +114,48 @@ section.sec{padding-block:clamp(72px,10vw,140px)}
 .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.8s infinite}
 @keyframes pulse{50%{opacity:.35;transform:scale(.7)}}
 
-/* exemplo genérico do curso se montando */
-.mock{position:relative;background:rgba(255,255,255,.03);border:1px solid var(--line-dark);border-radius:24px;padding:26px}
+/* exemplo genérico do curso se montando, em 3D */
+.capa{--mx:70%;--my:40%;overflow:hidden}
+.capa::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(520px circle at var(--mx) var(--my),rgba(50,205,50,.10),transparent 70%);transition:background .2s}
+.capa::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:linear-gradient(rgba(232,228,217,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(232,228,217,.035) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(600px circle at var(--mx) var(--my),#000,transparent 75%);mask-image:radial-gradient(600px circle at var(--mx) var(--my),#000,transparent 75%)}
+.capa .wrap,.capa .rodape{z-index:1}
+.stage{position:relative;perspective:1300px;padding:40px 0}
+.stage .floor{position:absolute;left:10%;right:10%;bottom:6px;height:60px;border-radius:50%;background:radial-gradient(closest-side,rgba(50,205,50,.28),transparent);filter:blur(14px);transform:translateX(calc(var(--ry,0deg) * -1.2px));pointer-events:none}
+.mock{--rx:0deg;--ry:0deg;--gx:50%;--gy:30%;position:relative;transform-style:preserve-3d;transform:rotateX(var(--rx)) rotateY(var(--ry));background:linear-gradient(155deg,#132219 0%,#0a120c 55%,#070c08 100%);border:1px solid rgba(232,228,217,.14);border-radius:26px;padding:26px;box-shadow:0 50px 90px -40px rgba(0,0,0,.9),0 30px 80px -50px rgba(50,205,50,.45),inset 0 1px 0 rgba(255,255,255,.06);will-change:transform}
+.mock .glare{position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(420px circle at var(--gx) var(--gy),rgba(255,255,255,.10),transparent 55%);mix-blend-mode:screen}
+.mock .lay1{transform:translateZ(28px)}
+.mock .lay2{transform:translateZ(48px)}
 .mock .mh{display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-d);font-weight:700}
-.mock .mt{font-size:24px;font-weight:700;line-height:1.2;margin:14px 0 4px;color:var(--white)}
+.mock .mt{font-size:26px;font-weight:700;line-height:1.2;margin:14px 0 4px;color:var(--white);letter-spacing:-.02em}
 .mock .ms{font-size:14px;color:var(--muted-d)}
-.mock ol{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:8px}
-.mock li{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:12px;background:rgba(255,255,255,.035);border:1px solid var(--line-dark);font-size:15px;font-weight:600;animation:modIn 10s infinite both}
+.mock .prog{height:4px;border-radius:999px;background:rgba(232,228,217,.1);margin-top:18px;overflow:hidden}
+.mock .prog i{display:block;height:100%;width:0;background:var(--green);border-radius:inherit;animation:prog 10s infinite}
+@keyframes prog{0%{width:0}35%{width:100%}90%{width:100%;opacity:1}97%,100%{width:100%;opacity:0}}
+.mock ol{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:8px}
+.mock li{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line-dark);font-size:15px;font-weight:600;animation:modIn 10s infinite both;transition:background .25s,border-color .25s,transform .25s}
+.mock li:hover{background:rgba(50,205,50,.1);border-color:rgba(50,205,50,.45);transform:translateX(4px)}
 .mock li .n{font-size:12px;color:var(--green);font-weight:800;width:22px}
 .mock li .h{margin-left:auto;font-size:12px;color:var(--muted-d);font-weight:600}
-.mock li .bar{flex:1;height:8px;border-radius:999px;background:rgba(232,228,217,.12)}
 .mock li:nth-child(1){animation-delay:.3s}.mock li:nth-child(2){animation-delay:.8s}.mock li:nth-child(3){animation-delay:1.3s}.mock li:nth-child(4){animation-delay:1.8s}.mock li:nth-child(5){animation-delay:2.3s}.mock li:nth-child(6){animation-delay:2.8s}
-@keyframes modIn{0%{opacity:0;transform:translateY(10px)}5%{opacity:1;transform:none}90%{opacity:1;transform:none}97%,100%{opacity:0}}
-.mock .tagx{display:inline-block;margin-top:18px;font-size:12px;color:var(--muted-d);border:1px dashed var(--line-dark);border-radius:8px;padding:6px 10px}
+@keyframes modIn{0%{opacity:0;transform:translateY(12px) translateZ(0)}5%{opacity:1;transform:none}90%{opacity:1;transform:none}97%,100%{opacity:0}}
+.mock .tagx{display:inline-block;margin-top:16px;font-size:12px;color:var(--muted-d);border:1px dashed var(--line-dark);border-radius:8px;padding:6px 10px}
+/* cartões flutuando na frente do card */
+.fl{position:absolute;z-index:2;display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:16px;background:rgba(14,24,17,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(232,228,217,.16);box-shadow:0 24px 50px -20px rgba(0,0,0,.8);font-size:13px;color:var(--sand);white-space:nowrap;transform:translate3d(var(--fx,0px),var(--fy,0px),0)}
+.fl b{display:block;font-size:16px;color:var(--white)}
+.fl small{font-size:11px;color:var(--muted-d);letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.fl .ico{width:36px;height:36px;border-radius:10px;background:var(--green);display:grid;place-items:center;flex:none}
+.fl .ico svg{width:14px;height:14px;fill:var(--ink)}
+.fl > span{display:block;animation:bob 5s ease-in-out infinite}
+.fl.f1{top:6px;left:-56px}
+.fl.f2{top:46%;right:-48px}.fl.f2 > span{animation-delay:-1.6s}
+.fl.f3{bottom:-18px;left:-44px}.fl.f3 > span{animation-delay:-3.2s}
+.fl .bars{display:flex;align-items:flex-end;gap:3px;height:28px}
+.fl .bars i{width:6px;border-radius:2px;background:var(--green);animation:grow 10s infinite both}
+.fl .bars i:nth-child(1){height:30%}.fl .bars i:nth-child(2){height:55%;animation-delay:.2s}.fl .bars i:nth-child(3){height:42%;animation-delay:.4s}.fl .bars i:nth-child(4){height:80%;animation-delay:.6s}.fl .bars i:nth-child(5){height:100%;animation-delay:.8s}
+@keyframes grow{0%{transform:scaleY(0)}12%,92%{transform:scaleY(1)}100%{transform:scaleY(0)}}
+.fl .bars i{transform-origin:bottom}
+@keyframes bob{50%{transform:translateY(-8px)}}
+@media (max-width:1180px){.fl.f1{left:-16px}.fl.f2{right:-12px}.fl.f3{left:-8px}}
 
 /* range */
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:10px;border-radius:999px;background:linear-gradient(90deg,var(--green) var(--p,30%),rgba(255,255,255,.14) var(--p,30%));outline:none;position:relative}
@@ -605,19 +634,29 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
           <span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Começa grátis</span>
         </div>
       </div>
-      <div class="mock" aria-hidden="true">
-        <div class="mh"><span>Pós-Graduação · 360h</span><span class="g">● montando</span></div>
-        <div class="mt">Curso Exemplo 00</div>
-        <div class="ms">Seu nome · sua área · seus anos de prática</div>
-        <ol>
-          <li><span class="n">01</span>Fundamentos<span class="h">60h</span></li>
-          <li><span class="n">02</span>Tema 01<span class="h">60h</span></li>
-          <li><span class="n">03</span>Tema 02<span class="h">60h</span></li>
-          <li><span class="n">04</span>Tema 03<span class="h">60h</span></li>
-          <li><span class="n">05</span>Ferramentas e prática<span class="h">60h</span></li>
-          <li><span class="n">06</span>Projeto aplicado<span class="h">60h</span></li>
-        </ol>
-        <span class="tagx">Exemplo ilustrativo. O seu curso nasce das suas respostas.</span>
+      <div class="stage" id="stage" aria-hidden="true">
+        <div class="floor"></div>
+        <div class="mock" id="mock">
+          <div class="lay1">
+            <div class="mh"><span>Pós-Graduação · 360h</span><span class="g">● montando</span></div>
+            <div class="mt">Curso Exemplo 00</div>
+            <div class="ms">Seu nome · sua área · seus anos de prática</div>
+            <div class="prog"><i></i></div>
+          </div>
+          <ol class="lay2">
+            <li><span class="n">01</span>Fundamentos<span class="h">60h</span></li>
+            <li><span class="n">02</span>Tema 01<span class="h">60h</span></li>
+            <li><span class="n">03</span>Tema 02<span class="h">60h</span></li>
+            <li><span class="n">04</span>Tema 03<span class="h">60h</span></li>
+            <li><span class="n">05</span>Ferramentas e prática<span class="h">60h</span></li>
+            <li><span class="n">06</span>Projeto aplicado<span class="h">60h</span></li>
+          </ol>
+          <span class="tagx lay1">Exemplo ilustrativo. O seu curso nasce das suas respostas.</span>
+          <div class="glare"></div>
+        </div>
+        <div class="fl f1" data-depth="1.2"><span style="display:flex;gap:12px;align-items:center"><span class="ico"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span><span><small>Aula 01</small><b>Videoaula · 20 min</b></span></span></div>
+        <div class="fl f2" data-depth="1.8"><span><small>Você grava só</small><b>108h de 360h</b></span></div>
+        <div class="fl f3" data-depth="1.5"><span style="display:flex;gap:12px;align-items:center"><span class="bars"><i></i><i></i><i></i><i></i><i></i></span><span><small>Potencial</small><b>da 1ª turma</b></span></span></div>
       </div>
     </div>
     <div class="rodape"><div class="wrap"><span>Faculdade FEX Educação®</span><span>#sejaFEX</span></div></div>
@@ -1513,6 +1552,35 @@ function burst(){
   const f=()=>{ ctx.clearRect(0,0,cv.width,cv.height); let alive=false; for(const p of P){ p.vy+=.45; p.x+=p.vx; p.y+=p.vy; p.a-=.012; if(p.a>0){ alive=true; ctx.globalAlpha=p.a; ctx.fillStyle=p.c; ctx.fillRect(p.x,p.y,p.r,p.r*1.6); } } ctx.globalAlpha=1; if(alive) requestAnimationFrame(f); else ctx.clearRect(0,0,cv.width,cv.height); }; f();
 }
 function toast(t){ const el=$("#toast"); el.textContent=t; el.classList.add("on"); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove("on"), 2600); }
+
+/* capa: inclinação 3D, reflexo e luz seguindo o cursor */
+(function(){
+  const capa = $(".capa"), mock = $("#mock"), stage = $("#stage"); if(!capa || !mock) return;
+  const fls = $$(".fl", stage);
+  let tx=0, ty=0, x=0, y=0, hover=false, t0=performance.now();
+  capa.addEventListener("pointermove", e=>{
+    const r = capa.getBoundingClientRect();
+    capa.style.setProperty("--mx", (e.clientX-r.left)+"px"); capa.style.setProperty("--my", (e.clientY-r.top)+"px");
+    const m = stage.getBoundingClientRect();
+    const nx = Math.max(-1, Math.min(1, (e.clientX-(m.left+m.width/2))/(m.width*.9)));
+    const ny = Math.max(-1, Math.min(1, (e.clientY-(m.top+m.height/2))/(m.height*.9)));
+    tx = nx; ty = ny; hover = true;
+    mock.style.setProperty("--gx", ((e.clientX-m.left)/m.width*100)+"%"); mock.style.setProperty("--gy", ((e.clientY-m.top)/m.height*100)+"%");
+  }, {passive:true});
+  capa.addEventListener("pointerleave", ()=>{ hover=false; });
+  if(reduced) return;
+  const loop = now=>{
+    if($("#view-home").classList.contains("on")){
+      if(!hover){ const k=(now-t0)/1000; tx = Math.sin(k*.5)*.45; ty = Math.cos(k*.4)*.3; }
+      x += (tx-x)*.08; y += (ty-y)*.08;
+      mock.style.setProperty("--ry", (x*14)+"deg"); mock.style.setProperty("--rx", (-y*10)+"deg");
+      stage.style.setProperty("--ry", (x*14)+"deg");
+      fls.forEach(f=>{ const d=+f.dataset.depth; f.style.setProperty("--fx", (x*18*d)+"px"); f.style.setProperty("--fy", (y*14*d)+"px"); });
+    }
+    requestAnimationFrame(loop);
+  };
+  requestAnimationFrame(loop);
+})();
 
 /* topo e CTA fixo da prévia */
 (function(){
