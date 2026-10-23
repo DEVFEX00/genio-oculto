@@ -29,7 +29,7 @@ No `index.html`, procure `const CONFIG = {` (início do `<script>`):
 | `IA_ENDPOINT` | Liga o "Sugerir com IA" a um modelo de verdade (POST `{campo, respostas}` → `{sugestao}`) | `null` = sugestões montadas no navegador a partir das respostas |
 | `VIDEOS` | Vídeo de cada seção (voce, aluno, metodo, formato, potencial, lancamento, envio): ID do YouTube ou MP4 em `assets/videos/` | |
 
-**Depois do pagamento (Hubla):** na área de membros, cadastre o link `https://SEU-DOMINIO/?pago=1`. No mesmo navegador em que a pessoa preencheu, o plano completo abre direto. Em outro aparelho ou navegador, aparece uma tela para colar o **link pessoal do curso** (mostrado antes do pagamento, com botão de copiar e de enviar para o próprio WhatsApp), que guarda as respostas no próprio endereço.
+**Depois do pagamento (Hubla):** na área de membros, cadastre o link `https://genio-oculto-one.vercel.app/?pago=1`. No mesmo navegador em que a pessoa preencheu, o plano completo abre direto. Em outro aparelho ou navegador, aparece uma tela para colar o **link pessoal do curso** (mostrado antes do pagamento, com botão de copiar e de enviar para o próprio WhatsApp), que guarda as respostas no próprio endereço.
 
 ## Atalhos
 - `seudominio/#construtor`: abre direto no construtor (bom para remarketing).

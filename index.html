@@ -922,7 +922,7 @@ const blank = () => ({
   a:{nome:"",sobrenome:"",area:"",anos:12,perguntas:"",persona:"",promessa:"",ferramentas:[],referencias:"",ensina:"",objetivo:"",
      email:"",telefone:"",instagram:"",consent:true,titulo:""},
   tit:null, horas:null, parcela:297, preco:297*12,
-  pot:{warm:500,cold:10000,cw:3,cc:0.5},
+  pot:{warm:500,cold:10000,cw:3,cc:0.3},
   campaign:null, magna:"",
   step:0, done:false, paid:false, leadId:""
 });
@@ -1020,10 +1020,10 @@ const CAMPAIGNS = {
     cad:["Convite para o grupo de WhatsApp","7 dias de conteúdo em sequência","Carrinho aberto por 48h a 72h","Encerramento real e lista de espera da turma 2"],
     pre:["Captar pessoas para o grupo","Sequência de 7 dias de conteúdo","Preparar bônus para os primeiros","Definir o prazo real do carrinho"],
     camp:["Abrir o carrinho no grupo","Comunicação diária no grupo","Bônus para os primeiros","Encerrar e abrir lista da turma 2"]},
-  black:{label:"Black Friday", desc:"Campanha sazonal com condição especial.", best:"Ideal se a turma começa no início do ano.",
-    cad:["Bastidores e lista VIP","Semana da Black: condição especial com prazo real","Turma começando no início do ano","Recuperação de pagamentos até dezembro"],
-    pre:["Aquecimento com bastidores","Montar lista VIP","Definir a condição da semana","Programar a recuperação de pagamentos"],
-    camp:["Ativar a oferta na semana","Comunicação intensa com a lista VIP","Encerrar no prazo anunciado","Recuperar pagamentos nas semanas seguintes"]}
+  black:{label:"Campanhas sazonais", desc:"Black Friday, Natal, Ano Novo e outras datas, com condição especial por tempo limitado.", best:"Ideal para aproveitar datas em que o público já está comprando.",
+    cad:["Escolher a data (Black Friday, Natal, Ano Novo ou outra)","Bastidores e lista VIP nas semanas anteriores","Condição especial com prazo real na data","Recuperação de pagamentos nas semanas seguintes"],
+    pre:["Escolher a data sazonal da campanha","Aquecimento com bastidores","Montar lista VIP","Definir a condição especial e o prazo"],
+    camp:["Ativar a oferta na data","Comunicação intensa com a lista VIP","Encerrar no prazo anunciado","Recuperar pagamentos nas semanas seguintes"]}
 };
 // Advertência obrigatória do Manual de Comunicação (item 3.6) para peças de extensão.
 const ADVERTENCIA = "A oferta não é objeto de reconhecimento, validação, chancela, autorização específica ou certificação pelo Ministério da Educação. O credenciamento da Faculdade FEX Educação refere-se à Instituição, e não ao curso.";
@@ -1198,7 +1198,7 @@ const STEPS = [
   {id:"audiencia", ph:4, q:()=>`Quantas pessoas <b>já te conhecem?</b>`, help:"Base quente: alunos, ex-alunos, pacientes e clientes. Audiência fria: seguidores, lista de e-mail, contatos. Arraste e veja o potencial da primeira turma.",
     body:()=>`<div class="sim">
       <div class="row"><div class="top2"><span>Base quente (alunos, ex-alunos, clientes)</span><b id="vw">${INT(S.pot.warm)}</b></div><input type="range" id="f_warm" min="0" max="5000" step="50" value="${S.pot.warm}" aria-label="Base quente"><label class="conv">Conversão esperada <input type="number" id="f_cw" min="0" max="100" step="0.5" value="${S.pot.cw}"> % · referência FEX: 3%</label><p class="calc" id="cwCalc"></p></div>
-      <div class="row"><div class="top2"><span>Audiência fria (seguidores, lista, contatos)</span><b id="vc">${INT(S.pot.cold)}</b></div><input type="range" id="f_cold" min="0" max="200000" step="1000" value="${S.pot.cold}" aria-label="Audiência fria"><label class="conv">Conversão esperada <input type="number" id="f_cc" min="0" max="100" step="0.1" value="${S.pot.cc}"> % · referência FEX: 0,5%</label><p class="calc" id="ccCalc"></p></div>
+      <div class="row"><div class="top2"><span>Audiência fria (seguidores, lista, contatos)</span><b id="vc">${INT(S.pot.cold)}</b></div><input type="range" id="f_cold" min="0" max="200000" step="1000" value="${S.pot.cold}" aria-label="Audiência fria"><label class="conv">Conversão esperada <input type="number" id="f_cc" min="0" max="100" step="0.1" value="${S.pot.cc}"> % · referência FEX: 0,3%</label><p class="calc" id="ccCalc"></p></div>
       <div class="result"><div><div class="lbl">Faturamento da primeira turma</div><div class="rv2" id="vfat">R$ 0</div><div class="sub" id="vmen"></div></div><div class="mat"><b id="vmat">0</b><span class="lbl">matrículas</span></div></div>
       <p class="ex" id="vread"></p></div>`,
     bind:()=>{ const up=()=>{ S.pot.warm=+$("#f_warm").value; S.pot.cold=+$("#f_cold").value; S.pot.cw=Math.max(0,+$("#f_cw").value||0); S.pot.cc=Math.max(0,+$("#f_cc").value||0); paintRange($("#f_warm")); paintRange($("#f_cold")); $("#vw").textContent=INT(S.pot.warm); $("#vc").textContent=INT(S.pot.cold); const p=pot(); tween($("#vfat"),p.fat,BRL); tween($("#vmat"),p.mat,INT); $("#vmen").textContent=`${INT(p.mat)} matrículas × ${BRL(p.preco)} (12x de ${BRL(S.parcela)})`; $("#cwCalc").innerHTML=`${INT(S.pot.warm)} pessoas × ${String(S.pot.cw).replace(".",",")}% = <b>${INT(p.mw)} matrículas</b>`; $("#ccCalc").innerHTML=`${INT(S.pot.cold)} pessoas × ${String(S.pot.cc).replace(".",",")}% = <b>${INT(p.mc)} matrículas</b>`; $("#vread").innerHTML = p.fatW>0?`Só com a sua base quente, sem gastar com anúncio, são <b>${BRL(p.fatW)}</b>.`:"Aumente a base quente para ver o dinheiro que já está na mesa."; live(); }; ["#f_warm","#f_cold","#f_cw","#f_cc"].forEach(s=>$(s).oninput=up); up(); },
