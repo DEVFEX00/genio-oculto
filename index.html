@@ -327,6 +327,8 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
 .sim .row .top2{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .sim .row .top2 b{font-size:28px;font-weight:800;color:var(--white);font-variant-numeric:tabular-nums}
 .sim .conv{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted-d)}
+.sim .calc{margin:2px 0 0;font-size:15px;color:var(--bm)}
+.sim .calc b{color:var(--green)}
 .sim .conv input{width:84px;background:rgba(255,255,255,.05);border:1px solid var(--line-dark);border-radius:10px;padding:8px 10px;color:var(--white);font-weight:700;font-size:16px}
 .result{background:var(--green);color:var(--ink);border-radius:24px;padding:26px 28px;display:grid;grid-template-columns:1fr auto;gap:12px 24px;align-items:end;position:relative;overflow:hidden}
 .result::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%);transform:translateX(-120%);animation:shine 4.5s ease-in-out infinite}
@@ -919,8 +921,8 @@ const KEY = "crie_formacao_v1";
 const blank = () => ({
   a:{nome:"",sobrenome:"",area:"",anos:12,perguntas:"",persona:"",promessa:"",ferramentas:[],referencias:"",ensina:"",objetivo:"",
      email:"",telefone:"",instagram:"",consent:true,titulo:""},
-  tit:null, horas:null, preco:997,
-  pot:{warm:500,cold:10000,cw:5,cc:1},
+  tit:null, horas:null, parcela:297, preco:297*12,
+  pot:{warm:500,cold:10000,cw:3,cc:0.5},
   campaign:null, magna:"",
   step:0, done:false, paid:false, leadId:""
 });
@@ -951,7 +953,7 @@ function sendLead(etapa){
   const f = formation();
   const body = { etapa, id:S.leadId, data:new Date().toISOString(), contato:{nome:S.a.nome, email:S.a.email, telefone:S.a.telefone, instagram:S.a.instagram},
     curso:{titulo:f.title, area:S.a.area, anos:S.a.anos, persona:S.a.persona, promessa:S.a.promessa, titulacao:f.t.nome, horas:f.h, modulos:f.mods.length, aulas:f.aulas, perguntas:perguntas()},
-    potencial:pot(), preco:S.preco, campanha:S.campaign, inicioTurma:S.magna, pago:S.paid, linkPessoal:linkPessoal(), origem:location.search };
+    potencial:pot(), parcela:S.parcela, preco:S.preco, campanha:S.campaign, inicioTurma:S.magna, pago:S.paid, linkPessoal:linkPessoal(), origem:location.search };
   try{ fetch(CONFIG.LEAD_WEBHOOK_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body),keepalive:true}).catch(()=>{}); }catch(e){}
 }
 
@@ -991,7 +993,10 @@ function whyTit(k){
   if(base && base!==k) txt += ` Para ${TITS[base].nome}, vale ter mais experiência e mais perguntas; você pode escolher mesmo assim.`;
   return txt;
 }
-const PRECOS = [297, 497, 997, 1497, 1997, 2997];
+// Parcelas de referência para uma formação de extensão (12x). O preço total é parcela × 12.
+const PARCELAS = [97, 297, 500, 1000, 5000];
+const setParcela = v => { S.parcela = Math.round(v); S.preco = S.parcela*12; };
+const p12 = total => `12x de ${parcela(total)}`;
 const AREAS = ["Fisioterapia","Estética","Psicologia","Nutrição","Direito","Odontologia","Medicina","Enfermagem","Educação","Vendas","Gestão","Marketing","Tecnologia","Finanças","Terapias integrativas","Agronegócio"];
 const PERSONAS = ["Profissionais recém-formados","Profissionais com experiência que querem se especializar","Donos de clínica ou consultório","Gestores e líderes de equipe","Quem quer mudar de área","Professores e educadores"];
 const CAMPAIGNS = {
@@ -1078,7 +1083,7 @@ function buildModules(key, horas){
   return mods.map((m,i)=>({...m, n:i+1, h: base + (i<resto?1:0)}));
 }
 function pot(){
-  const p = S.pot, preco = S.preco || 997;
+  const p = S.pot, preco = S.preco || 297*12;
   const mw = Math.floor(p.warm * p.cw / 100), mc = Math.floor(p.cold * p.cc / 100), mat = mw + mc;
   return {mw, mc, mat, preco, fat: mat*preco, fatW: mw*preco};
 }
@@ -1179,22 +1184,24 @@ const STEPS = [
       <p class="qhelp" id="tWhy" style="margin-top:22px"></p>
       <div class="xp" style="margin-top:22px"><label class="flabel" for="f_horas">Carga horária (<span id="hRange"></span>)</label><div class="yrs" style="font-size:clamp(48px,7vw,80px)"><span id="hv"></span> <small>horas</small></div><input type="range" id="f_horas" aria-label="Carga horária"></div>
       <div class="note" id="tSum"></div>
+      <p class="ex" id="tCarga">A carga horária soma tudo o que é acompanhado pelo professor: videoaulas, leituras complementares, estudos de caso, encontros de perguntas e respostas, prática do aluno com feedback, atividades e avaliação. Você não precisa gravar todas as horas: a diferença de carga horária pode ser feita em encontros de perguntas e respostas, leitura complementar, estudo de caso e prática do aluno.</p>
       <div id="tCmp"></div>
       <div class="field"><label class="flabel" for="f_titulo">Nome do curso (pode editar)</label><input class="inp inp-sm" id="f_titulo" value="${esc(S.a.titulo || formation().title)}">${iaBtn("titulo")}</div>`; },
     bind:()=>{ optBind("tit", v=>{ S.tit=v; S.horas=TITS[v].h; titBox(); }); $("#f_horas").oninput=e=>{ S.horas=+e.target.value; titBox(); live(); }; $("#f_titulo").oninput=e=>{S.a.titulo=e.target.value; live();}; titBox(); },
     read:()=>{S.a.titulo=$("#f_titulo").value.trim();}, ok:()=>!!S.tit},
-  {id:"preco", ph:3, q:()=>`Quanto vai custar o <b>seu curso?</b>`, help:"Exemplo usado pela FEX: um curso que vende a R$ 200 como curso livre pode vender a R$ 997 como extensão universitária. Escolha uma faixa ou escreva o seu valor.",
-    body:()=>`<div class="opts" id="opt-preco" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr))">${PRECOS.map((v,i)=>`<button type="button" style="--i:${i*2}" class="opt pop${S.preco===v?" on":""}" data-v="${v}"><span>à vista</span><div class="price-big">${BRL(v)}</div><span>ou 12x de ${parcela(v)}</span></button>`).join("")}</div>
-      <div class="field"><label class="flabel" for="f_preco">Outro valor (R$)</label><input class="inp inp-sm" id="f_preco" type="number" min="50" step="1" inputmode="numeric" placeholder="Ex.: 1290" value="${PRECOS.includes(S.preco)?"":S.preco}"></div>`,
-    bind:()=>{ optBind("preco", v=>{ S.preco=+v; $("#f_preco").value=""; }); $("#f_preco").oninput=e=>{ const v=Math.round(+e.target.value); if(v>=50){ S.preco=v; $$("#opt-preco .opt").forEach(o=>o.classList.remove("on")); live(); save(); } }; },
-    read:()=>{}, ok:()=>S.preco>=50 || "Escolha um valor."},
+  {id:"preco", ph:3, q:()=>`Quanto o seu aluno vai <b>investir?</b>`, help:"Em parcelas, a decisão fica mais leve para o aluno. Escolha uma faixa ou arraste a barra até o valor da parcela que faz sentido para o seu público.",
+    body:()=>`<div class="opts" id="opt-preco" style="grid-template-columns:repeat(auto-fit,minmax(136px,1fr))">${PARCELAS.map((v,i)=>`<button type="button" style="--i:${i*2}" class="opt pop${S.parcela===v?" on":""}" data-v="${v}"><span>12 parcelas de</span><div class="price-big">${BRL(v)}</div><span>Total por aluno: ${BRL(v*12)}</span></button>`).join("")}</div>
+      <div class="xp" style="margin-top:28px"><label class="flabel" for="f_parc">Ou arraste até o valor da parcela</label><div class="yrs" style="font-size:clamp(44px,6.4vw,72px)"><small>12x de</small> <span id="pv">${BRL(S.parcela)}</span></div><input type="range" id="f_parc" min="47" max="5000" step="1" value="${S.parcela}" aria-label="Valor da parcela"><div class="wow" id="pTot"></div></div>`,
+    bind:()=>{ const r=$("#f_parc"); const up=()=>{ $("#pv").textContent=BRL(S.parcela); r.value=S.parcela; paintRange(r); $("#pTot").innerHTML=`Total por aluno: <b>${BRL(S.preco)}</b>. Exemplo da FEX: um curso livre de R$ 200 pode vender a R$ 997 como extensão universitária.`; $$("#opt-preco .opt").forEach(o=>o.classList.toggle("on", +o.dataset.v===S.parcela)); live(); save(); };
+      optBind("preco", v=>{ setParcela(+v); up(); }); r.oninput=()=>{ setParcela(+r.value); up(); }; up(); },
+    read:()=>{}, ok:()=>S.parcela>=47 || "Escolha um valor."},
   {id:"audiencia", ph:4, q:()=>`Quantas pessoas <b>já te conhecem?</b>`, help:"Base quente: alunos, ex-alunos, pacientes e clientes. Audiência fria: seguidores, lista de e-mail, contatos. Arraste e veja o potencial da primeira turma.",
     body:()=>`<div class="sim">
-      <div class="row"><div class="top2"><span>Base quente (alunos, ex-alunos, clientes)</span><b id="vw">${INT(S.pot.warm)}</b></div><input type="range" id="f_warm" min="0" max="5000" step="50" value="${S.pot.warm}" aria-label="Base quente"><label class="conv">Conversão esperada <input type="number" id="f_cw" min="0" max="100" step="0.5" value="${S.pot.cw}"> % · referência FEX: 5%</label></div>
-      <div class="row"><div class="top2"><span>Audiência fria (seguidores, lista, contatos)</span><b id="vc">${INT(S.pot.cold)}</b></div><input type="range" id="f_cold" min="0" max="200000" step="1000" value="${S.pot.cold}" aria-label="Audiência fria"><label class="conv">Conversão esperada <input type="number" id="f_cc" min="0" max="100" step="0.1" value="${S.pot.cc}"> % · referência FEX: 1%</label></div>
+      <div class="row"><div class="top2"><span>Base quente (alunos, ex-alunos, clientes)</span><b id="vw">${INT(S.pot.warm)}</b></div><input type="range" id="f_warm" min="0" max="5000" step="50" value="${S.pot.warm}" aria-label="Base quente"><label class="conv">Conversão esperada <input type="number" id="f_cw" min="0" max="100" step="0.5" value="${S.pot.cw}"> % · referência FEX: 3%</label><p class="calc" id="cwCalc"></p></div>
+      <div class="row"><div class="top2"><span>Audiência fria (seguidores, lista, contatos)</span><b id="vc">${INT(S.pot.cold)}</b></div><input type="range" id="f_cold" min="0" max="200000" step="1000" value="${S.pot.cold}" aria-label="Audiência fria"><label class="conv">Conversão esperada <input type="number" id="f_cc" min="0" max="100" step="0.1" value="${S.pot.cc}"> % · referência FEX: 0,5%</label><p class="calc" id="ccCalc"></p></div>
       <div class="result"><div><div class="lbl">Faturamento da primeira turma</div><div class="rv2" id="vfat">R$ 0</div><div class="sub" id="vmen"></div></div><div class="mat"><b id="vmat">0</b><span class="lbl">matrículas</span></div></div>
       <p class="ex" id="vread"></p></div>`,
-    bind:()=>{ const up=()=>{ S.pot.warm=+$("#f_warm").value; S.pot.cold=+$("#f_cold").value; S.pot.cw=Math.max(0,+$("#f_cw").value||0); S.pot.cc=Math.max(0,+$("#f_cc").value||0); paintRange($("#f_warm")); paintRange($("#f_cold")); $("#vw").textContent=INT(S.pot.warm); $("#vc").textContent=INT(S.pot.cold); const p=pot(); tween($("#vfat"),p.fat,BRL); tween($("#vmat"),p.mat,INT); $("#vmen").textContent=`Curso a ${BRL(p.preco)} por aluno`; $("#vread").innerHTML = p.fatW>0?`Só com a sua base quente, sem gastar com anúncio, são <b>${BRL(p.fatW)}</b>.`:"Aumente a base quente para ver o dinheiro que já está na mesa."; live(); }; ["#f_warm","#f_cold","#f_cw","#f_cc"].forEach(s=>$(s).oninput=up); up(); },
+    bind:()=>{ const up=()=>{ S.pot.warm=+$("#f_warm").value; S.pot.cold=+$("#f_cold").value; S.pot.cw=Math.max(0,+$("#f_cw").value||0); S.pot.cc=Math.max(0,+$("#f_cc").value||0); paintRange($("#f_warm")); paintRange($("#f_cold")); $("#vw").textContent=INT(S.pot.warm); $("#vc").textContent=INT(S.pot.cold); const p=pot(); tween($("#vfat"),p.fat,BRL); tween($("#vmat"),p.mat,INT); $("#vmen").textContent=`${INT(p.mat)} matrículas × ${BRL(p.preco)} (12x de ${BRL(S.parcela)})`; $("#cwCalc").innerHTML=`${INT(S.pot.warm)} pessoas × ${String(S.pot.cw).replace(".",",")}% = <b>${INT(p.mw)} matrículas</b>`; $("#ccCalc").innerHTML=`${INT(S.pot.cold)} pessoas × ${String(S.pot.cc).replace(".",",")}% = <b>${INT(p.mc)} matrículas</b>`; $("#vread").innerHTML = p.fatW>0?`Só com a sua base quente, sem gastar com anúncio, são <b>${BRL(p.fatW)}</b>.`:"Aumente a base quente para ver o dinheiro que já está na mesa."; live(); }; ["#f_warm","#f_cold","#f_cw","#f_cc"].forEach(s=>$(s).oninput=up); up(); },
     read:()=>{}, ok:()=>true},
   {id:"campanha", ph:5, q:()=>`Como você quer <b>lançar a primeira turma?</b>`, help:"Não existe um jeito certo. O que muda é onde está a confiança do seu público. Escolha o que tem mais a ver com você hoje.",
     body:()=>opts("campaign", Object.entries(CAMPAIGNS).map(([k,c])=>[k,c.label,c.desc+" "+c.best]), S.campaign),
@@ -1283,7 +1290,7 @@ function renderStep(dir=1){
   box.className = "qbox"; void box.offsetWidth; box.className = "qbox " + (dir>0?"anim":"back");
   box.innerHTML = `
     <div class="qnum"><span>${PHASES[st.ph]} · ${S.step+1} de ${STEPS.length}</span>
-      <button type="button" class="tut${STEPS.findIndex(x=>x.ph===st.ph)===S.step?" new":""}" data-video="${st.ph}"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span>Assistir: como preencher a seção <b>${PHASES[st.ph]}</b></button></div>
+      <button type="button" class="tut${STEPS.findIndex(x=>x.ph===st.ph)===S.step?" new":""}" data-video="${st.ph}"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span><span>Assistir: como preencher a seção <b>${PHASES[st.ph]}</b></span></button></div>
     <h2 class="q">${st.q()}</h2>
     <p class="qhelp">${st.help}</p>
     <div class="field">${st.body()}</div>
@@ -1371,8 +1378,8 @@ function discHTML(d, open, locked){
     <div class="db">
       <p class="em">${esc(d.em)}</p>
       <ul class="obj">${d.obj.map(o=>`<li>${esc(o)}</li>`).join("")}</ul>
-      <div class="lessons">${d.aulas.map((l,i)=>`<div class="lesson"><span class="lp">${PLAY}</span><span><b>Aula ${i+1}. ${esc(l[0])}</b><small>${l[1]==="Prática"?"Atividade do aluno":d.kind==="tcc"?"Acompanhamento do projeto":"Gravação de 10 a 20 minutos"}</small></span><span class="fmt">${esc(l[1])}</span></div>`).join("")}</div>
-      <div class="mats"><span>Videoaulas</span><span>Material de apoio</span><span>Exercício prático</span><span>Avaliação</span></div>
+      <div class="lessons">${d.aulas.map((l,i)=>`<div class="lesson"><span class="lp">${PLAY}</span><span><b>Aula ${i+1}. ${esc(l[0])}</b><small>${l[1]==="Prática"?"Prática com feedback do professor":d.kind==="tcc"?"Acompanhamento do projeto":"Gravação de 10 a 20 minutos"}</small></span><span class="fmt">${esc(l[1])}</span></div>`).join("")}</div>
+      <div class="mats"><span>Videoaulas</span><span>Leitura complementar</span><span>Estudo de caso</span><span>Prática com feedback</span><span>Avaliação</span></div>
     </div></div>`;
 }
 function bindDiscs(root){ $$(".disc .dh", root).forEach(b=>b.onclick=()=>{ const d=b.closest(".disc"); if(d.classList.contains("locked")) return; d.classList.toggle("open"); b.setAttribute("aria-expanded", d.classList.contains("open")); }); }
@@ -1381,7 +1388,7 @@ function posterHTML(f,p){
     <div class="l"><img class="logo" src="assets/logo-fex-branco.png" alt="FEX Educação" width="104" height="18"><div class="type">Extensão universitária · ${esc(f.t.nome)}</div><div class="ttl">${esc(f.title)}</div>
       ${S.a.promessa?`<div class="prom">Para ${esc(low(S.a.persona)||"profissionais")} que querem ${esc(low(promessa()))}.</div>`:""}
       <div class="by">Especialista responsável: <b>${esc((S.a.nome+" "+S.a.sobrenome).trim())}</b> · ${S.a.anos} anos em ${esc(low(S.a.area))}</div></div>
-    <div class="r"><div><b>${f.h}h</b><span>carga horária</span></div><div><b>${f.mods.length}</b><span>módulos</span></div><div><b>${f.aulas}</b><span>aulas</span></div><div><b>${BRL(p.preco).replace("R$ ","")}</b><span>reais por aluno</span></div>
+    <div class="r"><div><b>${f.h}h</b><span>carga horária</span></div><div><b>${f.mods.length}</b><span>módulos</span></div><div><b>${f.aulas}</b><span>aulas</span></div><div><b>${INT(S.parcela)}</b><span>12x de R$ por aluno</span></div>
       <div class="full"><b data-tw="${p.fat}" data-f="brl">${BRL(p.fat)}</b><span>potencial da primeira turma · ${INT(p.mat)} matrículas</span></div></div></div>`;
 }
 function renderPreview(){
@@ -1390,7 +1397,7 @@ function renderPreview(){
   <section class="pv-hero tex"><div class="wrap">
     <span class="pill"><span class="dot"></span>Prévia gratuita</span>
     <h1>${esc(firstName())}, este é o <b>seu curso.</b></h1>
-    <p class="lead muted" style="margin-top:22px">Montado a partir das ${perguntas().length} perguntas que você trouxe. Abra os dois primeiros módulos e veja as aulas. O plano completo libera todo o resto.</p>
+    <p class="lead muted" style="margin-top:22px">Montado a partir das ${perguntas().length} perguntas que você trouxe. Abra os dois primeiros módulos e veja as aulas. O plano completo libera todas as outras partes.</p>
     ${posterHTML(f,p)}
     <div class="mt32">${compareHTML(f)}</div>
   </div></section>
@@ -1422,7 +1429,7 @@ function renderPreview(){
    Guarda as respostas dentro do próprio endereço (#p=...), para abrir o plano em qualquer aparelho. */
 function linkPessoal(){
   try{
-    const d = {a:S.a, tit:S.tit, horas:S.horas, preco:S.preco, pot:S.pot, campaign:S.campaign, magna:S.magna, leadId:S.leadId};
+    const d = {a:S.a, tit:S.tit, horas:S.horas, parcela:S.parcela, preco:S.preco, pot:S.pot, campaign:S.campaign, magna:S.magna, leadId:S.leadId};
     const b64 = btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(d)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
     return location.origin + location.pathname + "#p=" + b64;
   }catch(e){ return ""; }
@@ -1505,7 +1512,7 @@ function salesCopy(f){
     h: f.title,
     sub: `Para ${low(S.a.persona)||"profissionais"} que querem ${low(promessa())||"dominar a área"}. Com ${nome}, ${S.a.anos} anos de prática em ${low(S.a.area)}.`,
     bullets: f.mods.map(d=>d.t),
-    cta: `Garanta sua vaga por ${BRL(S.preco)} ou 12x de ${parcela(S.preco)}`
+    cta: `Garanta sua vaga em 12x de ${parcela(S.preco)}`
   };
 }
 function waBase(f){
@@ -1525,18 +1532,18 @@ Quer entrar na lista? Responde com EU QUERO que eu te mando os detalhes.`;
 function renderPlan(){
   const f = formation(), p = pot(), c = CAMPAIGNS[S.campaign||"aula"], sc = schedule(), sp = salesCopy(f);
   const nome = (S.a.nome+" "+S.a.sobrenome).trim();
-  const tScen = [...new Set([...PRECOS, S.preco])].sort((a,b)=>a-b).map(v=>({v, fat:p.mat*v}));
+  const tScen = [...new Set([...PARCELAS.map(x=>x*12), S.preco])].sort((a,b)=>a-b).map(v=>({v, fat:p.mat*v}));
   const maxF = Math.max(...tScen.map(t=>t.fat), 1);
   const warmShare = p.mat ? Math.round(p.mw/p.mat*100) : 0;
   const ex = f.mods.find(m=>m.kind==="core") || f.mods[0];
-  const waMsg = `Olá! Acabei de montar o meu plano no Crie sua Formação e quero registrar o meu curso como extensão universitária com a Faculdade FEX Educação® (Plano Bronze).\n\nNome: ${nome}\nCurso: ${f.title}\nTitulação: ${f.t.nome} (${f.h}h)\nÁrea: ${S.a.area}\nMódulos e aulas: ${f.mods.length} módulos, ${f.aulas} aulas\nPotencial da 1ª turma: ${BRL(p.fat)} (${INT(p.mat)} matrículas)\nInício desejado da turma: ${S.magna?parseISO(S.magna).toLocaleDateString("pt-BR"):"a definir"}\nE-mail: ${S.a.email}\nWhatsApp: ${S.a.telefone}\nLink do plano: ${linkPessoal()}\nID: ${S.leadId}`;
+  const waMsg = `Olá! Acabei de montar o meu plano no Crie sua Formação e quero registrar o meu curso como extensão universitária com a Faculdade FEX Educação® (Plano Bronze).\n\nNome: ${nome}\nCurso: ${f.title}\nTitulação: ${f.t.nome} (${f.h}h)\nPreço: ${p12(S.preco)}\nÁrea: ${S.a.area}\nMódulos e aulas: ${f.mods.length} módulos, ${f.aulas} aulas\nPotencial da 1ª turma: ${BRL(p.fat)} (${INT(p.mat)} matrículas)\nInício desejado da turma: ${S.magna?parseISO(S.magna).toLocaleDateString("pt-BR"):"a definir"}\nE-mail: ${S.a.email}\nWhatsApp: ${S.a.telefone}\nLink do plano: ${linkPessoal()}\nID: ${S.leadId}`;
   const waHref = `https://wa.me/${CONFIG.WHATSAPP_ESPECIALISTA}?text=${encodeURIComponent(waMsg)}`;
   const toc = [["resumo","Resumo"],["modulos","Módulos e aulas"],["aula","Modelo de aula"],["producao","Plano de produção"],["potencial","Potencial"],["funil","Funil de vendas"],["pagina","Página e mensagem"],["cronograma","Cronograma"],["papeis","Quem faz o quê"],["proximo","Próximo passo"]];
   $("#view-plan").innerHTML = `
   <section class="plan-top tex"><div class="wrap">
     <span class="pill"><span class="dot"></span>Plano completo<span class="pid"> · ${esc(S.leadId)}</span></span>
     <h1>${esc(f.title)}</h1>
-    <div class="meta"><span class="g2">Extensão universitária</span><span>${esc(f.t.nome)} · ${f.h}h</span><span>${f.mods.length} módulos · ${f.aulas} aulas</span><span>${BRL(S.preco)} por aluno</span></div>
+    <div class="meta"><span class="g2">Extensão universitária</span><span>${esc(f.t.nome)} · ${f.h}h</span><span>${f.mods.length} módulos · ${f.aulas} aulas</span><span>${p12(S.preco)} por aluno</span></div>
     <p class="lead muted" style="margin-top:26px">Especialista responsável: <b style="color:var(--white)">${esc(nome)}</b>. Gerado em ${new Date().toLocaleDateString("pt-BR")} pelo Crie sua Formação, da Faculdade FEX Educação®.</p>
     <div style="max-width:720px">${plinkHTML()}</div>
     <div class="plan-actions">
@@ -1557,7 +1564,7 @@ function renderPlan(){
           <div><dt>Área</dt><dd>${esc(S.a.area)}</dd></div>
           <div><dt>Titulação</dt><dd>Extensão universitária · ${esc(f.t.nome)} (${f.t.faixa})</dd></div>
           <div><dt>Carga horária</dt><dd>${f.h}h em ${f.mods.length} módulos</dd></div>
-          <div><dt>Preço por aluno</dt><dd>${BRL(S.preco)} ou 12x de ${parcela(S.preco)}</dd></div>
+          <div><dt>Preço por aluno</dt><dd>${p12(S.preco)} (total ${BRL(S.preco)})</dd></div>
           <div><dt>Lançamento</dt><dd>${esc(c.label)}</dd></div>
           <div><dt>Início da turma 1</dt><dd>${S.magna?parseISO(S.magna).toLocaleDateString("pt-BR",{day:"2-digit",month:"long",year:"numeric"}):"A definir"}</dd></div>
           <div class="span2"><dt>Por que esta titulação</dt><dd>${esc(whyTit(f.key))}</dd></div>
@@ -1602,7 +1609,7 @@ Tarefa: aplique em um caso seu esta semana e registre o resultado.`)}</pre></div
       <section class="psec" id="producao">
         <p class="eyebrow">04 · Plano de produção</p>
         <h2>Grave <b>uma pergunta por aula.</b></h2>
-        <p class="intro">As ${f.h}h do curso somam as videoaulas, os materiais de apoio, os exercícios e a avaliação. Grave um módulo por vez, começando pelas perguntas que você responde de olhos fechados.</p>
+        <p class="intro">As ${f.h}h do curso somam tudo o que é acompanhado pelo professor: videoaulas, leituras complementares, estudos de caso, encontros de perguntas e respostas, prática do aluno com feedback e avaliação. A diferença entre as aulas gravadas e a carga horária pode ser feita nesses encontros, leituras, estudos de caso e práticas. Grave um módulo por vez, começando pelas perguntas que você responde de olhos fechados.</p>
         <div class="bigstats">
           <div class="hl"><b>${f.aulas}</b><span>aulas no total</span></div>
           <div><b>${f.mods.length}</b><span>módulos</span></div>
@@ -1621,11 +1628,11 @@ Tarefa: aplique em um caso seu esta semana e registre o resultado.`)}</pre></div
         <div class="bigstats">
           <div class="hl"><b data-tw="${p.fat}" data-f="brl">${BRL(p.fat)}</b><span>faturamento da turma 1</span></div>
           <div><b data-tw="${p.mat}">${INT(p.mat)}</b><span>matrículas</span></div>
-          <div><b>${BRL(p.preco)}</b><span>por aluno</span></div>
+          <div><b>${p12(p.preco)}</b><span>por aluno</span></div>
           <div><b data-tw="${p.fatW}" data-f="brl">${BRL(p.fatW)}</b><span>só da base quente</span></div>
         </div>
         <h3 style="margin:40px 0 0;font-size:20px">As mesmas ${INT(p.mat)} matrículas em outras faixas de preço</h3>
-        <div class="bars" id="bars">${tScen.map(t=>`<div class="barrow${t.v===S.preco?" sel":""}"><div class="bl">${BRL(t.v)}<small>ou 12x de ${parcela(t.v)}</small></div><div class="bt"><i data-w="${Math.max(4,t.fat/maxF*100)}"></i><span>${BRL(t.fat)}</span></div></div>`).join("")}</div>
+        <div class="bars" id="bars">${tScen.map(t=>`<div class="barrow${t.v===S.preco?" sel":""}"><div class="bl">${p12(t.v)}<small>total ${BRL(t.v)} por aluno</small></div><div class="bt"><i data-w="${Math.max(4,t.fat/maxF*100)}"></i><span>${BRL(t.fat)}</span></div></div>`).join("")}</div>
         <div class="reading">
           <p>Base quente: ${INT(S.pot.warm)} pessoas a ${S.pot.cw}% = <b>${INT(p.mw)} matrículas</b>. Audiência fria: ${INT(S.pot.cold)} pessoas a ${S.pot.cc}% = <b>${INT(p.mc)} matrículas</b>.</p>
           <p>${p.mat? (warmShare>=50?`${warmShare}% das matrículas vêm de quem já confia em você. A primeira turma pode sair com custo baixo de aquisição, e a audiência fria entra como camada de crescimento.`:`${100-warmShare}% das matrículas dependem da audiência fria. Vale fortalecer a base quente (alunos, ex-alunos, comunidade) antes da campanha.`):"Informe o tamanho das audiências para gerar a leitura."}</p>
