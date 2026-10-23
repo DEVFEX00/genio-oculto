@@ -29,6 +29,7 @@
   --muted-l:#585E58;
   --muted-d:#A3ADA5;
   --line-light:rgba(10,15,11,.12);
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .75 0 0 0 0 .45 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --danger:#E5484D;
   --font:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
   --r:18px;
@@ -39,7 +40,7 @@
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--ink);color:var(--sand);font-family:var(--font);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;background:var(--ink) var(--grain);color:var(--sand);font-family:var(--font);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
 img{max-width:100%;display:block}
 button,input,textarea,select{font:inherit;color:inherit}
@@ -58,7 +59,8 @@ h3{text-wrap:balance}
 .lead{font-size:clamp(19px,1.8vw,23px);line-height:1.55;max-width:62ch}
 .view{display:none}
 .view.on{display:block}
-.band-dark{background:var(--ink);color:var(--sand)}
+.band-dark{background:var(--ink) var(--grain);color:var(--sand)}
+.tex{background:var(--grain),radial-gradient(90% 70% at 85% 0%,#0b2213 0%,transparent 60%),radial-gradient(70% 60% at 0% 100%,#0a1d10 0%,transparent 60%),var(--ink)}
 .band-sand{background:var(--sand);color:var(--text);color-scheme:light}
 .band-paper{background:var(--paper);color:var(--text);color-scheme:light}
 .band-green{background:var(--green);color:var(--ink)}
@@ -72,7 +74,7 @@ section.sec{padding-block:clamp(72px,10vw,140px)}
 .btn .arr{transition:transform .3s}
 .btn:hover .arr{transform:translateX(5px)}
 .btn:active{transform:scale(.97)}
-.btn-green{background:var(--green);color:var(--ink);box-shadow:0 0 0 0 rgba(50,205,50,.0),0 18px 50px -18px rgba(50,205,50,.75)}
+.btn-green{background:var(--green);color:var(--ink);box-shadow:0 14px 40px -20px rgba(50,205,50,.7)}
 .btn-green:hover{background:var(--green-hi);box-shadow:0 0 0 8px rgba(50,205,50,.14),0 22px 60px -16px rgba(0,216,79,.85)}
 .btn-green::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-120%);animation:shine 3.6s ease-in-out infinite}
 @keyframes shine{0%,55%{transform:translateX(-120%)}85%,100%{transform:translateX(120%)}}
@@ -93,60 +95,38 @@ section.sec{padding-block:clamp(72px,10vw,140px)}
 .top .tag{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted-d);font-weight:600}
 @media (max-width:700px){.top .tag{display:none}}
 
-/* ---------- HERO ---------- */
-.hero{position:relative;overflow:hidden;background:radial-gradient(120% 90% at 85% 10%,#0c2a15 0%,var(--ink) 55%);margin-top:-77px;padding-top:77px}
-#strands{position:absolute;inset:0;width:100%;height:100%;opacity:.95;pointer-events:none}
-.hero .wrap{position:relative;display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center;padding-block:clamp(48px,8vw,110px) clamp(64px,9vw,120px)}
-@media (max-width:980px){.hero .wrap{grid-template-columns:1fr}}
-.hero h1{font-size:clamp(42px,5.9vw,86px);font-weight:300;letter-spacing:-.045em;line-height:.98;margin:22px 0 0;text-wrap:balance}
-.hero h1 b{font-weight:800;color:var(--white);white-space:nowrap}
-.hero h1 .w{display:inline-block;animation:wordUp 1s cubic-bezier(.2,.8,.2,1) both}
-@keyframes wordUp{from{opacity:0;transform:translateY(.45em) rotate(2deg);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
-.hero .lead{margin-top:28px;color:#d6d3c8}
-.hero .ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px;align-items:center}
-.hero .micro{margin-top:18px;font-size:14px;color:var(--muted-d);display:flex;gap:18px;flex-wrap:wrap}
-.hero .micro span::before{content:"✓ ";color:var(--green);font-weight:800}
+/* ---------- CAPA DO APLICATIVO ---------- */
+.capa{position:relative;min-height:calc(100svh - 77px);display:flex;flex-direction:column}
+.capa .wrap{position:relative;flex:1;display:grid;grid-template-columns:1.25fr .75fr;gap:64px;align-items:center;padding-block:clamp(32px,6vw,72px)}
+@media (max-width:980px){.capa .wrap{grid-template-columns:1fr}.capa .mock{display:none}}
+.capa h1{font-size:clamp(42px,5.9vw,86px);font-weight:300;letter-spacing:-.045em;line-height:.98;margin:22px 0 0;text-wrap:balance}
+.capa h1 b{font-weight:800;color:var(--white);white-space:nowrap}
+.capa h1 .w{display:inline-block;animation:wordUp .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes wordUp{from{opacity:0;transform:translateY(.4em);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+.capa .lead{margin-top:26px;color:#d6d3c8}
+.capa .ctas{display:flex;flex-wrap:wrap;gap:18px;margin-top:40px;align-items:center}
+.capa .micro{margin-top:22px;font-size:15px;color:var(--muted-d);display:flex;gap:10px 22px;flex-wrap:wrap}
+.capa .micro span{display:inline-flex;align-items:center;gap:8px}
+.capa .micro svg{width:16px;height:16px;stroke:var(--green);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.capa .rodape{position:relative;padding-block:18px calc(18px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line-dark);font-size:13px;color:var(--muted-d)}
+.capa .rodape .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:0;grid-template-columns:none}
 .pill{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(50,205,50,.35);background:rgba(50,205,50,.08);color:var(--green);padding:8px 16px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
-.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);animation:pulse 1.6s infinite}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.8s infinite}
 @keyframes pulse{50%{opacity:.35;transform:scale(.7)}}
 
-/* mock do curso se montando */
-.mock{position:relative;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid var(--line-dark);border-radius:26px;padding:26px;backdrop-filter:blur(8px);box-shadow:0 40px 120px -40px rgba(0,216,79,.35);transform:perspective(1200px) rotateY(-6deg) rotateX(3deg);transition:transform .6s}
-.mock:hover{transform:perspective(1200px) rotateY(0) rotateX(0)}
-.mock .mh{display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-d);font-weight:700}
+/* exemplo genérico do curso se montando */
+.mock{position:relative;background:rgba(255,255,255,.03);border:1px solid var(--line-dark);border-radius:24px;padding:26px}
+.mock .mh{display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-d);font-weight:700}
 .mock .mt{font-size:24px;font-weight:700;line-height:1.2;margin:14px 0 4px;color:var(--white)}
 .mock .ms{font-size:14px;color:var(--muted-d)}
-.mock ol{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:10px}
-.mock li{display:flex;align-items:center;gap:14px;padding:13px 16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--line-dark);font-size:15px;font-weight:600;animation:modIn 9s infinite both}
+.mock ol{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:8px}
+.mock li{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:12px;background:rgba(255,255,255,.035);border:1px solid var(--line-dark);font-size:15px;font-weight:600;animation:modIn 10s infinite both}
 .mock li .n{font-size:12px;color:var(--green);font-weight:800;width:22px}
 .mock li .h{margin-left:auto;font-size:12px;color:var(--muted-d);font-weight:600}
-.mock li:nth-child(1){animation-delay:.2s}.mock li:nth-child(2){animation-delay:.6s}.mock li:nth-child(3){animation-delay:1s}.mock li:nth-child(4){animation-delay:1.4s}.mock li:nth-child(5){animation-delay:1.8s}.mock li:nth-child(6){animation-delay:2.2s}
-@keyframes modIn{0%{opacity:0;transform:translateX(24px)}6%{opacity:1;transform:none}88%{opacity:1;transform:none}96%,100%{opacity:0;transform:translateY(-8px)}}
-.mock .mf{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
-.mock .mf div{background:rgba(50,205,50,.08);border:1px solid rgba(50,205,50,.25);border-radius:12px;padding:12px;text-align:center}
-.mock .mf b{display:block;font-size:20px;color:var(--green);font-weight:800}
-.mock .mf span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-d);font-weight:600}
-.mock .badge{position:absolute;top:-16px;right:22px;background:var(--green);color:var(--ink);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:999px;box-shadow:0 10px 30px -8px rgba(50,205,50,.8)}
-
-/* marquee */
-.marquee{overflow:hidden;white-space:nowrap;padding-block:22px;border-block:1px solid rgba(0,0,0,.12)}
-.marquee .track{display:inline-flex;gap:48px;animation:mq 38s linear infinite;font-size:clamp(22px,3vw,34px);font-weight:300;letter-spacing:-.02em}
-.marquee .track span b{font-weight:800}
-.marquee .track i{font-style:normal;opacity:.45}
-@keyframes mq{to{transform:translateX(-50%)}}
-
-/* bloco óbvio + calculadora */
-.obvio{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-@media (max-width:900px){.obvio{grid-template-columns:1fr}}
-.calc{background:var(--ink);color:var(--sand);border-radius:28px;padding:clamp(26px,4vw,44px);position:relative;overflow:hidden}
-.calc::before{content:"";position:absolute;inset:auto -30% -60% -30%;height:120%;background:radial-gradient(closest-side,rgba(50,205,50,.28),transparent);pointer-events:none}
-.calc label{font-size:15px;font-weight:600;color:var(--muted-d);display:block;position:relative}
-.calc .yrs{font-size:clamp(60px,9vw,108px);font-weight:800;letter-spacing:-.05em;line-height:1;color:var(--white);position:relative;margin:10px 0}
-.calc .yrs small{font-size:.28em;font-weight:400;letter-spacing:0;color:var(--muted-d)}
-.calc .out{position:relative;margin-top:24px;display:grid;gap:14px}
-.calc .out div{border-top:1px solid var(--line-dark);padding-top:14px;display:flex;justify-content:space-between;gap:16px;align-items:baseline;flex-wrap:wrap}
-.calc .out b{font-size:clamp(24px,3vw,34px);color:var(--green);font-weight:800;font-variant-numeric:tabular-nums}
-.calc .foot{position:relative;font-size:13px;color:var(--muted-d);margin-top:18px}
+.mock li .bar{flex:1;height:8px;border-radius:999px;background:rgba(232,228,217,.12)}
+.mock li:nth-child(1){animation-delay:.3s}.mock li:nth-child(2){animation-delay:.8s}.mock li:nth-child(3){animation-delay:1.3s}.mock li:nth-child(4){animation-delay:1.8s}.mock li:nth-child(5){animation-delay:2.3s}.mock li:nth-child(6){animation-delay:2.8s}
+@keyframes modIn{0%{opacity:0;transform:translateY(10px)}5%{opacity:1;transform:none}90%{opacity:1;transform:none}97%,100%{opacity:0}}
+.mock .tagx{display:inline-block;margin-top:18px;font-size:12px;color:var(--muted-d);border:1px dashed var(--line-dark);border-radius:8px;padding:6px 10px}
 
 /* range */
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:10px;border-radius:999px;background:linear-gradient(90deg,var(--green) var(--p,30%),rgba(255,255,255,.14) var(--p,30%));outline:none;position:relative}
@@ -154,93 +134,21 @@ input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:10px
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;border-radius:50%;background:var(--white);border:6px solid var(--green);box-shadow:0 6px 20px rgba(50,205,50,.6);cursor:grab}
 input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--white);border:6px solid var(--green);cursor:grab}
 
-/* passos */
-.steps5{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:64px;position:relative}
-@media (max-width:980px){.steps5{grid-template-columns:1fr}}
-.steps5 .s{padding:28px 24px 28px 0;border-top:1px solid var(--line-dark);position:relative}
-@media (max-width:980px){.steps5 .s{padding:24px 0}}
-.steps5 .s::before{content:"";position:absolute;top:-1px;left:0;height:2px;width:0;background:var(--green);transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
-.steps5.in .s::before{width:100%}
-.steps5.in .s:nth-child(2)::before{transition-delay:.2s}.steps5.in .s:nth-child(3)::before{transition-delay:.4s}.steps5.in .s:nth-child(4)::before{transition-delay:.6s}.steps5.in .s:nth-child(5)::before{transition-delay:.8s}
-.steps5 .num{font-size:15px;font-weight:800;color:var(--green);letter-spacing:.1em}
-.steps5 h3{font-size:24px;font-weight:700;margin:14px 0 8px;line-height:1.2;color:var(--white)}
-.steps5 p{margin:0;color:var(--muted-d);font-size:16px}
-.steps5 .s.paid h3::after{content:"R$ 97";margin-left:10px;font-size:12px;vertical-align:middle;background:var(--green);color:var(--ink);padding:4px 8px;border-radius:6px;font-weight:800}
-
-/* entregáveis */
-.deliv{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
-@media (max-width:980px){.deliv{grid-template-columns:1fr 1fr}}
-@media (max-width:620px){.deliv{grid-template-columns:1fr}}
-.dcard{background:var(--white);border-radius:22px;padding:28px;border:1px solid var(--line-light);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;min-width:0}
-.dcard:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(0,0,0,.35)}
-.dcard .ic{width:52px;height:52px;border-radius:14px;background:var(--ink);display:grid;place-items:center;margin-bottom:20px}
-.dcard .ic svg{width:26px;height:26px;stroke:var(--green);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.dcard h3{font-size:21px;margin:0 0 8px;line-height:1.25}
-.dcard p{margin:0;font-size:16px;color:var(--muted-l)}
-.dcard.dk{background:var(--ink);color:var(--sand);border-color:transparent}
-.dcard.dk p{color:var(--muted-d)}
-.dcard.dk .ic{background:var(--green)}
-.dcard.dk .ic svg{stroke:var(--ink)}
-
-/* números */
-.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;border-top:1px solid var(--line-dark)}
-@media (max-width:900px){.nums{grid-template-columns:1fr 1fr}}
-.nums div{padding:30px 20px 30px 0;border-bottom:1px solid var(--line-dark)}
-.nums b{display:block;font-size:clamp(44px,5.5vw,76px);font-weight:300;letter-spacing:-.05em;line-height:1;color:var(--white);font-variant-numeric:tabular-nums}
-.nums b em{font-style:normal;color:var(--green);font-weight:700}
-.nums span{display:block;margin-top:10px;font-size:15px;color:var(--muted-d);max-width:22ch}
-.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
-@media (max-width:900px){.cases{grid-template-columns:1fr}}
-.case{border:1px solid var(--line-dark);border-radius:22px;padding:28px;background:linear-gradient(170deg,rgba(50,205,50,.08),transparent 60%)}
-.case .big{font-size:56px;font-weight:800;letter-spacing:-.04em;color:var(--green);line-height:1}
-.case .big small{font-size:16px;font-weight:600;color:var(--muted-d);letter-spacing:0;margin-left:8px}
-.case h3{margin:18px 0 6px;font-size:19px;color:var(--white)}
-.case p{margin:0;color:var(--muted-d);font-size:15px}
-
-/* preço */
-.price{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:56px;align-items:stretch}
-@media (max-width:860px){.price{grid-template-columns:1fr}}
-.pcard{border-radius:26px;padding:clamp(28px,4vw,44px);background:var(--white);border:1px solid var(--line-light);display:flex;flex-direction:column;gap:18px}
-.pcard.best{background:var(--ink);color:var(--sand);position:relative;overflow:hidden;border:0}
-.pcard.best::before{content:"";position:absolute;width:420px;height:420px;right:-160px;top:-160px;background:radial-gradient(closest-side,rgba(50,205,50,.45),transparent);pointer-events:none}
-.pcard h3{margin:0;font-size:15px;letter-spacing:.24em;text-transform:uppercase}
-.pcard .val{font-size:clamp(56px,7vw,84px);font-weight:800;letter-spacing:-.05em;line-height:1}
-.pcard .val small{font-size:18px;font-weight:500;letter-spacing:0}
-.pcard ul{list-style:none;margin:0;padding:0;display:grid;gap:12px;position:relative}
-.pcard li{padding-left:34px;position:relative;font-size:17px}
-.pcard li::before{content:"";position:absolute;left:0;top:5px;width:20px;height:20px;border-radius:50%;background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23040805' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/12px no-repeat}
-.pcard li.off{opacity:.45}
-.pcard li.off::before{background:#cfcbc0 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23585E58' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M7 12h10'/%3E%3C/svg%3E") center/12px no-repeat}
-.pcard .btn{margin-top:auto;position:relative}
-
-/* FAQ */
-.faq{margin-top:48px;border-top:1px solid var(--line-light)}
-.faq details{border-bottom:1px solid var(--line-light)}
-.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:24px;align-items:center;padding:26px 0;font-size:clamp(19px,2vw,23px);font-weight:600}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font-weight:300;font-size:36px;line-height:1;color:var(--green);transition:transform .3s}
-.faq details[open] summary::after{transform:rotate(45deg)}
-.faq details p{margin:0 0 26px;max-width:72ch;color:var(--muted-l);font-size:17px}
-
-/* final */
-.final{text-align:center;position:relative;overflow:hidden}
-.final h2{margin-inline:auto;max-width:16ch}
-.final .ctas{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:40px}
-footer{background:#000;color:var(--muted-d);font-size:14px;padding-block:56px calc(56px + env(safe-area-inset-bottom,0px))}
-footer .wrap{display:grid;gap:28px}
+footer{background:#000;color:var(--muted-d);font-size:14px;padding-block:40px calc(40px + env(safe-area-inset-bottom,0px))}
+footer .wrap{display:grid;gap:18px}
 footer .row{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
-footer .inst{border:1px solid var(--line-dark);border-radius:14px;padding:16px 18px;font-size:13px;max-width:70ch}
+footer .inst{font-size:13px;max-width:80ch}
 
 /* revelar no scroll (sempre visível em repouso) */
 .rv.in{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
 @keyframes rise{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
 
 /* ================= CONSTRUTOR ================= */
-#view-builder{min-height:100vh;background:var(--ink)}
+#view-builder{min-height:100vh}
 .bwrap{display:grid;grid-template-columns:minmax(0,1fr) 420px;min-height:calc(100vh - 77px)}
 @media (max-width:1080px){.bwrap{grid-template-columns:minmax(0,1fr)}}
 .bmain{position:relative;padding:clamp(28px,5vw,64px) var(--gut-r) 140px var(--gut);display:flex;flex-direction:column;overflow:hidden}
-.bmain::before{content:"";position:absolute;width:700px;height:700px;left:-300px;bottom:-360px;background:radial-gradient(closest-side,rgba(50,205,50,.16),transparent);pointer-events:none}
+.bmain::before{content:"";position:absolute;width:700px;height:700px;left:-300px;bottom:-360px;background:radial-gradient(closest-side,rgba(50,205,50,.07),transparent);pointer-events:none}
 .phases{display:flex;gap:6px;align-items:center;margin-bottom:clamp(28px,5vw,56px);flex-wrap:wrap}
 .phase{flex:1;min-width:46px;display:grid;gap:8px}
 .phase .bar{height:5px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
@@ -298,6 +206,19 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
 .sugg{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .sugg .lbl{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d);margin-right:4px}
 .sugg .chip{font-size:14px;padding:8px 14px;border-style:dashed}
+
+/* sugerir com IA */
+.ia{display:inline-flex;align-items:center;gap:10px;margin-top:18px;border:1px solid rgba(50,205,50,.5);background:linear-gradient(90deg,rgba(50,205,50,.14),rgba(50,205,50,.04));color:var(--white);border-radius:999px;padding:10px 18px 10px 14px;font-size:15px;font-weight:700;transition:background .25s,transform .2s;position:relative;overflow:hidden}
+.ia:hover{background:rgba(50,205,50,.24)}
+.ia:active{transform:scale(.97)}
+.ia svg{width:18px;height:18px;fill:var(--green)}
+.ia small{font-weight:500;color:var(--muted-d);font-size:13px}
+.ia.busy{pointer-events:none}
+.ia.busy svg{animation:spin 1s linear infinite}
+.ia.busy::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.18) 50%,transparent 70%);animation:iaShim 1s linear infinite}
+@keyframes iaShim{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.inp.ia-fill{animation:iaFill .9s ease}
+@keyframes iaFill{0%{box-shadow:0 0 0 0 rgba(50,205,50,.5)}100%{box-shadow:0 0 0 14px rgba(50,205,50,0)}}
 
 /* opções em card */
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px}
@@ -382,7 +303,7 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
 .scrim.on{opacity:1;pointer-events:auto}
 
 /* ---------- análise ---------- */
-#view-analise{min-height:100vh;display:none;place-items:center;background:var(--ink);position:relative;overflow:hidden}
+#view-analise{min-height:100vh;display:none;place-items:center;position:relative;overflow:hidden}
 #view-analise.on{display:grid}
 .scan{position:relative;max-width:720px;padding:40px var(--gut-r) 40px var(--gut);width:100%}
 .orb{width:150px;height:150px;border-radius:50%;margin-bottom:40px;background:radial-gradient(circle at 35% 35%,#7dff7d,var(--green) 40%,#0b4d19 75%);box-shadow:0 0 80px rgba(50,205,50,.6),inset 0 -20px 40px rgba(0,0,0,.4);animation:orb 2.4s ease-in-out infinite}
@@ -399,7 +320,7 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* ================= PRÉVIA ================= */
-.pv-hero{position:relative;overflow:hidden;background:radial-gradient(100% 80% at 80% 0%,#0d3318,var(--ink) 60%)}
+.pv-hero{position:relative;overflow:hidden}
 .pv-hero .wrap{position:relative;padding-block:clamp(56px,8vw,110px)}
 .pv-hero h1{font-size:clamp(40px,6.4vw,92px);font-weight:300;letter-spacing:-.045em;line-height:1;margin:20px 0 0;color:var(--white);text-wrap:balance}
 .pv-hero h1 b{font-weight:800}
@@ -478,7 +399,7 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
 
 /* ================= PLANO ================= */
 #view-plan{background:var(--paper);color:var(--text);color-scheme:light}
-.plan-top{background:var(--ink);color:var(--sand);position:relative;overflow:hidden}
+.plan-top{color:var(--sand);position:relative;overflow:hidden}
 .plan-top .wrap{position:relative;padding-block:clamp(56px,8vw,110px)}
 .plan-top h1{font-size:clamp(40px,6.6vw,96px);font-weight:300;letter-spacing:-.045em;line-height:1;margin:22px 0 0;color:var(--white);overflow-wrap:anywhere;text-wrap:balance}
 .plan-top h1 b{font-weight:800}
@@ -585,8 +506,12 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
 .mini-btn.ok{background:var(--green);color:var(--ink)}
 
 /* PRATA mega CTA */
-.prata{background:var(--ink);color:var(--sand);position:relative;overflow:hidden;color-scheme:dark}
-.prata canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.9}
+.prata{color:var(--sand);position:relative;overflow:hidden;color-scheme:dark}
+.fexnums{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:48px;border-top:1px solid var(--line-dark)}
+@media (max-width:760px){.fexnums{grid-template-columns:1fr 1fr}}
+.fexnums div{padding:22px 16px 22px 0;border-bottom:1px solid var(--line-dark)}
+.fexnums b{display:block;font-size:clamp(32px,4vw,52px);font-weight:300;letter-spacing:-.04em;line-height:1;color:var(--white)}
+.fexnums span{display:block;margin-top:8px;font-size:14px;color:var(--muted-d)}
 .prata .wrap{position:relative;padding-block:clamp(80px,11vw,150px)}
 .prata h2{font-size:clamp(40px,6.4vw,96px);font-weight:300;letter-spacing:-.045em;line-height:1;margin:22px 0 0;color:var(--white);max-width:16ch;text-wrap:balance}
 .prata h2 b{font-weight:800;color:var(--green)}
@@ -642,7 +567,7 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
 @media print{
-  .top,.sticky-cta,.plan-actions,.toc,.mega,.noprint,footer,#strands,.prata canvas{display:none!important}
+  .top,.sticky-cta,.plan-actions,.toc,.mega,.noprint,footer{display:none!important}
   body,#view-plan{background:#fff!important}
   .plan-body{display:block;padding:0}
   .disc .db{display:block!important;filter:none!important}
@@ -660,177 +585,47 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
   <div class="wrap">
     <a href="#" data-go="home" aria-label="Início"><img class="logo" src="assets/logo-fex-branco.png" alt="FEX Educação" width="157" height="27"></a>
     <span class="tag" id="topTag">Gênio Oculto · Faculdade FEX Educação®</span>
-    <button class="btn btn-green btn-sm" id="topCta" data-start>Começar agora <span class="arr">→</span></button>
   </div>
 </header>
 
 <!-- ===================== HOME ===================== -->
 <main id="view-home" class="view on">
-  <section class="hero">
-    <canvas id="strands" aria-hidden="true"></canvas>
+  <section class="capa tex">
     <div class="wrap">
       <div>
         <span class="pill"><span class="dot"></span>Gênio Oculto</span>
         <h1 id="heroTitle">Tudo o que você sabe pode virar uma <b>pós-graduação.</b></h1>
-        <p class="lead">Você responde perguntas simples sobre o seu trabalho. Em cerca de 15 minutos, vê o seu curso montado na sua frente: disciplinas, aulas, materiais, quanto ele pode faturar e o plano para lançar.</p>
+        <p class="lead">Responda perguntas simples sobre o seu trabalho e veja o seu curso se montar na sua frente: disciplinas, aulas e quanto ele pode faturar.</p>
         <div class="ctas">
-          <button class="btn btn-green btn-xl" data-start>Descobrir meu Gênio Oculto <span class="arr">→</span></button>
-          <button class="btn btn-ghost" id="btnExemplo">Ver um exemplo pronto</button>
+          <button class="btn btn-green btn-xl" data-start id="capaCta">Começar <span class="arr">→</span></button>
         </div>
-        <div class="micro"><span>Começa grátis</span><span>Sem precisar de curso pronto</span><span>Plano completo por R$ 97</span></div>
+        <div class="micro">
+          <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Cerca de 15 minutos</span>
+          <span><svg viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></svg>Vídeo explicando cada etapa</span>
+          <span><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Começa grátis</span>
+        </div>
       </div>
       <div class="mock" aria-hidden="true">
-        <span class="badge">Montando seu curso</span>
-        <div class="mh"><span>Pós-Graduação · 360h</span><span class="g">● ao vivo</span></div>
-        <div class="mt">Fisioterapia Esportiva e Retorno ao Esporte</div>
-        <div class="ms">Por quem já tratou mais de 3 mil atletas</div>
+        <div class="mh"><span>Pós-Graduação · 360h</span><span class="g">● montando</span></div>
+        <div class="mt">Curso Exemplo 00</div>
+        <div class="ms">Seu nome · sua área · seus anos de prática</div>
         <ol>
-          <li><span class="n">01</span>Fundamentos e base científica<span class="h">60h</span></li>
-          <li><span class="n">02</span>Avaliação funcional do atleta<span class="h">60h</span></li>
-          <li><span class="n">03</span>Lesões de joelho e tornozelo<span class="h">60h</span></li>
-          <li><span class="n">04</span>Protocolos de retorno ao esporte<span class="h">60h</span></li>
-          <li><span class="n">05</span>Ferramentas e prática profissional<span class="h">60h</span></li>
+          <li><span class="n">01</span>Fundamentos<span class="h">60h</span></li>
+          <li><span class="n">02</span>Tema 01<span class="h">60h</span></li>
+          <li><span class="n">03</span>Tema 02<span class="h">60h</span></li>
+          <li><span class="n">04</span>Tema 03<span class="h">60h</span></li>
+          <li><span class="n">05</span>Ferramentas e prática<span class="h">60h</span></li>
           <li><span class="n">06</span>Projeto aplicado<span class="h">60h</span></li>
         </ol>
-        <div class="mf"><div><b>24</b><span>aulas</span></div><div><b>108h</b><span>hora-aula</span></div><div><b>90</b><span>dias</span></div></div>
+        <span class="tagx">Exemplo ilustrativo. O seu curso nasce das suas respostas.</span>
       </div>
     </div>
-  </section>
-
-  <div class="band-green marquee" aria-hidden="true">
-    <div class="track" id="mq"></div>
-  </div>
-
-  <section class="sec band-sand">
-    <div class="wrap obvio">
-      <div class="rv">
-        <p class="eyebrow">O seu óbvio é o milagre de alguém</p>
-        <h2 class="display" style="margin-top:20px">Você passou anos aprendendo o que <b>nenhum livro ensina.</b></h2>
-        <p class="lead muted" style="margin-top:26px">Os atalhos, os erros que você já não comete, o jeito certo de fazer. Para você, isso é normal. Para quem está começando, vale uma formação inteira. O Gênio Oculto tira esse conhecimento da sua cabeça e organiza tudo no formato de uma pós-graduação.</p>
-      </div>
-      <div class="calc rv">
-        <label for="calcYears">Arraste: há quantos anos você trabalha na sua área?</label>
-        <div class="yrs"><span id="calcY">15</span> <small>anos</small></div>
-        <input type="range" id="calcYears" min="1" max="40" value="15" aria-label="Anos de experiência">
-        <div class="out">
-          <div><span>Horas de prática acumuladas</span><b id="calcH">26.400h</b></div>
-          <div><span>Carga horária de uma pós completa</span><b>360h</b></div>
-          <div><span>Você já viveu o equivalente a</span><b id="calcX">73 pós</b></div>
-        </div>
-        <p class="foot">Estimativa simples: 220 dias de trabalho por ano, 8 horas por dia.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec band-dark">
-    <div class="wrap">
-      <p class="eyebrow g rv">Como funciona</p>
-      <h2 class="display rv" style="margin-top:20px;max-width:18ch">Simples como uma conversa. <b>Do começo ao fim.</b></h2>
-      <div class="steps5" id="steps5">
-        <div class="s"><span class="num">01</span><h3>Você conta</h3><p>Sua área, seus anos de prática, quem você quer ajudar e o que você ensinaria.</p></div>
-        <div class="s"><span class="num">02</span><h3>A gente organiza</h3><p>Seus temas viram disciplinas e aulas no padrão pedagógico FEX.</p></div>
-        <div class="s"><span class="num">03</span><h3>Você vê o curso</h3><p>Nome, promessa, matriz e potencial de faturamento na tela, de graça.</p></div>
-        <div class="s paid"><span class="num">04</span><h3>Plano completo</h3><p>Todas as aulas, roteiros, materiais, funil, página de vendas e cronograma.</p></div>
-        <div class="s"><span class="num">05</span><h3>Vira pós</h3><p>Com a Faculdade FEX Educação®, seu plano ganha validade acadêmica.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec band-paper">
-    <div class="wrap">
-      <p class="eyebrow rv" style="color:#1a8a1a">O que você recebe no plano completo</p>
-      <h2 class="display rv" style="margin-top:20px;max-width:18ch">Seu curso pronto para gravar, <b>vender e lançar.</b></h2>
-      <div class="deliv">
-        <div class="dcard dk rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg></div><h3>Matriz curricular completa</h3><p>6 ou 7 disciplinas com ementa, objetivos e carga horária no padrão 30/30/40.</p></div>
-        <div class="dcard rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M5 4l14 8-14 8z"/></svg></div><h3>Todas as aulas nomeadas</h3><p>Quatro aulas por disciplina, com formato e o que gravar em cada uma.</p></div>
-        <div class="dcard rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h5"/></svg></div><h3>Roteiro modelo de aula</h3><p>A estrutura de cada gravação, do gancho de abertura à tarefa prática.</p></div>
-        <div class="dcard rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 20h18M6 16V9M11 16V5M16 16v-4M21 16V8"/></svg></div><h3>Potencial de faturamento</h3><p>Matrículas e receita da primeira turma com a sua audiência real.</p></div>
-        <div class="dcard rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 4h18l-7 9v6l-4 2v-8z"/></svg></div><h3>Funil e página de vendas</h3><p>Modelo de campanha, cadência e o texto da sua página e da mensagem para a base.</p></div>
-        <div class="dcard dk rv"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h3>Cronograma de 90 dias</h3><p>Da matriz validada até a aula magna, com o dia em que as matrículas abrem.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec band-dark" style="background:radial-gradient(90% 70% at 10% 100%,#0c2a15,var(--ink) 60%)">
-    <div class="wrap">
-      <p class="eyebrow g rv">Quem está com você</p>
-      <h2 class="display rv" style="margin-top:20px;max-width:20ch">A faculdade das empresas <b>que ensinam.</b></h2>
-      <p class="lead muted rv" style="margin-top:22px">13 anos transformando conhecimento em resultado, hoje como faculdade credenciada. Experts de várias áreas já transformaram o que sabem em pós-graduação com a FEX.</p>
-      <div class="nums">
-        <div><b data-count="4660">0</b><span>alunos de pós-graduação e MBA</span></div>
-        <div><b data-count="70">0</b><span>pós-graduações no portfólio</span></div>
-        <div><b><em>+</em><span data-count="1000">0</span></b><span>empresas parceiras no Brasil</span></div>
-        <div><b data-count="134">0</b><span>turmas ativas</span></div>
-      </div>
-      <div class="cases">
-        <div class="case rv"><div class="big">234<small>matriculados</small></div><h3>Danilo Santos de Oliveira</h3><p>Integration Developer 360 (SAP). A maior pós ativa, vendida por parceria B2B, sem depender de audiência própria.</p></div>
-        <div class="case rv"><div class="big">158<small>em pós</small></div><h3>Prof. Dr. Ricardo Galhardoni</h3><p>Neuromodulação em Foco. Curso online, prático presencial e a pós no topo da escada.</p></div>
-        <div class="case rv"><div class="big">91<small>em pós</small></div><h3>Dr. Caique Acácio</h3><p>Medicina de emergência. Conteúdo de nicho, workshop gratuito e a pós como próximo passo dos alunos.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec band-sand" id="precos">
-    <div class="wrap">
-      <p class="eyebrow rv">Quanto custa</p>
-      <h2 class="display rv" style="margin-top:20px;max-width:18ch">Comece grátis. <b>Desbloqueie quando ver o seu curso.</b></h2>
-      <div class="price">
-        <div class="pcard rv">
-          <h3>Prévia</h3>
-          <div class="val">R$ 0</div>
-          <ul>
-            <li>Nome e promessa do seu curso</li>
-            <li>Modelo ideal: pós ou MBA, com carga horária</li>
-            <li>Título de todas as disciplinas</li>
-            <li>Potencial de faturamento da primeira turma</li>
-            <li class="off">Aulas, roteiros e materiais</li>
-            <li class="off">Funil, página de vendas e cronograma</li>
-          </ul>
-          <button class="btn btn-dark" data-start>Começar grátis <span class="arr">→</span></button>
-        </div>
-        <div class="pcard best rv">
-          <h3 class="g">Plano completo</h3>
-          <div class="val" style="color:var(--white)">R$ 97 <small class="muted">pagamento único</small></div>
-          <ul>
-            <li>Tudo da prévia</li>
-            <li>Ementa, objetivos e 4 aulas por disciplina</li>
-            <li>Roteiro modelo de aula e plano de gravação</li>
-            <li>Funil, cadência e texto da página de vendas</li>
-            <li>Mensagem pronta para a sua base de alunos</li>
-            <li>Cronograma de 90 dias até a aula magna</li>
-          </ul>
-          <button class="btn btn-green" data-start>Montar meu curso <span class="arr">→</span></button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec band-paper">
-    <div class="wrap">
-      <p class="eyebrow rv">Perguntas frequentes</p>
-      <h2 class="display rv" style="margin-top:20px">Antes de começar</h2>
-      <div class="faq">
-        <details><summary>Preciso ter um curso pronto?</summary><p>Não. Você só precisa do conhecimento que já usa no trabalho. As perguntas puxam isso para fora e a ferramenta organiza no formato de uma pós-graduação.</p></details>
-        <details><summary>Vou ter que gravar 360 horas de aula?</summary><p>Não. No padrão pedagógico FEX, só 30% da carga é hora-aula. Em uma pós de 360h, são 108h. O restante é autoestudo (30%) e prática aplicada (40%).</p></details>
-        <details><summary>O plano já é uma pós-graduação registrada?</summary><p>Ainda não. O plano é o projeto completo do seu curso. Para virar uma pós-graduação lato sensu com validade acadêmica, ele passa pelo registro da Faculdade FEX Educação®, com o time acadêmico da faculdade. O botão no fim do plano te leva direto a um especialista.</p></details>
-        <details><summary>A pós tem validade acadêmica?</summary><p>A Faculdade FEX Educação® é uma instituição de ensino superior credenciada pelo Ministério da Educação (Portaria MEC nº 196/2024). As pós-graduações têm registro com validade acadêmica emitido pela própria faculdade, com certificado nos termos da Resolução CNE/CES nº 1/2018.</p></details>
-        <details><summary>Quem pode ser aluno da minha pós?</summary><p>Quem já concluiu uma graduação. É bom saber isso desde já, porque define o público da sua campanha.</p></details>
-        <details><summary>Quanto tempo leva para preencher?</summary><p>Cerca de 15 minutos. Cada etapa tem um vídeo curto explicando o que responder, e tudo fica salvo neste navegador enquanto você preenche.</p></details>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec band-dark final">
-    <div class="wrap">
-      <p class="eyebrow g rv">O que não se ensina, se perde</p>
-      <h2 class="display rv" style="margin-top:20px">Seu conhecimento merece <b>virar formação.</b></h2>
-      <div class="ctas"><button class="btn btn-green btn-xl" data-start>Descobrir meu Gênio Oculto <span class="arr">→</span></button></div>
-    </div>
+    <div class="rodape"><div class="wrap"><span>Faculdade FEX Educação®</span><span>#sejaFEX</span></div></div>
   </section>
 </main>
 
 <!-- ===================== CONSTRUTOR ===================== -->
-<main id="view-builder" class="view">
+<main id="view-builder" class="view tex">
   <div class="bwrap">
     <div class="bmain">
       <div class="phases" id="phases"></div>
@@ -855,7 +650,7 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
 </main>
 
 <!-- ===================== ANÁLISE ===================== -->
-<main id="view-analise" class="view">
+<main id="view-analise" class="view tex">
   <div class="scan">
     <div class="orb"></div>
     <h2 id="anTitle">Organizando o que você sabe…</h2>
@@ -911,6 +706,8 @@ const CONFIG = {
   META_PIXEL_ID: null,
   GTM_ID: null,
   // IDs de vídeo do YouTube por etapa (ex.: "dQw4w9WgXcQ"). Vazio = mostra "vídeo em produção".
+  // Endpoint de IA para o "Sugerir com IA" (opcional). null = sugestões geradas no navegador a partir das respostas.
+  IA_ENDPOINT: null,
   VIDEOS: {
     boasvindas:"", nome:"", area:"", anos:"", perguntas:"", persona:"", promessa:"",
     temas:"", ferramentas:"", referencias:"", ensina:"", modelo:"", ticket:"",
@@ -939,7 +736,7 @@ const blank = () => ({
   model:null, ticket:{n:12,v:1000},
   pot:{warm:500,cold:10000,cw:5,cc:1},
   campaign:null, magna:"",
-  step:0, done:false, paid:false, leadId:"", exemplo:false
+  step:0, done:false, paid:false, leadId:""
 });
 let S = blank();
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
@@ -990,6 +787,8 @@ function signals(){
 function suggestModel(){ const s=signals(); const m=s.mba.length>0, p=s.prat.length>0; return m&&p?"mba12":m?"mba6":p?"pos12":"pos6"; }
 const TICKETS = [{n:12,v:500},{n:18,v:500},{n:12,v:1000},{n:18,v:1000},{n:12,v:1500},{n:12,v:5000}];
 
+const AREAS = ["Fisioterapia","Estética","Psicologia","Nutrição","Direito","Odontologia","Medicina","Enfermagem","Educação","Vendas","Gestão","Marketing","Tecnologia","Finanças","Terapias integrativas","Agronegócio"];
+const PERSONAS = ["Profissionais recém-formados","Profissionais com experiência que querem se especializar","Donos de clínica ou consultório","Gestores e líderes de equipe","Quem quer mudar de área","Professores e educadores"];
 const CAMPAIGNS = {
   interna:{label:"Campanha interna", desc:"Lançamento direto para quem já é seu aluno ou ex-aluno.", best:"Ideal se você já tem base de alunos.", dMat:-40,
     cad:["Semana 1: bastidores da criação da pós e lista de espera exclusiva","Semana 2: condição de aluno da casa com janela de 48h","Follow-up em 3 toques por WhatsApp","Conversa individual de fechamento com quem pedir"],
@@ -1017,8 +816,6 @@ const CAMPAIGNS = {
     camp:["Ativar a oferta na semana","Comunicação intensa com a lista VIP","Encerrar no prazo anunciado","Recuperar pagamentos nas semanas seguintes"]}
 };
 
-const AREAS = ["Fisioterapia","Estética","Psicologia","Nutrição","Direito","Odontologia","Medicina","Enfermagem","Educação","Vendas","Gestão","Marketing","Tecnologia","Finanças","Terapias integrativas","Agronegócio"];
-const PERSONAS = ["Profissionais recém-formados","Profissionais com experiência que querem se especializar","Donos de clínica ou consultório","Gestores e líderes de equipe","Quem quer mudar de área","Professores e educadores"];
 
 function formation(){
   const key = S.model || suggestModel(); const m = MODELS[key];
@@ -1099,11 +896,11 @@ const PHASES = ["Você","Seu aluno","Seu método","Seu formato","Seu potencial",
 const STEPS = [
   {id:"nome", ph:0, q:()=>`Vamos começar. <b>Como você se chama?</b>`, help:"Seu nome vai assinar o curso como especialista responsável.",
     vt:"Bem-vindo ao Gênio Oculto", vx:"Em menos de 1 minuto: como funciona a ferramenta e por que o seu nome assina o curso.",
-    body:()=>`<div class="grid2f"><div><label class="flabel" for="f_nome">Nome</label><input class="inp" id="f_nome" autocomplete="given-name" placeholder="Ex.: Ana" value="${esc(S.a.nome)}"></div><div><label class="flabel" for="f_sobrenome">Sobrenome</label><input class="inp" id="f_sobrenome" autocomplete="family-name" placeholder="Ex.: Ribeiro" value="${esc(S.a.sobrenome)}"></div></div>`,
+    body:()=>`<div class="grid2f"><div><label class="flabel" for="f_nome">Nome</label><input class="inp" id="f_nome" autocomplete="given-name" placeholder="Seu nome" value="${esc(S.a.nome)}"></div><div><label class="flabel" for="f_sobrenome">Sobrenome</label><input class="inp" id="f_sobrenome" autocomplete="family-name" placeholder="Seu sobrenome" value="${esc(S.a.sobrenome)}"></div></div>`,
     read:()=>{S.a.nome=$("#f_nome").value.trim(); S.a.sobrenome=$("#f_sobrenome").value.trim();}, ok:()=>S.a.nome.length>1 || "Digite o seu nome para continuar."},
-  {id:"area", ph:0, q:()=>`Prazer, ${esc(firstName())}! <b>Em que área você é especialista?</b>`, help:"Pode ser ampla (Fisioterapia) ou bem específica (Fisioterapia esportiva para corredores). Quanto mais específica, melhor fica o curso.",
+  {id:"area", ph:0, q:()=>`Prazer, ${esc(firstName())}! <b>Em que área você é especialista?</b>`, help:"Pode ser ampla ou bem específica. Quanto mais específica, mais fácil fica de vender: a pessoa certa se reconhece na hora.",
     vt:"Como escolher a sua área", vx:"Por que um nicho específico vende mais e como escrever a sua área em poucas palavras.",
-    body:()=>`<input class="inp" id="f_area" placeholder="Ex.: Fisioterapia esportiva" value="${esc(S.a.area)}"><div class="chips" id="areaChips">${AREAS.map(a=>`<button type="button" class="chip${S.a.area===a?" on":""}" data-v="${esc(a)}">${esc(a)}</button>`).join("")}</div>`,
+    body:()=>`<input class="inp" id="f_area" placeholder="Escreva aqui a sua área" value="${esc(S.a.area)}"><div class="chips" id="areaChips">${AREAS.map(a=>`<button type="button" class="chip${S.a.area===a?" on":""}" data-v="${esc(a)}">${esc(a)}</button>`).join("")}</div>`,
     bind:()=>{ $("#areaChips").onclick=e=>{const b=e.target.closest(".chip"); if(!b)return; $("#f_area").value=b.dataset.v; $$("#areaChips .chip").forEach(c=>c.classList.toggle("on",c===b)); S.a.area=b.dataset.v; live(); $("#f_area").focus();}; },
     read:()=>{S.a.area=$("#f_area").value.trim();}, ok:()=>S.a.area.length>1 || "Escreva a sua área ou escolha uma opção."},
   {id:"anos", ph:0, q:()=>`Há quanto tempo você trabalha com <b>${esc(low(S.a.area)||"isso")}?</b>`, help:"Arraste até o número de anos. Conta tudo: emprego, consultório, empresa própria, atendimentos.",
@@ -1113,30 +910,30 @@ const STEPS = [
     read:()=>{S.a.anos=+$("#f_anos").value;}, ok:()=>true},
   {id:"perguntas", ph:0, q:()=>`O que as pessoas <b>sempre te perguntam?</b>`, help:"Pense nas dúvidas que você responde toda semana: no trabalho, no Instagram, no WhatsApp. Escreva uma por linha. É aqui que mora o seu gênio oculto.",
     vt:"Ache o seu gênio oculto", vx:"As perguntas que você responde no automático são o melhor ponto de partida para as suas aulas.",
-    body:()=>`<textarea class="inp" id="f_perg" placeholder="Ex.:&#10;Como voltar a correr depois de uma lesão no joelho?&#10;Quantas sessões preciso para melhorar?&#10;Que exercício posso fazer em casa?">${esc(S.a.perguntas)}</textarea><p class="ex">Não precisa caprichar na escrita. <b>Do jeito que as pessoas falam com você já está ótimo.</b></p>`,
+    body:()=>`<textarea class="inp" id="f_perg" placeholder="Ex.:&#10;Por onde eu começo?&#10;Qual é o erro mais comum?&#10;Como eu sei se estou fazendo certo?">${esc(S.a.perguntas)}</textarea>${iaBtn("perguntas")}<p class="ex">Não precisa caprichar na escrita. <b>Do jeito que as pessoas falam com você já está ótimo.</b></p>`,
     read:()=>{S.a.perguntas=$("#f_perg").value.trim();}, ok:()=>S.a.perguntas.length>5 || "Escreva pelo menos uma pergunta que você costuma ouvir."},
-  {id:"persona", ph:1, q:()=>`Quem é a pessoa que <b>mais precisa</b> do que você sabe?`, help:"Lembre: para fazer uma pós-graduação, a pessoa precisa ter uma graduação concluída. Escolha uma opção ou descreva com as suas palavras.",
+  {id:"persona", ph:1, q:()=>`Quem é a pessoa que <b>mais precisa</b> do que você sabe?`, help:"Lembre: para fazer uma pós-graduação, a pessoa precisa ter uma graduação concluída. Escreva com as suas palavras, peça uma sugestão à IA ou clique em uma opção.",
     vt:"Quem é o seu aluno", vx:"Como descrever o aluno ideal da sua pós em uma frase.",
-    body:()=>`<input class="inp inp-sm" id="f_persona" placeholder="Ex.: Fisioterapeutas recém-formados que querem atender atletas" value="${esc(S.a.persona)}"><div class="chips" id="perChips">${PERSONAS.map(a=>`<button type="button" class="chip${S.a.persona===a?" on":""}" data-v="${esc(a)}">${esc(a)}</button>`).join("")}</div>`,
+    body:()=>`<input class="inp inp-sm" id="f_persona" placeholder="Escreva aqui quem é o seu aluno ideal" value="${esc(S.a.persona)}">${iaBtn("persona")}<div class="chips" id="perChips">${PERSONAS.map(a=>`<button type="button" class="chip${S.a.persona===a?" on":""}" data-v="${esc(a)}">${esc(a)}</button>`).join("")}</div>`,
     bind:()=>{ $("#perChips").onclick=e=>{const b=e.target.closest(".chip"); if(!b)return; $("#f_persona").value=b.dataset.v; $$("#perChips .chip").forEach(c=>c.classList.toggle("on",c===b)); S.a.persona=b.dataset.v; live();}; },
     read:()=>{S.a.persona=$("#f_persona").value.trim();}, ok:()=>S.a.persona.length>3 || "Descreva quem é o seu aluno ideal."},
   {id:"promessa", ph:1, q:()=>`Depois do seu curso, <b>o que o seu aluno vai conseguir fazer?</b>`, help:"Essa é a promessa do curso. Termine a frase pensando na segunda-feira de manhã do seu aluno: o que muda na vida ou no trabalho dele?",
     vt:"Escrevendo a promessa", vx:"A frase que faz alguém querer comprar o seu curso. Três exemplos de promessas fortes.",
-    body:()=>`<div style="font-size:clamp(20px,2.4vw,28px);color:var(--muted-d);margin-top:30px">Ele vai conseguir…</div><textarea class="inp" id="f_prom" style="min-height:120px;margin-top:10px" placeholder="Ex.: avaliar, tratar e liberar atletas para voltar ao esporte com segurança e menos risco de nova lesão">${esc(S.a.promessa)}</textarea>`,
+    body:()=>`<div style="font-size:clamp(20px,2.4vw,28px);color:var(--muted-d);margin-top:30px">Ele vai conseguir…</div><textarea class="inp" id="f_prom" style="min-height:120px;margin-top:10px" placeholder="Ex.: aplicar o método com segurança e ter resultado já nos primeiros casos">${esc(S.a.promessa)}</textarea>${iaBtn("promessa")}`,
     read:()=>{S.a.promessa=$("#f_prom").value.trim();}, ok:()=>S.a.promessa.length>8 || "Escreva o que o seu aluno vai conseguir fazer."},
   {id:"temas", ph:2, q:()=>`Quais são os <b>grandes temas</b> que você ensinaria?`, help:"Cada tema vira uma disciplina do curso. Escreva e aperte Enter para adicionar. Três a cinco temas é o ideal. Veja o curso se montando ao lado.",
     vt:"Seus temas viram disciplinas", vx:"Como separar o que você sabe em blocos que viram disciplinas.",
-    body:()=>`<div class="tags-in"><input class="inp inp-sm" id="f_tema" placeholder="Ex.: Avaliação funcional do atleta" maxlength="80"><button type="button" class="btn btn-green btn-sm" id="addTema">Adicionar</button></div><div class="taglist" id="temaList"></div><div class="sugg" id="temaSugg"></div>`,
+    body:()=>`<div class="tags-in"><input class="inp inp-sm" id="f_tema" placeholder="Ex.: Tema 01" maxlength="80"><button type="button" class="btn btn-green btn-sm" id="addTema">Adicionar</button></div>${iaBtn("temas")}<div class="taglist" id="temaList"></div><div class="sugg" id="temaSugg"></div>`,
     bind:()=>tagBind("temas","#f_tema","#addTema","#temaList","#temaSugg", ()=>{ const a=low(S.a.area)||"sua área"; return [`Avaliação e diagnóstico em ${a}`,`Técnicas e intervenções em ${a}`,`Casos complexos em ${a}`,`Gestão da carreira em ${a}`,`Atendimento e relacionamento com o cliente`, ...splitList(S.a.perguntas).filter(p=>p.length<60).map(p=>p.replace(/\?$/,""))]; }, 7),
     read:()=>{}, ok:()=>S.a.temas.length>=2 || "Adicione pelo menos 2 temas. Use as sugestões se quiser."},
   {id:"ferramentas", ph:2, q:()=>`Que <b>ferramentas, protocolos ou passo a passo</b> você usa no trabalho?`, help:"Fichas, checklists, testes, softwares, roteiros, técnicas próprias. Tudo o que você faz de um jeito que é só seu. Pode pular se preferir.",
     vt:"Seu método em ferramentas", vx:"Por que as suas ferramentas de trabalho são o que diferencia o seu curso de qualquer outro.",
-    body:()=>`<div class="tags-in"><input class="inp inp-sm" id="f_ferr" placeholder="Ex.: Teste de salto unipodal" maxlength="80"><button type="button" class="btn btn-green btn-sm" id="addFerr">Adicionar</button></div><div class="taglist" id="ferrList"></div><div class="sugg" id="ferrSugg"></div>`,
+    body:()=>`<div class="tags-in"><input class="inp inp-sm" id="f_ferr" placeholder="Ex.: Checklist de atendimento" maxlength="80"><button type="button" class="btn btn-green btn-sm" id="addFerr">Adicionar</button></div>${iaBtn("ferramentas")}<div class="taglist" id="ferrList"></div><div class="sugg" id="ferrSugg"></div>`,
     bind:()=>tagBind("ferramentas","#f_ferr","#addFerr","#ferrList","#ferrSugg", ()=>["Ficha de avaliação inicial","Checklist de atendimento","Protocolo passo a passo","Planilha de acompanhamento","Roteiro de primeira consulta"], 6),
     read:()=>{}, ok:()=>true, skip:true},
   {id:"referencias", ph:2, q:()=>`Em quem você se apoia? <b>Autores, livros ou metodologias.</b>`, help:"Isso dá base científica ao curso. Se não lembrar agora, pule: o time acadêmico da FEX ajuda depois.",
     vt:"Base científica sem complicação", vx:"Como citar as referências que você já usa, mesmo sem ser acadêmico.",
-    body:()=>`<textarea class="inp" id="f_refs" style="min-height:120px" placeholder="Ex.: Diretrizes do IOC, livro Fisioterapia Esportiva de Fulano, método McKenzie">${esc(S.a.referencias)}</textarea>`,
+    body:()=>`<textarea class="inp" id="f_refs" style="min-height:120px" placeholder="Ex.: autores, livros, diretrizes ou métodos que você segue">${esc(S.a.referencias)}</textarea>`,
     read:()=>{S.a.referencias=$("#f_refs").value.trim();}, ok:()=>true, skip:true},
   {id:"ensina", ph:2, q:()=>`Você <b>já ensina</b> hoje?`, help:"Isso ajuda a escolher o melhor jeito de lançar. Em 9 de 10 casos da FEX, a pós entrou depois, em cima de algo que o expert já vendia.",
     vt:"De onde você parte", vx:"Por que quem já ensina tem um atalho para a primeira turma.",
@@ -1149,7 +946,7 @@ const STEPS = [
       <p class="qhelp" id="mWhy" style="margin-top:22px">${esc(MODELS[S.model].why)}</p>
       <div class="split" id="mSplit"><div class="a">${a}h<small>hora-aula</small></div><div class="b">${b}h<small>autoestudo</small></div><div class="c">${c}h<small>prática</small></div></div>
       <div class="note" id="mNote">Padrão FEX 30/30/40: das ${m.h}h, você só precisa gravar <b>${a}h de hora-aula</b>. O resto é autoestudo e prática do aluno.</div>
-      <div class="field"><label class="flabel" for="f_titulo">Nome do curso (pode editar)</label><input class="inp inp-sm" id="f_titulo" value="${esc(S.a.titulo || formation().title)}"></div>`; },
+      <div class="field"><label class="flabel" for="f_titulo">Nome do curso (pode editar)</label><input class="inp inp-sm" id="f_titulo" value="${esc(S.a.titulo || formation().title)}">${iaBtn("titulo")}</div>`; },
     bind:()=>{ optBind("model", v=>{S.model=v; const m=MODELS[v]; const [a,b,c]=split(m.h); $("#mWhy").textContent=m.why; $("#mSplit").innerHTML=`<div class="a">${a}h<small>hora-aula</small></div><div class="b">${b}h<small>autoestudo</small></div><div class="c">${c}h<small>prática</small></div>`; $("#mNote").innerHTML=`Padrão FEX 30/30/40: das ${m.h}h, você só precisa gravar <b>${a}h de hora-aula</b>. O resto é autoestudo e prática do aluno.`; const t=$("#f_titulo"); if(/^(Pós-Graduação|MBA) em /.test(t.value)) { t.value = t.value.replace(/^(Pós-Graduação|MBA)/, m.type); } }); $("#f_titulo").oninput=e=>{S.a.titulo=e.target.value; live();}; },
     read:()=>{S.a.titulo=$("#f_titulo").value.trim();}, ok:()=>!!S.model},
   {id:"ticket", ph:3, q:()=>`Quanto o seu aluno vai <b>investir por mês?</b>`, help:"Em pós-graduação, a gente vende a parcela, não o total. O aluno compara com a mensalidade de uma faculdade. Os valores abaixo vêm de clientes reais da FEX.",
@@ -1181,6 +978,50 @@ const STEPS = [
     read:()=>{S.a.email=$("#f_email").value.trim(); S.a.telefone=$("#f_tel").value.trim(); S.a.instagram=$("#f_ig").value.trim(); S.a.consent=$("#f_consent").checked;},
     ok:()=>{ if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(S.a.email)) return "Confira o e-mail. Ele precisa ter @ e um domínio, como voce@email.com."; if(S.a.telefone.replace(/\D/g,"").length<10) return "Digite o WhatsApp com DDD."; if(!S.a.consent) return "Marque a caixa para receber o seu plano."; return true; }, cta:"Ver meu curso pronto"}
 ];
+/* ============ sugerir com IA ============
+   Se CONFIG.IA_ENDPOINT estiver preenchido, pede a sugestão ao modelo (POST {campo, respostas} -> {sugestao}).
+   Sem endpoint, usa as regras locais abaixo, sempre a partir do que a pessoa já escreveu. */
+const IA_N = {};
+const iaPick = (campo, list) => { const i = (IA_N[campo] = ((IA_N[campo] ?? -1) + 1)) % list.length; return list[i]; };
+const IA_LOCAL = {
+  perguntas:()=>{ const a=low(S.a.area)||"a sua área"; return [`Por onde começa quem quer trabalhar com ${a}?`,`Qual é o erro mais comum de quem está começando em ${a}?`,`Como saber se estou fazendo certo?`,`Quanto cobrar pelo meu trabalho em ${a}?`,`Que resultado posso esperar nos primeiros meses?`].join("\n"); },
+  persona:()=>{ const a=low(S.a.area)||"na área"; return iaPick("persona",[`Profissionais formados que querem se especializar em ${a}`,`Quem já atua em ${a} e quer ter mais resultado e segurança`,`Profissionais que querem migrar para ${a} com um método claro`]); },
+  promessa:()=>{ const a=low(S.a.area)||"a área"; const p=splitList(S.a.perguntas)[0]; return iaPick("promessa",[`dominar ${a} na prática, com um método claro, e atender com segurança desde os primeiros casos`,`aplicar o seu método em ${a} do início ao fim e cobrar mais pelo próprio trabalho`,p?`responder com segurança a pergunta "${p.replace(/\?$/,"")}" e transformar isso em resultado para os próprios clientes`:`ter resultados consistentes em ${a} sem depender de tentativa e erro`]); },
+  temas:()=>{ const a=low(S.a.area)||"sua área"; return [...splitList(S.a.perguntas).filter(p=>p.length<60).map(p=>cap(p.replace(/\?$/,""))),`Diagnóstico e avaliação em ${a}`,`Técnicas e métodos em ${a}`,`Casos práticos em ${a}`,`Carreira e posicionamento em ${a}`]; },
+  ferramentas:()=>["Ficha de avaliação inicial","Checklist de atendimento","Protocolo passo a passo","Planilha de acompanhamento de resultados","Roteiro da primeira conversa com o cliente"],
+  titulo:()=>{ const f=formation(), A=cap(S.a.area||"sua área"), t=S.a.temas[0]; return iaPick("titulo",[`${f.m.type} em ${A}`, t?`${f.m.type} em ${A}: ${cap(t)}`:`${f.m.type} em ${A} Aplicada`, `${f.m.type} em ${A} na Prática`, `${f.m.type} em ${A} e Resultados`]); }
+};
+function iaBtn(campo){ return `<button type="button" class="ia" data-ia="${campo}"><svg viewBox="0 0 24 24"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9zM19 14l.9 2.6 2.6.9-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9z"/></svg>Sugerir com IA <small>a partir das suas respostas</small></button>`; }
+async function iaSuggest(campo){
+  if(CONFIG.IA_ENDPOINT){
+    try{ const r = await fetch(CONFIG.IA_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({campo, respostas:S.a})}); const j = await r.json(); if(j && j.sugestao) return j.sugestao; }catch(e){}
+  }
+  await new Promise(r=>setTimeout(r, reduced?100:900));
+  return IA_LOCAL[campo]();
+}
+document.addEventListener("click", async e=>{
+  const b = e.target.closest("[data-ia]"); if(!b) return;
+  const campo = b.dataset.ia, st = STEPS[S.step];
+  try{ st.read(); }catch(err){}
+  b.classList.add("busy"); const html = b.innerHTML; b.lastElementChild.textContent = "pensando…";
+  const sug = await iaSuggest(campo);
+  b.classList.remove("busy"); b.innerHTML = html;
+  track("ia", {campo});
+  const field = {perguntas:"#f_perg", persona:"#f_persona", promessa:"#f_prom", titulo:"#f_titulo"}[campo];
+  if(field){
+    const el = $(field); let v = Array.isArray(sug) ? sug.join("\n") : String(sug);
+    if(campo==="perguntas" && el.value.trim()){ const have = new Set(splitList(el.value).map(x=>x.toLowerCase())); v = el.value.trim() + "\n" + v.split("\n").filter(x=>!have.has(x.toLowerCase())).join("\n"); }
+    el.value = v; el.classList.remove("ia-fill"); void el.offsetWidth; el.classList.add("ia-fill");
+    st.read(); if(campo==="titulo") S.a.titulo = el.value; live(); save();
+    $$(".chip", el.parentElement).forEach(c=>c.classList.remove("on"));
+  } else {
+    const key = campo, max = key==="temas"?7:6, list = Array.isArray(sug) ? sug : splitList(sug);
+    let added = 0;
+    for(const x of list){ if(S.a[key].length>=max || added>=3) break; const v=cap(x.trim()); if(v && !S.a[key].some(y=>y.toLowerCase()===v.toLowerCase())){ S.a[key].push(v); added++; } }
+    st.bind(); save();
+    if(!added) toast("Você já tem as sugestões principais. Escreva um item seu.");
+  }
+});
 function maskTel(v){ v=v.replace(/\D/g,"").slice(0,11); if(v.length>6) return `(${v.slice(0,2)}) ${v.slice(2,v.length-4)}-${v.slice(-4)}`; if(v.length>2) return `(${v.slice(0,2)}) ${v.slice(2)}`; return v; }
 function opts(key, list, cur){ return `<div class="opts" id="opt-${key}">${list.map(([v,b,s])=>`<button type="button" class="opt${cur===v?" on":""}" data-v="${v}"><b>${esc(b)}</b><span>${esc(s)}</span></button>`).join("")}</div>`; }
 function optBind(key, fn){ const box=$("#opt-"+key); box.onclick=e=>{ const b=e.target.closest(".opt"); if(!b) return; $$(".opt",box).forEach(o=>o.classList.toggle("on",o===b)); fn(b.dataset.v); live(); save(); }; }
@@ -1316,7 +1157,7 @@ function posterHTML(f,p){
 function renderPreview(){
   const f = formation(), p = pot();
   $("#view-preview").innerHTML = `
-  <section class="pv-hero"><div class="wrap">
+  <section class="pv-hero tex"><div class="wrap">
     <span class="pill"><span class="dot"></span>Prévia gratuita</span>
     <h1>${esc(firstName())}, este é o <b>seu curso.</b></h1>
     <p class="lead muted" style="margin-top:22px">Montado a partir do que você contou. Abra as duas primeiras disciplinas e veja as aulas. O plano completo libera todo o resto.</p>
@@ -1350,7 +1191,7 @@ function renderPreview(){
 function renderCheckout(){
   const f = formation();
   track("checkout", {value:CONFIG.PRECO, currency:"BRL"}); sendLead("checkout");
-  $("#view-checkout").innerHTML = `<section class="sec band-dark" style="min-height:100vh"><div class="wrap">
+  $("#view-checkout").innerHTML = `<section class="sec tex" style="min-height:100vh"><div class="wrap">
     <button class="backbtn" id="ckBack">← Voltar para a prévia</button>
     <div class="ck" style="margin-top:30px">
       <div>
@@ -1422,7 +1263,7 @@ function renderPlan(){
   const waHref = `https://wa.me/${CONFIG.WHATSAPP_ESPECIALISTA}?text=${encodeURIComponent(waMsg)}`;
   const toc = [["resumo","Resumo"],["matriz","Matriz curricular"],["aula","Modelo de aula"],["gravacao","Plano de gravação"],["potencial","Potencial"],["funil","Funil de vendas"],["pagina","Página e mensagem"],["cronograma","Cronograma 90 dias"],["papeis","Quem faz o quê"],["proximo","Próximo passo"]];
   $("#view-plan").innerHTML = `
-  <section class="plan-top"><canvas class="strands2" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:.7"></canvas><div class="wrap">
+  <section class="plan-top tex"><div class="wrap">
     <span class="pill"><span class="dot"></span>Plano completo · ${esc(S.leadId)}</span>
     <h1>${esc(f.title)}</h1>
     <div class="meta"><span class="g2">${esc(f.m.type)}</span><span>${f.m.h}h · ${esc(f.m.dur)}</span><span>${esc(f.m.mod)}</span><span>${f.discs.length} disciplinas · ${f.discs.length*4} aulas</span><span>${S.ticket.n}x ${BRL(S.ticket.v)}</span></div>
@@ -1557,10 +1398,11 @@ Tarefa: aplique em um caso seu esta semana e registre o resultado na plataforma.
     </div>
   </div>
 
-  <section class="prata" id="proximo"><canvas id="prataFx" aria-hidden="true"></canvas><div class="wrap">
+  <section class="prata tex" id="proximo"><div class="wrap">
     <span class="pill"><span class="dot"></span>Próximo passo</span>
     <h2>Seu plano está pronto. Agora ele pode virar <b>pós-graduação.</b></h2>
     <p class="lead muted" style="margin-top:24px">Com a Faculdade FEX Educação®, o curso que você acabou de desenhar ganha registro de pós-graduação com validade acadêmica, estrutura de faculdade e um time ao seu lado do registro à aula magna.</p>
+    <div class="fexnums"><div><b>4.660</b><span>alunos de pós-graduação e MBA</span></div><div><b>70</b><span>pós-graduações no portfólio</span></div><div><b>+1.000</b><span>empresas parceiras</span></div><div><b>+13</b><span>anos transformando conhecimento em resultado</span></div></div>
     <div class="pgrid">
       <div class="prata-card">
         <span class="tagp">Recomendado para você</span>
@@ -1594,8 +1436,6 @@ Tarefa: aplique em um caso seu esta semana e registre o resultado na plataforma.
   $$("#view-plan [data-copy]").forEach(b=>b.onclick=()=>copyText($("#"+b.dataset.copy).textContent, b));
   const bars = $("#bars"); const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ $$("i[data-w]",bars).forEach(i=>i.style.width=i.dataset.w+"%"); io.disconnect(); } }),{threshold:.3}); io.observe(bars);
   tocSpy();
-  strands($(".strands2"), {count:14, alpha:.55});
-  strands($("#prataFx"), {count:26, alpha:.9});
 }
 function copyText(t, btn){
   const ok=()=>{ btn.textContent="Copiado"; btn.classList.add("ok"); setTimeout(()=>{btn.textContent="Copiar"; btn.classList.remove("ok");},1800); };
@@ -1612,16 +1452,15 @@ function tocSpy(){
 const VIEWS = ["home","builder","analise","preview","checkout","plan"];
 function show(v){
   VIEWS.forEach(x=>$("#view-"+x).classList.toggle("on", x===v));
-  $("#topCta").hidden = v!=="home";
   $("#topTag").textContent = {home:"Gênio Oculto · Faculdade FEX Educação®", builder:"Construindo o seu curso", analise:"Organizando", preview:"Prévia do seu curso", checkout:"Plano completo", plan:"Seu plano completo"}[v];
-  $("footer").hidden = v==="builder"||v==="analise";
+  $("footer").hidden = v==="home"||v==="builder"||v==="analise";
+  if(v==="home") $("#capaCta").innerHTML = (S.paid?"Abrir meu plano":S.done?"Ver meu curso":S.step>0?"Continuar meu curso":"Começar")+' <span class="arr">→</span>';
   $(".top").hidden = v==="analise";
   scrollTo({top:0, behavior:"auto"});
   if(v!=="builder") closeLive();
   const sc = $("#stickyCta"); if(sc) sc.classList.remove("on");
 }
 function start(){
-  if(S.exemplo){ S = blank(); save(); }
   if(S.paid){ renderPlan(); show("plan"); return; }
   if(S.done){ renderPreview(); show("preview"); return; }
   show("builder"); renderStep(1);
@@ -1636,20 +1475,6 @@ document.addEventListener("click", e=>{
   else if(t.hasAttribute("data-close")){ closeVideo(); }
   else if(t.hasAttribute("data-scroll")){ e.preventDefault(); const el=$(t.getAttribute("href")); el && el.scrollIntoView({behavior:reduced?"auto":"smooth"}); }
 });
-$("#btnExemplo").onclick = ()=>{
-  S = blank(); S.exemplo = true;
-  Object.assign(S.a, {nome:"Ana", sobrenome:"Ribeiro (exemplo)", area:"Fisioterapia esportiva", anos:18,
-    perguntas:"Como voltar a correr depois de uma lesão no joelho?\nQuantas sessões preciso para melhorar?\nQue exercício posso fazer em casa?\nQuando posso voltar a competir?",
-    persona:"Fisioterapeutas formados que querem atender atletas", promessa:"avaliar, tratar e liberar atletas para voltar ao esporte com segurança e menos risco de nova lesão",
-    temas:["Avaliação funcional do atleta","Lesões de joelho e tornozelo","Treino de força na reabilitação","Protocolos de retorno ao esporte"],
-    ferramentas:["Teste de salto unipodal","Ficha de avaliação esportiva","Escala de dor e função"], referencias:"Consenso de Berna sobre retorno ao esporte, diretrizes do IOC",
-    ensina:"online", email:"exemplo@fexeducacao.edu.br", telefone:"(11) 99999-0000", titulo:"Pós-Graduação em Fisioterapia Esportiva e Retorno ao Esporte"});
-  S.model = "pos12"; S.ticket = {n:18, v:500}; S.pot = {warm:1200, cold:30000, cw:5, cc:1}; S.campaign = "aula"; S.magna = toISO(addDays(new Date(),110));
-  S.step = STEPS.length-1; S.done = true; S.leadId = "EXEMPLO";
-  renderPreview(); show("preview");
-  toast("Exemplo carregado. Seus dados não foram alterados.");
-};
-
 /* ============ vídeo ============ */
 function openVideo(id){
   const st = STEPS.find(s=>s.id===id) || {vt:"Como funciona o Gênio Oculto", vx:"Um tour rápido pela ferramenta."};
@@ -1665,33 +1490,6 @@ document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ closeVideo(); cl
 /* =====================================================================
    MOTION
    ===================================================================== */
-function strands(cv, o={}){
-  if(!cv) return;
-  const ctx = cv.getContext("2d"); let w,h,dpr; const N=o.count||22, A=o.alpha||1;
-  const lines = Array.from({length:N},(_,i)=>({o:Math.random()*Math.PI*2, s:.15+Math.random()*.35, amp:.08+Math.random()*.22, x:.45+Math.random()*.6, wd:.4+Math.random()*1.6, hue:110+Math.random()*25, l:35+Math.random()*30}));
-  const size=()=>{ dpr=Math.min(2,devicePixelRatio||1); const r=cv.getBoundingClientRect(); w=r.width; h=r.height; cv.width=w*dpr; cv.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); };
-  size(); addEventListener("resize", size);
-  let mx=0, vis=true;
-  addEventListener("pointermove", e=>{ mx = (e.clientX/innerWidth-.5); }, {passive:true});
-  new IntersectionObserver(es=>{ vis = es[0].isIntersecting; }).observe(cv);
-  const draw=t=>{
-    if(vis){
-      ctx.clearRect(0,0,w,h); ctx.globalCompositeOperation="lighter";
-      for(const L of lines){
-        ctx.beginPath();
-        for(let y=-20;y<=h+20;y+=14){
-          const k=y/h; const x = w*(L.x + mx*.04) + Math.sin(k*3 + t*.0004*L.s*4 + L.o)*w*L.amp*(.4+k) - k*w*.25;
-          y===-20?ctx.moveTo(x,y):ctx.lineTo(x,y);
-        }
-        const g = ctx.createLinearGradient(0,0,0,h); g.addColorStop(0,`hsla(${L.hue},90%,${L.l}%,0)`); g.addColorStop(.5,`hsla(${L.hue},95%,${L.l}%,${.55*A})`); g.addColorStop(1,`hsla(${L.hue},90%,${L.l-10}%,${.08*A})`);
-        ctx.strokeStyle=g; ctx.lineWidth=L.wd; ctx.shadowColor=`hsla(${L.hue},100%,50%,${.8*A})`; ctx.shadowBlur=12; ctx.stroke();
-      }
-      ctx.globalCompositeOperation="source-over";
-    }
-    if(!reduced) requestAnimationFrame(draw);
-  };
-  requestAnimationFrame(draw);
-}
 function tween(el, to, fmt, dur=700){
   if(!el) return; const from = +(el.dataset.v||0); el.dataset.v = to;
   if(reduced){ el.textContent = fmt(to); return; }
@@ -1716,12 +1514,8 @@ function burst(){
 }
 function toast(t){ const el=$("#toast"); el.textContent=t; el.classList.add("on"); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove("on"), 2600); }
 
-/* landing: calculadora, marquee, topo */
+/* topo e CTA fixo da prévia */
 (function(){
-  const r=$("#calcYears"); const up=()=>{ const y=+r.value, h=y*220*8; $("#calcY").textContent=y; $("#calcH").textContent=INT(h)+"h"; $("#calcX").textContent=INT(h/360)+" pós"; paintRange(r); }; r.oninput=up; up();
-  const items = ["Fisioterapia","Direito","Estética","Psicologia","Nutrição","Odontologia","Vendas","Gestão","Medicina","Tecnologia","Educação","Agronegócio","Terapias","Marketing"];
-  const row = items.map(x=>`<span><b>${x}</b></span><i>✦</i>`).join("");
-  $("#mq").innerHTML = row + row;
   addEventListener("scroll", ()=>$(".top").classList.toggle("scrolled", scrollY>20), {passive:true});
   addEventListener("scroll", ()=>{ const sc=$("#stickyCta"); if(sc && $("#view-preview").classList.contains("on")) sc.classList.toggle("on", scrollY>700); }, {passive:true});
 })();
@@ -1729,8 +1523,8 @@ function toast(t){ const el=$("#toast"); el.textContent=t; el.classList.add("on"
 /* ============ boot ============ */
 load(); initTracking();
 if(new URLSearchParams(location.search).get("pago")==="1" && S.done){ S.paid = true; save(); track("compra",{value:CONFIG.PRECO,currency:"BRL"}); sendLead("compra"); }
-if(S.exemplo && !S.paid){ S = blank(); save(); }
-strands($("#strands")); heroWords(); observe();
+heroWords(); observe();
+if(!S.paid && !S.done) show("home");
 if(S.paid){ renderPlan(); show("plan"); }
 else if(S.done){ renderPreview(); show("preview"); }
 else if(location.hash==="#construtor"){ start(); }
