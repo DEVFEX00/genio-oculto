@@ -279,6 +279,8 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
 .sugg .chip{font-size:14px;padding:8px 14px;border-style:dashed}
 
 /* sugerir com IA */
+.inp.ia-wait{background:linear-gradient(90deg,transparent,rgba(50,205,50,.12),transparent) 0 0/200% 100%;animation:iaWait 1.2s linear infinite}
+@keyframes iaWait{to{background-position:-200% 0}}
 .ia{display:inline-flex;align-items:center;gap:10px;margin-top:18px;border:1px solid rgba(50,205,50,.5);background:linear-gradient(90deg,rgba(50,205,50,.14),rgba(50,205,50,.04));color:var(--white);border-radius:999px;padding:10px 18px 10px 14px;font-size:15px;font-weight:700;transition:background .25s,transform .2s;position:relative;overflow:hidden}
 .ia:hover{background:rgba(50,205,50,.24)}
 .ia:active{transform:scale(.97)}
@@ -399,6 +401,16 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
 .bwrap.light ~ .livebtn{background:var(--ink);color:var(--sand)}
 .livebtn{transition:background .7s,color .7s}
 .sim .conv input,input,textarea,select{font-size:max(16px,1em)}
+
+/* encorajamento */
+.reforco{margin:14px 0 0;display:flex;gap:10px;align-items:flex-start;font-size:16px;color:var(--sand);border-left:3px solid var(--green);padding:4px 0 4px 14px;max-width:62ch}
+.cheer{display:flex;gap:14px;align-items:center;margin:20px 0 4px;padding:14px 18px;border-radius:16px;background:linear-gradient(90deg,rgba(50,205,50,.22),rgba(50,205,50,.06));border:1px solid rgba(50,205,50,.5);font-size:16px;color:var(--white);animation:cheerIn .7s cubic-bezier(.2,.9,.3,1.3) both}
+.cheer b{color:var(--green)}
+.cheer-ic{flex:none;width:34px;height:34px;border-radius:50%;background:var(--green);color:var(--ink);display:grid;place-items:center;font-weight:800}
+@keyframes cheerIn{from{opacity:0;transform:translateY(-10px) scale(.96)}to{opacity:1;transform:none}}
+.bwrap.light .reforco{color:var(--text)}
+.bwrap.light .cheer{color:var(--text);background:linear-gradient(90deg,rgba(50,205,50,.25),rgba(50,205,50,.08))}
+.bwrap.light .cheer b{color:#178a17}
 
 /* contador de perguntas */
 .pcount{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--bm);margin-bottom:14px;position:relative;padding-bottom:10px}
@@ -896,8 +908,8 @@ const CONFIG = {
   META_PIXEL_ID: null,
   GTM_ID: null,
   // IDs de vídeo do YouTube por etapa (ex.: "dQw4w9WgXcQ"). Vazio = mostra "vídeo em produção".
-  // Endpoint de IA para o "Sugerir com IA" (opcional). null = sugestões geradas no navegador a partir das respostas.
-  IA_ENDPOINT: null,
+  // Função de IA do site (api/ia.js na Vercel, usa o Claude). Se falhar ou não existir, as sugestões vêm das regras do navegador.
+  IA_ENDPOINT: "/api/ia",
   // Um vídeo por seção do construtor: ID do YouTube ou caminho de um MP4 do site (ex.: "assets/videos/1-voce.mp4"). Vazio = "vídeo em produção".
   VIDEOS: { voce:"", aluno:"", metodo:"", formato:"", potencial:"", lancamento:"", envio:"" }
 };
@@ -913,7 +925,7 @@ const INT = v => Math.round(v).toLocaleString("pt-BR");
 const splitList = s => String(s||"").split(/[\n,;]+/).map(t => t.trim()).filter(t => t.length > 1);
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const framed = (() => { try { return window.self !== window.top; } catch(e) { return true; } })();
-const promessa = () => String(S.a.promessa||"").trim().replace(/^(ele |ela |o aluno |a aluna |seu aluno )?(vai |v[aã]o )?conseguir\s*/i,"").replace(/\.$/,"");
+const promessa = () => String(S.a.promessaCapa||S.a.promessa||"").trim().replace(/^(ele |ela |o aluno |a aluna |seu aluno )?(vai |v[aã]o )?conseguir\s*/i,"").replace(/\.$/,"");
 const firstName = () => cap((S.a.nome || "").split(" ")[0]);
 
 /* ============ estado ============ */
@@ -1127,11 +1139,44 @@ const SECTIONS = [
   {key:"envio", n:"Envio", why:"Você deixa o seu contato, vê o seu curso montado de graça e descobre o que vem no plano completo."}
 ];
 const LIGHT_PH = [1,3,5]; // fases com fundo claro, alternando com as escuras
+// Quem preenche costuma duvidar de si (síndrome do impostor, medo de julgamento, de ser enganado).
+// Cada pergunta difícil ganha uma frase de apoio, e cada seção concluída ganha uma conquista.
+const REFORCO = {
+  anos: "Experiência não precisa de diploma para valer. O que você viveu é exatamente o que falta para quem está começando.",
+  perguntas: "Não existe pergunta boba. Se as pessoas te perguntam, é porque você sabe responder e elas precisam disso.",
+  persona: "Você não precisa ensinar para todo mundo. Basta ensinar para quem precisa do que você já sabe.",
+  promessa: "Prometa só o que você já entrega na prática. Sem exagero: a sua verdade é o que convence.",
+  ferramentas: "Aquilo que parece simples para você é o atalho que o seu aluno procura há anos.",
+  preco: "O seu conhecimento tem valor. Você pode ajustar o preço depois, com calma.",
+  audiencia: "Começar pequeno é normal. A primeira turma costuma vir de poucas pessoas que já confiam em você.",
+  magna: "Ninguém se sente 100% pronto. Marcar a data é o que transforma vontade em projeto."
+};
+const CONQUISTA = [
+  () => `Você acabou de mostrar ${perguntas().length} aulas que só você sabe dar. Esse é o seu gênio oculto.`,
+  () => "Agora o seu curso tem endereço certo. Quem precisa do que você sabe vai se reconhecer na hora.",
+  () => "Suas ferramentas e o seu jeito de fazer são o que ninguém copia. É por isso que vão escolher você.",
+  () => "Com a FEX, o que você sabe vira extensão universitária, com certificado emitido pela faculdade. Você não está sozinho nisso.",
+  () => "Esses números são uma projeção feita com os seus dados, não uma promessa. E mostram que vale a pena começar.",
+  () => "Data marcada. Agora é projeto, não só vontade. Falta um passo."
+];
 function pergCount(){
   const n = perguntas().length, ok = n>=MIN_PERG, el = $("#pcount"); if(!el) return;
   el.className = "pcount" + (ok?" ok":"");
   el.innerHTML = `<b>${n}</b> de ${MIN_PERG} perguntas${ok?" · ótimo, cada uma vira uma aula":` · faltam ${MIN_PERG-n}`}`;
   el.style.setProperty("--pc", Math.min(100, n/MIN_PERG*100)+"%");
+}
+// Nome local (reserva): titulação + área + para quem, quando a descrição é curta
+function tituloLocal(t){
+  const A = cap(S.a.area||"sua área"), per = low(S.a.persona||"");
+  return per && per.length<=48 ? `${t.nome} em ${A} para ${per}` : `${t.nome} em ${A}`;
+}
+async function tituloIA(){
+  if(S.a.tituloManual) return;
+  const ti = $("#f_titulo"); if(!ti) return;
+  ti.classList.add("ia-wait");
+  const j = await chamarIA("titulo");
+  ti.classList.remove("ia-wait");
+  if(j && j.sugestao && !S.a.tituloManual && $("#f_titulo")===ti){ (IA_VISTOS.titulo=IA_VISTOS.titulo||[]).push(j.sugestao); ti.value=j.sugestao; S.a.titulo=j.sugestao; S.a.tituloIA=true; ti.classList.remove("ia-fill"); void ti.offsetWidth; ti.classList.add("ia-fill"); save(); }
 }
 function titBox(){
   const f = formation(), t = f.t;
@@ -1140,7 +1185,7 @@ function titBox(){
   $("#hv").textContent = f.h; $("#hRange").textContent = t.faixa;
   $("#tSum").innerHTML = `<b>${f.mods.length} módulos</b> · <b>${f.aulas} aulas</b> · ${t.nome}`;
   $("#tCmp").innerHTML = compareHTML(f);
-  const ti = $("#f_titulo"); if(!S.a.titulo || /^(Iniciação|Atualização|Capacitação|Aperfeiçoamento) em /.test(ti.value)){ ti.value = `${t.nome} em ${cap(S.a.area||"sua área")}`; S.a.titulo = ti.value; }
+  const ti = $("#f_titulo"); if(!S.a.tituloManual && (!S.a.titulo || /^(Iniciação|Atualização|Capacitação|Aperfeiçoamento) em /.test(ti.value) || !S.a.tituloIA)){ ti.value = tituloLocal(t); S.a.titulo = ti.value; }
 }
 const STEPS = [
   {id:"nome", ph:0, q:()=>`Vamos começar. <b>Como você se chama?</b>`, help:"Seu nome vai assinar o curso como especialista responsável.",
@@ -1187,7 +1232,7 @@ const STEPS = [
       <p class="ex" id="tCarga">A carga horária soma tudo o que é acompanhado pelo professor: videoaulas, leituras complementares, estudos de caso, encontros de perguntas e respostas, prática do aluno com feedback, atividades e avaliação. Você não precisa gravar todas as horas: a diferença de carga horária pode ser feita em encontros de perguntas e respostas, leitura complementar, estudo de caso e prática do aluno.</p>
       <div id="tCmp"></div>
       <div class="field"><label class="flabel" for="f_titulo">Nome do curso (pode editar)</label><input class="inp inp-sm" id="f_titulo" value="${esc(S.a.titulo || formation().title)}">${iaBtn("titulo")}</div>`; },
-    bind:()=>{ optBind("tit", v=>{ S.tit=v; S.horas=TITS[v].h; titBox(); }); $("#f_horas").oninput=e=>{ S.horas=+e.target.value; titBox(); live(); }; $("#f_titulo").oninput=e=>{S.a.titulo=e.target.value; live();}; titBox(); },
+    bind:()=>{ optBind("tit", v=>{ S.tit=v; S.horas=TITS[v].h; titBox(); }); $("#f_horas").oninput=e=>{ S.horas=+e.target.value; titBox(); live(); }; $("#f_titulo").oninput=e=>{S.a.titulo=e.target.value; S.a.tituloManual=true; live();}; titBox(); if(!S.a.tituloIA) tituloIA(); },
     read:()=>{S.a.titulo=$("#f_titulo").value.trim();}, ok:()=>!!S.tit},
   {id:"preco", ph:3, q:()=>`Quanto o seu aluno vai <b>investir?</b>`, help:"Em parcelas, a decisão fica mais leve para o aluno. Escolha uma faixa ou arraste a barra até o valor da parcela que faz sentido para o seu público.",
     body:()=>`<div class="opts" id="opt-preco" style="grid-template-columns:repeat(auto-fit,minmax(136px,1fr))">${PARCELAS.map((v,i)=>`<button type="button" style="--i:${i*2}" class="opt pop${S.parcela===v?" on":""}" data-v="${v}"><span>12 parcelas de</span><div class="price-big">${BRL(v)}</div><span>Total por aluno: ${BRL(v*12)}</span></button>`).join("")}</div>
@@ -1229,11 +1274,24 @@ const IA_LOCAL = {
   titulo:()=>{ const f=formation(), A=cap(S.a.area||"sua área"), n=f.t.nome; return iaPick("titulo",[`${n} em ${A}`, `${n} em ${A} na Prática`, `${A} na Prática: ${n}`, `${n} em ${A}: do básico ao resultado`]); }
 };
 function iaBtn(campo){ return `<button type="button" class="ia" data-ia="${campo}"><svg viewBox="0 0 24 24"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9zM19 14l.9 2.6 2.6.9-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9z"/></svg>Sugerir com IA <small>a partir das suas respostas</small></button>`; }
+const IA_VISTOS = {};
+async function chamarIA(campo, ms=9000){
+  if(!CONFIG.IA_ENDPOINT || !/^https?:/.test(location.protocol)) return null;
+  const f = (()=>{ try{ return formation(); }catch(e){ return null; } })();
+  const ctrl = new AbortController(); const tm = setTimeout(()=>ctrl.abort(), ms);
+  try{
+    const r = await fetch(CONFIG.IA_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctrl.signal,
+      body:JSON.stringify({campo, evitar:IA_VISTOS[campo]||[], respostas:{...S.a, titulacao:f?f.t.nome:"", horas:f?f.h:null}})});
+    if(!r.ok) return null; return await r.json();
+  }catch(e){ return null; } finally{ clearTimeout(tm); }
+}
 async function iaSuggest(campo){
-  if(CONFIG.IA_ENDPOINT){
-    try{ const r = await fetch(CONFIG.IA_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({campo, respostas:S.a})}); const j = await r.json(); if(j && j.sugestao) return j.sugestao; }catch(e){}
+  const j = await chamarIA(campo);
+  if(j && j.sugestao && (Array.isArray(j.sugestao) ? j.sugestao.length : String(j.sugestao).trim())){
+    if(!Array.isArray(j.sugestao)) (IA_VISTOS[campo] = IA_VISTOS[campo]||[]).push(j.sugestao);
+    return j.sugestao;
   }
-  await new Promise(r=>setTimeout(r, reduced?100:900));
+  await new Promise(r=>setTimeout(r, reduced?100:700));
   return IA_LOCAL[campo]();
 }
 document.addEventListener("click", async e=>{
@@ -1249,7 +1307,7 @@ document.addEventListener("click", async e=>{
     const el = $(field); let v = Array.isArray(sug) ? sug.join("\n") : String(sug);
     if(campo==="perguntas" && el.value.trim()){ const have = new Set(splitList(el.value).map(x=>x.toLowerCase())); v = el.value.trim() + "\n" + v.split("\n").filter(x=>!have.has(x.toLowerCase())).join("\n"); }
     el.value = v; el.classList.remove("ia-fill"); void el.offsetWidth; el.classList.add("ia-fill");
-    st.read(); if(campo==="titulo") S.a.titulo = el.value; live(); save();
+    st.read(); if(campo==="titulo"){ S.a.titulo = el.value; S.a.tituloManual = false; } live(); save();
     $$(".chip", el.parentElement).forEach(c=>c.classList.remove("on"));
   } else {
     const key = campo, max = 6, list = Array.isArray(sug) ? sug : splitList(sug);
@@ -1292,7 +1350,9 @@ function renderStep(dir=1){
     <div class="qnum"><span>${PHASES[st.ph]} · ${S.step+1} de ${STEPS.length}</span>
       <button type="button" class="tut${STEPS.findIndex(x=>x.ph===st.ph)===S.step?" new":""}" data-video="${st.ph}"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span><span>Assistir: como preencher a seção <b>${PHASES[st.ph]}</b></span></button></div>
     <h2 class="q">${st.q()}</h2>
+    ${S.cheer!=null && STEPS.findIndex(x=>x.ph===st.ph)===S.step && CONQUISTA[S.cheer] ? `<div class="cheer"><span class="cheer-ic">✓</span><span><b>Seção ${PHASES[S.cheer]} concluída.</b> ${esc(CONQUISTA[S.cheer]())}</span></div>` : ""}
     <p class="qhelp">${st.help}</p>
+    ${REFORCO[st.id] ? `<p class="reforco">${esc(REFORCO[st.id])}</p>` : ""}
     <div class="field">${st.body()}</div>
     <div class="err" id="err" role="alert"></div>
     <div class="qnav">
@@ -1320,7 +1380,7 @@ function next(){
   if(v!==true){ $("#err").textContent = v; $("#qbox").animate([{transform:"translateX(0)"},{transform:"translateX(-10px)"},{transform:"translateX(10px)"},{transform:"translateX(0)"}],{duration:300}); return; }
   save();
   if(st.id==="nome") track("inicio");
-  if(S.step < STEPS.length-1){ S.step++; save(); renderStep(1); }
+  if(S.step < STEPS.length-1){ const ph0 = st.ph; S.step++; S.cheer = STEPS[S.step].ph!==ph0 ? ph0 : null; save(); renderStep(1); S.cheer = null; }
   else finishBuilder();
 }
 function prev(){ const st=STEPS[S.step]; try{st.read();}catch(e){} if(S.step>0){ S.step--; save(); renderStep(-1);} }
@@ -1361,11 +1421,12 @@ function finishBuilder(){
   const f = formation();
   const items = [`Lendo ${S.a.anos} anos de experiência em ${low(S.a.area)}`, `Transformando ${perguntas().length} perguntas em aulas`, `Organizando ${f.mods.length} módulos de ${f.t.nome} (${f.h}h)`, `Calculando o potencial da primeira turma`, `Montando o cronograma até a primeira turma`];
   show("analise");
+  const capaIA = chamarIA("capa", 12000).then(j=>{ if(j && j.titulo && j.promessa){ if(!S.a.tituloManual){ S.a.titulo=j.titulo; S.a.tituloIA=true; } S.a.promessaCapa=j.promessa; save(); } });
   $("#anTitle").textContent = `Organizando o que você sabe, ${firstName()}…`;
   $("#anList").innerHTML = items.map(t=>`<li><i></i>${esc(t)}</li>`).join("");
   const lis = $$("#anList li"); let i = 0;
   const stepT = reduced ? 150 : 850;
-  const tick = () => { if(i>0) lis[i-1].className = "ok"; if(i<lis.length){ lis[i].className = "on"; i++; setTimeout(tick, stepT); } else setTimeout(()=>{ renderPreview(); show("preview"); }, reduced?100:600); };
+  const tick = () => { if(i>0) lis[i-1].className = "ok"; if(i<lis.length){ lis[i].className = "on"; i++; setTimeout(tick, stepT); } else Promise.race([capaIA, new Promise(r=>setTimeout(r, 6000))]).then(()=>{ renderPreview(); show("preview"); }); };
   tick();
 }
 
@@ -1386,7 +1447,7 @@ function bindDiscs(root){ $$(".disc .dh", root).forEach(b=>b.onclick=()=>{ const
 function posterHTML(f,p){
   return `<div class="course-poster rv" data-tilt>
     <div class="l"><img class="logo" src="assets/logo-fex-branco.png" alt="FEX Educação" width="104" height="18"><div class="type">Extensão universitária · ${esc(f.t.nome)}</div><div class="ttl">${esc(f.title)}</div>
-      ${S.a.promessa?`<div class="prom">Para ${esc(low(S.a.persona)||"profissionais")} que querem ${esc(low(promessa()))}.</div>`:""}
+      ${S.a.promessa?`<div class="prom">Para ${esc(low(S.a.persona)||"profissionais")}. Ao final, o aluno vai ${esc(low(promessa()))}.</div>`:""}
       <div class="by">Especialista responsável: <b>${esc((S.a.nome+" "+S.a.sobrenome).trim())}</b> · ${S.a.anos} anos em ${esc(low(S.a.area))}</div></div>
     <div class="r"><div><b>${f.h}h</b><span>carga horária</span></div><div><b>${f.mods.length}</b><span>módulos</span></div><div><b>${f.aulas}</b><span>aulas</span></div><div><b>${INT(S.parcela)}</b><span>12x de R$ por aluno</span></div>
       <div class="full"><b data-tw="${p.fat}" data-f="brl">${BRL(p.fat)}</b><span>potencial da primeira turma · ${INT(p.mat)} matrículas</span></div></div></div>`;
@@ -1397,7 +1458,7 @@ function renderPreview(){
   <section class="pv-hero tex"><div class="wrap">
     <span class="pill"><span class="dot"></span>Prévia gratuita</span>
     <h1>${esc(firstName())}, este é o <b>seu curso.</b></h1>
-    <p class="lead muted" style="margin-top:22px">Montado a partir das ${perguntas().length} perguntas que você trouxe. Abra os dois primeiros módulos e veja as aulas. O plano completo libera todas as outras partes.</p>
+    <p class="lead muted" style="margin-top:22px">Você já sabia tudo isso. Agora está organizado. Montado a partir das ${perguntas().length} perguntas que você trouxe. Abra os dois primeiros módulos e veja as aulas. O plano completo libera todas as outras partes.</p>
     ${posterHTML(f,p)}
     <div class="mt32">${compareHTML(f)}</div>
   </div></section>
@@ -1510,7 +1571,7 @@ function salesCopy(f){
   return {
     eyebrow: `Curso de extensão universitária · ${f.t.nome} · ${f.h}h`,
     h: f.title,
-    sub: `Para ${low(S.a.persona)||"profissionais"} que querem ${low(promessa())||"dominar a área"}. Com ${nome}, ${S.a.anos} anos de prática em ${low(S.a.area)}.`,
+    sub: `Para ${low(S.a.persona)||"profissionais"}. Ao final, você vai ${low(promessa())||"dominar a área"}. Com ${nome}, ${S.a.anos} anos de prática em ${low(S.a.area)}.`,
     bullets: f.mods.map(d=>d.t),
     cta: `Garanta sua vaga em 12x de ${parcela(S.preco)}`
   };
