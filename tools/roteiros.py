@@ -246,7 +246,34 @@ footer{{padding-block:30px 50px;color:var(--mut);font-size:14px}}
 """
 
 
+RAW = "https://raw.githubusercontent.com/DEVFEX00/genio-oculto/main/docs/telas/"
+
+
+def briefing():
+    """Mensagem única para colar no chat de quem vai produzir os 7 vídeos."""
+    o = ["# Produção dos 7 vídeos tutoriais do Gênio Oculto (Crie sua Formação · Faculdade FEX Educação)", "",
+         "Você vai produzir 7 vídeos curtos em motion design 2D, um para cada seção do aplicativo Crie sua Formação, onde especialistas transformam o que sabem num curso de extensão universitária. Cada vídeo abre dentro do app, no botão \"Assistir: como preencher a seção ...\", e ensina a pessoa a preencher aquela seção, com uma introdução curta sobre por que ela importa.",
+         "", "App no ar para gravar telas: https://genio-oculto-one.vercel.app/ (botão \"Admin\" no rodapé da capa: pula para qualquer etapa já preenchida com um exemplo; o login e a senha vão à parte, com o time FEX).",
+         "Todas as capturas de tela: https://github.com/DEVFEX00/genio-oculto/tree/main/docs/telas (versão computador e as que começam com celular-).", "",
+         "## Direção geral (vale para os 7 vídeos)", ""] + [f"- **{k}:** {v}" for k, v in ESTILO] + ["",
+         "## Entrega", "", "- 7 arquivos MP4, 1920×1080, nomeados 1-voce.mp4, 2-aluno.mp4, 3-metodo.mp4, 4-formato.mp4, 5-potencial.mp4, 6-lancamento.mp4, 7-envio.mp4.",
+         "- Ou, se subir no YouTube como não listado, os 7 links na mesma ordem.", "- Antes do render final de cada vídeo, mande 3 ou 4 quadros-chave para aprovação.", ""]
+    for x in SECOES:
+        o += [f"## Vídeo {x['n']} · {x['nome']} (~{dur(x)} s, fundo {x['fundo']}, arquivo {x['n']}-{x['key']}.mp4)", "",
+              f"**Por que esta seção importa:** {x['porque']}", "", "**Narração (gravar exatamente assim):**", ""]
+        o += [f"> {p}" for p in x["narracao"]]
+        o += ["", "**Cenas, na ordem da narração:**", ""]
+        for i, c in enumerate(x["cenas"], 1):
+            linha = f"{i}. **{c[0]}:** {c[2]}"
+            if c[3]: linha += f" Texto na tela: \"{c[3]}\"."
+            if c[1]: linha += f" Tela: {RAW}{c[1]}"
+            o.append(linha)
+        o.append("")
+    return "\n".join(o)
+
+
 if __name__ == "__main__":
+    (ROOT / "docs" / "BRIEF-PRODUCAO-VIDEOS.md").write_text(briefing(), encoding="utf-8")
     (ROOT / "docs" / "ROTEIROS-VIDEOS.md").write_text(markdown(), encoding="utf-8")
     (ROOT / "dist").mkdir(exist_ok=True)
     (ROOT / "dist" / "roteiros.html").write_text(pagina(), encoding="utf-8")
