@@ -8,7 +8,8 @@ Site estático do funil **Crie sua Formação**: capa do aplicativo, construtor 
 - `index.html`: o site inteiro (HTML, CSS e JavaScript).
 - `assets/`: logos FEX (branco e preto) e favicon.
 - `vercel.json`: configuração da Vercel (cache dos assets).
-- `docs/ROTEIROS-VIDEOS.md`: roteiro de narração de cada vídeo tutorial.
+- `docs/ROTEIROS-VIDEOS.md`: roteiros dos 7 vídeos por seção (narração, cenas, telas e prompt para o produtor), gerados por `tools/roteiros.py`.
+- `docs/telas/`: capturas do app em cada etapa (computador e `celular-`), para a animação.
 - `docs/ESTRATEGIA-FUNIL.md`: estratégia de tráfego, eventos e recuperação.
 - `tools/build-artifact.py`: só para gerar a prévia no Claude. Não é usado pela Vercel.
 

@@ -1,245 +1,253 @@
-"""Fonte única dos roteiros dos vídeos tutoriais (um por seção do construtor).
-Gera docs/ROTEIROS-VIDEOS.md e docs/storyboard.html (com as telas de docs/telas embutidas).
+"""Fonte única dos 7 vídeos tutoriais (um por seção do construtor), versão extensão universitária.
+Gera docs/ROTEIROS-VIDEOS.md e dist/roteiros.html (página com as telas, para o produtor de motion).
 Uso: python3 tools/roteiros.py"""
-import base64, html, io, json, pathlib
+import base64, html, io, pathlib
 from PIL import Image
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 TELAS = ROOT / "docs" / "telas"
-WPS = 2.5  # palavras por segundo (150 por minuto)
+WPS = 2.4  # palavras por segundo de narração (cerca de 145 por minuto)
 
-# Cada cena: tipo, narração, visual, personagem, texto na tela, som, tela de referência (arquivo em docs/telas) ou quadro desenhado.
-# "frame" desenha um quadro de referência: {"bg": "dark|light", "word": "...", "pose": "...", "sub": "..."}
+ESTILO = [
+    ("Formato", "16:9, 1920×1080, 30 fps. Entre 45 e 75 segundos por vídeo. O vídeo abre dentro do próprio app, num player 16:9."),
+    ("Linguagem", "Motion design 2D: as telas reais do app (pasta docs/telas) aparecem num notebook ou celular desenhado, com zoom no campo da vez, mão-cursor clicando e texto sendo digitado letra a letra. Palavras-chave da narração viram tipografia animada. Ícones e formas se desenhando entre as telas. Nada de tela parada: a cada segundo algo se constrói."),
+    ("Personagem", "O Gênio Oculto (opcional): mascote 2D em verde FEX, com capelo de formatura e cauda de fumaça no lugar das pernas, contorno preto, cores chapadas. Acolhedor, nunca infantil. Aparece na abertura, aponta para o campo da vez e comemora no fim de cada seção."),
+    ("Fundo", "Igual à fase no app: seções 1, 3, 5 e 7 em verde quase preto com textura leve de granulado; seções 2, 4 e 6 em areia clara (#F4F2EC). Sem faixas de luz exageradas."),
+    ("Cores e fonte", "Verde #32CD32, verde brilho #00D84F, preto #040805, areia #E8E4D9. Montserrat: palavras-chave em Bold grande, frases em Light."),
+    ("Abertura e transição", "Vinheta de 3 s: a barra verde do meio do \"E\" do logo FEX atravessa a tela e revela \"Seção N de 7 · NOME\". Use a mesma barra verde como transição entre cenas."),
+    ("Encerramento", "Toda seção termina com a mensagem de conquista que o app mostra (está em cada roteiro) e o card \"Próxima seção: ...\"."),
+    ("Voz", "Feminina, calorosa e clara, ritmo de conversa. Tom de quem acredita na pessoa: o público duvida de si (síndrome do impostor, medo de julgamento, medo de ser enganado). Encorajar sem exagerar e sem prometer resultado."),
+    ("Som", "Trilha leve e otimista bem baixa sob a voz. Pop quando um card aparece, digitação suave, whoosh na transição, \"ding\" quando algo se completa."),
+    ("Legendas", "Recomendadas (muita gente assiste no celular): Montserrat Bold branca em pílula preta, na parte de baixo."),
+    ("Regras de texto", "Sempre \"Faculdade FEX Educação\". Falar em extensão universitária, nunca em pós-graduação ou MBA. Nunca dizer \"reconhecido pelo MEC\", \"chancela\" ou \"certificação MEC\". Na carga horária, nunca usar \"autoestudo\" nem \"o resto\". Valores do simulador são projeção, não garantia."),
+]
+
 SECOES = [
- {"n": 1, "key": "voce", "nome": "Você", "fundo": "dark",
-  "objetivo": "Mostrar que o curso nasce da experiência da pessoa e ensinar as 4 primeiras respostas: nome, área, anos de prática e as perguntas que ela mais ouve.",
+ {"n": 1, "key": "voce", "nome": "Você", "fundo": "escuro",
+  "porque": "O curso nasce da experiência da pessoa. Aqui ela conta quem é, a área, os anos de prática e no mínimo 7 perguntas que sempre ouve. Cada pergunta vira uma aula.",
+  "narracao": [
+   "Oi! Eu sou o Gênio Oculto, e vou te acompanhar na criação da sua formação. Esta primeira seção é sobre a parte mais importante dela: você. O seu curso nasce da sua experiência, e isso ninguém consegue copiar.",
+   "Primeiro, escreva o seu nome e sobrenome. É ele que assina o curso como especialista responsável.",
+   "Depois, a sua área. Pode ser ampla ou bem específica. Se ela estiver nos botões, é só clicar.",
+   "Agora, arraste a barra até os seus anos de experiência. Repare no número que aparece: são milhares de horas de prática. E experiência não precisa de diploma para valer.",
+   "E aqui mora o seu gênio oculto: o que as pessoas sempre te perguntam? Escreva no mínimo sete perguntas, uma por linha, do jeito que você ouve no dia a dia. Não existe pergunta boba. Cada uma vira uma aula, e a gente organiza tudo em módulos para você. Se travar, clique em Sugerir com IA.",
+   "Pronto! Clique em Continuar e vamos conhecer o seu aluno.",
+  ],
   "cenas": [
-   {"t": "Vinheta", "fixo": 3.5, "narr": "",
-    "vis": "Fundo verde-escuro com textura. A barra verde do logo FEX atravessa a tela da esquerda para a direita e, por onde passa, revela o selo \"Seção 1 de 7\" e a palavra VOCÊ em Montserrat Bold gigante.",
-    "per": "Gê surge de uma espiral de fumaça verde no canto direito e acena.", "txt": "Seção 1 de 7 · VOCÊ", "som": "Whoosh curto + nota de abertura.",
-    "frame": {"bg": "dark", "word": "VOCÊ", "pose": "acenando", "sub": "Seção 1 de 7"}},
-   {"t": "Por que importa", "narr": "Oi! Eu sou o Gê, e vou te acompanhar na criação do seu curso. Esta primeira seção é sobre a parte mais importante dele: você. O seu curso nasce da sua experiência, e isso ninguém consegue copiar.",
-    "vis": "Gê no centro. Quando a narração diz \"você\", ele aponta para a câmera e a palavra VOCÊ pulsa atrás dele. Três ícones orbitam o Gê: maleta (área), relógio (anos), balão de fala (perguntas).",
-    "per": "Apontando para a câmera, depois mão no peito em \"isso ninguém consegue copiar\".", "txt": "Seu curso nasce da sua experiência", "som": "Pop leve em cada ícone.",
-    "frame": {"bg": "dark", "word": "VOCÊ", "pose": "apontando", "sub": "Seu curso nasce da sua experiência"}},
-   {"t": "Nome", "narr": "Primeiro, escreva o seu nome e sobrenome. É ele que assina o curso como especialista responsável.",
-    "vis": "Tela do app dentro de um notebook flutuando. Zoom no campo Nome. A mão-cursor clica e o texto \"Carla Exemplo\" aparece letra a letra. Corte rápido para o painel \"Seu curso, ao vivo\": o nome surge num chip.",
-    "per": "Gê pequeno no canto segurando um crachá em branco que ganha o nome.", "txt": "Seu nome assina o curso", "som": "Digitação suave.", "tela": "01-voce-1-nome.jpg"},
-   {"t": "Área", "narr": "Depois, a sua área. Pode ser ampla ou bem específica, e quanto mais específica, mais fácil de vender. Se ela estiver nos botões, é só clicar.",
-    "vis": "Zoom no campo de área, digitação de \"Sua área\". Os botões de atalho embaixo acendem em cascata, um por um. No painel ao lado, o título do curso aparece sozinho.",
-    "per": "Gê com uma lupa sobre os botões.", "txt": "Quanto mais específica, mais fácil de vender", "som": "Ticks em cascata nos botões.", "tela": "01-voce-2-area.jpg"},
-   {"t": "Anos de experiência", "narr": "Agora, arraste a barra até os seus anos de experiência. Repare no número que aparece: são milhares de horas de prática. Uma pós-graduação inteira tem trezentas e sessenta.",
-    "vis": "A mão arrasta o controle. O contador de horas sobe rápido. Ao lado, uma pilha de relógios cresce até ficar maior que um único bloco escrito \"360h\".",
-    "per": "Gê de queixo caído (pose surpreso).", "txt": "Milhares de horas × 360h", "som": "Contador subindo + \"ding\".", "tela": "01-voce-3-anos.jpg"},
-   {"t": "Perguntas", "narr": "E aqui mora o seu gênio oculto: o que as pessoas sempre te perguntam? Escreva uma por linha, do jeito que você ouve no dia a dia. Cada pergunta dessas é uma aula esperando para ser gravada.",
-    "vis": "Balões de fala saem de vários celulares desenhados e caem dentro do campo, virando linhas de texto. Em seguida cada linha se transforma num mini-card com um ícone de play escrito \"Aula\".",
-    "per": "Gê pensando, depois sorriso quando os cards viram aulas.", "txt": "Cada pergunta é uma aula", "som": "Pops dos balões.", "tela": "01-voce-4-perguntas.jpg"},
-   {"t": "Encerramento", "narr": "Pronto! Clique em Continuar e vamos conhecer o seu aluno.",
-    "vis": "O botão Continuar pulsa em verde. A barra verde do logo passa e revela o card \"Próxima seção: Seu aluno\".",
-    "per": "Gê aponta para o botão e acena.", "txt": "Próxima seção: Seu aluno", "som": "Whoosh de saída.",
-    "frame": {"bg": "dark", "word": "CONTINUAR", "pose": "apontando", "sub": "Próxima seção: Seu aluno"}},
+   ("Vinheta", "", "Barra verde do logo revela \"Seção 1 de 7 · VOCÊ\". O Gênio surge de uma espiral de fumaça e acena.", "VOCÊ"),
+   ("Por que importa", "", "A palavra VOCÊ cresce atrás do Gênio, que aponta para a câmera. Ícones orbitam: maleta (área), relógio (anos), balão de fala (perguntas).", "Seu curso nasce da sua experiência"),
+   ("Nome", "1-voce-a-nome.jpg", "Zoom no campo Nome. A mão-cursor clica e \"Carla Exemplo\" é digitado letra a letra.", "Seu nome assina o curso"),
+   ("Área", "1-voce-b-area.jpg", "Digitação de \"Sua área\". Os botões de atalho acendem em cascata.", ""),
+   ("Anos", "1-voce-c-anos.jpg", "A mão arrasta a barra. O contador de horas sobe rápido; ao lado, uma pilha de relógios cresce.", "Milhares de horas de prática"),
+   ("Perguntas", "1-voce-d-perguntas-3-de-7.jpg", "Três perguntas digitadas. O contador mostra \"3 de 7 · faltam 4\" e a barrinha verde avança.", "No mínimo 7 perguntas"),
+   ("Cada pergunta vira aula", "1-voce-e-perguntas-ok.jpg", "Clique em Sugerir com IA: as perguntas completam a lista e o contador fica verde. Cada linha se transforma num mini-card com ícone de play escrito \"Aula\".", "Não existe pergunta boba"),
+   ("Encerramento", "2-aluno-a-conquista-e-aluno-ideal.jpg", "Mostra o banner verde de conquista da seção. Card \"Próxima seção: Seu aluno\".", "Você acabou de mostrar as aulas que só você sabe dar"),
   ]},
- {"n": 2, "key": "aluno", "nome": "Seu aluno", "fundo": "light",
-  "objetivo": "Fazer a pessoa escolher um aluno ideal concreto e escrever uma promessa que dá para enxergar acontecendo.",
+ {"n": 2, "key": "aluno", "nome": "Seu aluno", "fundo": "claro",
+  "porque": "Curso que fala com todo mundo não vende para ninguém. Aqui a pessoa define o aluno ideal e a promessa: o que ele vai conseguir fazer no final.",
+  "narracao": [
+   "Um curso que fala com todo mundo não vende para ninguém. Nesta seção você decide para quem é o seu curso e o que essa pessoa vai conseguir fazer no final.",
+   "Primeiro, descreva o seu aluno ideal em uma frase. Você não precisa ensinar para todo mundo: basta ensinar para quem precisa do que você já sabe. Se travar, clique em Sugerir com IA ou escolha uma das opções.",
+   "Agora, a promessa. Complete a frase: ele vai conseguir. Pense na segunda-feira de manhã do seu aluno. O que muda no trabalho ou na vida dele?",
+   "Prometa só o que você já entrega na prática. Sem exagero: a sua verdade é o que convence.",
+   "Promessa escrita? Continue, porque agora vem o seu método.",
+  ],
   "cenas": [
-   {"t": "Vinheta", "fixo": 3.5, "narr": "", "vis": "Mesma vinheta, agora em fundo areia claro (como a fase no app). Revela \"Seção 2 de 7 · SEU ALUNO\".",
-    "per": "Gê entra flutuando pela esquerda.", "txt": "Seção 2 de 7 · SEU ALUNO", "som": "Whoosh.",
-    "frame": {"bg": "light", "word": "SEU ALUNO", "pose": "acenando", "sub": "Seção 2 de 7"}},
-   {"t": "Por que importa", "narr": "Um curso que fala com todo mundo não vende para ninguém. Nesta seção você decide para quem é o seu curso e o que essa pessoa vai conseguir fazer no final.",
-    "vis": "Uma multidão de silhuetas cinza. Um holofote verde varre a multidão e para em uma única pessoa, que ganha cor.",
-    "per": "Gê segurando o holofote.", "txt": "Para quem é o seu curso?", "som": "Clique de holofote.",
-    "frame": {"bg": "light", "word": "PARA QUEM?", "pose": "explicando", "sub": "Um curso para todo mundo não vende para ninguém"}},
-   {"t": "Aluno ideal", "narr": "Primeiro, descreva o seu aluno ideal em uma frase. Lembre: para fazer uma pós-graduação, a pessoa precisa ter uma graduação concluída. Se travar, clique em Sugerir com IA ou escolha uma das opções.",
-    "vis": "Tela do app em fundo claro. A mão clica em \"Sugerir com IA\": faíscas verdes saem do botão e o texto se escreve sozinho no campo.",
-    "per": "Gê segura um diploma com a etiqueta \"graduação concluída\".", "txt": "Pós exige graduação concluída", "som": "Brilho mágico curto no clique da IA.", "tela": "02-aluno-1-persona.jpg"},
-   {"t": "Promessa", "narr": "Agora, a promessa. Termine a frase: depois do meu curso, o meu aluno vai conseguir... Pense na segunda-feira de manhã dele. O que muda no trabalho ou na vida?",
-    "vis": "Uma folhinha de calendário vira e mostra SEGUNDA. A frase \"Ele vai conseguir…\" aparece grande, depois a tela do app com a promessa sendo escrita. A frase voa até a capa do curso no painel.",
-    "per": "Gê pensando, com um balão mostrando o calendário.", "txt": "O que muda na segunda-feira?", "som": "Virada de página.", "tela": "02-aluno-2-promessa.jpg"},
-   {"t": "Dica", "narr": "Evite promessas vagas, como crescer na carreira. Prefira algo que dá para ver acontecendo.",
-    "vis": "Card cinza \"crescer na carreira\" ganha um X e se desfaz em pó. Card verde \"aplicar o método com segurança e ter resultado nos primeiros casos\" entra com um check.",
-    "per": "Gê faz \"não\" com o dedo e depois joinha.", "txt": "Vago ✕ · Concreto ✓", "som": "Erro suave + acerto.",
-    "frame": {"bg": "light", "word": "CONCRETO", "pose": "explicando", "sub": "Prefira o que dá para ver acontecendo"}},
-   {"t": "Encerramento", "narr": "Promessa escrita? Continue, porque agora o seu curso vai ganhar forma.",
-    "vis": "Botão Continuar pulsa. Barra verde revela \"Próxima seção: Seu método\".", "per": "Gê acena.", "txt": "Próxima seção: Seu método", "som": "Whoosh.",
-    "frame": {"bg": "light", "word": "CONTINUAR", "pose": "apontando", "sub": "Próxima seção: Seu método"}},
+   ("Vinheta", "", "Vinheta em fundo areia: \"Seção 2 de 7 · SEU ALUNO\".", "SEU ALUNO"),
+   ("Por que importa", "", "Uma multidão de silhuetas cinza. Um holofote verde varre e para em uma pessoa, que ganha cor.", "Para quem é o seu curso?"),
+   ("Aluno ideal", "2-aluno-a-conquista-e-aluno-ideal.jpg", "Zoom no campo do aluno ideal e na frase de apoio com borda verde.", "Ensine para quem precisa do que você sabe"),
+   ("Sugerir com IA", "2-aluno-b-sugerir-com-ia.jpg", "Clique em Sugerir com IA: faíscas verdes e o texto se escreve sozinho.", ""),
+   ("Promessa", "2-aluno-c-promessa.jpg", "Folhinha de calendário vira e mostra SEGUNDA. \"Ele vai conseguir…\" grande, e a promessa sendo escrita.", "O que muda na segunda-feira?"),
+   ("Dica", "", "Card cinza \"crescer na carreira\" ganha um X e se desfaz. Card verde com uma promessa concreta entra com um check.", "Sem exagero: a sua verdade convence"),
+   ("Encerramento", "3-metodo-a-conquista-e-ferramentas.jpg", "Banner de conquista da seção e card \"Próxima seção: Seu método\".", "Agora o seu curso tem endereço certo"),
   ]},
- {"n": 3, "key": "metodo", "nome": "Seu método", "fundo": "dark",
-  "objetivo": "Mostrar a mágica principal: tema vira disciplina, disciplina vira quatro aulas. Ensinar temas, ferramentas, referências e a pergunta \"você já ensina?\".",
+ {"n": 3, "key": "metodo", "nome": "Seu método", "fundo": "escuro",
+  "porque": "As perguntas já viraram aulas e módulos (quem organiza é a ferramenta, não a pessoa). Aqui ela conta o que deixa o curso único: ferramentas, referências e se já ensina.",
+  "narracao": [
+   "Lembra das perguntas que você escreveu? Cada uma já virou uma aula, e a gente organizou tudo em módulos para você. Nesta seção, você conta o que deixa o seu curso diferente.",
+   "Primeiro, as ferramentas que você usa no trabalho: fichas, checklists, roteiros, o seu passo a passo. Escreva e aperte Enter, ou clique em Sugerir com IA. Aquilo que parece simples para você é o atalho que o seu aluno procura há anos.",
+   "Se tiver autores, livros ou métodos que você segue, escreva. Se não lembrar agora, pode pular.",
+   "Por último, conte se você já ensina hoje. Isso ajuda a escolher o melhor jeito de lançar.",
+   "Clique em Continuar para descobrir o formato ideal do seu curso.",
+  ],
   "cenas": [
-   {"t": "Vinheta", "fixo": 3.5, "narr": "", "vis": "Vinheta em fundo escuro: \"Seção 3 de 7 · SEU MÉTODO\".", "per": "Gê gira e para de frente.", "txt": "Seção 3 de 7 · SEU MÉTODO", "som": "Whoosh.",
-    "frame": {"bg": "dark", "word": "SEU MÉTODO", "pose": "acenando", "sub": "Seção 3 de 7"}},
-   {"t": "Por que importa", "narr": "É nesta seção que o seu curso ganha forma. Cada tema vira uma disciplina, e cada disciplina ganha quatro aulas, no padrão pedagógico da Faculdade FEX Educação®.",
-    "vis": "Diagrama animado: um bloco \"Tema\" encaixa e vira um bloco maior \"Disciplina\", que se divide em quatro blocos \"Aula\" que se alinham embaixo, como peças de montar.",
-    "per": "Gê empilha os blocos com as mãos.", "txt": "Tema → Disciplina → 4 aulas", "som": "Cliques de encaixe.",
-    "frame": {"bg": "dark", "word": "TEMA → 4 AULAS", "pose": "explicando", "sub": "Cada tema vira uma disciplina"}},
-   {"t": "Temas", "narr": "Escreva um grande tema que você ensinaria e aperte Enter. Olha só: ele aparece na hora no painel, como disciplina. De três a cinco temas é o ideal.",
-    "vis": "Digitação de \"Tema 01\" + Enter. Uma seta curva desenhada liga o campo ao painel e o card da disciplina voa até lá. Repete rápido com Tema 02 e Tema 03 (acelerado 2x).",
-    "per": "Gê acompanha o card voando com os olhos.", "txt": "Enter ↵ = nova disciplina", "som": "Whoosh pequeno a cada card.", "tela": "03-metodo-1-temas.jpg"},
-   {"t": "O que vem pronto", "narr": "A disciplina de fundamentos, a de ferramentas e o projeto final, a gente já cria para você.",
-    "vis": "No painel, três cards ganham uma estrelinha e o selo \"automático\".", "per": "Gê com uma varinha de condão (estrelas verdes).", "txt": "3 disciplinas automáticas", "som": "Brilho.",
-    "frame": {"bg": "dark", "word": "AUTOMÁTICO", "pose": "comemorando", "sub": "Fundamentos · Ferramentas · Projeto final"}},
-   {"t": "Ferramentas", "narr": "Depois, as ferramentas que você usa no trabalho: fichas, checklists, roteiros, o seu passo a passo. É isso que deixa o seu curso diferente de qualquer outro.",
-    "vis": "Uma caixa de ferramentas desenhada abre e os itens saltam para a lista do app. Clique em \"Sugerir com IA\" mostra três sugestões entrando.",
-    "per": "Gê segura a caixa de ferramentas.", "txt": "O seu jeito de fazer", "som": "Metais leves (tim tim).", "tela": "03-metodo-2-ferramentas.jpg"},
-   {"t": "Referências e \"você já ensina?\"", "narr": "Se tiver autores ou livros que você segue, escreva. Se não lembrar agora, pode pular. Por último, conte se você já ensina hoje.",
-    "vis": "Tela das referências com o link \"Pular esta\" circulado à mão em verde. Corte para a tela de opções: a mão escolhe \"Curso online\".",
-    "per": "Gê folheando um livro.", "txt": "Pode pular se não lembrar", "som": "Página virando.", "tela": "03-metodo-3-referencias.jpg"},
-   {"t": "Encerramento", "narr": "Olha o seu curso tomando forma ali do lado. Clique em Continuar para escolher o formato.",
-    "vis": "Câmera passeia pelo painel com todas as disciplinas. Barra verde revela \"Próxima seção: Seu formato\".", "per": "Gê aplaude.", "txt": "Próxima seção: Seu formato", "som": "Whoosh.", "tela": "03-metodo-4-ensina.jpg"},
+   ("Vinheta", "", "Vinheta escura: \"Seção 3 de 7 · SEU MÉTODO\".", "SEU MÉTODO"),
+   ("Perguntas viram módulos", "", "Os cards de pergunta da seção 1 voam e se encaixam em blocos de módulo (Primeiros passos, O método na prática, Erros comuns...), como peças de montar.", "Pergunta → Aula → Módulo"),
+   ("Ferramentas", "3-metodo-a-conquista-e-ferramentas.jpg", "Uma caixa de ferramentas desenhada abre. Digitação + Enter adiciona uma ferramenta na lista.", "O seu jeito de fazer"),
+   ("Sugerir com IA", "3-metodo-b-ferramentas-ok.jpg", "Clique em Sugerir com IA: três ferramentas entram na lista com pop.", "O simples para você é o atalho do aluno"),
+   ("Referências", "3-metodo-c-referencias.jpg", "Livro se desenha ao lado. O link \"Pular esta\" é circulado à mão em verde.", "Pode pular se não lembrar"),
+   ("Já ensina?", "3-metodo-d-ja-ensina.jpg", "A mão escolhe \"Curso online\" entre as quatro opções.", ""),
+   ("Encerramento", "4-formato-a-conquista-e-objetivo.jpg", "Banner de conquista e card \"Próxima seção: Seu formato\".", "Suas ferramentas são o que ninguém copia"),
   ]},
- {"n": 4, "key": "formato", "nome": "Seu formato", "fundo": "light",
-  "objetivo": "Explicar a recomendação de formato, o padrão 30/30/40 (grava-se muito menos do que se imagina) e a lógica de vender a parcela.",
+ {"n": 4, "key": "formato", "nome": "Seu formato", "fundo": "claro",
+  "porque": "Seção mais importante para a FEX: sem a FEX é curso livre, com a FEX é extensão universitária. A pessoa diz o objetivo, a ferramenta indica uma das 4 titulações, ela ajusta a carga horária, confere o nome e escolhe o preço em parcelas.",
+  "narracao": [
+   "Agora vem uma parte importante. Sem a FEX, o seu curso é um curso livre. Com a FEX, ele vira um curso de extensão universitária, com certificado emitido pela Faculdade FEX Educação.",
+   "Primeiro, escolha o que você quer que o curso seja para o aluno.",
+   "Com isso, a ferramenta indica a titulação ideal entre as quatro da extensão: Iniciação, Atualização, Capacitação e Aperfeiçoamento. Você ajusta as horas na barra.",
+   "A carga horária soma tudo o que é acompanhado pelo professor: aulas, leituras, estudos de caso, encontros de perguntas e respostas e prática. Você não precisa gravar todas as horas.",
+   "Confira o nome do curso e, por último, o investimento: escolha uma faixa de parcela ou arraste a barra até o valor certo para o seu público. O seu conhecimento tem valor.",
+   "Formato escolhido. Agora vem a parte que mais surpreende: o seu potencial.",
+  ],
   "cenas": [
-   {"t": "Vinheta", "fixo": 3.5, "narr": "", "vis": "Vinheta em fundo claro: \"Seção 4 de 7 · SEU FORMATO\".", "per": "Gê entra.", "txt": "Seção 4 de 7 · SEU FORMATO", "som": "Whoosh.",
-    "frame": {"bg": "light", "word": "SEU FORMATO", "pose": "acenando", "sub": "Seção 4 de 7"}},
-   {"t": "Por que importa", "narr": "Agora você decide o formato do curso e quanto o seu aluno vai investir. Fica tranquilo: a ferramenta já sugere o melhor caminho para você.",
-    "vis": "Quatro cards (Pós 6 meses, Pós 12 meses, MBA 6 meses, MBA 12 meses) giram como cartas e um deles se destaca com o selo \"Recomendado para você\".",
-    "per": "Gê embaralhando as cartas.", "txt": "A sugestão já vem pronta", "som": "Cartas embaralhando.",
-    "frame": {"bg": "light", "word": "PÓS OU MBA?", "pose": "pensando", "sub": "A ferramenta sugere o melhor caminho"}},
-   {"t": "Formato recomendado", "narr": "MBA combina com gestão e negócios. O formato com mediação ao vivo combina com áreas mais práticas. Se quiser, é só trocar.",
-    "vis": "Tela do app em fundo claro. O selo \"Recomendado para você\" brilha. A mão clica em outro card só para mostrar que dá para trocar, depois volta.",
-    "per": "Gê apontando para o selo.", "txt": "Você pode trocar", "som": "Clique.", "tela": "04-formato-1-modelo.jpg"},
-   {"t": "Padrão 30/30/40", "narr": "E repare nesta barra. Numa pós de trezentas e sessenta horas, só trinta por cento é hora-aula. São cento e oito horas para gravar, não trezentas e sessenta.",
-    "vis": "Uma barra cheia \"360h\" se divide em três blocos: verde \"108h hora-aula\", verde-escuro \"autoestudo\", areia \"prática\". Uma câmera de vídeo pousa só sobre o bloco verde.",
-    "per": "Gê limpa o suor da testa, aliviado.", "txt": "Você grava 108h, não 360h", "som": "Três cliques + suspiro de alívio.",
-    "frame": {"bg": "light", "word": "108h", "pose": "comemorando", "sub": "Só 30% é hora-aula"}},
-   {"t": "Nome do curso", "narr": "Confira o nome do curso. Dá para editar ou pedir uma sugestão à IA.",
-    "vis": "Zoom no campo \"Nome do curso\" e no botão \"Sugerir com IA\", que troca o nome com faíscas.", "per": "Gê com um balão \"ideias\".", "txt": "Nome editável", "som": "Brilho.", "tela": "04-formato-1-modelo.jpg"},
-   {"t": "Investimento", "narr": "Por último, o investimento do aluno. Em pós-graduação, a gente vende a parcela, não o valor total, porque o aluno compara com a mensalidade de uma faculdade. Escolha o valor que faz sentido para o seu público.",
-    "vis": "Um bloco grande com o valor total se quebra em 12 blocos pequenos de parcela, que se alinham como um calendário. Corte para a tela das opções de parcela com a mão escolhendo uma.",
-    "per": "Gê segura uma calculadora.", "txt": "Venda a parcela", "som": "Moedinhas leves.", "tela": "04-formato-2-ticket.jpg"},
-   {"t": "Encerramento", "narr": "Formato escolhido. Agora vem a parte que mais surpreende: o seu potencial.",
-    "vis": "Barra verde revela \"Próxima seção: Seu potencial\".", "per": "Gê com olhar curioso.", "txt": "Próxima seção: Seu potencial", "som": "Whoosh.",
-    "frame": {"bg": "light", "word": "CONTINUAR", "pose": "apontando", "sub": "Próxima seção: Seu potencial"}},
+   ("Vinheta", "", "Vinheta em areia: \"Seção 4 de 7 · SEU FORMATO\".", "SEU FORMATO"),
+   ("Curso livre × extensão", "", "Tela dividida: à esquerda um certificado simples, cinza, \"Curso livre\" (riscado). À direita, um certificado verde com o logo FEX: \"Extensão universitária\".", "Com a FEX, vira extensão universitária"),
+   ("Objetivo", "4-formato-b-objetivo-escolhido.jpg", "As quatro opções de objetivo entram em cascata; a mão escolhe \"Capacitar para aplicar\".", ""),
+   ("Titulação recomendada", "4-formato-c-titulacao-recomendada.jpg", "Os 4 cards (Iniciação, Atualização, Capacitação, Aperfeiçoamento) giram como cartas; o recomendado sobe com o selo verde.", "4 titulações de extensão"),
+   ("Carga horária", "4-formato-d-carga-horaria.jpg", "A mão arrasta a barra de horas. Ícones aparecem um a um: aula, livro, estudo de caso, balão de perguntas, prática.", "Tudo acompanhado pelo professor"),
+   ("Nome do curso", "4-formato-e-nome-do-curso.jpg", "Zoom no nome do curso; clique em Sugerir com IA troca o nome com faíscas.", ""),
+   ("Preço", "4-formato-f-preco.jpg", "As faixas de 12x entram em cascata; a mão escolhe uma.", "12x de R$ 97 a 12x de R$ 5.000"),
+   ("Barra da parcela", "4-formato-g-barra-da-parcela.jpg", "A mão arrasta a barra e o valor da parcela muda ao vivo.", "O seu conhecimento tem valor"),
+   ("Encerramento", "5-potencial-a-conquista-e-audiencias.jpg", "Banner de conquista e card \"Próxima seção: Seu potencial\".", "Você não está sozinho nisso"),
   ]},
- {"n": 5, "key": "potencial", "nome": "Seu potencial", "fundo": "dark",
-  "objetivo": "Mostrar quanto a primeira turma pode faturar e o valor que vem só da base que já confia na pessoa. Deixar claro que é projeção.",
+ {"n": 5, "key": "potencial", "nome": "Seu potencial", "fundo": "escuro",
+  "porque": "Mostra quanto a primeira turma pode faturar com quem já conhece a pessoa, com a conta visível. Deixa claro que é projeção, não promessa.",
+  "narracao": [
+   "Esta é a seção que mais surpreende. Você vai ver quanto a primeira turma pode faturar com quem já te conhece.",
+   "Em base quente, coloque quantas pessoas já foram seus alunos, pacientes ou clientes. Elas já confiam em você. A referência da FEX é três por cento de conversão.",
+   "Em audiência fria, entram os seus seguidores, a sua lista de e-mail e os seus contatos. Aqui a referência é zero vírgula três por cento. Você pode mudar as duas, e a conta aparece embaixo de cada barra.",
+   "Agora olhe o número verde: é o potencial da sua primeira turma. É uma projeção feita com os seus números, não uma promessa. E começar pequeno é normal: a primeira turma costuma vir de poucas pessoas que já confiam em você.",
+   "Gostou do número? Então vamos planejar o lançamento.",
+  ],
   "cenas": [
-   {"t": "Vinheta", "fixo": 3.5, "narr": "", "vis": "Vinheta escura: \"Seção 5 de 7 · SEU POTENCIAL\".", "per": "Gê entra.", "txt": "Seção 5 de 7 · SEU POTENCIAL", "som": "Whoosh.",
-    "frame": {"bg": "dark", "word": "SEU POTENCIAL", "pose": "acenando", "sub": "Seção 5 de 7"}},
-   {"t": "Por que importa", "narr": "Esta é a seção que mais surpreende. Você vai ver quanto a primeira turma pode faturar com quem já te conhece.",
-    "vis": "Um gráfico de barras desenhado cresce atrás do Gê.", "per": "Gê surpreso olhando o gráfico.", "txt": "Quanto a 1ª turma pode faturar?", "som": "Barras subindo.",
-    "frame": {"bg": "dark", "word": "R$ ?", "pose": "surpreso", "sub": "O potencial da sua primeira turma"}},
-   {"t": "Base quente", "narr": "Em base quente, coloque quantas pessoas já foram seus alunos, pacientes ou clientes. Elas já confiam em você.",
-    "vis": "Um grupo de pessoinhas com um brilho verde em volta (confiança). A mão arrasta o controle da base quente no app.",
-    "per": "Gê abraçando o grupo.", "txt": "Base quente = quem já confia em você", "som": "Arraste do controle.", "tela": "05-potencial-1-audiencia.jpg"},
-   {"t": "Audiência fria", "narr": "Em audiência fria, entram os seus seguidores, a sua lista de e-mail e os seus contatos.",
-    "vis": "Ícones genéricos de redes, e-mail e agenda flutuam como bolhas e entram no segundo controle.", "per": "Gê com um binóculo.", "txt": "Audiência fria = quem te acompanha", "som": "Bolhas.", "tela": "05-potencial-1-audiencia.jpg"},
-   {"t": "Resultado", "narr": "Agora olhe o número verde: é o potencial da sua primeira turma. E a frase embaixo mostra quanto vem só da base quente, sem gastar nada com anúncio. É o dinheiro que já está na sua mesa.",
-    "vis": "Zoom no card verde: o contador sobe. Depois, a frase de baixo é sublinhada à mão em verde. Plano final: uma mesa desenhada com uma pilha de contratos (folhas com um check), nada de dinheiro voando.",
-    "per": "Gê comemorando.", "txt": "Projeção com os seus números, não é garantia.", "som": "Contador + \"ding\".",
-    "frame": {"bg": "dark", "word": "NA SUA MESA", "pose": "comemorando", "sub": "Projeção com os seus números, não é garantia"}},
-   {"t": "Encerramento", "narr": "Gostou do número? Então vamos planejar o lançamento.",
-    "vis": "Barra verde revela \"Próxima seção: Lançamento\".", "per": "Gê aponta.", "txt": "Próxima seção: Lançamento", "som": "Whoosh.",
-    "frame": {"bg": "dark", "word": "CONTINUAR", "pose": "apontando", "sub": "Próxima seção: Lançamento"}},
+   ("Vinheta", "", "Vinheta escura: \"Seção 5 de 7 · SEU POTENCIAL\".", "SEU POTENCIAL"),
+   ("Por que importa", "", "Um gráfico de barras se desenha atrás do Gênio, que fica surpreso.", "Quanto a 1ª turma pode faturar?"),
+   ("Base quente", "5-potencial-a-conquista-e-audiencias.jpg", "Grupo de pessoinhas com brilho verde (confiança). A mão arrasta a barra; a conta \"800 pessoas × 3% = 24 matrículas\" aparece com destaque.", "Base quente: 3%"),
+   ("Audiência fria", "5-potencial-a-conquista-e-audiencias.jpg", "Ícones de redes, e-mail e agenda flutuam como bolhas e entram na segunda barra; a conta com 0,3% aparece.", "Audiência fria: 0,3%"),
+   ("Resultado", "5-potencial-b-resultado.jpg", "Zoom no card verde: o valor conta até o número. Uma etiqueta discreta: \"projeção, não promessa\".", "Projeção com os seus números"),
+   ("Encerramento", "6-lancamento-a-conquista-e-campanhas.jpg", "Banner de conquista e card \"Próxima seção: Lançamento\".", "Vale a pena começar"),
   ]},
- {"n": 6, "key": "lancamento", "nome": "Lançamento", "fundo": "light",
-  "objetivo": "Ajudar a escolher o modelo de campanha e marcar a aula magna, entendendo os 90 dias de implantação.",
+ {"n": 6, "key": "lancamento", "nome": "Lançamento", "fundo": "claro",
+  "porque": "Escolher como abrir as matrículas e marcar o início da turma. O registro com a FEX leva até 30 dias.",
+  "narracao": [
+   "Curso pronto que ninguém conhece não vira turma. Aqui você escolhe como vai abrir as matrículas e quando a primeira turma começa.",
+   "Não existe um jeito certo. Tem base de alunos? Campanha interna. Tem audiência nas redes? Aula ao vivo. Base pequena e engajada? Lançamento relâmpago no WhatsApp. Também dá para aproveitar datas como Black Friday, Natal e Ano Novo, nas campanhas sazonais.",
+   "Depois, marque a data de início da turma. O registro do curso com a Faculdade FEX Educação leva até trinta dias, por isso a data mínima é daqui a trinta dias. A ferramenta já mostra quando as suas matrículas abrem.",
+   "Ninguém se sente cem por cento pronto. Marcar a data é o que transforma vontade em projeto. Vamos para o último passo.",
+  ],
   "cenas": [
-   {"t": "Vinheta", "fixo": 3.5, "narr": "", "vis": "Vinheta clara: \"Seção 6 de 7 · LANÇAMENTO\".", "per": "Gê entra com um megafone.", "txt": "Seção 6 de 7 · LANÇAMENTO", "som": "Whoosh.",
-    "frame": {"bg": "light", "word": "LANÇAMENTO", "pose": "acenando", "sub": "Seção 6 de 7"}},
-   {"t": "Por que importa", "narr": "Curso pronto que ninguém conhece não vira turma. Aqui você escolhe como vai abrir as matrículas e marca a data da aula magna.",
-    "vis": "Uma porta desenhada com a placa \"Matrículas\" se abre e entra luz verde.", "per": "Gê abre a porta.", "txt": "Como abrir as matrículas", "som": "Porta abrindo.",
-    "frame": {"bg": "light", "word": "MATRÍCULAS", "pose": "explicando", "sub": "Como você vai abrir a primeira turma"}},
-   {"t": "Modelo de campanha", "narr": "Não existe um jeito certo. Tem base de alunos? Campanha interna. Tem audiência nas redes? Aula magna ao vivo. Base pequena e engajada? Lançamento relâmpago no WhatsApp. Escolha o que tem mais a ver com você hoje.",
-    "vis": "Os 6 cards do app passam como um carrossel. Cada vez que a narração cita um modelo, o card correspondente sobe e acende. A mão escolhe \"Aula magna ao vivo\".",
-    "per": "Gê de apresentador, apontando para cada card.", "txt": "Escolha o que combina com você hoje", "som": "Tick a cada card.", "tela": "06-lancamento-1-campanha.jpg"},
-   {"t": "Aula magna", "narr": "Depois, marque a aula magna, a abertura oficial da turma. A implantação com a Faculdade FEX Educação® leva noventa dias, por isso a data mínima é daqui a noventa dias. E a ferramenta já mostra quando as suas matrículas abrem.",
-    "vis": "Calendário desenhado: 90 quadradinhos se preenchem de verde rapidamente. Um marcador \"Matrículas abrem\" e uma estrela \"Aula magna\" aparecem. Corte para a tela do app com a data e a frase destacada.",
-    "per": "Gê circula a data com um pincel verde.", "txt": "90 dias até a aula magna", "som": "Ticks rápidos + \"ding\".", "tela": "06-lancamento-2-magna.jpg"},
-   {"t": "Encerramento", "narr": "Data marcada é projeto de verdade. Vamos para o último passo.",
-    "vis": "Barra verde revela \"Próxima seção: Envio\".", "per": "Gê acena.", "txt": "Próxima seção: Envio", "som": "Whoosh.",
-    "frame": {"bg": "light", "word": "DATA MARCADA", "pose": "comemorando", "sub": "Próxima seção: Envio"}},
+   ("Vinheta", "", "Vinheta em areia: \"Seção 6 de 7 · LANÇAMENTO\". O Gênio entra com um megafone.", "LANÇAMENTO"),
+   ("Por que importa", "", "Uma porta com a placa \"Matrículas\" se abre e entra luz verde.", "Como abrir as matrículas"),
+   ("Campanhas", "6-lancamento-a-conquista-e-campanhas.jpg", "Os 6 cards passam em carrossel; cada um acende quando a narração cita. Mini ícones de Black Friday, Natal e Ano Novo no card de campanhas sazonais.", "Escolha o que combina com você hoje"),
+   ("Início da turma", "6-lancamento-b-inicio-da-turma.jpg", "Calendário: 30 quadradinhos se preenchem (registro). Marcador \"Matrículas abrem\" e estrela \"Turma 1\".", "Registro em até 30 dias"),
+   ("Encerramento", "7-envio-a-conquista-e-contato.jpg", "Banner de conquista e card \"Próxima seção: Envio\".", "Data marcada é projeto de verdade"),
   ]},
- {"n": 7, "key": "envio", "nome": "Envio", "fundo": "dark",
-  "objetivo": "Pedir o contato, mostrar a prévia gratuita, apresentar o plano completo de R$ 97 e o próximo passo com o especialista FEX.",
+ {"n": 7, "key": "envio", "nome": "Envio", "fundo": "escuro",
+  "porque": "Deixar o contato, ver o curso montado de graça, conhecer o plano completo de R$ 97 e o próximo passo com o Plano Bronze.",
+  "narracao": [
+   "Último passo! Aqui você deixa o seu contato e vê o seu curso montado na sua frente.",
+   "Escreva o seu e-mail e o seu WhatsApp. É para lá que vai o seu plano, e é por onde um especialista da FEX pode falar com você, se você quiser.",
+   "Clique em Ver meu curso pronto. A ferramenta organiza tudo o que você contou e mostra a capa do seu curso, os módulos, as primeiras aulas e o potencial da primeira turma. Tudo isso de graça. Você já sabia tudo isso. Agora está organizado.",
+   "Quer o resto? O plano completo libera todas as aulas, o roteiro de gravação, o funil de vendas, o texto da sua página e o cronograma até a primeira turma, por noventa e sete reais.",
+   "E no final do plano, um especialista da Faculdade FEX Educação te mostra como transformar o seu curso em extensão universitária, com o Plano Bronze. Agora é com você!",
+  ],
   "cenas": [
-   {"t": "Vinheta", "fixo": 3.5, "narr": "", "vis": "Vinheta escura: \"Seção 7 de 7 · ENVIO\".", "per": "Gê entra segurando um envelope verde.", "txt": "Seção 7 de 7 · ENVIO", "som": "Whoosh.",
-    "frame": {"bg": "dark", "word": "ENVIO", "pose": "acenando", "sub": "Seção 7 de 7"}},
-   {"t": "Por que importa", "narr": "Último passo! Aqui você deixa o seu contato e vê o seu curso montado na sua frente.",
-    "vis": "O envelope abre e de dentro sai a capa de um curso.", "per": "Gê animado.", "txt": "Seu curso montado", "som": "Papel.",
-    "frame": {"bg": "dark", "word": "ÚLTIMO PASSO", "pose": "explicando", "sub": "Seu curso montado na sua frente"}},
-   {"t": "Contato", "narr": "Escreva o seu e-mail e o seu WhatsApp. É para lá que vai o seu plano, e é por onde um especialista da FEX pode falar com você, se você quiser.",
-    "vis": "Tela de contato, digitação nos campos. A caixa de consentimento recebe o check.", "per": "Gê segurando um celular.", "txt": "Seu plano vai para o seu contato", "som": "Digitação.", "tela": "07-envio-1-contato.jpg"},
-   {"t": "Montagem", "narr": "Clique em Ver meu curso pronto. A ferramenta organiza tudo o que você contou...",
-    "vis": "Tela de análise: a esfera verde pulsa e a lista ganha checks um a um (acelerar se precisar).", "per": "Gê com os olhos fechados, concentrado, mãos brilhando.", "txt": "Organizando…", "som": "Ticks de checklist.", "tela": "07-envio-2-analise.jpg"},
-   {"t": "Prévia", "narr": "...e pronto: a capa do seu curso, as disciplinas, as primeiras aulas e o potencial da primeira turma. Tudo isso de graça.",
-    "vis": "A capa do curso entra com inclinação 3D. A câmera desce pela matriz e abre a primeira disciplina mostrando as aulas.", "per": "Gê comemorando.", "txt": "Grátis", "som": "Revelação.", "tela": "07-envio-3-previa.jpg"},
-   {"t": "Plano completo", "narr": "Quer o resto? O plano completo libera todas as aulas, o roteiro de gravação, o funil de vendas, o texto da sua página e o cronograma até a aula magna, por noventa e sete reais.",
-    "vis": "Os cards com cadeado se abrem um a um (cadeado salta e some). Termina no botão \"Desbloquear plano completo por R$ 97\".", "per": "Gê girando uma chave.", "txt": "Plano completo · R$ 97", "som": "Cadeados abrindo.", "tela": "07-envio-5-previa-desbloquear.jpg"},
-   {"t": "Próximo passo", "narr": "E no final do plano, um especialista da Faculdade FEX Educação® te ajuda a transformar tudo isso em uma pós-graduação com validade acadêmica. Agora é com você!",
-    "vis": "Botão verde gigante pulsando com o ícone do WhatsApp. Confete verde. Fecha com o logo FEX Educação e #sejaFEX.", "per": "Gê comemorando, depois acena para a câmera.", "txt": "Faculdade FEX Educação® · #sejaFEX", "som": "Acorde final.",
-    "frame": {"bg": "dark", "word": "#sejaFEX", "pose": "comemorando", "sub": "Fale com o especialista FEX"}},
+   ("Vinheta", "", "Vinheta escura: \"Seção 7 de 7 · ENVIO\". O Gênio segura um envelope verde.", "ENVIO"),
+   ("Contato", "7-envio-b-contato-preenchido.jpg", "Digitação nos campos de e-mail e WhatsApp; a caixa de consentimento recebe o check.", "Seu plano vai para o seu contato"),
+   ("Organizando", "7-envio-c-organizando.jpg", "A esfera verde pulsa e a lista ganha checks um a um.", ""),
+   ("Prévia", "7-envio-d-previa-capa.jpg", "A capa do curso entra com inclinação 3D; a câmera desce até os módulos.", "Grátis"),
+   ("Módulos", "7-envio-e-previa-modulos.jpg", "O primeiro módulo abre e mostra as aulas (as perguntas da pessoa).", "Você já sabia. Agora está organizado"),
+   ("Plano completo", "7-envio-f-previa-desbloquear.jpg", "Os cadeados dos cards saltam e somem um a um; termina no botão \"Desbloquear por R$ 97\".", "Plano completo · R$ 97"),
+   ("Plano Bronze", "7-envio-j-plano-bronze-card.jpg", "O card do Plano Bronze entra com borda verde girando; os itens aparecem em sequência.", "Curso livre → extensão universitária"),
+   ("Especialista", "7-envio-k-botao-especialista.jpg", "O botão verde gigante pulsa com o ícone do WhatsApp. Confete verde. Fecha com o logo FEX e #sejaFEX.", "Agora é com você!"),
   ]},
 ]
 
-def dur(c):
-    return c.get("fixo") or round(len(c["narr"].split()) / WPS + 1.2, 1)
 
-def tc(sec):
-    return f"{int(sec // 60)}:{int(sec % 60):02d}"
+def palavras(s): return len(s.split())
+def dur(s): return round(sum(palavras(p) for p in s["narracao"]) / WPS + 6)
 
-def total(s):
-    return sum(dur(c) for c in s["cenas"])
 
-def thumb(name):
-    im = Image.open(TELAS / name).convert("RGB")
-    im.thumbnail((720, 720))
-    buf = io.BytesIO(); im.save(buf, "JPEG", quality=72)
-    return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
+def prompt(s):
+    cenas = "\n".join(f"{i}. {c[0]}: {c[2]}" + (f" Tela: docs/telas/{c[1]}." if c[1] else "") + (f" Texto na tela: \"{c[3]}\"." if c[3] else "") for i, c in enumerate(s["cenas"], 1))
+    narr = " ".join(s["narracao"])
+    return (f"Crie um vídeo tutorial em motion design 2D, 16:9 (1920×1080), com cerca de {dur(s)} segundos, para a seção \"{s['nome']}\" "
+            f"(seção {s['n']} de 7) do aplicativo Crie sua Formação, da Faculdade FEX Educação. O vídeo ensina a pessoa a preencher esta seção e abre "
+            f"com uma introdução curta sobre por que ela importa para a criação do curso.\n\n"
+            f"Objetivo da seção: {s['porque']}\n\n"
+            f"Estilo: telas reais do app dentro de um notebook ou celular desenhado, com zoom no campo da vez, mão-cursor clicando e texto digitado letra a letra; "
+            f"palavras-chave em tipografia animada (Montserrat Bold); ícones e formas se desenhando; mascote Gênio Oculto (gênio verde com capelo de formatura) "
+            f"apontando e reagindo. Fundo {'verde quase preto com textura leve' if s['fundo']=='escuro' else 'areia clara (#F4F2EC)'}. Verde #32CD32, preto #040805, areia #E8E4D9. "
+            f"Vinheta de 3 s com a barra verde do logo FEX revelando \"Seção {s['n']} de 7 · {s['nome'].upper()}\". Ritmo dinâmico: algo se constrói a cada segundo.\n\n"
+            f"Narração (voz feminina, calorosa, encorajadora; o público costuma duvidar de si):\n\"{narr}\"\n\n"
+            f"Cenas, na ordem da narração:\n{cenas}\n\n"
+            f"Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer \"reconhecido pelo MEC\" ou \"chancela\"; "
+            f"não usar \"autoestudo\" nem \"o resto\" para carga horária; números do simulador são projeção, não promessa.")
 
-# ---------------- Markdown ----------------
+
 def markdown():
-    out = ["# Gênio Oculto · Roteiros dos vídeos tutoriais (um por seção)", "",
-           "Sete vídeos curtos, um para cada seção do construtor. Cada vídeo abre com a importância da seção e depois mostra o preenchimento na tela do aplicativo, com o personagem Gê narrando e apontando. Estilo: motion 2D (desenho animado chapado) sobre as telas reais do app.",
-           "", "A versão visual, com as telas e o desenho do personagem, está em `docs/storyboard.html`. As telas de referência estão em `docs/telas/`.", "",
-           "## Como ligar cada vídeo no app", "Suba no YouTube (pode ser não listado) e cole o ID no `CONFIG.VIDEOS` do `index.html`, na chave da seção:", "",
-           "| Seção | Chave | Fundo do vídeo | Duração estimada |", "|---|---|---|---|"]
+    o = ["# Crie sua Formação · Vídeos tutoriais por seção (extensão universitária)", "",
+         "Material para a produção dos 7 vídeos de motion 2D, um por seção do construtor. Cada seção traz o objetivo, a narração final, as cenas com a tela do app e um **prompt pronto** para o produtor.",
+         "", "As telas estão em `docs/telas/` (versão computador e `celular-`), preenchidas com um exemplo genérico.", "",
+         "Depois de prontos, os vídeos entram no `CONFIG.VIDEOS` do `index.html` (ID do YouTube ou MP4 em `assets/videos/`), nas chaves abaixo.", "",
+         "| Seção | Chave | Fundo | Duração estimada |", "|---|---|---|---|"]
+    o += [f"| {s['n']}. {s['nome']} | `{s['key']}` | {s['fundo']} | ~{dur(s)}s |" for s in SECOES]
+    o += ["", "## Direção geral", ""] + [f"- **{k}:** {v}" for k, v in ESTILO] + [""]
     for s in SECOES:
-        out.append(f"| {s['n']}. {s['nome']} | `{s['key']}` | {'Escuro' if s['fundo']=='dark' else 'Claro (areia)'} | ~{round(total(s))}s |")
-    out += ["", "## Direção geral",
-            "- **Formato:** 16:9, 1920×1080 (é o formato do player do app). Opcional: versão 9:16 reaproveitando as cenas para Reels e remarketing.",
-            "- **Voz:** feminina, calorosa e clara, a \"professora que todo mundo queria ter tido\". Ritmo de ~150 palavras por minuto. É a voz do Gê.",
-            "- **Personagem Gê:** gênio da lâmpada em verde FEX, com capelo de formatura, cauda de fumaça em espiral no lugar das pernas, contorno preto e cores chapadas. Inteligente e acolhedor, nunca infantil. Poses: acenando, apontando, explicando, pensando, surpreso, comemorando.",
-            "- **Telas:** use as capturas de `docs/telas/` dentro de um notebook flutuante desenhado (ou em tela cheia com zoom). Mão-cursor 2D branca com contorno preto. Texto digitado aparece letra a letra.",
-            "- **Fundo:** igual à fase no app. Seções 1, 3, 5 e 7 em verde-escuro com textura leve; seções 2, 4 e 6 em areia claro (#F4F2EC).",
-            "- **Transição assinatura:** a barra verde do meio do \"E\" do logo FEX atravessa a tela e revela a cena seguinte.",
-            "- **Tipografia:** Montserrat. Palavras-chave em Bold gigante (VOCÊ, SEU ALUNO…), frases de apoio em Light.",
-            "- **Legendas:** sempre queimadas (muita gente assiste sem som), Montserrat Bold branca em pílula preta 80% opaca, na parte de baixo.",
-            "- **Som:** trilha leve e otimista bem baixa sob a voz; pops em cards, digitação suave, whoosh nas transições, \"ding\" quando algo se completa.",
-            "- **Cores:** verde #32CD32, verde brilho #00D84F, preto #040805, areia #E8E4D9 / #F4F2EC.",
-            "- **Regras de texto:** sempre \"Faculdade FEX Educação®\"; nunca \"reconhecido pelo MEC\" ou \"chancela\"; use \"validade acadêmica\". Valores do simulador são projeção, não garantia.",
-            ""]
-    for s in SECOES:
-        out += [f"## Seção {s['n']} · {s['nome']}  (chave `{s['key']}`, ~{round(total(s))}s, fundo {'escuro' if s['fundo']=='dark' else 'claro'})", "", f"**Objetivo:** {s['objetivo']}", "",
-                "### Narração completa", ""]
-        out.append("> " + "\n>\n> ".join(c["narr"] for c in s["cenas"] if c["narr"]))
-        out += ["", "### Cenas", "", "| # | Tempo | Cena | Narração | Visual | Gê | Texto na tela | Som | Tela |", "|---|---|---|---|---|---|---|---|---|"]
-        t = 0
-        for i, c in enumerate(s["cenas"], 1):
-            d = dur(c)
-            esc = lambda x: x.replace("|", "\\|")
-            out.append(f"| {i} | {tc(t)}–{tc(t+d)} | {esc(c['t'])} | {esc(c['narr']) or '(sem fala)'} | {esc(c['vis'])} | {esc(c['per'])} | {esc(c['txt'])} | {esc(c['som'])} | {('`telas/'+c['tela']+'`') if c.get('tela') else 'quadro desenhado'} |")
-            t += d
-        out.append("")
-    out += ["## Prompt de referência do personagem (para geradores de imagem e vídeo)", "",
-            "```", "2D flat cartoon mascot named \"Gê\": a friendly genie made of bright green (#32CD32) with darker green shading (#1E9E1E), thick black outline, no legs, body tapering into a curled smoke tail, large white oval eyes with black pupils, expressive black eyebrows, simple smile, a black graduation cap (mortarboard) tilted on the head with a light green tassel, thin rounded arms with simple mitten hands. Clean vector style, flat colors, no gradients except subtle shading, modern premium explainer animation look, not childish. Background: dark green textured (#040805) or warm sand (#F4F2EC).", "```", ""]
-    return "\n".join(out)
+        o += [f"## {s['n']}. {s['nome']}  (chave `{s['key']}`, ~{dur(s)}s, fundo {s['fundo']})", "", f"**Por que importa:** {s['porque']}", "", "### Narração", ""]
+        o += ["> " + "\n>\n> ".join(s["narracao"]), "", "### Cenas", "", "| # | Cena | O que acontece | Tela | Texto na tela |", "|---|---|---|---|---|"]
+        o += [f"| {i} | {c[0]} | {c[2]} | {('`telas/'+c[1]+'`') if c[1] else 'animação'} | {c[3]} |" for i, c in enumerate(s["cenas"], 1)]
+        o += ["", "### Prompt para o produtor", "", "```", prompt(s), "```", ""]
+    return "\n".join(o)
 
-# ---------------- HTML ----------------
-def page():
-    data = []
+
+def thumb(nome):
+    im = Image.open(TELAS / nome).convert("RGB"); im.thumbnail((960, 960))
+    b = io.BytesIO(); im.save(b, "JPEG", quality=72)
+    return "data:image/jpeg;base64," + base64.b64encode(b.getvalue()).decode()
+
+
+def pagina():
+    e = html.escape
+    sec = []
     for s in SECOES:
-        t = 0; cenas = []
-        for c in s["cenas"]:
-            d = dur(c); cc = dict(c); cc["ini"] = tc(t); cc["fim"] = tc(t + d)
-            if c.get("tela"): cc["img"] = thumb(c["tela"])
-            cenas.append(cc); t += d
-        data.append({**s, "cenas": cenas, "total": round(t)})
-    tpl = (ROOT / "tools" / "storyboard.tpl.html").read_text(encoding="utf-8")
-    return tpl.replace("/*DATA*/", "const SECOES = " + json.dumps(data, ensure_ascii=False) + ";")
+        cenas = "".join(f"""<li class="cena"><div class="cn">{i:02d}</div><div class="cb"><b>{e(c[0])}</b><p>{e(c[2])}</p>{f'<p class="tx">Texto na tela: “{e(c[3])}”</p>' if c[3] else ''}{f'<p class="arq">docs/telas/{e(c[1])}</p>' if c[1] else '<p class="arq">Animação (sem tela do app)</p>'}</div>{f'<img loading="lazy" src="{thumb(c[1])}" alt="Tela: {e(c[0])}">' if c[1] else '<div class="semtela">animação</div>'}</li>""" for i, c in enumerate(s["cenas"], 1))
+        sec.append(f"""<section class="sec" id="{s['key']}"><div class="sh"><span class="num">{s['n']}</span><div><h2>{e(s['nome'])}</h2><p class="meta">Chave <code>{s['key']}</code> · ~{dur(s)} s · fundo {s['fundo']}</p></div></div>
+<p class="pq">{e(s['porque'])}</p>
+<h3>Narração</h3><blockquote>{''.join(f'<p>{e(p)}</p>' for p in s['narracao'])}</blockquote>
+<h3>Cenas</h3><ol class="cenas">{cenas}</ol>
+<h3>Prompt para o produtor <button class="cp" data-c="p{s['n']}">Copiar prompt</button></h3><pre id="p{s['n']}">{e(prompt(s))}</pre></section>""")
+    nav = "".join(f'<a href="#{s["key"]}">{s["n"]}. {e(s["nome"])}</a>' for s in SECOES)
+    est = "".join(f"<div><b>{e(k)}</b><p>{e(v)}</p></div>" for k, v in ESTILO)
+    return f"""<title>Vídeos Crie sua Formação</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Documento de produção: claro, editorial, com a identidade FEX */
+:root{{--bg:#F4F2EC;--card:#fff;--ink:#0A0F0B;--mut:#585E58;--line:rgba(10,15,11,.12);--g:#32CD32;--gd:#178a17;--dark:#040805;--sand:#E8E4D9;color-scheme:light}}
+*{{box-sizing:border-box}} body{{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Montserrat,system-ui,sans-serif}}
+.wrap{{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+header{{background:var(--dark);color:var(--sand)}} header .wrap{{padding-block:48px 40px}}
+header small{{color:var(--g);font-weight:800;letter-spacing:.24em;text-transform:uppercase;font-size:12px}}
+h1{{font-weight:300;font-size:clamp(32px,5vw,56px);letter-spacing:-.03em;line-height:1.05;margin:14px 0 10px;color:#fff;text-wrap:balance}} h1 b{{font-weight:800}}
+header p{{max-width:70ch;color:#cfd6cf;margin:0}}
+nav{{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}} nav a{{color:var(--sand);text-decoration:none;border:1px solid rgba(232,228,217,.25);border-radius:999px;padding:6px 12px;font-size:14px;font-weight:600}} nav a:hover{{border-color:var(--g);color:#fff}}
+.estilo{{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:32px 0}}
+.estilo div{{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;min-width:0}} .estilo b{{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gd)}} .estilo p{{margin:6px 0 0;font-size:14.5px;color:var(--mut)}}
+.sec{{padding-block:44px;border-top:1px solid var(--line)}}
+.sh{{display:flex;gap:16px;align-items:center}} .num{{flex:none;width:52px;height:52px;border-radius:14px;background:var(--dark);color:var(--g);display:grid;place-items:center;font-weight:800;font-size:22px}}
+h2{{margin:0;font-size:30px;letter-spacing:-.02em}} .meta{{margin:2px 0 0;color:var(--mut);font-size:14px}} code{{background:var(--sand);padding:1px 6px;border-radius:6px;font-size:13px}}
+.pq{{font-size:17px;max-width:72ch}} h3{{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--gd);margin:28px 0 12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}}
+blockquote{{margin:0;background:var(--card);border-left:4px solid var(--g);border-radius:0 14px 14px 0;padding:6px 20px}} blockquote p{{font-size:17px}}
+.cenas{{list-style:none;margin:0;padding:0;display:grid;gap:10px}}
+.cena{{display:grid;grid-template-columns:44px minmax(0,1fr) 320px;gap:16px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}}
+@media (max-width:760px){{.cena{{grid-template-columns:36px minmax(0,1fr)}} .cena img,.cena .semtela{{grid-column:1/-1}}}}
+.cn{{font-weight:800;color:var(--gd)}} .cb b{{font-size:16px}} .cb p{{margin:4px 0 0;font-size:15px}} .tx{{color:var(--ink);font-weight:600}} .arq{{color:var(--mut);font-size:12.5px!important;overflow-wrap:anywhere}}
+.cena img{{width:100%;border-radius:10px;border:1px solid var(--line)}} .semtela{{height:100%;min-height:90px;border-radius:10px;border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--mut);font-size:13px}}
+pre{{white-space:pre-wrap;background:var(--dark);color:#e7ece7;border-radius:14px;padding:18px;font:14px/1.6 Montserrat,system-ui,sans-serif;overflow-wrap:anywhere;margin:0}}
+.cp{{border:0;background:var(--g);color:var(--ink);font:700 13px Montserrat,sans-serif;letter-spacing:0;text-transform:none;border-radius:999px;padding:7px 14px;cursor:pointer}}
+footer{{padding-block:30px 50px;color:var(--mut);font-size:14px}}
+</style>
+<header><div class="wrap"><small>Faculdade FEX Educação · Crie sua Formação</small><h1>Vídeos tutoriais <b>por seção</b></h1>
+<p>Material para o produtor de motion 2D: objetivo, narração final, cenas com a tela do app e um prompt pronto para cada uma das 7 seções. As telas em tamanho original estão no repositório, em docs/telas.</p><nav>{nav}</nav></div></header>
+<main class="wrap"><div class="estilo">{est}</div>{''.join(sec)}</main>
+<footer class="wrap">Gerado a partir de tools/roteiros.py · #sejaFEX</footer>
+<script>document.addEventListener("click",e=>{{const b=e.target.closest(".cp");if(!b)return;const t=document.getElementById(b.dataset.c).textContent;const ok=()=>{{b.textContent="Copiado";setTimeout(()=>b.textContent="Copiar prompt",1600)}};try{{navigator.clipboard.writeText(t).then(ok).catch(()=>{{const r=document.createRange();r.selectNodeContents(document.getElementById(b.dataset.c));getSelection().removeAllRanges();getSelection().addRange(r)}})}}catch(_ ){{}}}});</script>
+"""
+
 
 if __name__ == "__main__":
     (ROOT / "docs" / "ROTEIROS-VIDEOS.md").write_text(markdown(), encoding="utf-8")
-    (ROOT / "docs" / "storyboard.html").write_text(page(), encoding="utf-8")
-    for s in SECOES: print(s["key"], round(total(s)), "s")
+    (ROOT / "dist").mkdir(exist_ok=True)
+    (ROOT / "dist" / "roteiros.html").write_text(pagina(), encoding="utf-8")
+    for s in SECOES: print(s["n"], s["nome"], f"~{dur(s)}s", sum(1 for c in s["cenas"] if c[1]), "telas")

@@ -1,235 +1,399 @@
-# Gênio Oculto · Roteiros dos vídeos tutoriais (um por seção)
+# Crie sua Formação · Vídeos tutoriais por seção (extensão universitária)
 
-Sete vídeos curtos, um para cada seção do construtor. Cada vídeo abre com a importância da seção e depois mostra o preenchimento na tela do aplicativo, com o personagem Gê narrando e apontando. Estilo: motion 2D (desenho animado chapado) sobre as telas reais do app.
+Material para a produção dos 7 vídeos de motion 2D, um por seção do construtor. Cada seção traz o objetivo, a narração final, as cenas com a tela do app e um **prompt pronto** para o produtor.
 
-A versão visual, com as telas e o desenho do personagem, está em `docs/storyboard.html`. As telas de referência estão em `docs/telas/`.
+As telas estão em `docs/telas/` (versão computador e `celular-`), preenchidas com um exemplo genérico.
 
-## Como ligar cada vídeo no app
-Suba no YouTube (pode ser não listado) e cole o ID no `CONFIG.VIDEOS` do `index.html`, na chave da seção:
+Depois de prontos, os vídeos entram no `CONFIG.VIDEOS` do `index.html` (ID do YouTube ou MP4 em `assets/videos/`), nas chaves abaixo.
 
-| Seção | Chave | Fundo do vídeo | Duração estimada |
+| Seção | Chave | Fundo | Duração estimada |
 |---|---|---|---|
-| 1. Você | `voce` | Escuro | ~72s |
-| 2. Seu aluno | `aluno` | Claro (areia) | ~57s |
-| 3. Seu método | `metodo` | Escuro | ~66s |
-| 4. Seu formato | `formato` | Claro (areia) | ~66s |
-| 5. Seu potencial | `potencial` | Escuro | ~50s |
-| 6. Lançamento | `lancamento` | Claro (areia) | ~53s |
-| 7. Envio | `envio` | Escuro | ~69s |
+| 1. Você | `voce` | escuro | ~76s |
+| 2. Seu aluno | `aluno` | claro | ~57s |
+| 3. Seu método | `metodo` | escuro | ~55s |
+| 4. Seu formato | `formato` | claro | ~66s |
+| 5. Seu potencial | `potencial` | escuro | ~63s |
+| 6. Lançamento | `lancamento` | claro | ~58s |
+| 7. Envio | `envio` | escuro | ~71s |
 
 ## Direção geral
-- **Formato:** 16:9, 1920×1080 (é o formato do player do app). Opcional: versão 9:16 reaproveitando as cenas para Reels e remarketing.
-- **Voz:** feminina, calorosa e clara, a "professora que todo mundo queria ter tido". Ritmo de ~150 palavras por minuto. É a voz do Gê.
-- **Personagem Gê:** gênio da lâmpada em verde FEX, com capelo de formatura, cauda de fumaça em espiral no lugar das pernas, contorno preto e cores chapadas. Inteligente e acolhedor, nunca infantil. Poses: acenando, apontando, explicando, pensando, surpreso, comemorando.
-- **Telas:** use as capturas de `docs/telas/` dentro de um notebook flutuante desenhado (ou em tela cheia com zoom). Mão-cursor 2D branca com contorno preto. Texto digitado aparece letra a letra.
-- **Fundo:** igual à fase no app. Seções 1, 3, 5 e 7 em verde-escuro com textura leve; seções 2, 4 e 6 em areia claro (#F4F2EC).
-- **Transição assinatura:** a barra verde do meio do "E" do logo FEX atravessa a tela e revela a cena seguinte.
-- **Tipografia:** Montserrat. Palavras-chave em Bold gigante (VOCÊ, SEU ALUNO…), frases de apoio em Light.
-- **Legendas:** sempre queimadas (muita gente assiste sem som), Montserrat Bold branca em pílula preta 80% opaca, na parte de baixo.
-- **Som:** trilha leve e otimista bem baixa sob a voz; pops em cards, digitação suave, whoosh nas transições, "ding" quando algo se completa.
-- **Cores:** verde #32CD32, verde brilho #00D84F, preto #040805, areia #E8E4D9 / #F4F2EC.
-- **Regras de texto:** sempre "Faculdade FEX Educação®"; nunca "reconhecido pelo MEC" ou "chancela"; use "validade acadêmica". Valores do simulador são projeção, não garantia.
 
-## Seção 1 · Você  (chave `voce`, ~72s, fundo escuro)
+- **Formato:** 16:9, 1920×1080, 30 fps. Entre 45 e 75 segundos por vídeo. O vídeo abre dentro do próprio app, num player 16:9.
+- **Linguagem:** Motion design 2D: as telas reais do app (pasta docs/telas) aparecem num notebook ou celular desenhado, com zoom no campo da vez, mão-cursor clicando e texto sendo digitado letra a letra. Palavras-chave da narração viram tipografia animada. Ícones e formas se desenhando entre as telas. Nada de tela parada: a cada segundo algo se constrói.
+- **Personagem:** O Gênio Oculto (opcional): mascote 2D em verde FEX, com capelo de formatura e cauda de fumaça no lugar das pernas, contorno preto, cores chapadas. Acolhedor, nunca infantil. Aparece na abertura, aponta para o campo da vez e comemora no fim de cada seção.
+- **Fundo:** Igual à fase no app: seções 1, 3, 5 e 7 em verde quase preto com textura leve de granulado; seções 2, 4 e 6 em areia clara (#F4F2EC). Sem faixas de luz exageradas.
+- **Cores e fonte:** Verde #32CD32, verde brilho #00D84F, preto #040805, areia #E8E4D9. Montserrat: palavras-chave em Bold grande, frases em Light.
+- **Abertura e transição:** Vinheta de 3 s: a barra verde do meio do "E" do logo FEX atravessa a tela e revela "Seção N de 7 · NOME". Use a mesma barra verde como transição entre cenas.
+- **Encerramento:** Toda seção termina com a mensagem de conquista que o app mostra (está em cada roteiro) e o card "Próxima seção: ...".
+- **Voz:** Feminina, calorosa e clara, ritmo de conversa. Tom de quem acredita na pessoa: o público duvida de si (síndrome do impostor, medo de julgamento, medo de ser enganado). Encorajar sem exagerar e sem prometer resultado.
+- **Som:** Trilha leve e otimista bem baixa sob a voz. Pop quando um card aparece, digitação suave, whoosh na transição, "ding" quando algo se completa.
+- **Legendas:** Recomendadas (muita gente assiste no celular): Montserrat Bold branca em pílula preta, na parte de baixo.
+- **Regras de texto:** Sempre "Faculdade FEX Educação". Falar em extensão universitária, nunca em pós-graduação ou MBA. Nunca dizer "reconhecido pelo MEC", "chancela" ou "certificação MEC". Na carga horária, nunca usar "autoestudo" nem "o resto". Valores do simulador são projeção, não garantia.
 
-**Objetivo:** Mostrar que o curso nasce da experiência da pessoa e ensinar as 4 primeiras respostas: nome, área, anos de prática e as perguntas que ela mais ouve.
+## 1. Você  (chave `voce`, ~76s, fundo escuro)
 
-### Narração completa
+**Por que importa:** O curso nasce da experiência da pessoa. Aqui ela conta quem é, a área, os anos de prática e no mínimo 7 perguntas que sempre ouve. Cada pergunta vira uma aula.
 
-> Oi! Eu sou o Gê, e vou te acompanhar na criação do seu curso. Esta primeira seção é sobre a parte mais importante dele: você. O seu curso nasce da sua experiência, e isso ninguém consegue copiar.
+### Narração
+
+> Oi! Eu sou o Gênio Oculto, e vou te acompanhar na criação da sua formação. Esta primeira seção é sobre a parte mais importante dela: você. O seu curso nasce da sua experiência, e isso ninguém consegue copiar.
 >
 > Primeiro, escreva o seu nome e sobrenome. É ele que assina o curso como especialista responsável.
 >
-> Depois, a sua área. Pode ser ampla ou bem específica, e quanto mais específica, mais fácil de vender. Se ela estiver nos botões, é só clicar.
+> Depois, a sua área. Pode ser ampla ou bem específica. Se ela estiver nos botões, é só clicar.
 >
-> Agora, arraste a barra até os seus anos de experiência. Repare no número que aparece: são milhares de horas de prática. Uma pós-graduação inteira tem trezentas e sessenta.
+> Agora, arraste a barra até os seus anos de experiência. Repare no número que aparece: são milhares de horas de prática. E experiência não precisa de diploma para valer.
 >
-> E aqui mora o seu gênio oculto: o que as pessoas sempre te perguntam? Escreva uma por linha, do jeito que você ouve no dia a dia. Cada pergunta dessas é uma aula esperando para ser gravada.
+> E aqui mora o seu gênio oculto: o que as pessoas sempre te perguntam? Escreva no mínimo sete perguntas, uma por linha, do jeito que você ouve no dia a dia. Não existe pergunta boba. Cada uma vira uma aula, e a gente organiza tudo em módulos para você. Se travar, clique em Sugerir com IA.
 >
 > Pronto! Clique em Continuar e vamos conhecer o seu aluno.
 
 ### Cenas
 
-| # | Tempo | Cena | Narração | Visual | Gê | Texto na tela | Som | Tela |
-|---|---|---|---|---|---|---|---|---|
-| 1 | 0:00–0:03 | Vinheta | (sem fala) | Fundo verde-escuro com textura. A barra verde do logo FEX atravessa a tela da esquerda para a direita e, por onde passa, revela o selo "Seção 1 de 7" e a palavra VOCÊ em Montserrat Bold gigante. | Gê surge de uma espiral de fumaça verde no canto direito e acena. | Seção 1 de 7 · VOCÊ | Whoosh curto + nota de abertura. | quadro desenhado |
-| 2 | 0:03–0:19 | Por que importa | Oi! Eu sou o Gê, e vou te acompanhar na criação do seu curso. Esta primeira seção é sobre a parte mais importante dele: você. O seu curso nasce da sua experiência, e isso ninguém consegue copiar. | Gê no centro. Quando a narração diz "você", ele aponta para a câmera e a palavra VOCÊ pulsa atrás dele. Três ícones orbitam o Gê: maleta (área), relógio (anos), balão de fala (perguntas). | Apontando para a câmera, depois mão no peito em "isso ninguém consegue copiar". | Seu curso nasce da sua experiência | Pop leve em cada ícone. | quadro desenhado |
-| 3 | 0:19–0:27 | Nome | Primeiro, escreva o seu nome e sobrenome. É ele que assina o curso como especialista responsável. | Tela do app dentro de um notebook flutuando. Zoom no campo Nome. A mão-cursor clica e o texto "Carla Exemplo" aparece letra a letra. Corte rápido para o painel "Seu curso, ao vivo": o nome surge num chip. | Gê pequeno no canto segurando um crachá em branco que ganha o nome. | Seu nome assina o curso | Digitação suave. | `telas/01-voce-1-nome.jpg` |
-| 4 | 0:27–0:38 | Área | Depois, a sua área. Pode ser ampla ou bem específica, e quanto mais específica, mais fácil de vender. Se ela estiver nos botões, é só clicar. | Zoom no campo de área, digitação de "Sua área". Os botões de atalho embaixo acendem em cascata, um por um. No painel ao lado, o título do curso aparece sozinho. | Gê com uma lupa sobre os botões. | Quanto mais específica, mais fácil de vender | Ticks em cascata nos botões. | `telas/01-voce-2-area.jpg` |
-| 5 | 0:38–0:51 | Anos de experiência | Agora, arraste a barra até os seus anos de experiência. Repare no número que aparece: são milhares de horas de prática. Uma pós-graduação inteira tem trezentas e sessenta. | A mão arrasta o controle. O contador de horas sobe rápido. Ao lado, uma pilha de relógios cresce até ficar maior que um único bloco escrito "360h". | Gê de queixo caído (pose surpreso). | Milhares de horas × 360h | Contador subindo + "ding". | `telas/01-voce-3-anos.jpg` |
-| 6 | 0:51–1:07 | Perguntas | E aqui mora o seu gênio oculto: o que as pessoas sempre te perguntam? Escreva uma por linha, do jeito que você ouve no dia a dia. Cada pergunta dessas é uma aula esperando para ser gravada. | Balões de fala saem de vários celulares desenhados e caem dentro do campo, virando linhas de texto. Em seguida cada linha se transforma num mini-card com um ícone de play escrito "Aula". | Gê pensando, depois sorriso quando os cards viram aulas. | Cada pergunta é uma aula | Pops dos balões. | `telas/01-voce-4-perguntas.jpg` |
-| 7 | 1:07–1:12 | Encerramento | Pronto! Clique em Continuar e vamos conhecer o seu aluno. | O botão Continuar pulsa em verde. A barra verde do logo passa e revela o card "Próxima seção: Seu aluno". | Gê aponta para o botão e acena. | Próxima seção: Seu aluno | Whoosh de saída. | quadro desenhado |
+| # | Cena | O que acontece | Tela | Texto na tela |
+|---|---|---|---|---|
+| 1 | Vinheta | Barra verde do logo revela "Seção 1 de 7 · VOCÊ". O Gênio surge de uma espiral de fumaça e acena. | animação | VOCÊ |
+| 2 | Por que importa | A palavra VOCÊ cresce atrás do Gênio, que aponta para a câmera. Ícones orbitam: maleta (área), relógio (anos), balão de fala (perguntas). | animação | Seu curso nasce da sua experiência |
+| 3 | Nome | Zoom no campo Nome. A mão-cursor clica e "Carla Exemplo" é digitado letra a letra. | `telas/1-voce-a-nome.jpg` | Seu nome assina o curso |
+| 4 | Área | Digitação de "Sua área". Os botões de atalho acendem em cascata. | `telas/1-voce-b-area.jpg` |  |
+| 5 | Anos | A mão arrasta a barra. O contador de horas sobe rápido; ao lado, uma pilha de relógios cresce. | `telas/1-voce-c-anos.jpg` | Milhares de horas de prática |
+| 6 | Perguntas | Três perguntas digitadas. O contador mostra "3 de 7 · faltam 4" e a barrinha verde avança. | `telas/1-voce-d-perguntas-3-de-7.jpg` | No mínimo 7 perguntas |
+| 7 | Cada pergunta vira aula | Clique em Sugerir com IA: as perguntas completam a lista e o contador fica verde. Cada linha se transforma num mini-card com ícone de play escrito "Aula". | `telas/1-voce-e-perguntas-ok.jpg` | Não existe pergunta boba |
+| 8 | Encerramento | Mostra o banner verde de conquista da seção. Card "Próxima seção: Seu aluno". | `telas/2-aluno-a-conquista-e-aluno-ideal.jpg` | Você acabou de mostrar as aulas que só você sabe dar |
 
-## Seção 2 · Seu aluno  (chave `aluno`, ~57s, fundo claro)
+### Prompt para o produtor
 
-**Objetivo:** Fazer a pessoa escolher um aluno ideal concreto e escrever uma promessa que dá para enxergar acontecendo.
+```
+Crie um vídeo tutorial em motion design 2D, 16:9 (1920×1080), com cerca de 76 segundos, para a seção "Você" (seção 1 de 7) do aplicativo Crie sua Formação, da Faculdade FEX Educação. O vídeo ensina a pessoa a preencher esta seção e abre com uma introdução curta sobre por que ela importa para a criação do curso.
 
-### Narração completa
+Objetivo da seção: O curso nasce da experiência da pessoa. Aqui ela conta quem é, a área, os anos de prática e no mínimo 7 perguntas que sempre ouve. Cada pergunta vira uma aula.
+
+Estilo: telas reais do app dentro de um notebook ou celular desenhado, com zoom no campo da vez, mão-cursor clicando e texto digitado letra a letra; palavras-chave em tipografia animada (Montserrat Bold); ícones e formas se desenhando; mascote Gênio Oculto (gênio verde com capelo de formatura) apontando e reagindo. Fundo verde quase preto com textura leve. Verde #32CD32, preto #040805, areia #E8E4D9. Vinheta de 3 s com a barra verde do logo FEX revelando "Seção 1 de 7 · VOCÊ". Ritmo dinâmico: algo se constrói a cada segundo.
+
+Narração (voz feminina, calorosa, encorajadora; o público costuma duvidar de si):
+"Oi! Eu sou o Gênio Oculto, e vou te acompanhar na criação da sua formação. Esta primeira seção é sobre a parte mais importante dela: você. O seu curso nasce da sua experiência, e isso ninguém consegue copiar. Primeiro, escreva o seu nome e sobrenome. É ele que assina o curso como especialista responsável. Depois, a sua área. Pode ser ampla ou bem específica. Se ela estiver nos botões, é só clicar. Agora, arraste a barra até os seus anos de experiência. Repare no número que aparece: são milhares de horas de prática. E experiência não precisa de diploma para valer. E aqui mora o seu gênio oculto: o que as pessoas sempre te perguntam? Escreva no mínimo sete perguntas, uma por linha, do jeito que você ouve no dia a dia. Não existe pergunta boba. Cada uma vira uma aula, e a gente organiza tudo em módulos para você. Se travar, clique em Sugerir com IA. Pronto! Clique em Continuar e vamos conhecer o seu aluno."
+
+Cenas, na ordem da narração:
+1. Vinheta: Barra verde do logo revela "Seção 1 de 7 · VOCÊ". O Gênio surge de uma espiral de fumaça e acena. Texto na tela: "VOCÊ".
+2. Por que importa: A palavra VOCÊ cresce atrás do Gênio, que aponta para a câmera. Ícones orbitam: maleta (área), relógio (anos), balão de fala (perguntas). Texto na tela: "Seu curso nasce da sua experiência".
+3. Nome: Zoom no campo Nome. A mão-cursor clica e "Carla Exemplo" é digitado letra a letra. Tela: docs/telas/1-voce-a-nome.jpg. Texto na tela: "Seu nome assina o curso".
+4. Área: Digitação de "Sua área". Os botões de atalho acendem em cascata. Tela: docs/telas/1-voce-b-area.jpg.
+5. Anos: A mão arrasta a barra. O contador de horas sobe rápido; ao lado, uma pilha de relógios cresce. Tela: docs/telas/1-voce-c-anos.jpg. Texto na tela: "Milhares de horas de prática".
+6. Perguntas: Três perguntas digitadas. O contador mostra "3 de 7 · faltam 4" e a barrinha verde avança. Tela: docs/telas/1-voce-d-perguntas-3-de-7.jpg. Texto na tela: "No mínimo 7 perguntas".
+7. Cada pergunta vira aula: Clique em Sugerir com IA: as perguntas completam a lista e o contador fica verde. Cada linha se transforma num mini-card com ícone de play escrito "Aula". Tela: docs/telas/1-voce-e-perguntas-ok.jpg. Texto na tela: "Não existe pergunta boba".
+8. Encerramento: Mostra o banner verde de conquista da seção. Card "Próxima seção: Seu aluno". Tela: docs/telas/2-aluno-a-conquista-e-aluno-ideal.jpg. Texto na tela: "Você acabou de mostrar as aulas que só você sabe dar".
+
+Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer "reconhecido pelo MEC" ou "chancela"; não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
+```
+
+## 2. Seu aluno  (chave `aluno`, ~57s, fundo claro)
+
+**Por que importa:** Curso que fala com todo mundo não vende para ninguém. Aqui a pessoa define o aluno ideal e a promessa: o que ele vai conseguir fazer no final.
+
+### Narração
 
 > Um curso que fala com todo mundo não vende para ninguém. Nesta seção você decide para quem é o seu curso e o que essa pessoa vai conseguir fazer no final.
 >
-> Primeiro, descreva o seu aluno ideal em uma frase. Lembre: para fazer uma pós-graduação, a pessoa precisa ter uma graduação concluída. Se travar, clique em Sugerir com IA ou escolha uma das opções.
+> Primeiro, descreva o seu aluno ideal em uma frase. Você não precisa ensinar para todo mundo: basta ensinar para quem precisa do que você já sabe. Se travar, clique em Sugerir com IA ou escolha uma das opções.
 >
-> Agora, a promessa. Termine a frase: depois do meu curso, o meu aluno vai conseguir... Pense na segunda-feira de manhã dele. O que muda no trabalho ou na vida?
+> Agora, a promessa. Complete a frase: ele vai conseguir. Pense na segunda-feira de manhã do seu aluno. O que muda no trabalho ou na vida dele?
 >
-> Evite promessas vagas, como crescer na carreira. Prefira algo que dá para ver acontecendo.
+> Prometa só o que você já entrega na prática. Sem exagero: a sua verdade é o que convence.
 >
-> Promessa escrita? Continue, porque agora o seu curso vai ganhar forma.
+> Promessa escrita? Continue, porque agora vem o seu método.
 
 ### Cenas
 
-| # | Tempo | Cena | Narração | Visual | Gê | Texto na tela | Som | Tela |
-|---|---|---|---|---|---|---|---|---|
-| 1 | 0:00–0:03 | Vinheta | (sem fala) | Mesma vinheta, agora em fundo areia claro (como a fase no app). Revela "Seção 2 de 7 · SEU ALUNO". | Gê entra flutuando pela esquerda. | Seção 2 de 7 · SEU ALUNO | Whoosh. | quadro desenhado |
-| 2 | 0:03–0:17 | Por que importa | Um curso que fala com todo mundo não vende para ninguém. Nesta seção você decide para quem é o seu curso e o que essa pessoa vai conseguir fazer no final. | Uma multidão de silhuetas cinza. Um holofote verde varre a multidão e para em uma única pessoa, que ganha cor. | Gê segurando o holofote. | Para quem é o seu curso? | Clique de holofote. | quadro desenhado |
-| 3 | 0:17–0:31 | Aluno ideal | Primeiro, descreva o seu aluno ideal em uma frase. Lembre: para fazer uma pós-graduação, a pessoa precisa ter uma graduação concluída. Se travar, clique em Sugerir com IA ou escolha uma das opções. | Tela do app em fundo claro. A mão clica em "Sugerir com IA": faíscas verdes saem do botão e o texto se escreve sozinho no campo. | Gê segura um diploma com a etiqueta "graduação concluída". | Pós exige graduação concluída | Brilho mágico curto no clique da IA. | `telas/02-aluno-1-persona.jpg` |
-| 4 | 0:31–0:44 | Promessa | Agora, a promessa. Termine a frase: depois do meu curso, o meu aluno vai conseguir... Pense na segunda-feira de manhã dele. O que muda no trabalho ou na vida? | Uma folhinha de calendário vira e mostra SEGUNDA. A frase "Ele vai conseguir…" aparece grande, depois a tela do app com a promessa sendo escrita. A frase voa até a capa do curso no painel. | Gê pensando, com um balão mostrando o calendário. | O que muda na segunda-feira? | Virada de página. | `telas/02-aluno-2-promessa.jpg` |
-| 5 | 0:44–0:51 | Dica | Evite promessas vagas, como crescer na carreira. Prefira algo que dá para ver acontecendo. | Card cinza "crescer na carreira" ganha um X e se desfaz em pó. Card verde "aplicar o método com segurança e ter resultado nos primeiros casos" entra com um check. | Gê faz "não" com o dedo e depois joinha. | Vago ✕ · Concreto ✓ | Erro suave + acerto. | quadro desenhado |
-| 6 | 0:51–0:56 | Encerramento | Promessa escrita? Continue, porque agora o seu curso vai ganhar forma. | Botão Continuar pulsa. Barra verde revela "Próxima seção: Seu método". | Gê acena. | Próxima seção: Seu método | Whoosh. | quadro desenhado |
+| # | Cena | O que acontece | Tela | Texto na tela |
+|---|---|---|---|---|
+| 1 | Vinheta | Vinheta em fundo areia: "Seção 2 de 7 · SEU ALUNO". | animação | SEU ALUNO |
+| 2 | Por que importa | Uma multidão de silhuetas cinza. Um holofote verde varre e para em uma pessoa, que ganha cor. | animação | Para quem é o seu curso? |
+| 3 | Aluno ideal | Zoom no campo do aluno ideal e na frase de apoio com borda verde. | `telas/2-aluno-a-conquista-e-aluno-ideal.jpg` | Ensine para quem precisa do que você sabe |
+| 4 | Sugerir com IA | Clique em Sugerir com IA: faíscas verdes e o texto se escreve sozinho. | `telas/2-aluno-b-sugerir-com-ia.jpg` |  |
+| 5 | Promessa | Folhinha de calendário vira e mostra SEGUNDA. "Ele vai conseguir…" grande, e a promessa sendo escrita. | `telas/2-aluno-c-promessa.jpg` | O que muda na segunda-feira? |
+| 6 | Dica | Card cinza "crescer na carreira" ganha um X e se desfaz. Card verde com uma promessa concreta entra com um check. | animação | Sem exagero: a sua verdade convence |
+| 7 | Encerramento | Banner de conquista da seção e card "Próxima seção: Seu método". | `telas/3-metodo-a-conquista-e-ferramentas.jpg` | Agora o seu curso tem endereço certo |
 
-## Seção 3 · Seu método  (chave `metodo`, ~66s, fundo escuro)
+### Prompt para o produtor
 
-**Objetivo:** Mostrar a mágica principal: tema vira disciplina, disciplina vira quatro aulas. Ensinar temas, ferramentas, referências e a pergunta "você já ensina?".
+```
+Crie um vídeo tutorial em motion design 2D, 16:9 (1920×1080), com cerca de 57 segundos, para a seção "Seu aluno" (seção 2 de 7) do aplicativo Crie sua Formação, da Faculdade FEX Educação. O vídeo ensina a pessoa a preencher esta seção e abre com uma introdução curta sobre por que ela importa para a criação do curso.
 
-### Narração completa
+Objetivo da seção: Curso que fala com todo mundo não vende para ninguém. Aqui a pessoa define o aluno ideal e a promessa: o que ele vai conseguir fazer no final.
 
-> É nesta seção que o seu curso ganha forma. Cada tema vira uma disciplina, e cada disciplina ganha quatro aulas, no padrão pedagógico da Faculdade FEX Educação®.
+Estilo: telas reais do app dentro de um notebook ou celular desenhado, com zoom no campo da vez, mão-cursor clicando e texto digitado letra a letra; palavras-chave em tipografia animada (Montserrat Bold); ícones e formas se desenhando; mascote Gênio Oculto (gênio verde com capelo de formatura) apontando e reagindo. Fundo areia clara (#F4F2EC). Verde #32CD32, preto #040805, areia #E8E4D9. Vinheta de 3 s com a barra verde do logo FEX revelando "Seção 2 de 7 · SEU ALUNO". Ritmo dinâmico: algo se constrói a cada segundo.
+
+Narração (voz feminina, calorosa, encorajadora; o público costuma duvidar de si):
+"Um curso que fala com todo mundo não vende para ninguém. Nesta seção você decide para quem é o seu curso e o que essa pessoa vai conseguir fazer no final. Primeiro, descreva o seu aluno ideal em uma frase. Você não precisa ensinar para todo mundo: basta ensinar para quem precisa do que você já sabe. Se travar, clique em Sugerir com IA ou escolha uma das opções. Agora, a promessa. Complete a frase: ele vai conseguir. Pense na segunda-feira de manhã do seu aluno. O que muda no trabalho ou na vida dele? Prometa só o que você já entrega na prática. Sem exagero: a sua verdade é o que convence. Promessa escrita? Continue, porque agora vem o seu método."
+
+Cenas, na ordem da narração:
+1. Vinheta: Vinheta em fundo areia: "Seção 2 de 7 · SEU ALUNO". Texto na tela: "SEU ALUNO".
+2. Por que importa: Uma multidão de silhuetas cinza. Um holofote verde varre e para em uma pessoa, que ganha cor. Texto na tela: "Para quem é o seu curso?".
+3. Aluno ideal: Zoom no campo do aluno ideal e na frase de apoio com borda verde. Tela: docs/telas/2-aluno-a-conquista-e-aluno-ideal.jpg. Texto na tela: "Ensine para quem precisa do que você sabe".
+4. Sugerir com IA: Clique em Sugerir com IA: faíscas verdes e o texto se escreve sozinho. Tela: docs/telas/2-aluno-b-sugerir-com-ia.jpg.
+5. Promessa: Folhinha de calendário vira e mostra SEGUNDA. "Ele vai conseguir…" grande, e a promessa sendo escrita. Tela: docs/telas/2-aluno-c-promessa.jpg. Texto na tela: "O que muda na segunda-feira?".
+6. Dica: Card cinza "crescer na carreira" ganha um X e se desfaz. Card verde com uma promessa concreta entra com um check. Texto na tela: "Sem exagero: a sua verdade convence".
+7. Encerramento: Banner de conquista da seção e card "Próxima seção: Seu método". Tela: docs/telas/3-metodo-a-conquista-e-ferramentas.jpg. Texto na tela: "Agora o seu curso tem endereço certo".
+
+Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer "reconhecido pelo MEC" ou "chancela"; não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
+```
+
+## 3. Seu método  (chave `metodo`, ~55s, fundo escuro)
+
+**Por que importa:** As perguntas já viraram aulas e módulos (quem organiza é a ferramenta, não a pessoa). Aqui ela conta o que deixa o curso único: ferramentas, referências e se já ensina.
+
+### Narração
+
+> Lembra das perguntas que você escreveu? Cada uma já virou uma aula, e a gente organizou tudo em módulos para você. Nesta seção, você conta o que deixa o seu curso diferente.
 >
-> Escreva um grande tema que você ensinaria e aperte Enter. Olha só: ele aparece na hora no painel, como disciplina. De três a cinco temas é o ideal.
+> Primeiro, as ferramentas que você usa no trabalho: fichas, checklists, roteiros, o seu passo a passo. Escreva e aperte Enter, ou clique em Sugerir com IA. Aquilo que parece simples para você é o atalho que o seu aluno procura há anos.
 >
-> A disciplina de fundamentos, a de ferramentas e o projeto final, a gente já cria para você.
+> Se tiver autores, livros ou métodos que você segue, escreva. Se não lembrar agora, pode pular.
 >
-> Depois, as ferramentas que você usa no trabalho: fichas, checklists, roteiros, o seu passo a passo. É isso que deixa o seu curso diferente de qualquer outro.
+> Por último, conte se você já ensina hoje. Isso ajuda a escolher o melhor jeito de lançar.
 >
-> Se tiver autores ou livros que você segue, escreva. Se não lembrar agora, pode pular. Por último, conte se você já ensina hoje.
->
-> Olha o seu curso tomando forma ali do lado. Clique em Continuar para escolher o formato.
+> Clique em Continuar para descobrir o formato ideal do seu curso.
 
 ### Cenas
 
-| # | Tempo | Cena | Narração | Visual | Gê | Texto na tela | Som | Tela |
-|---|---|---|---|---|---|---|---|---|
-| 1 | 0:00–0:03 | Vinheta | (sem fala) | Vinheta em fundo escuro: "Seção 3 de 7 · SEU MÉTODO". | Gê gira e para de frente. | Seção 3 de 7 · SEU MÉTODO | Whoosh. | quadro desenhado |
-| 2 | 0:03–0:15 | Por que importa | É nesta seção que o seu curso ganha forma. Cada tema vira uma disciplina, e cada disciplina ganha quatro aulas, no padrão pedagógico da Faculdade FEX Educação®. | Diagrama animado: um bloco "Tema" encaixa e vira um bloco maior "Disciplina", que se divide em quatro blocos "Aula" que se alinham embaixo, como peças de montar. | Gê empilha os blocos com as mãos. | Tema → Disciplina → 4 aulas | Cliques de encaixe. | quadro desenhado |
-| 3 | 0:15–0:27 | Temas | Escreva um grande tema que você ensinaria e aperte Enter. Olha só: ele aparece na hora no painel, como disciplina. De três a cinco temas é o ideal. | Digitação de "Tema 01" + Enter. Uma seta curva desenhada liga o campo ao painel e o card da disciplina voa até lá. Repete rápido com Tema 02 e Tema 03 (acelerado 2x). | Gê acompanha o card voando com os olhos. | Enter ↵ = nova disciplina | Whoosh pequeno a cada card. | `telas/03-metodo-1-temas.jpg` |
-| 4 | 0:27–0:35 | O que vem pronto | A disciplina de fundamentos, a de ferramentas e o projeto final, a gente já cria para você. | No painel, três cards ganham uma estrelinha e o selo "automático". | Gê com uma varinha de condão (estrelas verdes). | 3 disciplinas automáticas | Brilho. | quadro desenhado |
-| 5 | 0:35–0:47 | Ferramentas | Depois, as ferramentas que você usa no trabalho: fichas, checklists, roteiros, o seu passo a passo. É isso que deixa o seu curso diferente de qualquer outro. | Uma caixa de ferramentas desenhada abre e os itens saltam para a lista do app. Clique em "Sugerir com IA" mostra três sugestões entrando. | Gê segura a caixa de ferramentas. | O seu jeito de fazer | Metais leves (tim tim). | `telas/03-metodo-2-ferramentas.jpg` |
-| 6 | 0:47–0:58 | Referências e "você já ensina?" | Se tiver autores ou livros que você segue, escreva. Se não lembrar agora, pode pular. Por último, conte se você já ensina hoje. | Tela das referências com o link "Pular esta" circulado à mão em verde. Corte para a tela de opções: a mão escolhe "Curso online". | Gê folheando um livro. | Pode pular se não lembrar | Página virando. | `telas/03-metodo-3-referencias.jpg` |
-| 7 | 0:58–1:05 | Encerramento | Olha o seu curso tomando forma ali do lado. Clique em Continuar para escolher o formato. | Câmera passeia pelo painel com todas as disciplinas. Barra verde revela "Próxima seção: Seu formato". | Gê aplaude. | Próxima seção: Seu formato | Whoosh. | `telas/03-metodo-4-ensina.jpg` |
+| # | Cena | O que acontece | Tela | Texto na tela |
+|---|---|---|---|---|
+| 1 | Vinheta | Vinheta escura: "Seção 3 de 7 · SEU MÉTODO". | animação | SEU MÉTODO |
+| 2 | Perguntas viram módulos | Os cards de pergunta da seção 1 voam e se encaixam em blocos de módulo (Primeiros passos, O método na prática, Erros comuns...), como peças de montar. | animação | Pergunta → Aula → Módulo |
+| 3 | Ferramentas | Uma caixa de ferramentas desenhada abre. Digitação + Enter adiciona uma ferramenta na lista. | `telas/3-metodo-a-conquista-e-ferramentas.jpg` | O seu jeito de fazer |
+| 4 | Sugerir com IA | Clique em Sugerir com IA: três ferramentas entram na lista com pop. | `telas/3-metodo-b-ferramentas-ok.jpg` | O simples para você é o atalho do aluno |
+| 5 | Referências | Livro se desenha ao lado. O link "Pular esta" é circulado à mão em verde. | `telas/3-metodo-c-referencias.jpg` | Pode pular se não lembrar |
+| 6 | Já ensina? | A mão escolhe "Curso online" entre as quatro opções. | `telas/3-metodo-d-ja-ensina.jpg` |  |
+| 7 | Encerramento | Banner de conquista e card "Próxima seção: Seu formato". | `telas/4-formato-a-conquista-e-objetivo.jpg` | Suas ferramentas são o que ninguém copia |
 
-## Seção 4 · Seu formato  (chave `formato`, ~66s, fundo claro)
+### Prompt para o produtor
 
-**Objetivo:** Explicar a recomendação de formato, o padrão 30/30/40 (grava-se muito menos do que se imagina) e a lógica de vender a parcela.
+```
+Crie um vídeo tutorial em motion design 2D, 16:9 (1920×1080), com cerca de 55 segundos, para a seção "Seu método" (seção 3 de 7) do aplicativo Crie sua Formação, da Faculdade FEX Educação. O vídeo ensina a pessoa a preencher esta seção e abre com uma introdução curta sobre por que ela importa para a criação do curso.
 
-### Narração completa
+Objetivo da seção: As perguntas já viraram aulas e módulos (quem organiza é a ferramenta, não a pessoa). Aqui ela conta o que deixa o curso único: ferramentas, referências e se já ensina.
 
-> Agora você decide o formato do curso e quanto o seu aluno vai investir. Fica tranquilo: a ferramenta já sugere o melhor caminho para você.
+Estilo: telas reais do app dentro de um notebook ou celular desenhado, com zoom no campo da vez, mão-cursor clicando e texto digitado letra a letra; palavras-chave em tipografia animada (Montserrat Bold); ícones e formas se desenhando; mascote Gênio Oculto (gênio verde com capelo de formatura) apontando e reagindo. Fundo verde quase preto com textura leve. Verde #32CD32, preto #040805, areia #E8E4D9. Vinheta de 3 s com a barra verde do logo FEX revelando "Seção 3 de 7 · SEU MÉTODO". Ritmo dinâmico: algo se constrói a cada segundo.
+
+Narração (voz feminina, calorosa, encorajadora; o público costuma duvidar de si):
+"Lembra das perguntas que você escreveu? Cada uma já virou uma aula, e a gente organizou tudo em módulos para você. Nesta seção, você conta o que deixa o seu curso diferente. Primeiro, as ferramentas que você usa no trabalho: fichas, checklists, roteiros, o seu passo a passo. Escreva e aperte Enter, ou clique em Sugerir com IA. Aquilo que parece simples para você é o atalho que o seu aluno procura há anos. Se tiver autores, livros ou métodos que você segue, escreva. Se não lembrar agora, pode pular. Por último, conte se você já ensina hoje. Isso ajuda a escolher o melhor jeito de lançar. Clique em Continuar para descobrir o formato ideal do seu curso."
+
+Cenas, na ordem da narração:
+1. Vinheta: Vinheta escura: "Seção 3 de 7 · SEU MÉTODO". Texto na tela: "SEU MÉTODO".
+2. Perguntas viram módulos: Os cards de pergunta da seção 1 voam e se encaixam em blocos de módulo (Primeiros passos, O método na prática, Erros comuns...), como peças de montar. Texto na tela: "Pergunta → Aula → Módulo".
+3. Ferramentas: Uma caixa de ferramentas desenhada abre. Digitação + Enter adiciona uma ferramenta na lista. Tela: docs/telas/3-metodo-a-conquista-e-ferramentas.jpg. Texto na tela: "O seu jeito de fazer".
+4. Sugerir com IA: Clique em Sugerir com IA: três ferramentas entram na lista com pop. Tela: docs/telas/3-metodo-b-ferramentas-ok.jpg. Texto na tela: "O simples para você é o atalho do aluno".
+5. Referências: Livro se desenha ao lado. O link "Pular esta" é circulado à mão em verde. Tela: docs/telas/3-metodo-c-referencias.jpg. Texto na tela: "Pode pular se não lembrar".
+6. Já ensina?: A mão escolhe "Curso online" entre as quatro opções. Tela: docs/telas/3-metodo-d-ja-ensina.jpg.
+7. Encerramento: Banner de conquista e card "Próxima seção: Seu formato". Tela: docs/telas/4-formato-a-conquista-e-objetivo.jpg. Texto na tela: "Suas ferramentas são o que ninguém copia".
+
+Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer "reconhecido pelo MEC" ou "chancela"; não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
+```
+
+## 4. Seu formato  (chave `formato`, ~66s, fundo claro)
+
+**Por que importa:** Seção mais importante para a FEX: sem a FEX é curso livre, com a FEX é extensão universitária. A pessoa diz o objetivo, a ferramenta indica uma das 4 titulações, ela ajusta a carga horária, confere o nome e escolhe o preço em parcelas.
+
+### Narração
+
+> Agora vem uma parte importante. Sem a FEX, o seu curso é um curso livre. Com a FEX, ele vira um curso de extensão universitária, com certificado emitido pela Faculdade FEX Educação.
 >
-> MBA combina com gestão e negócios. O formato com mediação ao vivo combina com áreas mais práticas. Se quiser, é só trocar.
+> Primeiro, escolha o que você quer que o curso seja para o aluno.
 >
-> E repare nesta barra. Numa pós de trezentas e sessenta horas, só trinta por cento é hora-aula. São cento e oito horas para gravar, não trezentas e sessenta.
+> Com isso, a ferramenta indica a titulação ideal entre as quatro da extensão: Iniciação, Atualização, Capacitação e Aperfeiçoamento. Você ajusta as horas na barra.
 >
-> Confira o nome do curso. Dá para editar ou pedir uma sugestão à IA.
+> A carga horária soma tudo o que é acompanhado pelo professor: aulas, leituras, estudos de caso, encontros de perguntas e respostas e prática. Você não precisa gravar todas as horas.
 >
-> Por último, o investimento do aluno. Em pós-graduação, a gente vende a parcela, não o valor total, porque o aluno compara com a mensalidade de uma faculdade. Escolha o valor que faz sentido para o seu público.
+> Confira o nome do curso e, por último, o investimento: escolha uma faixa de parcela ou arraste a barra até o valor certo para o seu público. O seu conhecimento tem valor.
 >
 > Formato escolhido. Agora vem a parte que mais surpreende: o seu potencial.
 
 ### Cenas
 
-| # | Tempo | Cena | Narração | Visual | Gê | Texto na tela | Som | Tela |
-|---|---|---|---|---|---|---|---|---|
-| 1 | 0:00–0:03 | Vinheta | (sem fala) | Vinheta em fundo claro: "Seção 4 de 7 · SEU FORMATO". | Gê entra. | Seção 4 de 7 · SEU FORMATO | Whoosh. | quadro desenhado |
-| 2 | 0:03–0:14 | Por que importa | Agora você decide o formato do curso e quanto o seu aluno vai investir. Fica tranquilo: a ferramenta já sugere o melhor caminho para você. | Quatro cards (Pós 6 meses, Pós 12 meses, MBA 6 meses, MBA 12 meses) giram como cartas e um deles se destaca com o selo "Recomendado para você". | Gê embaralhando as cartas. | A sugestão já vem pronta | Cartas embaralhando. | quadro desenhado |
-| 3 | 0:14–0:24 | Formato recomendado | MBA combina com gestão e negócios. O formato com mediação ao vivo combina com áreas mais práticas. Se quiser, é só trocar. | Tela do app em fundo claro. O selo "Recomendado para você" brilha. A mão clica em outro card só para mostrar que dá para trocar, depois volta. | Gê apontando para o selo. | Você pode trocar | Clique. | `telas/04-formato-1-modelo.jpg` |
-| 4 | 0:24–0:37 | Padrão 30/30/40 | E repare nesta barra. Numa pós de trezentas e sessenta horas, só trinta por cento é hora-aula. São cento e oito horas para gravar, não trezentas e sessenta. | Uma barra cheia "360h" se divide em três blocos: verde "108h hora-aula", verde-escuro "autoestudo", areia "prática". Uma câmera de vídeo pousa só sobre o bloco verde. | Gê limpa o suor da testa, aliviado. | Você grava 108h, não 360h | Três cliques + suspiro de alívio. | quadro desenhado |
-| 5 | 0:37–0:43 | Nome do curso | Confira o nome do curso. Dá para editar ou pedir uma sugestão à IA. | Zoom no campo "Nome do curso" e no botão "Sugerir com IA", que troca o nome com faíscas. | Gê com um balão "ideias". | Nome editável | Brilho. | `telas/04-formato-1-modelo.jpg` |
-| 6 | 0:43–0:59 | Investimento | Por último, o investimento do aluno. Em pós-graduação, a gente vende a parcela, não o valor total, porque o aluno compara com a mensalidade de uma faculdade. Escolha o valor que faz sentido para o seu público. | Um bloco grande com o valor total se quebra em 12 blocos pequenos de parcela, que se alinham como um calendário. Corte para a tela das opções de parcela com a mão escolhendo uma. | Gê segura uma calculadora. | Venda a parcela | Moedinhas leves. | `telas/04-formato-2-ticket.jpg` |
-| 7 | 0:59–1:05 | Encerramento | Formato escolhido. Agora vem a parte que mais surpreende: o seu potencial. | Barra verde revela "Próxima seção: Seu potencial". | Gê com olhar curioso. | Próxima seção: Seu potencial | Whoosh. | quadro desenhado |
+| # | Cena | O que acontece | Tela | Texto na tela |
+|---|---|---|---|---|
+| 1 | Vinheta | Vinheta em areia: "Seção 4 de 7 · SEU FORMATO". | animação | SEU FORMATO |
+| 2 | Curso livre × extensão | Tela dividida: à esquerda um certificado simples, cinza, "Curso livre" (riscado). À direita, um certificado verde com o logo FEX: "Extensão universitária". | animação | Com a FEX, vira extensão universitária |
+| 3 | Objetivo | As quatro opções de objetivo entram em cascata; a mão escolhe "Capacitar para aplicar". | `telas/4-formato-b-objetivo-escolhido.jpg` |  |
+| 4 | Titulação recomendada | Os 4 cards (Iniciação, Atualização, Capacitação, Aperfeiçoamento) giram como cartas; o recomendado sobe com o selo verde. | `telas/4-formato-c-titulacao-recomendada.jpg` | 4 titulações de extensão |
+| 5 | Carga horária | A mão arrasta a barra de horas. Ícones aparecem um a um: aula, livro, estudo de caso, balão de perguntas, prática. | `telas/4-formato-d-carga-horaria.jpg` | Tudo acompanhado pelo professor |
+| 6 | Nome do curso | Zoom no nome do curso; clique em Sugerir com IA troca o nome com faíscas. | `telas/4-formato-e-nome-do-curso.jpg` |  |
+| 7 | Preço | As faixas de 12x entram em cascata; a mão escolhe uma. | `telas/4-formato-f-preco.jpg` | 12x de R$ 97 a 12x de R$ 5.000 |
+| 8 | Barra da parcela | A mão arrasta a barra e o valor da parcela muda ao vivo. | `telas/4-formato-g-barra-da-parcela.jpg` | O seu conhecimento tem valor |
+| 9 | Encerramento | Banner de conquista e card "Próxima seção: Seu potencial". | `telas/5-potencial-a-conquista-e-audiencias.jpg` | Você não está sozinho nisso |
 
-## Seção 5 · Seu potencial  (chave `potencial`, ~50s, fundo escuro)
+### Prompt para o produtor
 
-**Objetivo:** Mostrar quanto a primeira turma pode faturar e o valor que vem só da base que já confia na pessoa. Deixar claro que é projeção.
+```
+Crie um vídeo tutorial em motion design 2D, 16:9 (1920×1080), com cerca de 66 segundos, para a seção "Seu formato" (seção 4 de 7) do aplicativo Crie sua Formação, da Faculdade FEX Educação. O vídeo ensina a pessoa a preencher esta seção e abre com uma introdução curta sobre por que ela importa para a criação do curso.
 
-### Narração completa
+Objetivo da seção: Seção mais importante para a FEX: sem a FEX é curso livre, com a FEX é extensão universitária. A pessoa diz o objetivo, a ferramenta indica uma das 4 titulações, ela ajusta a carga horária, confere o nome e escolhe o preço em parcelas.
+
+Estilo: telas reais do app dentro de um notebook ou celular desenhado, com zoom no campo da vez, mão-cursor clicando e texto digitado letra a letra; palavras-chave em tipografia animada (Montserrat Bold); ícones e formas se desenhando; mascote Gênio Oculto (gênio verde com capelo de formatura) apontando e reagindo. Fundo areia clara (#F4F2EC). Verde #32CD32, preto #040805, areia #E8E4D9. Vinheta de 3 s com a barra verde do logo FEX revelando "Seção 4 de 7 · SEU FORMATO". Ritmo dinâmico: algo se constrói a cada segundo.
+
+Narração (voz feminina, calorosa, encorajadora; o público costuma duvidar de si):
+"Agora vem uma parte importante. Sem a FEX, o seu curso é um curso livre. Com a FEX, ele vira um curso de extensão universitária, com certificado emitido pela Faculdade FEX Educação. Primeiro, escolha o que você quer que o curso seja para o aluno. Com isso, a ferramenta indica a titulação ideal entre as quatro da extensão: Iniciação, Atualização, Capacitação e Aperfeiçoamento. Você ajusta as horas na barra. A carga horária soma tudo o que é acompanhado pelo professor: aulas, leituras, estudos de caso, encontros de perguntas e respostas e prática. Você não precisa gravar todas as horas. Confira o nome do curso e, por último, o investimento: escolha uma faixa de parcela ou arraste a barra até o valor certo para o seu público. O seu conhecimento tem valor. Formato escolhido. Agora vem a parte que mais surpreende: o seu potencial."
+
+Cenas, na ordem da narração:
+1. Vinheta: Vinheta em areia: "Seção 4 de 7 · SEU FORMATO". Texto na tela: "SEU FORMATO".
+2. Curso livre × extensão: Tela dividida: à esquerda um certificado simples, cinza, "Curso livre" (riscado). À direita, um certificado verde com o logo FEX: "Extensão universitária". Texto na tela: "Com a FEX, vira extensão universitária".
+3. Objetivo: As quatro opções de objetivo entram em cascata; a mão escolhe "Capacitar para aplicar". Tela: docs/telas/4-formato-b-objetivo-escolhido.jpg.
+4. Titulação recomendada: Os 4 cards (Iniciação, Atualização, Capacitação, Aperfeiçoamento) giram como cartas; o recomendado sobe com o selo verde. Tela: docs/telas/4-formato-c-titulacao-recomendada.jpg. Texto na tela: "4 titulações de extensão".
+5. Carga horária: A mão arrasta a barra de horas. Ícones aparecem um a um: aula, livro, estudo de caso, balão de perguntas, prática. Tela: docs/telas/4-formato-d-carga-horaria.jpg. Texto na tela: "Tudo acompanhado pelo professor".
+6. Nome do curso: Zoom no nome do curso; clique em Sugerir com IA troca o nome com faíscas. Tela: docs/telas/4-formato-e-nome-do-curso.jpg.
+7. Preço: As faixas de 12x entram em cascata; a mão escolhe uma. Tela: docs/telas/4-formato-f-preco.jpg. Texto na tela: "12x de R$ 97 a 12x de R$ 5.000".
+8. Barra da parcela: A mão arrasta a barra e o valor da parcela muda ao vivo. Tela: docs/telas/4-formato-g-barra-da-parcela.jpg. Texto na tela: "O seu conhecimento tem valor".
+9. Encerramento: Banner de conquista e card "Próxima seção: Seu potencial". Tela: docs/telas/5-potencial-a-conquista-e-audiencias.jpg. Texto na tela: "Você não está sozinho nisso".
+
+Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer "reconhecido pelo MEC" ou "chancela"; não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
+```
+
+## 5. Seu potencial  (chave `potencial`, ~63s, fundo escuro)
+
+**Por que importa:** Mostra quanto a primeira turma pode faturar com quem já conhece a pessoa, com a conta visível. Deixa claro que é projeção, não promessa.
+
+### Narração
 
 > Esta é a seção que mais surpreende. Você vai ver quanto a primeira turma pode faturar com quem já te conhece.
 >
-> Em base quente, coloque quantas pessoas já foram seus alunos, pacientes ou clientes. Elas já confiam em você.
+> Em base quente, coloque quantas pessoas já foram seus alunos, pacientes ou clientes. Elas já confiam em você. A referência da FEX é três por cento de conversão.
 >
-> Em audiência fria, entram os seus seguidores, a sua lista de e-mail e os seus contatos.
+> Em audiência fria, entram os seus seguidores, a sua lista de e-mail e os seus contatos. Aqui a referência é zero vírgula três por cento. Você pode mudar as duas, e a conta aparece embaixo de cada barra.
 >
-> Agora olhe o número verde: é o potencial da sua primeira turma. E a frase embaixo mostra quanto vem só da base quente, sem gastar nada com anúncio. É o dinheiro que já está na sua mesa.
+> Agora olhe o número verde: é o potencial da sua primeira turma. É uma projeção feita com os seus números, não uma promessa. E começar pequeno é normal: a primeira turma costuma vir de poucas pessoas que já confiam em você.
 >
 > Gostou do número? Então vamos planejar o lançamento.
 
 ### Cenas
 
-| # | Tempo | Cena | Narração | Visual | Gê | Texto na tela | Som | Tela |
-|---|---|---|---|---|---|---|---|---|
-| 1 | 0:00–0:03 | Vinheta | (sem fala) | Vinheta escura: "Seção 5 de 7 · SEU POTENCIAL". | Gê entra. | Seção 5 de 7 · SEU POTENCIAL | Whoosh. | quadro desenhado |
-| 2 | 0:03–0:13 | Por que importa | Esta é a seção que mais surpreende. Você vai ver quanto a primeira turma pode faturar com quem já te conhece. | Um gráfico de barras desenhado cresce atrás do Gê. | Gê surpreso olhando o gráfico. | Quanto a 1ª turma pode faturar? | Barras subindo. | quadro desenhado |
-| 3 | 0:13–0:21 | Base quente | Em base quente, coloque quantas pessoas já foram seus alunos, pacientes ou clientes. Elas já confiam em você. | Um grupo de pessoinhas com um brilho verde em volta (confiança). A mão arrasta o controle da base quente no app. | Gê abraçando o grupo. | Base quente = quem já confia em você | Arraste do controle. | `telas/05-potencial-1-audiencia.jpg` |
-| 4 | 0:21–0:29 | Audiência fria | Em audiência fria, entram os seus seguidores, a sua lista de e-mail e os seus contatos. | Ícones genéricos de redes, e-mail e agenda flutuam como bolhas e entram no segundo controle. | Gê com um binóculo. | Audiência fria = quem te acompanha | Bolhas. | `telas/05-potencial-1-audiencia.jpg` |
-| 5 | 0:29–0:45 | Resultado | Agora olhe o número verde: é o potencial da sua primeira turma. E a frase embaixo mostra quanto vem só da base quente, sem gastar nada com anúncio. É o dinheiro que já está na sua mesa. | Zoom no card verde: o contador sobe. Depois, a frase de baixo é sublinhada à mão em verde. Plano final: uma mesa desenhada com uma pilha de contratos (folhas com um check), nada de dinheiro voando. | Gê comemorando. | Projeção com os seus números, não é garantia. | Contador + "ding". | quadro desenhado |
-| 6 | 0:45–0:49 | Encerramento | Gostou do número? Então vamos planejar o lançamento. | Barra verde revela "Próxima seção: Lançamento". | Gê aponta. | Próxima seção: Lançamento | Whoosh. | quadro desenhado |
+| # | Cena | O que acontece | Tela | Texto na tela |
+|---|---|---|---|---|
+| 1 | Vinheta | Vinheta escura: "Seção 5 de 7 · SEU POTENCIAL". | animação | SEU POTENCIAL |
+| 2 | Por que importa | Um gráfico de barras se desenha atrás do Gênio, que fica surpreso. | animação | Quanto a 1ª turma pode faturar? |
+| 3 | Base quente | Grupo de pessoinhas com brilho verde (confiança). A mão arrasta a barra; a conta "800 pessoas × 3% = 24 matrículas" aparece com destaque. | `telas/5-potencial-a-conquista-e-audiencias.jpg` | Base quente: 3% |
+| 4 | Audiência fria | Ícones de redes, e-mail e agenda flutuam como bolhas e entram na segunda barra; a conta com 0,3% aparece. | `telas/5-potencial-a-conquista-e-audiencias.jpg` | Audiência fria: 0,3% |
+| 5 | Resultado | Zoom no card verde: o valor conta até o número. Uma etiqueta discreta: "projeção, não promessa". | `telas/5-potencial-b-resultado.jpg` | Projeção com os seus números |
+| 6 | Encerramento | Banner de conquista e card "Próxima seção: Lançamento". | `telas/6-lancamento-a-conquista-e-campanhas.jpg` | Vale a pena começar |
 
-## Seção 6 · Lançamento  (chave `lancamento`, ~53s, fundo claro)
+### Prompt para o produtor
 
-**Objetivo:** Ajudar a escolher o modelo de campanha e marcar a aula magna, entendendo os 90 dias de implantação.
+```
+Crie um vídeo tutorial em motion design 2D, 16:9 (1920×1080), com cerca de 63 segundos, para a seção "Seu potencial" (seção 5 de 7) do aplicativo Crie sua Formação, da Faculdade FEX Educação. O vídeo ensina a pessoa a preencher esta seção e abre com uma introdução curta sobre por que ela importa para a criação do curso.
 
-### Narração completa
+Objetivo da seção: Mostra quanto a primeira turma pode faturar com quem já conhece a pessoa, com a conta visível. Deixa claro que é projeção, não promessa.
 
-> Curso pronto que ninguém conhece não vira turma. Aqui você escolhe como vai abrir as matrículas e marca a data da aula magna.
+Estilo: telas reais do app dentro de um notebook ou celular desenhado, com zoom no campo da vez, mão-cursor clicando e texto digitado letra a letra; palavras-chave em tipografia animada (Montserrat Bold); ícones e formas se desenhando; mascote Gênio Oculto (gênio verde com capelo de formatura) apontando e reagindo. Fundo verde quase preto com textura leve. Verde #32CD32, preto #040805, areia #E8E4D9. Vinheta de 3 s com a barra verde do logo FEX revelando "Seção 5 de 7 · SEU POTENCIAL". Ritmo dinâmico: algo se constrói a cada segundo.
+
+Narração (voz feminina, calorosa, encorajadora; o público costuma duvidar de si):
+"Esta é a seção que mais surpreende. Você vai ver quanto a primeira turma pode faturar com quem já te conhece. Em base quente, coloque quantas pessoas já foram seus alunos, pacientes ou clientes. Elas já confiam em você. A referência da FEX é três por cento de conversão. Em audiência fria, entram os seus seguidores, a sua lista de e-mail e os seus contatos. Aqui a referência é zero vírgula três por cento. Você pode mudar as duas, e a conta aparece embaixo de cada barra. Agora olhe o número verde: é o potencial da sua primeira turma. É uma projeção feita com os seus números, não uma promessa. E começar pequeno é normal: a primeira turma costuma vir de poucas pessoas que já confiam em você. Gostou do número? Então vamos planejar o lançamento."
+
+Cenas, na ordem da narração:
+1. Vinheta: Vinheta escura: "Seção 5 de 7 · SEU POTENCIAL". Texto na tela: "SEU POTENCIAL".
+2. Por que importa: Um gráfico de barras se desenha atrás do Gênio, que fica surpreso. Texto na tela: "Quanto a 1ª turma pode faturar?".
+3. Base quente: Grupo de pessoinhas com brilho verde (confiança). A mão arrasta a barra; a conta "800 pessoas × 3% = 24 matrículas" aparece com destaque. Tela: docs/telas/5-potencial-a-conquista-e-audiencias.jpg. Texto na tela: "Base quente: 3%".
+4. Audiência fria: Ícones de redes, e-mail e agenda flutuam como bolhas e entram na segunda barra; a conta com 0,3% aparece. Tela: docs/telas/5-potencial-a-conquista-e-audiencias.jpg. Texto na tela: "Audiência fria: 0,3%".
+5. Resultado: Zoom no card verde: o valor conta até o número. Uma etiqueta discreta: "projeção, não promessa". Tela: docs/telas/5-potencial-b-resultado.jpg. Texto na tela: "Projeção com os seus números".
+6. Encerramento: Banner de conquista e card "Próxima seção: Lançamento". Tela: docs/telas/6-lancamento-a-conquista-e-campanhas.jpg. Texto na tela: "Vale a pena começar".
+
+Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer "reconhecido pelo MEC" ou "chancela"; não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
+```
+
+## 6. Lançamento  (chave `lancamento`, ~58s, fundo claro)
+
+**Por que importa:** Escolher como abrir as matrículas e marcar o início da turma. O registro com a FEX leva até 30 dias.
+
+### Narração
+
+> Curso pronto que ninguém conhece não vira turma. Aqui você escolhe como vai abrir as matrículas e quando a primeira turma começa.
 >
-> Não existe um jeito certo. Tem base de alunos? Campanha interna. Tem audiência nas redes? Aula magna ao vivo. Base pequena e engajada? Lançamento relâmpago no WhatsApp. Escolha o que tem mais a ver com você hoje.
+> Não existe um jeito certo. Tem base de alunos? Campanha interna. Tem audiência nas redes? Aula ao vivo. Base pequena e engajada? Lançamento relâmpago no WhatsApp. Também dá para aproveitar datas como Black Friday, Natal e Ano Novo, nas campanhas sazonais.
 >
-> Depois, marque a aula magna, a abertura oficial da turma. A implantação com a Faculdade FEX Educação® leva noventa dias, por isso a data mínima é daqui a noventa dias. E a ferramenta já mostra quando as suas matrículas abrem.
+> Depois, marque a data de início da turma. O registro do curso com a Faculdade FEX Educação leva até trinta dias, por isso a data mínima é daqui a trinta dias. A ferramenta já mostra quando as suas matrículas abrem.
 >
-> Data marcada é projeto de verdade. Vamos para o último passo.
+> Ninguém se sente cem por cento pronto. Marcar a data é o que transforma vontade em projeto. Vamos para o último passo.
 
 ### Cenas
 
-| # | Tempo | Cena | Narração | Visual | Gê | Texto na tela | Som | Tela |
-|---|---|---|---|---|---|---|---|---|
-| 1 | 0:00–0:03 | Vinheta | (sem fala) | Vinheta clara: "Seção 6 de 7 · LANÇAMENTO". | Gê entra com um megafone. | Seção 6 de 7 · LANÇAMENTO | Whoosh. | quadro desenhado |
-| 2 | 0:03–0:13 | Por que importa | Curso pronto que ninguém conhece não vira turma. Aqui você escolhe como vai abrir as matrículas e marca a data da aula magna. | Uma porta desenhada com a placa "Matrículas" se abre e entra luz verde. | Gê abre a porta. | Como abrir as matrículas | Porta abrindo. | quadro desenhado |
-| 3 | 0:13–0:29 | Modelo de campanha | Não existe um jeito certo. Tem base de alunos? Campanha interna. Tem audiência nas redes? Aula magna ao vivo. Base pequena e engajada? Lançamento relâmpago no WhatsApp. Escolha o que tem mais a ver com você hoje. | Os 6 cards do app passam como um carrossel. Cada vez que a narração cita um modelo, o card correspondente sobe e acende. A mão escolhe "Aula magna ao vivo". | Gê de apresentador, apontando para cada card. | Escolha o que combina com você hoje | Tick a cada card. | `telas/06-lancamento-1-campanha.jpg` |
-| 4 | 0:29–0:47 | Aula magna | Depois, marque a aula magna, a abertura oficial da turma. A implantação com a Faculdade FEX Educação® leva noventa dias, por isso a data mínima é daqui a noventa dias. E a ferramenta já mostra quando as suas matrículas abrem. | Calendário desenhado: 90 quadradinhos se preenchem de verde rapidamente. Um marcador "Matrículas abrem" e uma estrela "Aula magna" aparecem. Corte para a tela do app com a data e a frase destacada. | Gê circula a data com um pincel verde. | 90 dias até a aula magna | Ticks rápidos + "ding". | `telas/06-lancamento-2-magna.jpg` |
-| 5 | 0:47–0:52 | Encerramento | Data marcada é projeto de verdade. Vamos para o último passo. | Barra verde revela "Próxima seção: Envio". | Gê acena. | Próxima seção: Envio | Whoosh. | quadro desenhado |
+| # | Cena | O que acontece | Tela | Texto na tela |
+|---|---|---|---|---|
+| 1 | Vinheta | Vinheta em areia: "Seção 6 de 7 · LANÇAMENTO". O Gênio entra com um megafone. | animação | LANÇAMENTO |
+| 2 | Por que importa | Uma porta com a placa "Matrículas" se abre e entra luz verde. | animação | Como abrir as matrículas |
+| 3 | Campanhas | Os 6 cards passam em carrossel; cada um acende quando a narração cita. Mini ícones de Black Friday, Natal e Ano Novo no card de campanhas sazonais. | `telas/6-lancamento-a-conquista-e-campanhas.jpg` | Escolha o que combina com você hoje |
+| 4 | Início da turma | Calendário: 30 quadradinhos se preenchem (registro). Marcador "Matrículas abrem" e estrela "Turma 1". | `telas/6-lancamento-b-inicio-da-turma.jpg` | Registro em até 30 dias |
+| 5 | Encerramento | Banner de conquista e card "Próxima seção: Envio". | `telas/7-envio-a-conquista-e-contato.jpg` | Data marcada é projeto de verdade |
 
-## Seção 7 · Envio  (chave `envio`, ~69s, fundo escuro)
+### Prompt para o produtor
 
-**Objetivo:** Pedir o contato, mostrar a prévia gratuita, apresentar o plano completo de R$ 97 e o próximo passo com o especialista FEX.
+```
+Crie um vídeo tutorial em motion design 2D, 16:9 (1920×1080), com cerca de 58 segundos, para a seção "Lançamento" (seção 6 de 7) do aplicativo Crie sua Formação, da Faculdade FEX Educação. O vídeo ensina a pessoa a preencher esta seção e abre com uma introdução curta sobre por que ela importa para a criação do curso.
 
-### Narração completa
+Objetivo da seção: Escolher como abrir as matrículas e marcar o início da turma. O registro com a FEX leva até 30 dias.
+
+Estilo: telas reais do app dentro de um notebook ou celular desenhado, com zoom no campo da vez, mão-cursor clicando e texto digitado letra a letra; palavras-chave em tipografia animada (Montserrat Bold); ícones e formas se desenhando; mascote Gênio Oculto (gênio verde com capelo de formatura) apontando e reagindo. Fundo areia clara (#F4F2EC). Verde #32CD32, preto #040805, areia #E8E4D9. Vinheta de 3 s com a barra verde do logo FEX revelando "Seção 6 de 7 · LANÇAMENTO". Ritmo dinâmico: algo se constrói a cada segundo.
+
+Narração (voz feminina, calorosa, encorajadora; o público costuma duvidar de si):
+"Curso pronto que ninguém conhece não vira turma. Aqui você escolhe como vai abrir as matrículas e quando a primeira turma começa. Não existe um jeito certo. Tem base de alunos? Campanha interna. Tem audiência nas redes? Aula ao vivo. Base pequena e engajada? Lançamento relâmpago no WhatsApp. Também dá para aproveitar datas como Black Friday, Natal e Ano Novo, nas campanhas sazonais. Depois, marque a data de início da turma. O registro do curso com a Faculdade FEX Educação leva até trinta dias, por isso a data mínima é daqui a trinta dias. A ferramenta já mostra quando as suas matrículas abrem. Ninguém se sente cem por cento pronto. Marcar a data é o que transforma vontade em projeto. Vamos para o último passo."
+
+Cenas, na ordem da narração:
+1. Vinheta: Vinheta em areia: "Seção 6 de 7 · LANÇAMENTO". O Gênio entra com um megafone. Texto na tela: "LANÇAMENTO".
+2. Por que importa: Uma porta com a placa "Matrículas" se abre e entra luz verde. Texto na tela: "Como abrir as matrículas".
+3. Campanhas: Os 6 cards passam em carrossel; cada um acende quando a narração cita. Mini ícones de Black Friday, Natal e Ano Novo no card de campanhas sazonais. Tela: docs/telas/6-lancamento-a-conquista-e-campanhas.jpg. Texto na tela: "Escolha o que combina com você hoje".
+4. Início da turma: Calendário: 30 quadradinhos se preenchem (registro). Marcador "Matrículas abrem" e estrela "Turma 1". Tela: docs/telas/6-lancamento-b-inicio-da-turma.jpg. Texto na tela: "Registro em até 30 dias".
+5. Encerramento: Banner de conquista e card "Próxima seção: Envio". Tela: docs/telas/7-envio-a-conquista-e-contato.jpg. Texto na tela: "Data marcada é projeto de verdade".
+
+Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer "reconhecido pelo MEC" ou "chancela"; não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
+```
+
+## 7. Envio  (chave `envio`, ~71s, fundo escuro)
+
+**Por que importa:** Deixar o contato, ver o curso montado de graça, conhecer o plano completo de R$ 97 e o próximo passo com o Plano Bronze.
+
+### Narração
 
 > Último passo! Aqui você deixa o seu contato e vê o seu curso montado na sua frente.
 >
 > Escreva o seu e-mail e o seu WhatsApp. É para lá que vai o seu plano, e é por onde um especialista da FEX pode falar com você, se você quiser.
 >
-> Clique em Ver meu curso pronto. A ferramenta organiza tudo o que você contou...
+> Clique em Ver meu curso pronto. A ferramenta organiza tudo o que você contou e mostra a capa do seu curso, os módulos, as primeiras aulas e o potencial da primeira turma. Tudo isso de graça. Você já sabia tudo isso. Agora está organizado.
 >
-> ...e pronto: a capa do seu curso, as disciplinas, as primeiras aulas e o potencial da primeira turma. Tudo isso de graça.
+> Quer o resto? O plano completo libera todas as aulas, o roteiro de gravação, o funil de vendas, o texto da sua página e o cronograma até a primeira turma, por noventa e sete reais.
 >
-> Quer o resto? O plano completo libera todas as aulas, o roteiro de gravação, o funil de vendas, o texto da sua página e o cronograma até a aula magna, por noventa e sete reais.
->
-> E no final do plano, um especialista da Faculdade FEX Educação® te ajuda a transformar tudo isso em uma pós-graduação com validade acadêmica. Agora é com você!
+> E no final do plano, um especialista da Faculdade FEX Educação te mostra como transformar o seu curso em extensão universitária, com o Plano Bronze. Agora é com você!
 
 ### Cenas
 
-| # | Tempo | Cena | Narração | Visual | Gê | Texto na tela | Som | Tela |
-|---|---|---|---|---|---|---|---|---|
-| 1 | 0:00–0:03 | Vinheta | (sem fala) | Vinheta escura: "Seção 7 de 7 · ENVIO". | Gê entra segurando um envelope verde. | Seção 7 de 7 · ENVIO | Whoosh. | quadro desenhado |
-| 2 | 0:03–0:11 | Por que importa | Último passo! Aqui você deixa o seu contato e vê o seu curso montado na sua frente. | O envelope abre e de dentro sai a capa de um curso. | Gê animado. | Seu curso montado | Papel. | quadro desenhado |
-| 3 | 0:11–0:25 | Contato | Escreva o seu e-mail e o seu WhatsApp. É para lá que vai o seu plano, e é por onde um especialista da FEX pode falar com você, se você quiser. | Tela de contato, digitação nos campos. A caixa de consentimento recebe o check. | Gê segurando um celular. | Seu plano vai para o seu contato | Digitação. | `telas/07-envio-1-contato.jpg` |
-| 4 | 0:25–0:31 | Montagem | Clique em Ver meu curso pronto. A ferramenta organiza tudo o que você contou... | Tela de análise: a esfera verde pulsa e a lista ganha checks um a um (acelerar se precisar). | Gê com os olhos fechados, concentrado, mãos brilhando. | Organizando… | Ticks de checklist. | `telas/07-envio-2-analise.jpg` |
-| 5 | 0:31–0:41 | Prévia | ...e pronto: a capa do seu curso, as disciplinas, as primeiras aulas e o potencial da primeira turma. Tudo isso de graça. | A capa do curso entra com inclinação 3D. A câmera desce pela matriz e abre a primeira disciplina mostrando as aulas. | Gê comemorando. | Grátis | Revelação. | `telas/07-envio-3-previa.jpg` |
-| 6 | 0:41–0:57 | Plano completo | Quer o resto? O plano completo libera todas as aulas, o roteiro de gravação, o funil de vendas, o texto da sua página e o cronograma até a aula magna, por noventa e sete reais. | Os cards com cadeado se abrem um a um (cadeado salta e some). Termina no botão "Desbloquear plano completo por R$ 97". | Gê girando uma chave. | Plano completo · R$ 97 | Cadeados abrindo. | `telas/07-envio-5-previa-desbloquear.jpg` |
-| 7 | 0:57–1:09 | Próximo passo | E no final do plano, um especialista da Faculdade FEX Educação® te ajuda a transformar tudo isso em uma pós-graduação com validade acadêmica. Agora é com você! | Botão verde gigante pulsando com o ícone do WhatsApp. Confete verde. Fecha com o logo FEX Educação e #sejaFEX. | Gê comemorando, depois acena para a câmera. | Faculdade FEX Educação® · #sejaFEX | Acorde final. | quadro desenhado |
+| # | Cena | O que acontece | Tela | Texto na tela |
+|---|---|---|---|---|
+| 1 | Vinheta | Vinheta escura: "Seção 7 de 7 · ENVIO". O Gênio segura um envelope verde. | animação | ENVIO |
+| 2 | Contato | Digitação nos campos de e-mail e WhatsApp; a caixa de consentimento recebe o check. | `telas/7-envio-b-contato-preenchido.jpg` | Seu plano vai para o seu contato |
+| 3 | Organizando | A esfera verde pulsa e a lista ganha checks um a um. | `telas/7-envio-c-organizando.jpg` |  |
+| 4 | Prévia | A capa do curso entra com inclinação 3D; a câmera desce até os módulos. | `telas/7-envio-d-previa-capa.jpg` | Grátis |
+| 5 | Módulos | O primeiro módulo abre e mostra as aulas (as perguntas da pessoa). | `telas/7-envio-e-previa-modulos.jpg` | Você já sabia. Agora está organizado |
+| 6 | Plano completo | Os cadeados dos cards saltam e somem um a um; termina no botão "Desbloquear por R$ 97". | `telas/7-envio-f-previa-desbloquear.jpg` | Plano completo · R$ 97 |
+| 7 | Plano Bronze | O card do Plano Bronze entra com borda verde girando; os itens aparecem em sequência. | `telas/7-envio-j-plano-bronze-card.jpg` | Curso livre → extensão universitária |
+| 8 | Especialista | O botão verde gigante pulsa com o ícone do WhatsApp. Confete verde. Fecha com o logo FEX e #sejaFEX. | `telas/7-envio-k-botao-especialista.jpg` | Agora é com você! |
 
-## Prompt de referência do personagem (para geradores de imagem e vídeo)
+### Prompt para o produtor
 
 ```
-2D flat cartoon mascot named "Gê": a friendly genie made of bright green (#32CD32) with darker green shading (#1E9E1E), thick black outline, no legs, body tapering into a curled smoke tail, large white oval eyes with black pupils, expressive black eyebrows, simple smile, a black graduation cap (mortarboard) tilted on the head with a light green tassel, thin rounded arms with simple mitten hands. Clean vector style, flat colors, no gradients except subtle shading, modern premium explainer animation look, not childish. Background: dark green textured (#040805) or warm sand (#F4F2EC).
+Crie um vídeo tutorial em motion design 2D, 16:9 (1920×1080), com cerca de 71 segundos, para a seção "Envio" (seção 7 de 7) do aplicativo Crie sua Formação, da Faculdade FEX Educação. O vídeo ensina a pessoa a preencher esta seção e abre com uma introdução curta sobre por que ela importa para a criação do curso.
+
+Objetivo da seção: Deixar o contato, ver o curso montado de graça, conhecer o plano completo de R$ 97 e o próximo passo com o Plano Bronze.
+
+Estilo: telas reais do app dentro de um notebook ou celular desenhado, com zoom no campo da vez, mão-cursor clicando e texto digitado letra a letra; palavras-chave em tipografia animada (Montserrat Bold); ícones e formas se desenhando; mascote Gênio Oculto (gênio verde com capelo de formatura) apontando e reagindo. Fundo verde quase preto com textura leve. Verde #32CD32, preto #040805, areia #E8E4D9. Vinheta de 3 s com a barra verde do logo FEX revelando "Seção 7 de 7 · ENVIO". Ritmo dinâmico: algo se constrói a cada segundo.
+
+Narração (voz feminina, calorosa, encorajadora; o público costuma duvidar de si):
+"Último passo! Aqui você deixa o seu contato e vê o seu curso montado na sua frente. Escreva o seu e-mail e o seu WhatsApp. É para lá que vai o seu plano, e é por onde um especialista da FEX pode falar com você, se você quiser. Clique em Ver meu curso pronto. A ferramenta organiza tudo o que você contou e mostra a capa do seu curso, os módulos, as primeiras aulas e o potencial da primeira turma. Tudo isso de graça. Você já sabia tudo isso. Agora está organizado. Quer o resto? O plano completo libera todas as aulas, o roteiro de gravação, o funil de vendas, o texto da sua página e o cronograma até a primeira turma, por noventa e sete reais. E no final do plano, um especialista da Faculdade FEX Educação te mostra como transformar o seu curso em extensão universitária, com o Plano Bronze. Agora é com você!"
+
+Cenas, na ordem da narração:
+1. Vinheta: Vinheta escura: "Seção 7 de 7 · ENVIO". O Gênio segura um envelope verde. Texto na tela: "ENVIO".
+2. Contato: Digitação nos campos de e-mail e WhatsApp; a caixa de consentimento recebe o check. Tela: docs/telas/7-envio-b-contato-preenchido.jpg. Texto na tela: "Seu plano vai para o seu contato".
+3. Organizando: A esfera verde pulsa e a lista ganha checks um a um. Tela: docs/telas/7-envio-c-organizando.jpg.
+4. Prévia: A capa do curso entra com inclinação 3D; a câmera desce até os módulos. Tela: docs/telas/7-envio-d-previa-capa.jpg. Texto na tela: "Grátis".
+5. Módulos: O primeiro módulo abre e mostra as aulas (as perguntas da pessoa). Tela: docs/telas/7-envio-e-previa-modulos.jpg. Texto na tela: "Você já sabia. Agora está organizado".
+6. Plano completo: Os cadeados dos cards saltam e somem um a um; termina no botão "Desbloquear por R$ 97". Tela: docs/telas/7-envio-f-previa-desbloquear.jpg. Texto na tela: "Plano completo · R$ 97".
+7. Plano Bronze: O card do Plano Bronze entra com borda verde girando; os itens aparecem em sequência. Tela: docs/telas/7-envio-j-plano-bronze-card.jpg. Texto na tela: "Curso livre → extensão universitária".
+8. Especialista: O botão verde gigante pulsa com o ícone do WhatsApp. Confete verde. Fecha com o logo FEX e #sejaFEX. Tela: docs/telas/7-envio-k-botao-especialista.jpg. Texto na tela: "Agora é com você!".
+
+Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer "reconhecido pelo MEC" ou "chancela"; não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
 ```
