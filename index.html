@@ -943,7 +943,7 @@ const CONFIG = {
   // Webhook que recebe o lead (RD Station, Make, Zapier, n8n...). null = não envia.
   LEAD_WEBHOOK_URL: null,
   // Rastreamento. Preencha para carregar automaticamente.
-  META_PIXEL_ID: null,
+  META_PIXEL_ID: "2377222452495164",
   GTM_ID: null,
   // IDs de vídeo do YouTube por etapa (ex.: "dQw4w9WgXcQ"). Vazio = mostra "vídeo em produção".
   // "Sugerir com IA" funciona com regras de configuração no próprio navegador, sem custo. Deixe null.
@@ -1000,6 +1000,7 @@ function track(ev, data={}){
     (window.dataLayer = window.dataLayer || []).push(Object.assign({event:"genio_"+ev}, data));
     const map = {inicio:"ViewContent", lead:"Lead", checkout:"InitiateCheckout", compra:"Purchase", especialista:"Contact"};
     if(window.fbq && map[ev]) fbq("track", map[ev], data);
+    else if(window.fbq && ev==="etapa") fbq("trackCustom", "EtapaConcluida", data);
   }catch(e){}
 }
 function sendLead(etapa){
@@ -1436,6 +1437,7 @@ function next(){
   if(v!==true){ $("#err").textContent = v; $("#qbox").animate([{transform:"translateX(0)"},{transform:"translateX(-10px)"},{transform:"translateX(10px)"},{transform:"translateX(0)"}],{duration:300}); return; }
   save();
   if(st.id==="nome") track("inicio");
+  track("etapa", {etapa: st.id, numero: S.step+1, secao: PHASES[st.ph]});
   if(S.step < STEPS.length-1){ const ph0 = st.ph; S.step++; S.cheer = STEPS[S.step].ph!==ph0 ? ph0 : null; save(); renderStep(1); S.cheer = null; }
   else finishBuilder();
 }

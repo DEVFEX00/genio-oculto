@@ -25,7 +25,8 @@ No `index.html`, procure `const CONFIG = {` (início do `<script>`):
 | `CHECKOUT_URL` | Link do pagamento de R$ 97 | Hubla: `https://pay.hub.la/3MBwoxpx8wevYDD06Tkt` (`null` = modo demonstração) |
 | `WHATSAPP_ESPECIALISTA` | Destino do botão do especialista | 5511915612544 (secretaria e B2B) |
 | `LEAD_WEBHOOK_URL` | Envia o lead para o CRM | `null` |
-| `META_PIXEL_ID`, `GTM_ID` | Rastreamento | `null` |
+| `META_PIXEL_ID` | Pixel da Meta | `2377222452495164` |
+| `GTM_ID` | Google Tag Manager | `null` |
 | `IA_ENDPOINT` | Reservado. O "Sugerir com IA" usa regras de configuração no navegador, sem custo | `null` |
 | `ADMIN` | Botão "Admin" no rodapé da capa, para testar sem preencher tudo nem pagar. Login `admin`, senha `FEX@2026` | `true` (troque para `false` antes de lançar) |
 | `VIDEOS` | Vídeo de cada seção (voce, aluno, metodo, formato, potencial, lancamento, envio): ID do YouTube ou MP4 em `assets/videos/` | |
