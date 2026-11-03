@@ -941,7 +941,7 @@ const CONFIG = {
   // WhatsApp do especialista FEX (só números, com 55 + DDD). Padrão: secretaria e B2B da base de conhecimento.
   WHATSAPP_ESPECIALISTA: "5511915612544",
   // Webhook que recebe o lead (RD Station, Make, Zapier, n8n...). null = não envia.
-  LEAD_WEBHOOK_URL: null,
+  LEAD_WEBHOOK_URL: "https://n8n.fexeducacao.com/webhook/genio-oculto-p1I5NJjuWBpvAzBZ",
   // Rastreamento. Preencha para carregar automaticamente.
   META_PIXEL_ID: "2377222452495164",
   GTM_ID: null,
@@ -1003,12 +1003,36 @@ function track(ev, data={}){
     else if(window.fbq && ev==="etapa") fbq("trackCustom", "EtapaConcluida", data);
   }catch(e){}
 }
+// Guarda as UTMs da primeira chegada, para irem junto com o lead mesmo que o endereço mude.
+try{ if(/[?&](utm_|fbclid)/.test(location.search)) localStorage.setItem("cf_utm", location.search); }catch(e){}
 function sendLead(etapa){
   if(!CONFIG.LEAD_WEBHOOK_URL) return;
-  const f = formation();
-  const body = { etapa, id:S.leadId, data:new Date().toISOString(), contato:{nome:S.a.nome, email:S.a.email, telefone:S.a.telefone, instagram:S.a.instagram},
-    curso:{titulo:f.title, area:S.a.area, anos:S.a.anos, persona:S.a.persona, promessa:S.a.promessa, titulacao:f.t.nome, horas:f.h, modulos:f.mods.length, aulas:f.aulas, perguntas:perguntas()},
-    potencial:pot(), parcela:S.parcela, preco:S.preco, campanha:S.campaign, inicioTurma:S.magna, pago:S.paid, linkPessoal:linkPessoal(), origem:location.search };
+  // Uma linha por envio, com as chaves iguais aos cabeçalhos da planilha (docs/planilha-leads.xlsx).
+  let f={}, p={}; try{ f = formation(); }catch(e){} try{ p = pot(); }catch(e){}
+  const rot = (lista,v) => (lista.find(o=>o[0]===v)||[])[1] || v || "";
+  const ENSINA = [["nao","Ainda não"],["mentoria","Mentoria ou consultoria"],["online","Curso online"],["presencial","Curso ou evento presencial"]];
+  const pergs = perguntas(), mods = f.mods || [];
+  let q = new URLSearchParams(location.search); try{ const u = localStorage.getItem("cf_utm"); if(u && !q.get("utm_source")) q = new URLSearchParams(u); }catch(e){}
+  const body = {
+    lead_id:S.leadId||"", etapa, data_hora:new Date().toISOString(),
+    nome:S.a.nome||"", sobrenome:S.a.sobrenome||"", nome_completo:[S.a.nome,S.a.sobrenome].filter(Boolean).join(" "),
+    email:S.a.email||"", telefone:S.a.telefone||"", whatsapp:"55"+String(S.a.telefone||"").replace(/\D/g,"").replace(/^55(?=\d{10,11}$)/,""),
+    instagram:S.a.instagram||"", aceite_contato:S.a.consent?"sim":"não",
+    area:S.a.area||"", anos_experiencia:S.a.anos??"",
+    qtd_perguntas:pergs.length, perguntas:pergs.join(" | "),
+    persona:S.a.persona||"", promessa:S.a.promessa||"",
+    ferramentas:(S.a.ferramentas||[]).join(" | "), referencias:S.a.referencias||"", ja_ensina:rot(ENSINA,S.a.ensina),
+    objetivo:rot(OBJETIVOS,S.a.objetivo), titulacao:(f.t&&f.t.nome)||"", carga_horaria:f.h||"",
+    qtd_modulos:mods.length, modulos:mods.map(m=>m.t).join(" | "), qtd_aulas:f.aulas||"", titulo_curso:f.title||"",
+    parcela:S.parcela||"", preco_total:S.preco||"",
+    base_quente:S.pot.warm, audiencia_fria:S.pot.cold, conv_quente_pct:S.pot.cw, conv_fria_pct:S.pot.cc,
+    matriculas_previstas:p.mat??"", faturamento_previsto:p.fat??"",
+    campanha:(CAMPAIGNS[S.campaign]&&CAMPAIGNS[S.campaign].label)||"", inicio_turma:S.magna||"",
+    pago:S.paid?"sim":"não", link_pessoal:linkPessoal(),
+    utm_source:q.get("utm_source")||"", utm_medium:q.get("utm_medium")||"", utm_campaign:q.get("utm_campaign")||"",
+    utm_content:q.get("utm_content")||"", utm_term:q.get("utm_term")||"", fbclid:q.get("fbclid")||"",
+    pagina:location.href.split("#")[0]
+  };
   try{ fetch(CONFIG.LEAD_WEBHOOK_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body),keepalive:true}).catch(()=>{}); }catch(e){}
 }
 
