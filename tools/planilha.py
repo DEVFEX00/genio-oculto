@@ -56,6 +56,7 @@ C = [
  ("utm_term","Origem","Termo / público","Texto","Campo personalizado"),
  ("fbclid","Origem","Clique do Facebook/Instagram","Texto",""),
  ("pagina","Origem","Página em que a pessoa estava","URL",""),
+ ("oferta","Origem","Versão do teste A/B: executiva (A) ou pago97 (B)","executiva / pago97","Campo personalizado"),
 ]
 exemplo = json.load(open(sys.argv[1])) if len(sys.argv) > 1 else {}
 
@@ -110,7 +111,7 @@ txt = [
  ("prévia: a pessoa preencheu tudo e viu a prévia do curso (é o lead).", False),
  ("checkout: clicou para pagar os R$ 97.", False),
  ("compra: voltou da Hubla com o pagamento (link ?pago=1).", False),
- ("especialista: clicou no botão do WhatsApp do especialista FEX no plano completo.", False),
+ ("especialista: clicou no botão do WhatsApp (executiva na prévia, no teste A, ou especialista no plano completo, no teste B).", False),
 ]
 for r,(t,b) in enumerate(txt,1):
     c = n.cell(row=r, column=1, value=t); c.font = Font(bold=b, size=13 if b else 11, color="00A63E" if b else "111827")

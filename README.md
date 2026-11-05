@@ -30,6 +30,7 @@ No `index.html`, procure `const CONFIG = {` (início do `<script>`):
 | `GTM_ID` | Google Tag Manager | `null` |
 | `IA_ENDPOINT` | Reservado. O "Sugerir com IA" usa regras de configuração no navegador, sem custo | `null` |
 | `ADMIN` | Botão "Admin" no rodapé da capa, para testar sem preencher tudo nem pagar. Login e senha com o time (não ficam no repositório) | `true` (troque para `false` antes de lançar) |
+| `OFERTA` | Teste A/B depois da prévia: `"executiva"` (chamada para a executiva no WhatsApp) ou `"pago97"` (plano por R$ 97). Para ver a outra sem mudar o padrão: `?oferta=pago97` | `"executiva"` |
 | `VIDEOS` | Vídeo de cada seção (voce, aluno, metodo, formato, potencial, lancamento, envio): ID do YouTube ou MP4 em `assets/videos/` | |
 
 **Depois do pagamento (Hubla):** na área de membros, cadastre o link `https://genio-oculto-one.vercel.app/?pago=1`. No mesmo navegador em que a pessoa preencheu, o plano completo abre direto. Em outro aparelho ou navegador, aparece uma tela para colar o **link pessoal do curso** (mostrado antes do pagamento, com botão de copiar e de enviar para o próprio WhatsApp), que guarda as respostas no próprio endereço.

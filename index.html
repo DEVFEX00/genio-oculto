@@ -742,6 +742,7 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
 .mega .wa{width:clamp(64px,8vw,96px);height:clamp(64px,8vw,96px);border-radius:50%;background:var(--ink);display:grid;place-items:center;flex:none;transition:transform .4s}
 .mega:hover .wa{transform:rotate(-12deg) scale(1.08)}
 .mega .wa svg{width:48%;height:48%;fill:var(--green)}
+.ucard .passo-n{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--green);color:var(--ink);font-weight:800;font-size:18px;margin-bottom:6px}
 .mega-sub{text-align:center;margin-top:18px;font-size:14px;color:var(--muted-d)}
 
 /* modal vídeo */
@@ -934,6 +935,12 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
    CONFIGURAÇÃO  ·  tudo que muda antes de publicar fica aqui
    ===================================================================== */
 const CONFIG = {
+  // Oferta depois da prévia (teste A/B):
+  //   "executiva" = teste A: chamada para conversar com uma executiva da FEX no WhatsApp (sem pagamento).
+  //   "pago97"    = backlog / teste B: desbloquear o plano completo por R$ 97 na Hubla.
+  // Para ver a outra versão sem mudar aqui, abra o site com ?oferta=pago97 ou ?oferta=executiva (fica salvo no navegador).
+  OFERTA: "executiva",
+  WHATSAPP_MSG_EXECUTIVA: "Oi! Acabei de descobrir o meu Gênio Oculto e quero estruturar uma formação com a Faculdade FEX Educação®.",
   PRECO: 97,
   // Link do checkout (Hubla, Kiwify, Eduzz...). null = modo demonstração (libera o plano sem cobrar).
   // Configure a página de obrigado da plataforma para voltar a este site com ?pago=1
@@ -955,6 +962,12 @@ const CONFIG = {
   // Um vídeo por seção do construtor: ID do YouTube ou caminho de um MP4 do site (ex.: "assets/videos/1-voce.mp4"). Vazio = "vídeo em produção".
   VIDEOS: { voce:"8Gzpl3shSLE", aluno:"K3zME790tOk", metodo:"eybraHOIbts", formato:"zweDja8kEXE", potencial:"7UKmZilfBPc", lancamento:"W2Hq-QqTnp8", envio:"pmdOPJ74Slg" }
 };
+
+/* ============ oferta ativa (teste A/B) ============ */
+const OFERTA = (()=>{ const ok=["executiva","pago97"]; let o=CONFIG.OFERTA;
+  try{ const q=new URLSearchParams(location.search).get("oferta"); if(ok.includes(q)){ localStorage.setItem("cf_oferta",q); o=q; } else { const g=localStorage.getItem("cf_oferta"); if(ok.includes(g)) o=g; } }catch(e){}
+  return ok.includes(o) ? o : "executiva"; })();
+const EXECUTIVA = OFERTA === "executiva";
 
 /* ============ util ============ */
 const $ = (s, el=document) => el.querySelector(s);
@@ -1031,7 +1044,7 @@ function sendLead(etapa){
     pago:S.paid?"sim":"não", link_pessoal:linkPessoal(),
     utm_source:q.get("utm_source")||"", utm_medium:q.get("utm_medium")||"", utm_campaign:q.get("utm_campaign")||"",
     utm_content:q.get("utm_content")||"", utm_term:q.get("utm_term")||"", fbclid:q.get("fbclid")||"",
-    pagina:location.href.split("#")[0]
+    pagina:location.href.split("#")[0], oferta:OFERTA
   };
   try{ fetch(CONFIG.LEAD_WEBHOOK_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body),keepalive:true}).catch(()=>{}); }catch(e){}
 }
@@ -1203,7 +1216,7 @@ const SECTIONS = [
   {key:"formato", n:"Seu formato", why:"Você diz o objetivo do curso e a ferramenta indica a titulação de extensão universitária ideal: Iniciação, Atualização, Capacitação ou Aperfeiçoamento. Depois, o preço."},
   {key:"potencial", n:"Seu potencial", why:"Quanto a primeira turma pode faturar com quem já te conhece. É o dinheiro que já está na sua mesa."},
   {key:"lancamento", n:"Lançamento", why:"Como você vai abrir a primeira turma e quando ela começa. O registro com a FEX leva até 30 dias."},
-  {key:"envio", n:"Envio", why:"Você deixa o seu contato, vê o seu curso montado de graça e descobre o que vem no plano completo."}
+  {key:"envio", n:"Envio", why: EXECUTIVA ? "Você deixa o seu contato, vê o seu curso montado de graça e descobre o próximo passo para transformá-lo em extensão universitária." : "Você deixa o seu contato, vê o seu curso montado de graça e descobre o que vem no plano completo."}
 ];
 const LIGHT_PH = [1,3,5]; // fases com fundo claro, alternando com as escuras
 // Quem preenche costuma duvidar de si (síndrome do impostor, medo de julgamento, de ser enganado).
@@ -1534,13 +1547,36 @@ function posterHTML(f,p){
     <div class="r"><div><b>${f.h}h</b><span>carga horária</span></div><div><b>${f.mods.length}</b><span>módulos</span></div><div><b>${f.aulas}</b><span>aulas</span></div><div><b>${INT(S.parcela)}</b><span>12x de R$ por aluno</span></div>
       <div class="full"><b data-tw="${p.fat}" data-f="brl">${BRL(p.fat)}</b><span>potencial da primeira turma · ${INT(p.mat)} matrículas</span></div></div></div>`;
 }
+// Teste A: em vez do R$ 97, a chamada para uma executiva no WhatsApp da secretaria.
+function waExecutiva(f){
+  const msg = CONFIG.WHATSAPP_MSG_EXECUTIVA + (f && f.title ? `\n\nO meu curso: ${f.title}.` : "");
+  return `https://wa.me/${CONFIG.WHATSAPP_ESPECIALISTA}?text=${encodeURIComponent(msg)}`;
+}
+function ofertaExecutivaHTML(f){
+  const href = waExecutiva(f), n = CONFIG.WHATSAPP_ESPECIALISTA;
+  const passos = [["1","Você mostra o seu curso","A executiva recebe o nome do curso que você acabou de montar e entende o seu objetivo."],["2","Diagnóstico personalizado","Vocês revisam juntos a titulação, a carga horária e os módulos do seu curso."],["3","Curso de nível universitário","Você sai sabendo como transformar o curso livre em extensão universitária com a FEX."]];
+  return `<section class="sec band-dark"><div class="wrap">
+    <p class="eyebrow g">O próximo passo</p>
+    <h2 class="display" style="margin-top:16px;max-width:22ch">Você já tem a ideia do curso <b>praticamente pronta.</b></h2>
+    <p class="lead muted" style="margin-top:22px;max-width:48ch">Agora é transformar essa ideia em uma formação. Converse com uma das nossas executivas: ela faz um diagnóstico personalizado com você para montar o seu curso e transformá-lo em um curso de nível universitário, como extensão universitária da Faculdade FEX Educação®.</p>
+    <div class="unlock-grid">
+      ${passos.map(([k,t,d])=>`<div class="ucard"><span class="passo-n">${k}</span><h3>${t}</h3><p>${esc(d)}</p></div>`).join("")}
+    </div>
+    <a class="mega" href="${href}" target="_blank" rel="noopener" data-executiva>
+      <span class="mk"><span><small>Fale com uma executiva FEX</small><strong>Quero o diagnóstico do meu curso</strong></span><span class="wa"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 2.4 1 2.9.8 3.4.7.5-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg></span></span>
+    </a>
+    <p class="mega-sub">Abre o WhatsApp da secretaria da Faculdade FEX Educação® com a mensagem pronta. Número: +55 ${n.slice(2,4)} ${n.slice(4,9)}-${n.slice(9)}. Sem compromisso.</p>
+    <div style="margin-top:28px;text-align:center"><button class="link-btn" id="editAns">Ajustar minhas respostas</button></div>
+  </div></section>
+  <div class="sticky-cta" id="stickyCta"><div class="wrap"><p><b>${esc(f.title)}</b> · diagnóstico com a FEX</p><a class="btn btn-green btn-sm" href="${href}" target="_blank" rel="noopener" data-executiva>Falar com uma executiva →</a></div></div>`;
+}
 function renderPreview(){
   const f = formation(), p = pot();
   $("#view-preview").innerHTML = `
   <section class="pv-hero tex"><div class="wrap">
     <span class="pill"><span class="dot"></span>Prévia gratuita</span>
     <h1>${esc(firstName())}, este é o <b>seu curso.</b></h1>
-    <p class="lead muted" style="margin-top:22px">Você já sabia tudo isso. Agora está organizado. Montado a partir das ${perguntas().length} perguntas que você trouxe. Abra os dois primeiros módulos e veja as aulas. O plano completo libera todas as outras partes.</p>
+    <p class="lead muted" style="margin-top:22px">Você já sabia tudo isso. Agora está organizado. Montado a partir das ${perguntas().length} perguntas que você trouxe. Abra os dois primeiros módulos e veja as aulas.${EXECUTIVA?"":" O plano completo libera todas as outras partes."}</p>
     ${posterHTML(f,p)}
     <div class="mt32">${compareHTML(f)}</div>
   </div></section>
@@ -1548,9 +1584,9 @@ function renderPreview(){
     <p class="eyebrow" style="color:#1a8a1a">Estrutura do curso</p>
     <h2 class="display" style="margin-top:16px">${f.mods.length} módulos, <b>${f.aulas} aulas.</b></h2>
     <div class="mt32" id="pvDiscs">${f.mods.map((d,i)=>discHTML(d, i===0, i>1)).join("")}</div>
-    ${f.mods.length>2?`<div class="lockcard" style="margin-top:20px">${LOCK}<span>As aulas dos módulos 3 a ${f.mods.length} estão no plano completo.</span></div>`:""}
+    ${f.mods.length>2?`<div class="lockcard" style="margin-top:20px">${LOCK}<span>${EXECUTIVA?`As aulas dos módulos 3 a ${f.mods.length} você fecha com a nossa executiva, no diagnóstico do seu curso.`:`As aulas dos módulos 3 a ${f.mods.length} estão no plano completo.`}</span></div>`:""}
   </div></section>
-  <section class="sec band-dark"><div class="wrap">
+  ${EXECUTIVA ? ofertaExecutivaHTML(f) : `  <section class="sec band-dark"><div class="wrap">
     <p class="eyebrow g">No plano completo</p>
     <h2 class="display" style="margin-top:16px;max-width:20ch">Tudo o que falta para você <b>gravar, vender e lançar.</b></h2>
     <div class="unlock-grid">
@@ -1562,7 +1598,8 @@ function renderPreview(){
     </div>
     <p class="muted" style="font-size:14px;margin-top:16px">Pagamento único. Acesso imediato ao plano.</p>
   </div></section>
-  <div class="sticky-cta" id="stickyCta"><div class="wrap"><p><b>${esc(f.title)}</b> · plano completo com ${f.aulas} aulas</p><button class="btn btn-green btn-sm" data-checkout>Desbloquear por R$ ${CONFIG.PRECO} →</button></div></div>`;
+  <div class="sticky-cta" id="stickyCta"><div class="wrap"><p><b>${esc(f.title)}</b> · plano completo com ${f.aulas} aulas</p><button class="btn btn-green btn-sm" data-checkout>Desbloquear por R$ ${CONFIG.PRECO} →</button></div></div>`}`;
+  if(EXECUTIVA) $$("#view-preview [data-executiva]").forEach(el=>el.onclick=()=>{ track("especialista"); sendLead("especialista"); });
   bindDiscs($("#view-preview"));
   animate($("#view-preview"));
   $("#editAns").onclick = ()=>{ S.step = 0; save(); show("builder"); renderStep(1); };
