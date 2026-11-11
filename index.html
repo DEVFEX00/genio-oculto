@@ -963,7 +963,7 @@ const CONFIG = {
   ADMIN: true,
   ADMIN_HASH: "871ca04d89153e40080a80dc2b0da386a9461fca0c0829f107b2f98556d6d9fd",
   // Um vídeo por seção do construtor: ID do YouTube ou caminho de um MP4 do site (ex.: "assets/videos/1-voce.mp4"). Vazio = "vídeo em produção".
-  VIDEOS: { voce:"8Gzpl3shSLE", aluno:"K3zME790tOk", metodo:"eybraHOIbts", formato:"zweDja8kEXE", potencial:"7UKmZilfBPc", lancamento:"W2Hq-QqTnp8", envio:"pmdOPJ74Slg" }
+  VIDEOS: { voce:"8Gzpl3shSLE", aluno:"K3zME790tOk", metodo:"eybraHOIbts", formato:"zweDja8kEXE", potencial:"7UKmZilfBPc", lancamento:"", envio:"pmdOPJ74Slg" }
 };
 
 /* ============ oferta ativa (teste A/B) ============ */
@@ -1445,7 +1445,7 @@ function renderStep(dir=1){
   box.className = "qbox"; void box.offsetWidth; box.className = "qbox " + (dir>0?"anim":"back");
   box.innerHTML = `
     <div class="qnum"><span>${PHASES[st.ph]} · ${S.step+1} de ${STEPS.length}</span>
-      <button type="button" class="tut${STEPS.findIndex(x=>x.ph===st.ph)===S.step?" new":""}" data-video="${st.ph}"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span><span>Assistir: como preencher a seção <b>${PHASES[st.ph]}</b></span></button></div>
+      ${(CONFIG.VIDEOS[(SECTIONS[st.ph]||{}).key]) ? `<button type="button" class="tut${STEPS.findIndex(x=>x.ph===st.ph)===S.step?" new":""}" data-video="${st.ph}"><span class="play"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span><span>Assistir: como preencher a seção <b>${PHASES[st.ph]}</b></span></button>` : ""}</div>
     <h2 class="q">${st.q()}</h2>
     ${S.cheer!=null && STEPS.findIndex(x=>x.ph===st.ph)===S.step && CONQUISTA[S.cheer] ? `<div class="cheer"><span class="cheer-ic">✓</span><span><b>Seção ${PHASES[S.cheer]} concluída.</b> ${esc(CONQUISTA[S.cheer]())}</span></div>` : ""}
     <p class="qhelp">${st.help}</p>
