@@ -17,7 +17,7 @@ Todas as capturas de tela: https://github.com/DEVFEX00/genio-oculto/tree/main/do
 - **Voz:** Feminina, calorosa e clara, ritmo de conversa. Tom de quem acredita na pessoa: o público duvida de si (síndrome do impostor, medo de julgamento, medo de ser enganado). Encorajar sem exagerar e sem prometer resultado.
 - **Som:** Trilha leve e otimista bem baixa sob a voz. Pop quando um card aparece, digitação suave, whoosh na transição, "ding" quando algo se completa.
 - **Legendas:** Recomendadas (muita gente assiste no celular): Montserrat Bold branca em pílula preta, na parte de baixo.
-- **Regras de texto:** Sempre "Faculdade FEX Educação". Falar em extensão universitária, nunca em pós-graduação ou MBA. Nunca dizer "reconhecido pelo MEC", "chancela" ou "certificação MEC". Na carga horária, nunca usar "autoestudo" nem "o resto". Valores do simulador são projeção, não garantia.
+- **Regras de texto:** Sempre "Faculdade FEX Educação". Falar em extensão universitária, nunca em pós-graduação ou MBA. Nunca usar "registro", "reconhecido" ou "chancela" para o curso: a palavra certa é "cadastro", e o curso é "ofertado pela Faculdade FEX Educação®". Certificado, nunca diploma. Nada de "certificação MEC" nem selo do MEC. Na carga horária, nunca usar "autoestudo" nem "o resto". Valores do simulador são projeção, não garantia.
 
 ## Entrega
 
@@ -25,7 +25,7 @@ Todas as capturas de tela: https://github.com/DEVFEX00/genio-oculto/tree/main/do
 - Ou, se subir no YouTube como não listado, os 7 links na mesma ordem.
 - Antes do render final de cada vídeo, mande 3 ou 4 quadros-chave para aprovação.
 
-## Vídeo 1 · Você (~76 s, fundo escuro, arquivo 1-voce.mp4)
+## Vídeo 1 · Você (~75 s, fundo escuro, arquivo 1-voce.mp4)
 
 **Por que esta seção importa:** O curso nasce da experiência da pessoa. Aqui ela conta quem é, a área, os anos de prática e no mínimo 7 perguntas que sempre ouve. Cada pergunta vira uma aula.
 
@@ -34,7 +34,7 @@ Todas as capturas de tela: https://github.com/DEVFEX00/genio-oculto/tree/main/do
 > Oi! Eu sou o Gênio Oculto, e vou te acompanhar na criação da sua formação. Esta primeira seção é sobre a parte mais importante dela: você. O seu curso nasce da sua experiência, e isso ninguém consegue copiar.
 > Primeiro, escreva o seu nome e sobrenome. É ele que assina o curso como especialista responsável.
 > Depois, a sua área. Pode ser ampla ou bem específica. Se ela estiver nos botões, é só clicar.
-> Agora, arraste a barra até os seus anos de experiência. Repare no número que aparece: são milhares de horas de prática. E experiência não precisa de diploma para valer.
+> Agora, arraste a barra até os seus anos de experiência. Repare no número que aparece: são milhares de horas de prática. E experiência vale por si só.
 > E aqui mora o seu gênio oculto: o que as pessoas sempre te perguntam? Escreva no mínimo sete perguntas, uma por linha, do jeito que você ouve no dia a dia. Não existe pergunta boba. Cada uma vira uma aula, e a gente organiza tudo em módulos para você. Se travar, clique em Sugerir com IA.
 > Pronto! Clique em Continuar e vamos conhecer o seu aluno.
 
@@ -141,13 +141,13 @@ Todas as capturas de tela: https://github.com/DEVFEX00/genio-oculto/tree/main/do
 
 ## Vídeo 6 · Lançamento (~58 s, fundo claro, arquivo 6-lancamento.mp4)
 
-**Por que esta seção importa:** Escolher como abrir as matrículas e marcar o início da turma. O registro com a FEX leva até 30 dias.
+**Por que esta seção importa:** Escolher como abrir as matrículas e marcar o início da turma. O cadastro na Faculdade FEX Educação® leva até 30 dias.
 
 **Narração (gravar exatamente assim):**
 
 > Curso pronto que ninguém conhece não vira turma. Aqui você escolhe como vai abrir as matrículas e quando a primeira turma começa.
 > Não existe um jeito certo. Tem base de alunos? Campanha interna. Tem audiência nas redes? Aula ao vivo. Base pequena e engajada? Lançamento relâmpago no WhatsApp. Também dá para aproveitar datas como Black Friday, Natal e Ano Novo, nas campanhas sazonais.
-> Depois, marque a data de início da turma. O registro do curso com a Faculdade FEX Educação leva até trinta dias, por isso a data mínima é daqui a trinta dias. A ferramenta já mostra quando as suas matrículas abrem.
+> Depois, marque a data de início da turma. O cadastro do curso na Faculdade FEX Educação leva até trinta dias, por isso a data mínima é daqui a trinta dias. A ferramenta já mostra quando as suas matrículas abrem.
 > Ninguém se sente cem por cento pronto. Marcar a data é o que transforma vontade em projeto. Vamos para o último passo.
 
 **Cenas, na ordem da narração:**
@@ -155,7 +155,7 @@ Todas as capturas de tela: https://github.com/DEVFEX00/genio-oculto/tree/main/do
 1. **Vinheta:** Vinheta em areia: "Seção 6 de 7 · LANÇAMENTO". O Gênio entra com um megafone. Texto na tela: "LANÇAMENTO".
 2. **Por que importa:** Uma porta com a placa "Matrículas" se abre e entra luz verde. Texto na tela: "Como abrir as matrículas".
 3. **Campanhas:** Os 6 cards passam em carrossel; cada um acende quando a narração cita. Mini ícones de Black Friday, Natal e Ano Novo no card de campanhas sazonais. Texto na tela: "Escolha o que combina com você hoje". Tela: https://raw.githubusercontent.com/DEVFEX00/genio-oculto/main/docs/telas/6-lancamento-a-conquista-e-campanhas.jpg
-4. **Início da turma:** Calendário: 30 quadradinhos se preenchem (registro). Marcador "Matrículas abrem" e estrela "Turma 1". Texto na tela: "Registro em até 30 dias". Tela: https://raw.githubusercontent.com/DEVFEX00/genio-oculto/main/docs/telas/6-lancamento-b-inicio-da-turma.jpg
+4. **Início da turma:** Calendário: 30 quadradinhos se preenchem (cadastro). Marcador "Matrículas abrem" e estrela "Turma 1". Texto na tela: "Cadastro em até 30 dias". Tela: https://raw.githubusercontent.com/DEVFEX00/genio-oculto/main/docs/telas/6-lancamento-b-inicio-da-turma.jpg
 5. **Encerramento:** Banner de conquista e card "Próxima seção: Envio". Texto na tela: "Data marcada é projeto de verdade". Tela: https://raw.githubusercontent.com/DEVFEX00/genio-oculto/main/docs/telas/7-envio-a-conquista-e-contato.jpg
 
 ## Vídeo 7 · Envio (~71 s, fundo escuro, arquivo 7-envio.mp4)

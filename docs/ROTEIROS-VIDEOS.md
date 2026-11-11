@@ -8,7 +8,7 @@ Depois de prontos, os vídeos entram no `CONFIG.VIDEOS` do `index.html` (ID do Y
 
 | Seção | Chave | Fundo | Duração estimada |
 |---|---|---|---|
-| 1. Você | `voce` | escuro | ~76s |
+| 1. Você | `voce` | escuro | ~75s |
 | 2. Seu aluno | `aluno` | claro | ~57s |
 | 3. Seu método | `metodo` | escuro | ~55s |
 | 4. Seu formato | `formato` | claro | ~66s |
@@ -28,9 +28,9 @@ Depois de prontos, os vídeos entram no `CONFIG.VIDEOS` do `index.html` (ID do Y
 - **Voz:** Feminina, calorosa e clara, ritmo de conversa. Tom de quem acredita na pessoa: o público duvida de si (síndrome do impostor, medo de julgamento, medo de ser enganado). Encorajar sem exagerar e sem prometer resultado.
 - **Som:** Trilha leve e otimista bem baixa sob a voz. Pop quando um card aparece, digitação suave, whoosh na transição, "ding" quando algo se completa.
 - **Legendas:** Recomendadas (muita gente assiste no celular): Montserrat Bold branca em pílula preta, na parte de baixo.
-- **Regras de texto:** Sempre "Faculdade FEX Educação". Falar em extensão universitária, nunca em pós-graduação ou MBA. Nunca dizer "reconhecido pelo MEC", "chancela" ou "certificação MEC". Na carga horária, nunca usar "autoestudo" nem "o resto". Valores do simulador são projeção, não garantia.
+- **Regras de texto:** Sempre "Faculdade FEX Educação". Falar em extensão universitária, nunca em pós-graduação ou MBA. Nunca usar "registro", "reconhecido" ou "chancela" para o curso: a palavra certa é "cadastro", e o curso é "ofertado pela Faculdade FEX Educação®". Certificado, nunca diploma. Nada de "certificação MEC" nem selo do MEC. Na carga horária, nunca usar "autoestudo" nem "o resto". Valores do simulador são projeção, não garantia.
 
-## 1. Você  (chave `voce`, ~76s, fundo escuro)
+## 1. Você  (chave `voce`, ~75s, fundo escuro)
 
 **Por que importa:** O curso nasce da experiência da pessoa. Aqui ela conta quem é, a área, os anos de prática e no mínimo 7 perguntas que sempre ouve. Cada pergunta vira uma aula.
 
@@ -42,7 +42,7 @@ Depois de prontos, os vídeos entram no `CONFIG.VIDEOS` do `index.html` (ID do Y
 >
 > Depois, a sua área. Pode ser ampla ou bem específica. Se ela estiver nos botões, é só clicar.
 >
-> Agora, arraste a barra até os seus anos de experiência. Repare no número que aparece: são milhares de horas de prática. E experiência não precisa de diploma para valer.
+> Agora, arraste a barra até os seus anos de experiência. Repare no número que aparece: são milhares de horas de prática. E experiência vale por si só.
 >
 > E aqui mora o seu gênio oculto: o que as pessoas sempre te perguntam? Escreva no mínimo sete perguntas, uma por linha, do jeito que você ouve no dia a dia. Não existe pergunta boba. Cada uma vira uma aula, e a gente organiza tudo em módulos para você. Se travar, clique em Sugerir com IA.
 >
@@ -64,14 +64,14 @@ Depois de prontos, os vídeos entram no `CONFIG.VIDEOS` do `index.html` (ID do Y
 ### Prompt para o produtor
 
 ```
-Crie um vídeo tutorial em motion design 2D, 16:9 (1920×1080), com cerca de 76 segundos, para a seção "Você" (seção 1 de 7) do aplicativo Crie sua Formação, da Faculdade FEX Educação. O vídeo ensina a pessoa a preencher esta seção e abre com uma introdução curta sobre por que ela importa para a criação do curso.
+Crie um vídeo tutorial em motion design 2D, 16:9 (1920×1080), com cerca de 75 segundos, para a seção "Você" (seção 1 de 7) do aplicativo Crie sua Formação, da Faculdade FEX Educação. O vídeo ensina a pessoa a preencher esta seção e abre com uma introdução curta sobre por que ela importa para a criação do curso.
 
 Objetivo da seção: O curso nasce da experiência da pessoa. Aqui ela conta quem é, a área, os anos de prática e no mínimo 7 perguntas que sempre ouve. Cada pergunta vira uma aula.
 
 Estilo: telas reais do app dentro de um notebook ou celular desenhado, com zoom no campo da vez, mão-cursor clicando e texto digitado letra a letra; palavras-chave em tipografia animada (Montserrat Bold); ícones e formas se desenhando; mascote Gênio Oculto (gênio verde com capelo de formatura) apontando e reagindo. Fundo verde quase preto com textura leve. Verde #32CD32, preto #040805, areia #E8E4D9. Vinheta de 3 s com a barra verde do logo FEX revelando "Seção 1 de 7 · VOCÊ". Ritmo dinâmico: algo se constrói a cada segundo.
 
 Narração (voz feminina, calorosa, encorajadora; o público costuma duvidar de si):
-"Oi! Eu sou o Gênio Oculto, e vou te acompanhar na criação da sua formação. Esta primeira seção é sobre a parte mais importante dela: você. O seu curso nasce da sua experiência, e isso ninguém consegue copiar. Primeiro, escreva o seu nome e sobrenome. É ele que assina o curso como especialista responsável. Depois, a sua área. Pode ser ampla ou bem específica. Se ela estiver nos botões, é só clicar. Agora, arraste a barra até os seus anos de experiência. Repare no número que aparece: são milhares de horas de prática. E experiência não precisa de diploma para valer. E aqui mora o seu gênio oculto: o que as pessoas sempre te perguntam? Escreva no mínimo sete perguntas, uma por linha, do jeito que você ouve no dia a dia. Não existe pergunta boba. Cada uma vira uma aula, e a gente organiza tudo em módulos para você. Se travar, clique em Sugerir com IA. Pronto! Clique em Continuar e vamos conhecer o seu aluno."
+"Oi! Eu sou o Gênio Oculto, e vou te acompanhar na criação da sua formação. Esta primeira seção é sobre a parte mais importante dela: você. O seu curso nasce da sua experiência, e isso ninguém consegue copiar. Primeiro, escreva o seu nome e sobrenome. É ele que assina o curso como especialista responsável. Depois, a sua área. Pode ser ampla ou bem específica. Se ela estiver nos botões, é só clicar. Agora, arraste a barra até os seus anos de experiência. Repare no número que aparece: são milhares de horas de prática. E experiência vale por si só. E aqui mora o seu gênio oculto: o que as pessoas sempre te perguntam? Escreva no mínimo sete perguntas, uma por linha, do jeito que você ouve no dia a dia. Não existe pergunta boba. Cada uma vira uma aula, e a gente organiza tudo em módulos para você. Se travar, clique em Sugerir com IA. Pronto! Clique em Continuar e vamos conhecer o seu aluno."
 
 Cenas, na ordem da narração:
 1. Vinheta: Barra verde do logo revela "Seção 1 de 7 · VOCÊ". O Gênio surge de uma espiral de fumaça e acena. Texto na tela: "VOCÊ".
@@ -83,7 +83,7 @@ Cenas, na ordem da narração:
 7. Cada pergunta vira aula: Clique em Sugerir com IA: as perguntas completam a lista e o contador fica verde. Cada linha se transforma num mini-card com ícone de play escrito "Aula". Tela: docs/telas/1-voce-e-perguntas-ok.jpg. Texto na tela: "Não existe pergunta boba".
 8. Encerramento: Mostra o banner verde de conquista da seção. Card "Próxima seção: Seu aluno". Tela: docs/telas/2-aluno-a-conquista-e-aluno-ideal.jpg. Texto na tela: "Você acabou de mostrar as aulas que só você sabe dar".
 
-Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer "reconhecido pelo MEC" ou "chancela"; não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
+Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca usar "registro", "reconhecido" ou "chancela" para o curso (a palavra certa é "cadastro"); não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
 ```
 
 ## 2. Seu aluno  (chave `aluno`, ~57s, fundo claro)
@@ -135,7 +135,7 @@ Cenas, na ordem da narração:
 6. Dica: Card cinza "crescer na carreira" ganha um X e se desfaz. Card verde com uma promessa concreta entra com um check. Texto na tela: "Sem exagero: a sua verdade convence".
 7. Encerramento: Banner de conquista da seção e card "Próxima seção: Seu método". Tela: docs/telas/3-metodo-a-conquista-e-ferramentas.jpg. Texto na tela: "Agora o seu curso tem endereço certo".
 
-Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer "reconhecido pelo MEC" ou "chancela"; não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
+Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca usar "registro", "reconhecido" ou "chancela" para o curso (a palavra certa é "cadastro"); não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
 ```
 
 ## 3. Seu método  (chave `metodo`, ~55s, fundo escuro)
@@ -187,7 +187,7 @@ Cenas, na ordem da narração:
 6. Já ensina?: A mão escolhe "Curso online" entre as quatro opções. Tela: docs/telas/3-metodo-d-ja-ensina.jpg.
 7. Encerramento: Banner de conquista e card "Próxima seção: Seu formato". Tela: docs/telas/4-formato-a-conquista-e-objetivo.jpg. Texto na tela: "Suas ferramentas são o que ninguém copia".
 
-Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer "reconhecido pelo MEC" ou "chancela"; não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
+Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca usar "registro", "reconhecido" ou "chancela" para o curso (a palavra certa é "cadastro"); não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
 ```
 
 ## 4. Seu formato  (chave `formato`, ~66s, fundo claro)
@@ -245,7 +245,7 @@ Cenas, na ordem da narração:
 8. Barra da parcela: A mão arrasta a barra e o valor da parcela muda ao vivo. Tela: docs/telas/4-formato-g-barra-da-parcela.jpg. Texto na tela: "O seu conhecimento tem valor".
 9. Encerramento: Banner de conquista e card "Próxima seção: Seu potencial". Tela: docs/telas/5-potencial-a-conquista-e-audiencias.jpg. Texto na tela: "Você não está sozinho nisso".
 
-Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer "reconhecido pelo MEC" ou "chancela"; não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
+Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca usar "registro", "reconhecido" ou "chancela" para o curso (a palavra certa é "cadastro"); não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
 ```
 
 ## 5. Seu potencial  (chave `potencial`, ~63s, fundo escuro)
@@ -295,12 +295,12 @@ Cenas, na ordem da narração:
 5. Resultado: Zoom no card verde: o valor conta até o número. Uma etiqueta discreta: "projeção, não promessa". Tela: docs/telas/5-potencial-b-resultado.jpg. Texto na tela: "Projeção com os seus números".
 6. Encerramento: Banner de conquista e card "Próxima seção: Lançamento". Tela: docs/telas/6-lancamento-a-conquista-e-campanhas.jpg. Texto na tela: "Vale a pena começar".
 
-Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer "reconhecido pelo MEC" ou "chancela"; não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
+Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca usar "registro", "reconhecido" ou "chancela" para o curso (a palavra certa é "cadastro"); não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
 ```
 
 ## 6. Lançamento  (chave `lancamento`, ~58s, fundo claro)
 
-**Por que importa:** Escolher como abrir as matrículas e marcar o início da turma. O registro com a FEX leva até 30 dias.
+**Por que importa:** Escolher como abrir as matrículas e marcar o início da turma. O cadastro na Faculdade FEX Educação® leva até 30 dias.
 
 ### Narração
 
@@ -308,7 +308,7 @@ Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca
 >
 > Não existe um jeito certo. Tem base de alunos? Campanha interna. Tem audiência nas redes? Aula ao vivo. Base pequena e engajada? Lançamento relâmpago no WhatsApp. Também dá para aproveitar datas como Black Friday, Natal e Ano Novo, nas campanhas sazonais.
 >
-> Depois, marque a data de início da turma. O registro do curso com a Faculdade FEX Educação leva até trinta dias, por isso a data mínima é daqui a trinta dias. A ferramenta já mostra quando as suas matrículas abrem.
+> Depois, marque a data de início da turma. O cadastro do curso na Faculdade FEX Educação leva até trinta dias, por isso a data mínima é daqui a trinta dias. A ferramenta já mostra quando as suas matrículas abrem.
 >
 > Ninguém se sente cem por cento pronto. Marcar a data é o que transforma vontade em projeto. Vamos para o último passo.
 
@@ -319,7 +319,7 @@ Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca
 | 1 | Vinheta | Vinheta em areia: "Seção 6 de 7 · LANÇAMENTO". O Gênio entra com um megafone. | animação | LANÇAMENTO |
 | 2 | Por que importa | Uma porta com a placa "Matrículas" se abre e entra luz verde. | animação | Como abrir as matrículas |
 | 3 | Campanhas | Os 6 cards passam em carrossel; cada um acende quando a narração cita. Mini ícones de Black Friday, Natal e Ano Novo no card de campanhas sazonais. | `telas/6-lancamento-a-conquista-e-campanhas.jpg` | Escolha o que combina com você hoje |
-| 4 | Início da turma | Calendário: 30 quadradinhos se preenchem (registro). Marcador "Matrículas abrem" e estrela "Turma 1". | `telas/6-lancamento-b-inicio-da-turma.jpg` | Registro em até 30 dias |
+| 4 | Início da turma | Calendário: 30 quadradinhos se preenchem (cadastro). Marcador "Matrículas abrem" e estrela "Turma 1". | `telas/6-lancamento-b-inicio-da-turma.jpg` | Cadastro em até 30 dias |
 | 5 | Encerramento | Banner de conquista e card "Próxima seção: Envio". | `telas/7-envio-a-conquista-e-contato.jpg` | Data marcada é projeto de verdade |
 
 ### Prompt para o produtor
@@ -327,21 +327,21 @@ Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca
 ```
 Crie um vídeo tutorial em motion design 2D, 16:9 (1920×1080), com cerca de 58 segundos, para a seção "Lançamento" (seção 6 de 7) do aplicativo Crie sua Formação, da Faculdade FEX Educação. O vídeo ensina a pessoa a preencher esta seção e abre com uma introdução curta sobre por que ela importa para a criação do curso.
 
-Objetivo da seção: Escolher como abrir as matrículas e marcar o início da turma. O registro com a FEX leva até 30 dias.
+Objetivo da seção: Escolher como abrir as matrículas e marcar o início da turma. O cadastro na Faculdade FEX Educação® leva até 30 dias.
 
 Estilo: telas reais do app dentro de um notebook ou celular desenhado, com zoom no campo da vez, mão-cursor clicando e texto digitado letra a letra; palavras-chave em tipografia animada (Montserrat Bold); ícones e formas se desenhando; mascote Gênio Oculto (gênio verde com capelo de formatura) apontando e reagindo. Fundo areia clara (#F4F2EC). Verde #32CD32, preto #040805, areia #E8E4D9. Vinheta de 3 s com a barra verde do logo FEX revelando "Seção 6 de 7 · LANÇAMENTO". Ritmo dinâmico: algo se constrói a cada segundo.
 
 Narração (voz feminina, calorosa, encorajadora; o público costuma duvidar de si):
-"Curso pronto que ninguém conhece não vira turma. Aqui você escolhe como vai abrir as matrículas e quando a primeira turma começa. Não existe um jeito certo. Tem base de alunos? Campanha interna. Tem audiência nas redes? Aula ao vivo. Base pequena e engajada? Lançamento relâmpago no WhatsApp. Também dá para aproveitar datas como Black Friday, Natal e Ano Novo, nas campanhas sazonais. Depois, marque a data de início da turma. O registro do curso com a Faculdade FEX Educação leva até trinta dias, por isso a data mínima é daqui a trinta dias. A ferramenta já mostra quando as suas matrículas abrem. Ninguém se sente cem por cento pronto. Marcar a data é o que transforma vontade em projeto. Vamos para o último passo."
+"Curso pronto que ninguém conhece não vira turma. Aqui você escolhe como vai abrir as matrículas e quando a primeira turma começa. Não existe um jeito certo. Tem base de alunos? Campanha interna. Tem audiência nas redes? Aula ao vivo. Base pequena e engajada? Lançamento relâmpago no WhatsApp. Também dá para aproveitar datas como Black Friday, Natal e Ano Novo, nas campanhas sazonais. Depois, marque a data de início da turma. O cadastro do curso na Faculdade FEX Educação leva até trinta dias, por isso a data mínima é daqui a trinta dias. A ferramenta já mostra quando as suas matrículas abrem. Ninguém se sente cem por cento pronto. Marcar a data é o que transforma vontade em projeto. Vamos para o último passo."
 
 Cenas, na ordem da narração:
 1. Vinheta: Vinheta em areia: "Seção 6 de 7 · LANÇAMENTO". O Gênio entra com um megafone. Texto na tela: "LANÇAMENTO".
 2. Por que importa: Uma porta com a placa "Matrículas" se abre e entra luz verde. Texto na tela: "Como abrir as matrículas".
 3. Campanhas: Os 6 cards passam em carrossel; cada um acende quando a narração cita. Mini ícones de Black Friday, Natal e Ano Novo no card de campanhas sazonais. Tela: docs/telas/6-lancamento-a-conquista-e-campanhas.jpg. Texto na tela: "Escolha o que combina com você hoje".
-4. Início da turma: Calendário: 30 quadradinhos se preenchem (registro). Marcador "Matrículas abrem" e estrela "Turma 1". Tela: docs/telas/6-lancamento-b-inicio-da-turma.jpg. Texto na tela: "Registro em até 30 dias".
+4. Início da turma: Calendário: 30 quadradinhos se preenchem (cadastro). Marcador "Matrículas abrem" e estrela "Turma 1". Tela: docs/telas/6-lancamento-b-inicio-da-turma.jpg. Texto na tela: "Cadastro em até 30 dias".
 5. Encerramento: Banner de conquista e card "Próxima seção: Envio". Tela: docs/telas/7-envio-a-conquista-e-contato.jpg. Texto na tela: "Data marcada é projeto de verdade".
 
-Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer "reconhecido pelo MEC" ou "chancela"; não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
+Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca usar "registro", "reconhecido" ou "chancela" para o curso (a palavra certa é "cadastro"); não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
 ```
 
 ## 7. Envio  (chave `envio`, ~71s, fundo escuro)
@@ -395,5 +395,5 @@ Cenas, na ordem da narração:
 7. Plano Bronze: O card do Plano Bronze entra com borda verde girando; os itens aparecem em sequência. Tela: docs/telas/7-envio-j-plano-bronze-card.jpg. Texto na tela: "Curso livre → extensão universitária".
 8. Especialista: O botão verde gigante pulsa com o ícone do WhatsApp. Confete verde. Fecha com o logo FEX e #sejaFEX. Tela: docs/telas/7-envio-k-botao-especialista.jpg. Texto na tela: "Agora é com você!".
 
-Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer "reconhecido pelo MEC" ou "chancela"; não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
+Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca usar "registro", "reconhecido" ou "chancela" para o curso (a palavra certa é "cadastro"); não usar "autoestudo" nem "o resto" para carga horária; números do simulador são projeção, não promessa.
 ```

@@ -170,6 +170,8 @@ footer{background:#000;color:var(--muted-d);font-size:14px;padding-block:40px ca
 footer .wrap{display:grid;gap:18px}
 footer .row{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
 footer .inst{font-size:13px;max-width:80ch}
+.adv-mini{flex-basis:100%;margin:0 0 10px;font-size:12px;line-height:1.5;color:var(--muted-d);max-width:90ch;font-weight:400;letter-spacing:0;text-transform:none}
+.adv-builder{margin:40px 0 96px;opacity:.85}
 
 /* revelar no scroll (sempre visível em repouso) */
 .rv.in{animation:rise .85s cubic-bezier(.2,.8,.2,1) var(--d,0ms) backwards}
@@ -798,7 +800,7 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
       <div>
         <span class="pill"><span class="dot"></span>Crie sua Formação</span>
         <h1 id="heroTitle">Transforme tudo o que você sabe em uma <b>formação.</b></h1>
-        <p class="lead">Sem a FEX, é um curso livre. Com a FEX, vira um curso de extensão universitária, com certificado emitido pela Faculdade FEX Educação®. Responda perguntas simples e veja o seu curso pronto no final.</p>
+        <p class="lead">Sem a FEX, é um curso livre. Com a FEX, vira um curso de extensão universitária ofertado pela Faculdade FEX Educação® em parceria com você. Responda perguntas simples e veja o seu curso pronto no final.</p>
         <div class="ctas">
           <button class="btn btn-green btn-xl" data-start id="capaCta">Começar <span class="arr">→</span></button>
         </div>
@@ -833,7 +835,7 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
         <div class="fl f3" data-depth="1.5"><span style="display:flex;gap:12px;align-items:center"><span class="bars"><i></i><i></i><i></i><i></i><i></i></span><span><small>Potencial</small><b>da 1ª turma</b></span></span></div>
       </div>
     </div>
-    <div class="rodape"><div class="wrap"><span>Faculdade FEX Educação®</span><span>#sejaFEX<button type="button" class="admin-link" id="adminLink" hidden>Admin</button></span></div></div>
+    <div class="rodape"><div class="wrap"><p class="adv-mini">A oferta não é objeto de reconhecimento, validação, chancela, autorização específica ou certificação pelo Ministério da Educação. O credenciamento da Faculdade FEX Educação® refere-se à Instituição, e não ao curso.</p><span>Faculdade FEX Educação®</span><span>#sejaFEX<button type="button" class="admin-link" id="adminLink" hidden>Admin</button></span></div></div>
   </section>
 </main>
 
@@ -843,6 +845,7 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
     <div class="bmain">
       <div class="phases" id="phases"></div>
       <div class="qbox" id="qbox"></div>
+      <p class="adv-mini adv-builder">A oferta não é objeto de reconhecimento, validação, chancela, autorização específica ou certificação pelo Ministério da Educação. O credenciamento da Faculdade FEX Educação® refere-se à Instituição, e não ao curso.</p>
     </div>
     <aside class="live" id="live" aria-label="Seu curso ao vivo" hidden>
       <div class="lh"><span class="eyebrow">Seu curso, ao vivo</span><span class="rec"><i></i>salvando</span><button class="closeL" id="closeLive">Fechar</button></div>
@@ -886,8 +889,8 @@ textarea.inp:focus{border-color:var(--green);background:rgba(50,205,50,.04)}
       <img class="logo" src="assets/logo-fex-branco.png" alt="FEX Educação" width="157" height="27">
       <span class="g" style="font-weight:700">#sejaFEX</span>
     </div>
-    <div class="inst">A oferta de cursos de extensão não é objeto de reconhecimento, validação, chancela, autorização específica ou certificação pelo Ministério da Educação. O credenciamento da Faculdade FEX Educação refere-se à Instituição, e não ao curso.</div>
-    <div class="inst">Faculdade FEX Educação, instituição de ensino superior credenciada pelo Ministério da Educação (Portaria MEC nº 196/2024). Código e-MEC 26519.</div>
+    <div class="inst">A oferta não é objeto de reconhecimento, validação, chancela, autorização específica ou certificação pelo Ministério da Educação. O credenciamento da Faculdade FEX Educação® refere-se à Instituição, e não ao curso.</div>
+    <div class="inst">Faculdade FEX Educação®, instituição de ensino superior credenciada pelo Ministério da Educação (Portaria MEC nº 196/2024). Código e-MEC 26519.</div>
     <div class="row"><span>Crie sua Formação é uma ferramenta da Faculdade FEX Educação®. Os valores do simulador são projeções a partir dos números que você informa, não garantia de resultado.</span><span>faculdade.fexeducacao.edu.br</span></div>
   </div>
 </footer>
@@ -1118,7 +1121,7 @@ const CAMPAIGNS = {
     camp:["Ativar a oferta na data","Comunicação intensa com a lista VIP","Encerrar no prazo anunciado","Recuperar pagamentos nas semanas seguintes"]}
 };
 // Advertência obrigatória do Manual de Comunicação (item 3.6) para peças de extensão.
-const ADVERTENCIA = "A oferta não é objeto de reconhecimento, validação, chancela, autorização específica ou certificação pelo Ministério da Educação. O credenciamento da Faculdade FEX Educação refere-se à Instituição, e não ao curso.";
+const ADVERTENCIA = "A oferta não é objeto de reconhecimento, validação, chancela, autorização específica ou certificação pelo Ministério da Educação. O credenciamento da Faculdade FEX Educação® refere-se à Instituição, e não ao curso.";
 
 function formation(){
   const key = S.tit || suggestTit(), t = TITS[key];
@@ -1135,7 +1138,7 @@ const ETAPAS = [
   {id:"metodo", t:"O método na prática", kw:["como ","passo","fazer","faço","faco","aplicar","usar","funciona","melhor forma"],
    em:"o seu passo a passo, mostrado na prática", obj:["Aplicar o método passo a passo","Adaptar cada etapa ao próprio caso","Ganhar segurança na execução"]},
   {id:"erros", t:"Erros comuns e como corrigir", kw:["erro","errad","evitar","problema","falha","não funciona","nao funciona","difícil","dificil","certo"],
-   em:"os erros que você mais vê e como corrigir cada um", obj:["Reconhecer os erros mais comuns","Corrigir rápido quando algo sai do plano","Saber se está fazendo certo"]},
+   em:"os erros que você mais vê e como corrigir cada um", obj:["Identificar os erros mais comuns","Corrigir rápido quando algo sai do plano","Saber se está fazendo certo"]},
   {id:"resultados", t:"Resultados e carreira", kw:["quanto","cobrar","preço","preco","valor","tempo","resultado","carreira","cliente","vender","ganhar"],
    em:"como transformar o que foi aprendido em resultado, valor e carreira", obj:["Medir o próprio resultado","Saber cobrar e se posicionar","Planejar os próximos passos"]},
   {id:"casos", t:"Casos reais", kw:["caso","exemplo","situação","situacao","quando"],
@@ -1167,7 +1170,7 @@ function buildModules(key, horas){
   const coreMods = core.map(e=>({t:e.t, kind:"core", em:`Responde às perguntas que você mais ouve, com foco em ${e.em}, usando exemplos reais de ${per}.`, obj:e.obj,
     aulas:[...grupos[e.id].map(q=>[q, /^como /i.test(q)?"Demonstração":"Videoaula"]), ["Exercício: aplique no seu caso","Prática"]]}));
   const mods = [...fixos, ...coreMods];
-  if(temFerr) mods.push({t:"Ferramentas e protocolos do método", kind:"tools", em:`Os instrumentos que você usa no trabalho: ${tools.join(", ")}.`, obj:["Usar as ferramentas com autonomia","Adaptar os protocolos a cada caso","Registrar e acompanhar resultados"],
+  if(temFerr) mods.push({t:"Ferramentas e protocolos do método", kind:"tools", em:`Os instrumentos que você usa no trabalho: ${tools.join(", ")}.`, obj:["Usar as ferramentas com autonomia","Adaptar os protocolos a cada caso","Anotar e acompanhar resultados"],
     aulas: tools.slice(0,4).map(x=>[`Como usar: ${x}`,"Tutorial"])});
   if(temProj) mods.push({t:"Projeto aplicado", kind:"tcc", em:`O aluno aplica o curso num caso real e prova a promessa${S.a.promessa?`: ${low(promessa())}`:""}.`, obj:["Escolher um caso real","Aplicar o método do início ao fim","Apresentar o resultado"],
     aulas:[["Escolhendo o seu projeto","Videoaula"],["Aplicando o método do início ao fim","Prática"],["Entrega final","Avaliação"]]});
@@ -1185,24 +1188,24 @@ function toISO(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(
 const addDays = (d,n) => new Date(d.getFullYear(), d.getMonth(), d.getDate()+n);
 const fdt = d => d.toLocaleDateString("pt-BR",{day:"2-digit",month:"short"}).replace(".","");
 const hoje = () => { const d=new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); };
-const MIN_DIAS = 30; // Protocolo de Registro: registro em até 30 dias
+const MIN_DIAS = 30; // Protocolo de Cadastro: cadastro em até 30 dias
 const minMagna = () => addDays(hoje(), MIN_DIAS);
-// Cronograma do registro até o início da turma 1, proporcional ao prazo escolhido.
+// Cronograma do cadastro até o início da turma 1, proporcional ao prazo escolhido.
 function schedule(){
   const D = parseISO(S.magna || toISO(addDays(hoje(),60))), T = Math.max(MIN_DIAS, Math.round((D - hoje())/86400000));
   const c = CAMPAIGNS[S.campaign || "aula"], at = f => Math.round(T*f) - T;
   return [
-    {n:"Registro na FEX", a:-T, b:Math.min(MIN_DIAS,T)-T, t:["Assinar o Plano Bronze com a Faculdade FEX Educação®","Enquadramento do curso na titulação de extensão","Registro do curso em até 30 dias","Definir como serão as matrículas"]},
+    {n:"Cadastro na FEX", a:-T, b:Math.min(MIN_DIAS,T)-T, t:["Assinar o Plano Bronze com a Faculdade FEX Educação®","Enquadramento do curso na titulação de extensão","Cadastro do curso em até 30 dias","Definir como serão as matrículas"]},
     {n:"Produção", a:-T, b:at(.6), t:["Gravar as aulas módulo por módulo","Preparar materiais de apoio e exercícios","Montar a avaliação final","Organizar a área do aluno"]},
     {n:"Pré-lançamento", a:at(.45), b:at(.75)-1, t:c.pre},
     {n:"Campanha", a:at(.75), b:-1, mat:true, t:["Abrir a página de matrícula", ...c.camp]},
-    {n:"Início da turma 1", a:0, b:0, magna:true, t:["Boas-vindas aos alunos","Primeira aula da turma","Matrículas registradas para a certificação"]}
+    {n:"Início da turma 1", a:0, b:0, magna:true, t:["Boas-vindas aos alunos","Primeira aula da turma","Matrículas lançadas para a emissão dos certificados"]}
   ].map(p=>({...p, ini:addDays(D,p.a), fim:addDays(D,p.b)}));
 }
 // Sem a FEX x com a FEX
 function compareHTML(f){
   return `<div class="cmp"><div class="cmp-a"><small>Sem a FEX</small><b>Curso livre</b><span>Certificado emitido só por você. Vale como curso livre.</span></div>
-    <div class="cmp-b"><small>Com a FEX</small><b>Extensão universitária</b><span>Curso de ${esc(f.t.nome)} com certificado de extensão universitária emitido pela Faculdade FEX Educação®.</span></div></div>`;
+    <div class="cmp-b"><small>Com a FEX</small><b>Extensão universitária</b><span>Curso de ${esc(f.t.nome)} ofertado pela Faculdade FEX Educação® em parceria com você, com certificado de extensão universitária emitido pela faculdade.</span></div></div>`;
 }
 
 /* =====================================================================
@@ -1215,14 +1218,14 @@ const SECTIONS = [
   {key:"metodo", n:"Seu método", why:"Os módulos a gente monta para você, a partir das suas perguntas. Aqui você conta as ferramentas que usa, as suas referências e se já ensina hoje."},
   {key:"formato", n:"Seu formato", why:"Você diz o objetivo do curso e a ferramenta indica a titulação de extensão universitária ideal: Iniciação, Atualização, Capacitação ou Aperfeiçoamento. Depois, o preço."},
   {key:"potencial", n:"Seu potencial", why:"Quanto a primeira turma pode faturar com quem já te conhece. É o dinheiro que já está na sua mesa."},
-  {key:"lancamento", n:"Lançamento", why:"Como você vai abrir a primeira turma e quando ela começa. O registro com a FEX leva até 30 dias."},
+  {key:"lancamento", n:"Lançamento", why:"Como você vai abrir a primeira turma e quando ela começa. O cadastro na Faculdade FEX Educação® leva até 30 dias."},
   {key:"envio", n:"Envio", why: EXECUTIVA ? "Você deixa o seu contato, vê o seu curso montado de graça e descobre o próximo passo para transformá-lo em extensão universitária." : "Você deixa o seu contato, vê o seu curso montado de graça e descobre o que vem no plano completo."}
 ];
 const LIGHT_PH = [1,3,5]; // fases com fundo claro, alternando com as escuras
 // Quem preenche costuma duvidar de si (síndrome do impostor, medo de julgamento, de ser enganado).
 // Cada pergunta difícil ganha uma frase de apoio, e cada seção concluída ganha uma conquista.
 const REFORCO = {
-  anos: "Experiência não precisa de diploma para valer. O que você viveu é exatamente o que falta para quem está começando.",
+  anos: "Experiência vale por si só. O que você viveu é exatamente o que falta para quem está começando.",
   perguntas: "Não existe pergunta boba. Se as pessoas te perguntam, é porque você sabe responder e elas precisam disso.",
   persona: "Você não precisa ensinar para todo mundo. Basta ensinar para quem precisa do que você já sabe.",
   promessa: "Prometa só o que você já entrega na prática. Sem exagero: a sua verdade é o que convence.",
@@ -1233,9 +1236,9 @@ const REFORCO = {
 };
 const CONQUISTA = [
   () => `Você acabou de mostrar ${perguntas().length} aulas que só você sabe dar. Esse é o seu gênio oculto.`,
-  () => "Agora o seu curso tem endereço certo. Quem precisa do que você sabe vai se reconhecer na hora.",
+  () => "Agora o seu curso tem endereço certo. Quem precisa do que você sabe vai se identificar na hora.",
   () => "Suas ferramentas e o seu jeito de fazer são o que ninguém copia. É por isso que vão escolher você.",
-  () => "Com a FEX, o que você sabe vira extensão universitária, com certificado emitido pela faculdade. Você não está sozinho nisso.",
+  () => "Com a FEX, o que você sabe vira um curso de extensão universitária ofertado pela faculdade em parceria com você. Você não está sozinho nisso.",
   () => "Esses números são uma projeção feita com os seus dados, não uma promessa. E mostram que vale a pena começar.",
   () => "Data marcada. Agora é projeto, não só vontade. Falta um passo."
 ];
@@ -1282,10 +1285,10 @@ function titBox(){
   const ti = $("#f_titulo"); if(!S.a.tituloManual && (!S.a.titulo || /^(Iniciação|Atualização|Capacitação|Aperfeiçoamento) em /.test(ti.value) || !S.a.tituloIA)){ ti.value = tituloLocal(t); S.a.titulo = ti.value; }
 }
 const STEPS = [
-  {id:"nome", ph:0, q:()=>`Vamos começar. <b>Como você se chama?</b>`, help:"Seu nome vai assinar o curso como especialista responsável.",
+  {id:"nome", ph:0, q:()=>`Vamos começar. <b>Como você se chama?</b>`, help:"Seu nome vai aparecer no curso como o especialista que ensina.",
     body:()=>`<div class="grid2f"><div><label class="flabel" for="f_nome">Nome</label><input class="inp" id="f_nome" autocomplete="given-name" placeholder="Seu nome" value="${esc(S.a.nome)}"></div><div><label class="flabel" for="f_sobrenome">Sobrenome</label><input class="inp" id="f_sobrenome" autocomplete="family-name" placeholder="Seu sobrenome" value="${esc(S.a.sobrenome)}"></div></div>`,
     read:()=>{S.a.nome=$("#f_nome").value.trim(); S.a.sobrenome=$("#f_sobrenome").value.trim();}, ok:()=>S.a.nome.length>1 || "Digite o seu nome para continuar."},
-  {id:"area", ph:0, q:()=>`Prazer, ${esc(firstName())}! <b>Em que área você é especialista?</b>`, help:"Pode ser ampla ou bem específica. Quanto mais específica, mais fácil fica de vender: a pessoa certa se reconhece na hora.",
+  {id:"area", ph:0, q:()=>`Prazer, ${esc(firstName())}! <b>Em que área você é especialista?</b>`, help:"Pode ser ampla ou bem específica. Quanto mais específica, mais fácil fica de vender: a pessoa certa se identifica na hora.",
     body:()=>`<input class="inp" id="f_area" placeholder="Escreva aqui a sua área" value="${esc(S.a.area)}"><div class="chips" id="areaChips">${AREAS.map((a,i)=>`<button type="button" style="--i:${i}" class="chip pop${S.a.area===a?" on":""}" data-v="${esc(a)}">${esc(a)}</button>`).join("")}</div>`,
     bind:()=>{ $("#areaChips").onclick=e=>{const b=e.target.closest(".chip"); if(!b)return; $("#f_area").value=b.dataset.v; $$("#areaChips .chip").forEach(c=>c.classList.toggle("on",c===b)); S.a.area=b.dataset.v; live(); $("#f_area").focus();}; },
     read:()=>{S.a.area=$("#f_area").value.trim();}, ok:()=>S.a.area.length>1 || "Escreva a sua área ou escolha uma opção."},
@@ -1311,7 +1314,7 @@ const STEPS = [
   {id:"referencias", ph:2, q:()=>`Em quem você se apoia? <b>Autores, livros ou metodologias.</b>`, help:"Isso dá base ao curso. Se não lembrar agora, pule: o time acadêmico da FEX ajuda depois.",
     body:()=>`<textarea class="inp" id="f_refs" style="min-height:120px" placeholder="Ex.: autores, livros, diretrizes ou métodos que você segue">${esc(S.a.referencias)}</textarea>`,
     read:()=>{S.a.referencias=$("#f_refs").value.trim();}, ok:()=>true, skip:true},
-  {id:"ensina", ph:2, q:()=>`Você <b>já ensina</b> hoje?`, help:"Isso ajuda a escolher o melhor jeito de lançar. Em 9 de 10 casos da FEX, a titulação entrou depois, em cima de algo que o expert já vendia.",
+  {id:"ensina", ph:2, q:()=>`Você <b>já ensina</b> hoje?`, help:"Isso ajuda a escolher o melhor jeito de lançar. Em 9 de 10 cases da FEX, a titulação entrou depois, em cima de algo que o expert já vendia.",
     body:()=>opts("ensina",[["nao","Ainda não","Vou começar por este curso"],["mentoria","Mentoria ou consultoria","Atendo pessoas individualmente"],["online","Curso online","Já vendo um curso na internet"],["presencial","Curso ou evento presencial","Turmas, workshops, imersões"]], S.a.ensina),
     bind:()=>optBind("ensina", v=>{S.a.ensina=v; if(v!=="nao" && S.pot.warm===500) S.pot.warm=800;}), read:()=>{}, ok:()=>!!S.a.ensina || "Escolha uma opção."},
   {id:"objetivo", ph:3, q:()=>`O que você quer que o seu curso <b>seja para o aluno?</b>`, help:"Com isso, a sua experiência e as suas perguntas, a ferramenta indica a titulação de extensão universitária ideal na próxima tela.",
@@ -1345,7 +1348,7 @@ const STEPS = [
   {id:"campanha", ph:5, q:()=>`Como você quer <b>lançar a primeira turma?</b>`, help:"Não existe um jeito certo. O que muda é onde está a confiança do seu público. Escolha o que tem mais a ver com você hoje.",
     body:()=>opts("campaign", Object.entries(CAMPAIGNS).map(([k,c])=>[k,c.label,c.desc+" "+c.best]), S.campaign),
     bind:()=>optBind("campaign", v=>{S.campaign=v;}), read:()=>{}, ok:()=>!!S.campaign || "Escolha um modelo de lançamento."},
-  {id:"magna", ph:5, q:()=>`Quando a <b>primeira turma</b> começa?`, help:"O registro do curso com a Faculdade FEX Educação® leva até 30 dias, então a data mínima é daqui a 30 dias. A data monta o seu cronograma.",
+  {id:"magna", ph:5, q:()=>`Quando a <b>primeira turma</b> começa?`, help:"O cadastro do curso na Faculdade FEX Educação® leva até 30 dias, então a data mínima é daqui a 30 dias. A data monta o seu cronograma.",
     body:()=>{ const mn=toISO(minMagna()); if(!S.magna || S.magna<mn) S.magna=toISO(addDays(hoje(),60)); return `<input type="date" class="inp" id="f_magna" min="${mn}" value="${S.magna}" style="max-width:360px"><div class="note" id="magNote"></div>`; },
     bind:()=>{ const el=$("#f_magna"); const up=()=>{ const mn=toISO(minMagna()); if(!el.value || el.value<mn){ el.value=mn; } S.magna=el.value; const d=parseISO(S.magna); const sc=schedule(); const camp=sc.find(x=>x.mat); $("#magNote").innerHTML=`Turma começa em <b>${d.toLocaleDateString("pt-BR",{day:"2-digit",month:"long",year:"numeric"})}</b>. As matrículas abrem por volta de <b>${camp.ini.toLocaleDateString("pt-BR",{day:"2-digit",month:"long"})}</b>.`; }; el.onchange=up; up(); },
     read:()=>{S.magna=$("#f_magna").value;}, ok:()=>!!S.magna},
@@ -1554,11 +1557,11 @@ function waExecutiva(f){
 }
 function ofertaExecutivaHTML(f){
   const href = waExecutiva(f), n = CONFIG.WHATSAPP_ESPECIALISTA;
-  const passos = [["1","Você mostra o seu curso","A executiva recebe o nome do curso que você acabou de montar e entende o seu objetivo."],["2","Diagnóstico personalizado","Vocês revisam juntos a titulação, a carga horária e os módulos do seu curso."],["3","Curso de nível universitário","Você sai sabendo como transformar o curso livre em extensão universitária com a FEX."]];
+  const passos = [["1","Você mostra o seu curso","A executiva recebe o nome do curso que você acabou de montar e entende o seu objetivo."],["2","Diagnóstico personalizado","Vocês revisam juntos a titulação, a carga horária e os módulos do seu curso."],["3","Extensão universitária","Você sai sabendo como cadastrar o seu curso como extensão universitária na Faculdade FEX Educação®."]];
   return `<section class="sec band-dark"><div class="wrap">
     <p class="eyebrow g">O próximo passo</p>
     <h2 class="display" style="margin-top:16px;max-width:22ch">Você já tem a ideia do curso <b>praticamente pronta.</b></h2>
-    <p class="lead muted" style="margin-top:22px;max-width:48ch">Agora é transformar essa ideia em uma formação. Converse com uma das nossas executivas: ela faz um diagnóstico personalizado com você para montar o seu curso e transformá-lo em um curso de nível universitário, como extensão universitária da Faculdade FEX Educação®.</p>
+    <p class="lead muted" style="margin-top:22px;max-width:48ch">Agora é transformar essa ideia em uma formação. Converse com uma das nossas executivas: ela faz um diagnóstico personalizado com você para montar o seu curso e cadastrá-lo como extensão universitária, ofertado pela Faculdade FEX Educação® em parceria com você.</p>
     <div class="unlock-grid">
       ${passos.map(([k,t,d])=>`<div class="ucard"><span class="passo-n">${k}</span><h3>${t}</h3><p>${esc(d)}</p></div>`).join("")}
     </div>
@@ -1590,7 +1593,7 @@ function renderPreview(){
     <p class="eyebrow g">No plano completo</p>
     <h2 class="display" style="margin-top:16px;max-width:20ch">Tudo o que falta para você <b>gravar, vender e lançar.</b></h2>
     <div class="unlock-grid">
-      ${[["Todas as aulas",`Objetivos e aulas de cada um dos ${f.mods.length} módulos.`],["Roteiro modelo de aula","A estrutura de cada gravação, minuto a minuto."],["Plano de produção",`As ${f.aulas} aulas organizadas por módulo, com checklist de estúdio.`],["Funil de vendas",`O passo a passo da sua ${CAMPAIGNS[S.campaign||"aula"].label.toLowerCase()}, com cadência de fechamento.`],["Página de vendas pronta","Título, promessa e tópicos da página do seu curso."],["Mensagem para a sua base","O texto para enviar no WhatsApp e abrir a lista de espera."],["Cronograma até a turma 1","Do registro na FEX ao início da turma, com o dia das matrículas."],["Potencial detalhado","Faturamento em 6 faixas de preço e leitura estratégica."],["Próximo passo com a FEX","Como transformar o curso livre em extensão universitária."]].map(([t,d])=>`<div class="ucard">${LOCK}<h3>${t}</h3><p>${esc(d)}</p></div>`).join("")}
+      ${[["Todas as aulas",`Objetivos e aulas de cada um dos ${f.mods.length} módulos.`],["Roteiro modelo de aula","A estrutura de cada gravação, minuto a minuto."],["Plano de produção",`As ${f.aulas} aulas organizadas por módulo, com checklist de estúdio.`],["Funil de vendas",`O passo a passo da sua ${CAMPAIGNS[S.campaign||"aula"].label.toLowerCase()}, com cadência de fechamento.`],["Página de vendas pronta","Título, promessa e tópicos da página do seu curso."],["Mensagem para a sua base","O texto para enviar no WhatsApp e abrir a lista de espera."],["Cronograma até a turma 1","Do cadastro na FEX ao início da turma, com o dia das matrículas."],["Potencial detalhado","Faturamento em 6 faixas de preço e leitura estratégica."],["Próximo passo com a FEX","Como transformar o curso livre em extensão universitária."]].map(([t,d])=>`<div class="ucard">${LOCK}<h3>${t}</h3><p>${esc(d)}</p></div>`).join("")}
     </div>
     <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:56px">
       <button class="btn btn-green btn-xl" data-checkout>Desbloquear plano completo por R$ ${CONFIG.PRECO} <span class="arr">→</span></button>
@@ -1654,7 +1657,7 @@ function renderCheckout(){
         <h1 class="display" style="font-size:clamp(38px,5.4vw,72px);margin-top:20px;color:var(--white)">Seu curso inteiro, <b>pronto para gravar.</b></h1>
         <p class="lead muted" style="margin-top:20px">${esc(f.title)}</p>
         <ul class="pcard" style="background:transparent;border:0;padding:0;margin-top:28px;list-style:none;display:grid;gap:12px">
-          ${[`Estrutura completa: ${f.mods.length} módulos e ${f.aulas} aulas`,"Roteiro modelo de aula e plano de produção","Funil de vendas com cadência de fechamento","Texto da página de vendas e mensagem para a base","Cronograma do registro até a primeira turma","Conversa com especialista da Faculdade FEX Educação®"].map(x=>`<li style="color:var(--sand)">${esc(x)}</li>`).join("")}
+          ${[`Estrutura completa: ${f.mods.length} módulos e ${f.aulas} aulas`,"Roteiro modelo de aula e plano de produção","Funil de vendas com cadência de fechamento","Texto da página de vendas e mensagem para a base","Cronograma do cadastro até a primeira turma","Conversa com especialista da Faculdade FEX Educação®"].map(x=>`<li style="color:var(--sand)">${esc(x)}</li>`).join("")}
         </ul>
       </div>
       <div class="ckbox">
@@ -1716,7 +1719,7 @@ function renderPlan(){
   const maxF = Math.max(...tScen.map(t=>t.fat), 1);
   const warmShare = p.mat ? Math.round(p.mw/p.mat*100) : 0;
   const ex = f.mods.find(m=>m.kind==="core") || f.mods[0];
-  const waMsg = `Olá! Acabei de montar o meu plano no Crie sua Formação e quero registrar o meu curso como extensão universitária com a Faculdade FEX Educação® (Plano Bronze).\n\nNome: ${nome}\nCurso: ${f.title}\nTitulação: ${f.t.nome} (${f.h}h)\nPreço: ${p12(S.preco)}\nÁrea: ${S.a.area}\nMódulos e aulas: ${f.mods.length} módulos, ${f.aulas} aulas\nPotencial da 1ª turma: ${BRL(p.fat)} (${INT(p.mat)} matrículas)\nInício desejado da turma: ${S.magna?parseISO(S.magna).toLocaleDateString("pt-BR"):"a definir"}\nE-mail: ${S.a.email}\nWhatsApp: ${S.a.telefone}\nLink do plano: ${linkPessoal()}\nID: ${S.leadId}`;
+  const waMsg = `Olá! Acabei de montar o meu plano no Crie sua Formação e quero cadastrar o meu curso como extensão universitária na Faculdade FEX Educação® (Plano Bronze).\n\nNome: ${nome}\nCurso: ${f.title}\nTitulação: ${f.t.nome} (${f.h}h)\nPreço: ${p12(S.preco)}\nÁrea: ${S.a.area}\nMódulos e aulas: ${f.mods.length} módulos, ${f.aulas} aulas\nPotencial da 1ª turma: ${BRL(p.fat)} (${INT(p.mat)} matrículas)\nInício desejado da turma: ${S.magna?parseISO(S.magna).toLocaleDateString("pt-BR"):"a definir"}\nE-mail: ${S.a.email}\nWhatsApp: ${S.a.telefone}\nLink do plano: ${linkPessoal()}\nID: ${S.leadId}`;
   const waHref = `https://wa.me/${CONFIG.WHATSAPP_ESPECIALISTA}?text=${encodeURIComponent(waMsg)}`;
   const toc = [["resumo","Resumo"],["modulos","Módulos e aulas"],["aula","Modelo de aula"],["producao","Plano de produção"],["potencial","Potencial"],["funil","Funil de vendas"],["pagina","Página e mensagem"],["cronograma","Cronograma"],["papeis","Quem faz o quê"],["proximo","Próximo passo"]];
   $("#view-plan").innerHTML = `
@@ -1758,7 +1761,7 @@ function renderPlan(){
       <section class="psec" id="modulos">
         <p class="eyebrow">02 · Módulos e aulas</p>
         <h2>${f.mods.length} módulos, <b>${f.aulas} aulas.</b></h2>
-        <p class="intro">Cada pergunta que você trouxe virou uma aula, e a ferramenta organizou tudo em módulos, do básico ao avançado. A estrutura final é validada no enquadramento com a FEX.</p>
+        <p class="intro">Cada pergunta que você trouxe virou uma aula, e a ferramenta organizou tudo em módulos, do básico ao avançado. A estrutura final é revisada no enquadramento com a FEX.</p>
         <div class="mt32" id="planDiscs">${f.mods.map((d,i)=>discHTML(d, i<2, false)).join("")}</div>
       </section>
 
@@ -1771,7 +1774,7 @@ function renderPlan(){
           <div style="--w:30%"><b>1 a 5 min</b><h4>Resposta</h4><p>A explicação essencial, com um exemplo do seu dia a dia.</p></div>
           <div style="--w:60%"><b>5 a 12 min</b><h4>Demonstração</h4><p>Mostre fazendo: tela, caso real, ferramenta ou protocolo, passo a passo.</p></div>
           <div style="--w:85%"><b>12 a 17 min</b><h4>Erros comuns</h4><p>Os erros que você mais vê sobre esse ponto e como evitar.</p></div>
-          <div style="--w:100%"><b>17 a 20 min</b><h4>Tarefa</h4><p>Uma ação prática para o aluno aplicar e registrar.</p></div>
+          <div style="--w:100%"><b>17 a 20 min</b><h4>Tarefa</h4><p>Uma ação prática para o aluno aplicar e anotar.</p></div>
         </div>
         <div class="copybox"><div class="cbh"><b>Exemplo pronto · ${esc(ex.t)}</b></div><pre>${esc(`Título: ${ex.aulas[0][0]}
 
@@ -1783,7 +1786,7 @@ Demonstração: um caso real, do começo ao fim, mostrando como eu faço.
 
 Erros comuns: os deslizes que mais vejo em quem está começando.
 
-Tarefa: aplique em um caso seu esta semana e registre o resultado.`)}</pre></div>
+Tarefa: aplique em um caso seu esta semana e anote o resultado.`)}</pre></div>
       </section>
 
       <section class="psec" id="producao">
@@ -1834,7 +1837,7 @@ Tarefa: aplique em um caso seu esta semana e registre o resultado.`)}</pre></div
         <div class="salespage">
           <div class="sp-h"><small>${esc(sp.eyebrow)}</small><h3><b>${esc(sp.h)}</b></h3><p>${esc(sp.sub)}</p></div>
           <div class="sp-b"><b>O que você vai aprender</b><ul>${sp.bullets.map(b=>`<li>${esc(b)}</li>`).join("")}</ul><b style="font-size:20px">${esc(sp.cta)}</b>
-            <p class="muted" style="margin:0;font-size:14px">Depois do registro, inclua na página: "Curso ofertado pela Faculdade FEX Educação® em parceria com ${esc(nome)}" e "Certificado de curso de extensão universitária emitido pela Faculdade FEX Educação®". Em bloco separado e em destaque, a advertência obrigatória:</p>
+            <p class="muted" style="margin:0;font-size:14px">Depois do cadastro, inclua na página: "Curso ofertado pela Faculdade FEX Educação® em parceria com ${esc(nome)}" e "Certificado de curso de extensão universitária emitido pela Faculdade FEX Educação®". Em bloco separado e em destaque, a advertência obrigatória:</p>
             <p style="margin:0;font-size:13px;border:1px solid var(--line-light);border-radius:10px;padding:10px 12px">${ADVERTENCIA}</p></div>
         </div>
         <div class="copybox"><div class="cbh"><b>Mensagem para a sua base (WhatsApp)</b><button class="mini-btn" data-copy="waBase">Copiar</button></div><pre id="waBase">${esc(waBase(f))}</pre></div>
@@ -1842,8 +1845,8 @@ Tarefa: aplique em um caso seu esta semana e registre o resultado.`)}</pre></div
 
       <section class="psec" id="cronograma">
         <p class="eyebrow">08 · Cronograma</p>
-        <h2>Do registro na FEX <b>à primeira turma.</b></h2>
-        <p class="intro">Cada fase é um checklist. A fase em verde é quando as matrículas abrem. O registro do curso leva até 30 dias, enquanto você produz as aulas.</p>
+        <h2>Do cadastro na FEX <b>à primeira turma.</b></h2>
+        <p class="intro">Cada fase é um checklist. A fase em verde é quando as matrículas abrem. O cadastro do curso leva até 30 dias, enquanto você produz as aulas.</p>
         <div class="timeline">${sc.map((ph,i)=>`<div class="tph${ph.mat?" mat":""}${ph.magna?" magna":""}"><div class="dot">${ph.magna?"★":i+1}</div><div class="bx"><div class="hd"><h4>${esc(ph.n)}${ph.mat?'<span class="tagm">Matrículas abrem</span>':""}</h4><span class="dt">${ph.a===ph.b?fdt(ph.ini):fdt(ph.ini)+" a "+fdt(ph.fim)}</span></div><ul>${ph.t.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div></div>`).join("")}</div>
       </section>
 
@@ -1851,7 +1854,7 @@ Tarefa: aplique em um caso seu esta semana e registre o resultado.`)}</pre></div
         <p class="eyebrow">09 · Quem faz o quê</p>
         <h2>Você entra com o método. <b>A FEX com a universidade.</b></h2>
         <div class="roles">
-          <div class="fx" data-tilt><h3>Faculdade FEX Educação®</h3><ul><li>Enquadramento do curso na titulação de extensão</li><li>Registro do curso em até 30 dias</li><li>Matrícula e emissão dos certificados de extensão universitária</li><li>Licença de marca</li><li>1 curso internacional</li></ul></div>
+          <div class="fx" data-tilt><h3>Faculdade FEX Educação®</h3><ul><li>Enquadramento do curso na titulação de extensão</li><li>Cadastro do curso em até 30 dias</li><li>Matrícula e emissão dos certificados de extensão universitária</li><li>Licença de marca</li><li>1 curso internacional de educação continuada (curso livre)</li></ul></div>
           <div class="ex2" data-tilt><h3>Você, ${esc(firstName())}</h3><ul><li>Método, conteúdo e curadoria</li><li>Gravação das aulas</li><li>Audiência, marketing e vendas</li><li>Condução do curso e da turma</li></ul></div>
         </div>
       </section>
@@ -1861,26 +1864,26 @@ Tarefa: aplique em um caso seu esta semana e registre o resultado.`)}</pre></div
   <section class="prata tex" id="proximo"><div class="wrap">
     <span class="pill"><span class="dot"></span>Próximo passo</span>
     <h2>Seu plano está pronto. Agora ele pode virar <b>extensão universitária.</b></h2>
-    <p class="lead muted" style="margin-top:24px">Sem a FEX, este é um curso livre. Com a Faculdade FEX Educação®, ele vira um curso de extensão universitária de ${esc(f.t.nome)}, com certificado emitido pela faculdade, e a condução continua com você.</p>
+    <p class="lead muted" style="margin-top:24px">Sem a FEX, este é um curso livre. Com a Faculdade FEX Educação®, ele vira um curso de extensão universitária de ${esc(f.t.nome)}, ofertado pela faculdade em parceria com você, que conduz as aulas.</p>
     <div class="fexnums"><div><b>31.557</b><span>certificados de extensão universitária emitidos</span></div><div><b>+1.000</b><span>cursos de extensão universitária</span></div><div><b>+1.000</b><span>empresas parceiras</span></div><div><b>+13</b><span>anos transformando conhecimento em resultado</span></div></div>
     <div class="pgrid">
       <div class="prata-card" data-tilt>
         <span class="tagp">Recomendado para você</span>
         <h3>Plano Bronze FEX</h3>
-        <p class="muted" style="margin:0">Para quem quer registrar o próprio curso como extensão universitária e certificar os alunos.</p>
+        <p class="muted" style="margin:0">Para quem quer cadastrar o próprio curso como extensão universitária, com os alunos recebendo o certificado emitido pela Faculdade FEX Educação®.</p>
         <ul>
-          <li>1 curso registrado como extensão universitária</li>
-          <li>1 curso internacional*</li>
-          <li>Até 120 certificados por ano</li>
+          <li>1 curso cadastrado como extensão universitária</li>
+          <li>1 curso internacional de educação continuada*</li>
+          <li>Até 120 alunos por ano, com certificado emitido pela Faculdade FEX Educação®</li>
           <li>Licença de marca</li>
-          <li>Protocolo de Registro: enquadramento, registro em até 30 dias, matrícula e certificação</li>
-          <li>A condução do curso continua com você</li>
+          <li>Protocolo de Cadastro: enquadramento, cadastro em até 30 dias, matrícula e emissão dos certificados</li>
+          <li>Você conduz as aulas; a Faculdade FEX Educação® é a instituição ofertante e responsável acadêmica</li>
         </ul>
-        <p class="fine">*Certificação internacional é educação continuada e não constitui título acadêmico brasileiro. Plataforma de ensino disponível como opcional. Valores conforme a tabela vigente, apresentados pelo especialista.</p>
+        <p class="fine">*O curso internacional é educação continuada (curso livre): não integra o sistema de educação superior regulado no Brasil e não constitui título acadêmico brasileiro. Plataforma de ensino disponível como opcional. Valores conforme a tabela vigente, apresentados pelo especialista.</p>
       </div>
       <div>
         <div class="consult"><h4>Quer ajuda para produzir?</h4><p>Consultoria de Criação de Curso ou Mentoria: imersão, arquitetura da metodologia, material didático e opção de produção audiovisual, para cursos de até 64 horas.</p></div>
-        <div class="consult"><h4>O que acontece na conversa</h4><p>O especialista recebe o seu plano, tira dúvidas sobre o registro, os prazos e os valores, e mostra o caminho até a sua primeira turma. Sem compromisso.</p></div>
+        <div class="consult"><h4>O que acontece na conversa</h4><p>O especialista recebe o seu plano, tira dúvidas sobre o cadastro, os prazos e os valores, e mostra o caminho até a sua primeira turma. Sem compromisso.</p></div>
         <div class="consult"><h4>Seu plano vai junto</h4><p>A mensagem já sai preenchida com o nome do curso, a titulação, o potencial e a data da primeira turma.</p></div>
       </div>
     </div>

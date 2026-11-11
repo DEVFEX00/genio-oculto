@@ -73,7 +73,7 @@ São pontos de partida para calibrar, não números da FEX. Ajuste depois das pr
 
 - **Lead sem compra (até 1h):** WhatsApp completo, no tom FEX: o que é, o que inclui, CTA. Exemplo: "Oi, Marcos. Vi que você montou a prévia do MBA em Gestão de Clínicas Odontológicas. O plano completo traz as 28 aulas, o roteiro de gravação, o texto da sua página de vendas e o cronograma até a aula magna, por R$ 97. Quer que eu te mande o link?"
 - **Comprador sem clique no especialista (D+1):** ligação ou WhatsApp do comercial digital com a pergunta "Qual a data que você marcou para a aula magna?".
-- **Regra de ouro FEX:** não dar desconto no Plano Prata. Se achar caro, oferecer o degrau de baixo (registro avulso ou Plano Bronze).
+- **Regra de ouro FEX:** não dar desconto no Plano Prata. Se achar caro, oferecer o degrau de baixo (cadastro avulso ou Plano Bronze).
 
 ## 8. Antes de ligar o tráfego
 

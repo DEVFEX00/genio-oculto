@@ -19,7 +19,7 @@ ESTILO = [
     ("Voz", "Feminina, calorosa e clara, ritmo de conversa. Tom de quem acredita na pessoa: o público duvida de si (síndrome do impostor, medo de julgamento, medo de ser enganado). Encorajar sem exagerar e sem prometer resultado."),
     ("Som", "Trilha leve e otimista bem baixa sob a voz. Pop quando um card aparece, digitação suave, whoosh na transição, \"ding\" quando algo se completa."),
     ("Legendas", "Recomendadas (muita gente assiste no celular): Montserrat Bold branca em pílula preta, na parte de baixo."),
-    ("Regras de texto", "Sempre \"Faculdade FEX Educação\". Falar em extensão universitária, nunca em pós-graduação ou MBA. Nunca dizer \"reconhecido pelo MEC\", \"chancela\" ou \"certificação MEC\". Na carga horária, nunca usar \"autoestudo\" nem \"o resto\". Valores do simulador são projeção, não garantia."),
+    ("Regras de texto", "Sempre \"Faculdade FEX Educação\". Falar em extensão universitária, nunca em pós-graduação ou MBA. Nunca usar \"registro\", \"reconhecido\" ou \"chancela\" para o curso: a palavra certa é \"cadastro\", e o curso é \"ofertado pela Faculdade FEX Educação®\". Certificado, nunca diploma. Nada de \"certificação MEC\" nem selo do MEC. Na carga horária, nunca usar \"autoestudo\" nem \"o resto\". Valores do simulador são projeção, não garantia."),
 ]
 
 SECOES = [
@@ -29,7 +29,7 @@ SECOES = [
    "Oi! Eu sou o Gênio Oculto, e vou te acompanhar na criação da sua formação. Esta primeira seção é sobre a parte mais importante dela: você. O seu curso nasce da sua experiência, e isso ninguém consegue copiar.",
    "Primeiro, escreva o seu nome e sobrenome. É ele que assina o curso como especialista responsável.",
    "Depois, a sua área. Pode ser ampla ou bem específica. Se ela estiver nos botões, é só clicar.",
-   "Agora, arraste a barra até os seus anos de experiência. Repare no número que aparece: são milhares de horas de prática. E experiência não precisa de diploma para valer.",
+   "Agora, arraste a barra até os seus anos de experiência. Repare no número que aparece: são milhares de horas de prática. E experiência vale por si só.",
    "E aqui mora o seu gênio oculto: o que as pessoas sempre te perguntam? Escreva no mínimo sete perguntas, uma por linha, do jeito que você ouve no dia a dia. Não existe pergunta boba. Cada uma vira uma aula, e a gente organiza tudo em módulos para você. Se travar, clique em Sugerir com IA.",
    "Pronto! Clique em Continuar e vamos conhecer o seu aluno.",
   ],
@@ -118,18 +118,18 @@ SECOES = [
    ("Encerramento", "6-lancamento-a-conquista-e-campanhas.jpg", "Banner de conquista e card \"Próxima seção: Lançamento\".", "Vale a pena começar"),
   ]},
  {"n": 6, "key": "lancamento", "nome": "Lançamento", "fundo": "claro",
-  "porque": "Escolher como abrir as matrículas e marcar o início da turma. O registro com a FEX leva até 30 dias.",
+  "porque": "Escolher como abrir as matrículas e marcar o início da turma. O cadastro na Faculdade FEX Educação® leva até 30 dias.",
   "narracao": [
    "Curso pronto que ninguém conhece não vira turma. Aqui você escolhe como vai abrir as matrículas e quando a primeira turma começa.",
    "Não existe um jeito certo. Tem base de alunos? Campanha interna. Tem audiência nas redes? Aula ao vivo. Base pequena e engajada? Lançamento relâmpago no WhatsApp. Também dá para aproveitar datas como Black Friday, Natal e Ano Novo, nas campanhas sazonais.",
-   "Depois, marque a data de início da turma. O registro do curso com a Faculdade FEX Educação leva até trinta dias, por isso a data mínima é daqui a trinta dias. A ferramenta já mostra quando as suas matrículas abrem.",
+   "Depois, marque a data de início da turma. O cadastro do curso na Faculdade FEX Educação leva até trinta dias, por isso a data mínima é daqui a trinta dias. A ferramenta já mostra quando as suas matrículas abrem.",
    "Ninguém se sente cem por cento pronto. Marcar a data é o que transforma vontade em projeto. Vamos para o último passo.",
   ],
   "cenas": [
    ("Vinheta", "", "Vinheta em areia: \"Seção 6 de 7 · LANÇAMENTO\". O Gênio entra com um megafone.", "LANÇAMENTO"),
    ("Por que importa", "", "Uma porta com a placa \"Matrículas\" se abre e entra luz verde.", "Como abrir as matrículas"),
    ("Campanhas", "6-lancamento-a-conquista-e-campanhas.jpg", "Os 6 cards passam em carrossel; cada um acende quando a narração cita. Mini ícones de Black Friday, Natal e Ano Novo no card de campanhas sazonais.", "Escolha o que combina com você hoje"),
-   ("Início da turma", "6-lancamento-b-inicio-da-turma.jpg", "Calendário: 30 quadradinhos se preenchem (registro). Marcador \"Matrículas abrem\" e estrela \"Turma 1\".", "Registro em até 30 dias"),
+   ("Início da turma", "6-lancamento-b-inicio-da-turma.jpg", "Calendário: 30 quadradinhos se preenchem (cadastro). Marcador \"Matrículas abrem\" e estrela \"Turma 1\".", "Cadastro em até 30 dias"),
    ("Encerramento", "7-envio-a-conquista-e-contato.jpg", "Banner de conquista e card \"Próxima seção: Envio\".", "Data marcada é projeto de verdade"),
   ]},
  {"n": 7, "key": "envio", "nome": "Envio", "fundo": "escuro",
@@ -171,7 +171,7 @@ def prompt(s):
             f"Vinheta de 3 s com a barra verde do logo FEX revelando \"Seção {s['n']} de 7 · {s['nome'].upper()}\". Ritmo dinâmico: algo se constrói a cada segundo.\n\n"
             f"Narração (voz feminina, calorosa, encorajadora; o público costuma duvidar de si):\n\"{narr}\"\n\n"
             f"Cenas, na ordem da narração:\n{cenas}\n\n"
-            f"Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca dizer \"reconhecido pelo MEC\" ou \"chancela\"; "
+            f"Regras: falar em extensão universitária (nunca pós-graduação ou MBA); nunca usar \"registro\", \"reconhecido\" ou \"chancela\" para o curso (a palavra certa é \"cadastro\"); "
             f"não usar \"autoestudo\" nem \"o resto\" para carga horária; números do simulador são projeção, não promessa.")
 
 
